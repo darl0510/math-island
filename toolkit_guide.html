@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 跨專案 Token & 備份工具鏈管理手冊 (Antigravity Toolkit Hub Guide)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --text-main: #f3f4f6;
+            --text-muted: #94a3b8;
+            --accent-emerald: #10b981;
+            --accent-emerald-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%);
+            --accent-blue: #38bdf8;
+            --accent-blue-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            --accent-gold: #f59e0b;
+            --accent-gold-gradient: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            --accent-purple: #a855f7;
+            --accent-purple-gradient: linear-gradient(135deg, #c084fc 0%, #7e22ce 100%);
+            --accent-rose: #f43f5e;
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.04) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        /* 頂部導航 Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 15, 25, 0.88);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            filter: drop-shadow(0 2px 8px rgba(16, 185, 129, 0.4));
+        }
+
+        .brand-title h1 {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-badge {
+            background: var(--accent-emerald-gradient);
+            color: #064e3b;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            padding: 8px 16px 8px 36px;
+            color: #fff;
+            font-size: 13px;
+            width: 240px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-box input:focus {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-emerald);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .header-btn:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+
+        /* 主容器 */
+        .main-wrapper {
+            max-width: 1280px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        /* 英雄橫幅 */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 14px;
+            max-width: 860px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .quick-nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nav-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-pill:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+
+        /* 標題與網格 */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 40px 0 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title .count-badge {
+            background: rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 9999px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        /* 權力 / 指令卡片 */
+        .power-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: var(--shadow-card);
+        }
+
+        .power-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .card-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .icon-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .icon-blue { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); }
+        .icon-gold { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .icon-purple { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); }
+
+        .card-title h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f1f5f9;
+            line-height: 1.3;
+        }
+
+        .card-title span {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 3px;
+        }
+
+        .tag-pill {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .tag-sync { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .tag-init { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .tag-batch { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .tag-reg { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+        .card-desc {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        /* 程式碼 / 指令塊 */
+        .command-block {
+            background: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #58a6ff;
+            margin-bottom: 14px;
+        }
+
+        .command-text {
+            user-select: all;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            margin-left: 8px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 600;
+        }
+
+        .copy-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #fff;
+        }
+
+        .card-details {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+            min-width: 72px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            color: #e2e8f0;
+            word-break: break-all;
+        }
+
+        .card-footer-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .action-link {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .action-link:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            margin-right: 6px;
+        }
+
+        /* 三層架構表格卡片 */
+        .tier-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .tier-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .tier-box.green { border-color: rgba(16, 185, 129, 0.3); }
+        .tier-box.yellow { border-color: rgba(245, 158, 11, 0.3); }
+        .tier-box.red { border-color: rgba(244, 63, 94, 0.3); }
+
+        .tier-badge {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .tier-box.green .tier-badge { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .tier-box.yellow .tier-badge { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .tier-box.red .tier-badge { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
+
+        .tier-box h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .tier-box p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .tier-box ul {
+            margin: 10px 0 0 18px;
+            font-size: 12px;
+            color: #cbd5e1;
+        }
+
+        .tier-box li {
+            margin-bottom: 4px;
+        }
+
+        /* 批次檔速查表 */
+        .batch-table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 16px;
+            overflow-x: auto;
+        }
+
+        .batch-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .batch-table th {
+            text-align: left;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .batch-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #e2e8f0;
+        }
+
+        .batch-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* 浮動提示 Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* 頁尾 */
+        footer {
+            max-width: 1280px;
+            margin: 60px auto 30px auto;
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* 實戰手冊客製化樣式 */
+        .manual-section {
+            margin-top: 40px;
+        }
+
+        .sop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .sop-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            box-shadow: var(--shadow-card);
+        }
+
+        .sop-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sop-header h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: sop-step;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step-item {
+            position: relative;
+            padding-left: 36px;
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .step-item::before {
+            counter-increment: sop-step;
+            content: counter(sop-step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .custom-code-box {
+            background: rgba(10, 15, 26, 0.85);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-top: 10px;
+            font-family: 'JetBrains Mono', Consolas, monospace;
+            font-size: 12px;
+            color: #38bdf8;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .custom-code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid, .sop-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-box input {
+                width: 100%;
+            }
+            .search-box input:focus {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導航 -->
+    <header>
+        <div class="header-container">
+            <div class="brand-title">
+                <span class="brand-logo">🌐</span>
+                <div>
+                    <h1>跨專案 Token & 備份工具鏈管理手冊</h1>
+                </div>
+                <span class="brand-badge">TOOLKIT SSOT</span>
+            </div>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="搜尋指令、專案、批次檔或功能..." oninput="filterCards()">
+                </div>
+                <a href="token_dashboard.html" class="header-btn" title="開啟本地 Token 儀表板">📊 Token 儀表板</a>
+                <a href="cloud_dashboard.html" class="header-btn" title="開啟線上營運總表">☁️ 線上營運總表</a>
+                <a href="projects_registry.json" class="header-btn" target="_blank" title="檢視專案登記清單">📋 託管名單 (JSON)</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+
+        <!-- 英雄說明橫幅 -->
+        <div class="hero-banner">
+            <div class="hero-content">
+                <h2>🏛️ Antigravity 跨專案工具鏈總指揮中心 (SSOT)</h2>
+                <p>
+                    以 <strong><code>d:/WEB/APP_9181734</code></strong> 為跨專案唯一單一真實來源 (Single Source of Truth)。本手冊彙整了本機開發專用的<strong>「跨專案工具一鍵同步」</strong>、<strong>「新專案秒級骨架佈署」</strong>、<strong>「三層邊界嚴格隔離」</strong>與<strong>「Windows 一鍵工作流批次檔」</strong>。無論要在舊專案更新最新儀表板，或是建立全新專案，皆可在此一鍵複製指令秒級完成！
+                </p>
+                <div class="quick-nav-pills">
+                    <a href="#section-boundary" class="nav-pill">🛡️ 架構三層防護邊界</a>
+                    <a href="#section-commands" class="nav-pill">⚡ 四大維運核心指令</a>
+                    <a href="#section-manual" class="nav-pill">📖 新舊專案佈署與客製化手冊</a>
+                    <a href="#section-batch" class="nav-pill">🖥️ Windows 一鍵批次檔工作流</a>
+                    <a href="#section-dashboards" class="nav-pill">📊 雙軌 Token 儀表板體系</a>
+                    <a href="#section-backup" class="nav-pill">💾 三層智慧備份與還原機制</a>
+                    <a href="#section-impeccable" class="nav-pill">🎨 Impeccable 頂級設計工具鏈</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊一：架構三層邊界保護 -->
+        <!-- ==================================================================== -->
+        <div id="section-boundary">
+            <div class="section-title">
+                <span>🛡️ 架構三層防護邊界（解耦共用組件 ✕ 100% 絕對保護專案進度）</span>
+                <span class="count-badge">3 層隔離防線</span>
+            </div>
+
+            <div class="tier-card-container">
+                <!-- 綠色共用層 -->
+                <div class="tier-box green">
+                    <span class="tier-badge">🟢 純共用核心層 (SSOT)</span>
+                    <h4>強制同步覆蓋更新</h4>
+                    <p>當總指揮中心升級組件時，強制將最新版同步至所有託管專案，確保各專案享有最頂級的監控與備份防線：</p>
+                    <ul>
+                        <li><code>token_dashboard.html</code> (冷熱三視圖儀表板)</li>
+                        <li><code>cloud_dashboard.html</code> (線上營運總表)</li>
+                        <li><code>scan_tokens.py</code> (5 小時精確視窗掃描器)</li>
+                        <li><code>cockpit_service.py</code> (配額推論引擎)</li>
+                        <li><code>auto_backup.py</code> / <code>restore_backup.py</code> (備份與還原)</li>
+                        <li>全套 Windows 一鍵批次檔 (<code>.bat</code>)</li>
+                        <li><code>.agents/skills/</code> (Antigravity Skills)</li>
+                    </ul>
+                </div>
+
+                <!-- 黃色配置層 -->
+                <div class="tier-box yellow">
+                    <span class="tier-badge">🟡 專案客製配置層</span>
+                    <h4>初次自動生成，後續獨立</h4>
+                    <p>解耦備份引擎設定，讓每個專案都能根據自身程式語言與目錄特性自由客製，不受總指揮中心覆蓋干擾：</p>
+                    <ul>
+                        <li><code>backup_config.json</code></li>
+                        <li>自訂備份副檔名 (<code>.py</code>, <code>.js</code>, <code>.html</code>, <code>.cs</code>, <code>.php</code> 等)</li>
+                        <li>自訂排除目錄 (<code>node_modules/</code>, <code>vendor/</code>, <code>.git/</code> 等)</li>
+                        <li>自訂超大型檔案排除規則</li>
+                    </ul>
+                </div>
+
+                <!-- 紅色獨享層 -->
+                <div class="tier-box red">
+                    <span class="tier-badge">🔴 專案獨享防護層</span>
+                    <h4>100% 絕對安全保護，永不覆蓋</h4>
+                    <p>各專案專屬的開發歷程、業務規則與原始碼享有最神聖的隔離防禦，同步時若已存在<strong>絕對不予覆蓋</strong>：</p>
+                    <ul>
+                        <li><code>PROJECT_HANDOVER.md</code> (專案當前版號與手冊)</li>
+                        <li><code>AGENTS.md</code> (專案常駐開發規則)</li>
+                        <li><code>docs/CHANGELOG_ARCHIVE.md</code> (歷史封存庫)</li>
+                        <li>各專案的<strong>所有業務功能原始程式碼</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊二：四大維運核心指令 -->
+        <!-- ==================================================================== -->
+        <div id="section-commands">
+            <div class="section-title">
+                <span>⚡ 四大維運核心指令（本機終端機一鍵執行）</span>
+                <span class="count-badge">4 項 CLI 指令</span>
+            </div>
+
+            <div class="cards-grid">
+                <!-- 指令 1: 舊專案納管與更新 -->
+                <div class="power-card" data-keywords="add 納管 舊專案 升級 更新 2019eip sync_projects projects_registry">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-emerald">🔄</div>
+                                <div class="card-title">
+                                    <h3>舊專案納入託管並更新工具鏈</h3>
+                                    <span>COMMAND: --add &lt;路徑&gt;</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-sync">ADD & SYNC</span>
+                        </div>
+                        <div class="card-desc">
+                            將既有專案（如 <code>D:\WEB\2019EIP</code>）納入登記清單，立即推送最新版 Token 儀表板、5 小時視窗掃描器與三層備份引擎。<strong>🔴 100% 嚴格保護專案既有 Handover 手冊與業務代碼</strong>，絕不破壞既有進度！
+                        </div>
+                        <div class="command-block">
+                            <span class="command-text">python sync_projects.py --add D:\WEB\2019EIP</span>
+                            <button class="copy-btn" onclick="copyText('python sync_projects.py --add D:\\WEB\\2019EIP')">複製指令</button>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">🟢 共用升級：</span>
+                                <span class="detail-value">覆蓋升級 <code>token_dashboard.html</code>、<code>scan_tokens.py</code>、<code>auto_backup.py</code> 及全套 <code>.bat</code>。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">🔒 絕對保護：</span>
+                                <span class="detail-value">保留 <code>PROJECT_HANDOVER.md</code>、<code>AGENTS.md</code> 與現有業務邏輯源碼。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">📋 自動登記：</span>
+                                <span class="detail-value">自動寫入 <code>projects_registry.json</code>，未來一鍵批次同步即可連動。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>SSOT 守護</span>
+                        <a href="javascript:void(0)" onclick="copyText('python sync_projects.py --add D:\\WEB\\2019EIP')" class="action-link">複製範例指令 ↗</a>
+                    </div>
+                </div>
+
+                <!-- 指令 2: 全新專案秒級初始化佈署 -->
+                <div class="power-card" data-keywords="init 初始化 佈署 新專案 骨架 starter 手冊 moenv_news 規範 建立">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-blue">🚀</div>
+                                <div class="card-title">
+                                    <h3>全新專案秒級初始化佈署</h3>
+                                    <span>COMMAND: --init &lt;路徑&gt;</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-init">QUICK SCAFFOLD</span>
+                        </div>
+                        <div class="card-desc">
+                            為全新專案（如 <code>D:\WEB\MOENV_NEWS</code>）一鍵自動建立目錄、自動生成專用 Starter 骨架手冊、常駐規範、歷史封存庫與客製化 <code>backup_config.json</code>，並完整推送全套工具鏈！
+                        </div>
+                        <div class="command-block">
+                            <span class="command-text">python sync_projects.py --init D:\WEB\MOENV_NEWS</span>
+                            <button class="copy-btn" onclick="copyText('python sync_projects.py --init D:\\WEB\\MOENV_NEWS')">複製指令</button>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">✨ 自動生成：</span>
+                                <span class="detail-value"><code>PROJECT_HANDOVER.md</code> (含換手 Prompt)、<code>AGENTS.md</code> 與 <code>docs/CHANGELOG_ARCHIVE.md</code>。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">🟡 客製備份：</span>
+                                <span class="detail-value">自動建立 <code>backup_config.json</code>，解耦自訂備份副檔名與排除目錄。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">🚀 秒級開工：</span>
+                                <span class="detail-value">新專案瞬間自帶三層備份、Token 監控與換手規範，直接開始寫業務！</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>秒級骨架</span>
+                        <a href="javascript:void(0)" onclick="copyText('python sync_projects.py --init D:\\WEB\\MOENV_NEWS')" class="action-link">複製範例指令 ↗</a>
+                    </div>
+                </div>
+
+                <!-- 指令 3: 全專案一鍵批次覆蓋同步 -->
+                <div class="power-card" data-keywords="sync 同步 批次 覆蓋 總指揮中心 ssot 全部專案 一鍵同步 批次檔">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-gold">⚡</div>
+                                <div class="card-title">
+                                    <h3>全專案一鍵批次覆蓋同步</h3>
+                                    <span>COMMAND: --sync</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-batch">BATCH DISPATCH</span>
+                        </div>
+                        <div class="card-desc">
+                            以總指揮中心為 SSOT。當總部升級了儀表板樣式、日誌演算法或備份腳本時，一鍵遍歷 <code>projects_registry.json</code> 登記的所有專案（如 APP_9181734, CHA, 2019EIP, MOENV_NEWS），快速推送最新共用核心！
+                        </div>
+                        <div class="command-block">
+                            <span class="command-text">python sync_projects.py --sync</span>
+                            <button class="copy-btn" onclick="copyText('python sync_projects.py --sync')">複製指令</button>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">🖥️ Windows 批次：</span>
+                                <span class="detail-value">專案根目錄亦提供 <code>一鍵同步所有專案工具.bat</code>，雙擊即跑！</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">🛡️ 雙軌防禦：</span>
+                                <span class="detail-value">強制同步共用核心，但 100% 略過並保護各專案獨享手冊與業務程式碼。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>一鍵推送</span>
+                        <a href="javascript:void(0)" onclick="copyText('python sync_projects.py --sync')" class="action-link">複製同步指令 ↗</a>
+                    </div>
+                </div>
+
+                <!-- 指令 4: 跨專案託管清單與狀態檢視 -->
+                <div class="power-card" data-keywords="list 清單 託管 registry 查詢 狀態 hub managed projects_registry">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-purple">📋</div>
+                                <div class="card-title">
+                                    <h3>跨專案託管登記清單檢視</h3>
+                                    <span>COMMAND: --list</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-reg">REGISTRY</span>
+                        </div>
+                        <div class="card-desc">
+                            終端機視覺化格式輸出目前由總指揮中心託管的全部專案清單、路徑、角色與運營狀態，隨時掌握整個開發體系的跨系統佈署版圖。
+                        </div>
+                        <div class="command-block">
+                            <span class="command-text">python sync_projects.py --list</span>
+                            <button class="copy-btn" onclick="copyText('python sync_projects.py --list')">複製指令</button>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">📂 登記單檔：</span>
+                                <span class="detail-value"><code>projects_registry.json</code> (定義 Hub 與 Managed 列表)。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">💡 簡易維護：</span>
+                                <span class="detail-value">亦可手動開啟 JSON 編輯專案說明或調整 <code>active</code> 狀態。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>即時查詢</span>
+                        <a href="javascript:void(0)" onclick="copyText('python sync_projects.py --list')" class="action-link">複製查詢指令 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊三：新舊專案佈署與模組工具客製化實戰手冊 -->
+        <!-- ==================================================================== -->
+        <div id="section-manual" class="manual-section">
+            <div class="section-title">
+                <span>📖 新舊專案佈署 ✕ 工具引用與深度客製化實戰手冊 (Deployment & Customization SOP)</span>
+                <span class="count-badge">實戰指引</span>
+            </div>
+
+            <!-- 兩大情境 SOP 網格 -->
+            <div class="sop-grid">
+                <!-- 情境 A：舊專案納管與無痛升級 -->
+                <div class="sop-card">
+                    <div class="sop-header">
+                        <span style="font-size: 24px;">🔄</span>
+                        <div>
+                            <h3>既有專案（舊專案）納管與無痛升級 SOP</h3>
+                            <span style="font-size: 11px; color: #34d399; font-weight: 700;">100% 業務零破壞 ✕ 即刻享有最新架構看板與備份</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+                        適用於原本已有在開發的專案（如 <code>D:\WEB\2019EIP</code> 或 <code>D:\WEB\CHA</code>）。在不影響任何既有業務代碼與手冊的前提下，升級全套最新工具鏈。
+                    </p>
+                    <ol class="step-list">
+                        <li class="step-item">
+                            <strong>執行納管與推送指令</strong>：在總指揮中心根目錄下開啟終端機執行：
+                            <div class="command-block" style="margin-top: 6px;">
+                                <span class="command-text">python sync_projects.py --add D:\WEB\你的舊專案</span>
+                                <button class="copy-btn" onclick="copyText('python sync_projects.py --add D:\\WEB\\你的舊專案')">複製</button>
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <strong>確認安全隔離機制生效</strong>：
+                            <ul style="margin: 4px 0 0 16px; font-size: 12px; color: #94a3b8;">
+                                <li>🟢 共用工具自動進駐：<code>scan_architecture.py</code>, <code>cleanup_service.py</code>, <code>architecture_dashboard.html</code>, <code>auto_backup.py</code> 及全套 <code>.bat</code>。</li>
+                                <li>🔴 專案獨享 100% 絕對受保護：既有的 <code>PROJECT_HANDOVER.md</code>、<code>AGENTS.md</code> 與所有原始碼完全不受更動！</li>
+                            </ul>
+                        </li>
+                        <li class="step-item">
+                            <strong>雙擊體驗動態探測架構看板</strong>：
+                            進入舊專案目錄，雙擊 <strong><code>查看架構看板.bat</code></strong>。全新動態探測引擎會自動掃描磁碟中所有代碼檔案，自動識別為 <strong><code>🆕 專案自訂模組</code></strong> 並即時展示健康水位！
+                        </li>
+                        <li class="step-item">
+                            <strong>進行專案客製化配置</strong>：若專案根目錄已自動產出 <code>architecture_config.json</code> 或 <code>backup_config.json</code>，可依下方指南自訂專屬模組分類與備份規則。
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- 情境 B：全新專案秒級骨架佈署 -->
+                <div class="sop-card">
+                    <div class="sop-header">
+                        <span style="font-size: 24px;">🚀</span>
+                        <div>
+                            <h3>全新專案秒級骨架佈署 SOP</h3>
+                            <span style="font-size: 11px; color: #38bdf8; font-weight: 700;">自動建立目錄 ✕ 生成標準規範手冊 ✕ 一秒開工</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+                        適用於剛要啟動的新專案（如 <code>D:\WEB\MOENV_NEWS</code>）。一鍵完成標準平鋪目錄骨架、AI 換手手冊、常駐規則與完整運維防線。
+                    </p>
+                    <ol class="step-list">
+                        <li class="step-item">
+                            <strong>執行初始化骨架指令</strong>：在總指揮中心終端機執行：
+                            <div class="command-block" style="margin-top: 6px;">
+                                <span class="command-text">python sync_projects.py --init D:\WEB\你的新專案</span>
+                                <button class="copy-btn" onclick="copyText('python sync_projects.py --init D:\\WEB\\你的新專案')">複製</button>
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <strong>自動生成標準規範資產</strong>：
+                            <ul style="margin: 4px 0 0 16px; font-size: 12px; color: #94a3b8;">
+                                <li>📄 <code>PROJECT_HANDOVER.md</code> (含換手 Prompt、初始 v1.0.0 狀態看板)</li>
+                                <li>🤖 <code>AGENTS.md</code> (常駐平鋪架構規範與備份鐵律)</li>
+                                <li>🗄️ <code>docs/CHANGELOG_ARCHIVE.md</code> (歷史歷程封存中樞)</li>
+                                <li>⚙️ <code>architecture_config.json</code> & <code>backup_config.json</code> (獨立客製配置檔)</li>
+                            </ul>
+                        </li>
+                        <li class="step-item">
+                            <strong>在 Antigravity IDE 開啟並一鍵啟動</strong>：
+                            用 IDE 開啟該新專案目錄，將 <code>PROJECT_HANDOVER.md</code> 頂部的一鍵 Prompt 複製貼給 AI，AI 即可 100% 秒懂規範並開始編寫業務邏輯！
+                        </li>
+                        <li class="step-item">
+                            <strong>自動加入批次同步清單</strong>：新專案會自動登記至 <code>projects_registry.json</code>，日後只要執行「一鍵同步所有專案工具」，便能與總指揮中心保持同步。
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 客製化指南卡片 (Customization Details) -->
+            <div style="margin-top: 24px;">
+                <div class="sop-card">
+                    <div class="sop-header">
+                        <span style="font-size: 24px;">⚙️</span>
+                        <div>
+                            <h3>專案工具深度客製化指南 (How to Customize for Each Project)</h3>
+                            <span style="font-size: 11px; color: #fbbf24; font-weight: 700;">每個專案皆可依業務語言與架構分層自由定制</span>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-top: 14px;">
+                        <!-- 客製化 1: architecture_config.json -->
+                        <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px;">
+                            <h4 style="font-size: 14px; color: #34d399; margin-bottom: 8px;">🏛️ 1. 架構看板與模組健康度客製 (`architecture_config.json`)</h4>
+                            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                                定義專案架構分層、模組分類與各模組健康行數上限。即便未在設定檔中宣告的檔案，動態探測引擎也會自動探測並納入監控！
+                            </p>
+                            <div class="custom-code-box">
+                                <div class="custom-code-header">
+                                    <span>architecture_config.json 範例</span>
+                                    <span>JSON</span>
+                                </div>
+<pre style="margin: 0; line-height: 1.4;">{
+  "system_name": "我的智慧系統",
+  "categories": {
+    "web": "🌐 Web 入口與藍圖",
+    "services": "⚡ 核心業務服務",
+    "database": "💾 資料持久化",
+    "custom": "🚀 專案自訂模組"
+  },
+  "modules": {
+    "app.py": {
+      "name": "主後端入口",
+      "category": "web",
+      "health_limit": 850,
+      "symbols": ["app", "main"]
+    }
+  }
+}</pre>
+                            </div>
+                        </div>
+
+                        <!-- 客製化 2: backup_config.json -->
+                        <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px;">
+                            <h4 style="font-size: 14px; color: #38bdf8; margin-bottom: 8px;">💾 2. 智慧備份規則客製 (`backup_config.json`)</h4>
+                            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                                依照專案使用的程式語言（Python / Node.js / React / Vue / C# / PHP），自訂副檔名白名單與大型建置目錄排除：
+                            </p>
+                            <div class="custom-code-box">
+                                <div class="custom-code-header">
+                                    <span>backup_config.json 範例</span>
+                                    <span>JSON</span>
+                                </div>
+<pre style="margin: 0; line-height: 1.4;">{
+  "include_extensions": [
+    ".py", ".json", ".html", 
+    ".js", ".ts", ".css", ".sql"
+  ],
+  "exclude_dirs": [
+    "node_modules", "dist", 
+    "venv", ".git", "__pycache__"
+  ],
+  "max_single_file_mb": 20
+}</pre>
+                            </div>
+                        </div>
+
+                        <!-- 客製化 3: 程式碼引用工具 -->
+                        <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px;">
+                            <h4 style="font-size: 14px; color: #c084fc; margin-bottom: 8px;">🧩 3. 在專案程式碼中直接引用工具模組</h4>
+                            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                                所有工具皆為純 Python 標準庫打造（零第三方套件依賴），可在業務程式碼或測試中直接 <code>import</code>：
+                            </p>
+                            <div class="custom-code-box">
+                                <div class="custom-code-header">
+                                    <span>Python 程式碼引用範例</span>
+                                    <span>Python</span>
+                                </div>
+<pre style="margin: 0; line-height: 1.4;"># 1. 功能改版完成時觸發輕量智慧備份 (<0.2s)
+from auto_backup import smart_backup
+smart_backup("v1.0.1", modified_files=["app.py"])
+
+# 2. 在單元測試中自動校驗平鋪架構合規
+from scan_architecture import scan_project_architecture
+stats = scan_project_architecture()
+assert stats["summary"]["bloat_count"] == 0</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊四：Windows 一鍵批次檔工作流 -->
+        <!-- ==================================================================== -->
+        <div id="section-batch">
+            <div class="section-title">
+                <span>🖥️ Windows 一鍵批次檔工作流（桌面雙擊・極致省力）</span>
+                <span class="count-badge">7 個便捷批次檔</span>
+            </div>
+
+            <div class="batch-table-container">
+                <table class="batch-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">批次檔名稱 (.bat)</th>
+                            <th style="width: 20%;">底層呼叫指令</th>
+                            <th style="width: 40%;">主要功能與適用時機</th>
+                            <th style="width: 15%;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><code>查看架構看板.bat</code></strong></td>
+                            <td><code>python scan_architecture.py --server</code></td>
+                            <td>啟動本機 5055 微服務並自動於瀏覽器展示最新架構健康度拓撲與多餘檔案清理中樞。</td>
+                            <td><button class="copy-btn" onclick="copyText('查看架構看板.bat')">複製檔名</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong><code>查看Token儀表板.bat</code></strong></td>
+                            <td><code>python scan_tokens.py</code></td>
+                            <td>掃描本地 <code>brain/</code> 對話日誌並自動於瀏覽器開啟 <code>token_dashboard.html</code>（冷熱三視圖）。</td>
+                            <td><button class="copy-btn" onclick="copyText('查看Token儀表板.bat')">複製檔名</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong><code>一鍵即時備份.bat</code></strong></td>
+                            <td><code>python auto_backup.py</code></td>
+                            <td>執行智慧輕量備份，自動依據 <code>backup_config.json</code> 打包程式碼快照（耗時 &lt; 0.2 秒）。</td>
+                            <td><button class="copy-btn" onclick="copyText('一鍵即時備份.bat')">複製檔名</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong><code>一鍵快速還原最新備份.bat</code></strong></td>
+                            <td><code>python restore_backup.py</code></td>
+                            <td>遭遇誤刪或改爛時，一鍵安全回滾至前次快照，附帶還原前自動雙重保險備份。</td>
+                            <td><button class="copy-btn" onclick="copyText('一鍵快速還原最新備份.bat')">複製檔名</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong><code>一鍵同步所有專案工具.bat</code></strong></td>
+                            <td><code>python sync_projects.py --sync</code></td>
+                            <td>一鍵遍歷 <code>projects_registry.json</code>，將最新工具鏈推送到所有託管專案中。</td>
+                            <td><button class="copy-btn" onclick="copyText('一鍵同步所有專案工具.bat')">複製檔名</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong><code>一鍵導出Token與備份工具包.bat</code></strong></td>
+                            <td><code>python package_toolkit.py</code></td>
+                            <td>將核心組件打包至 <code>token_and_backup_toolkit/</code> 壓縮包或獨立目錄，便於攜帶至新環境。</td>
+                            <td><button class="copy-btn" onclick="copyText('一鍵導出Token與備份工具包.bat')">複製檔名</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong><code>設定每日自動排程備份.bat</code></strong></td>
+                            <td><code>schtasks ...</code></td>
+                            <td>一鍵為 Windows 工作排程器註冊每日自動備份任務，實現完全無人值守的代碼保護防線。</td>
+                            <td><button class="copy-btn" onclick="copyText('設定每日自動排程備份.bat')">複製檔名</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊五：雙軌 Token 儀表板體系 -->
+        <!-- ==================================================================== -->
+        <div id="section-dashboards">
+            <div class="section-title">
+                <span>📊 雙軌 Token 儀表板體系（本地即時推論 ✕ 線上跨設備總表）</span>
+                <span class="count-badge">雙軌協同</span>
+            </div>
+
+            <div class="cards-grid">
+                <!-- 本地儀表板 -->
+                <div class="power-card" data-keywords="token_dashboard 本地 儀表板 5小時 視窗 窗口 冷熱分離 對話彈窗 官方極限">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-emerald">💻</div>
+                                <div class="card-title">
+                                    <h3>本地 Token 即時監控儀表板</h3>
+                                    <span>FILE: token_dashboard.html</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-sync">LOCAL SSOT</span>
+                        </div>
+                        <div class="card-desc">
+                            精準掃描本機 IDE 之 <code>.gemini/antigravity-ide/brain/</code> 對話日誌。具備<strong>「5 小時滑動窗口精確推論」</strong>、<strong>「100% 官方真實百分比與秒級冷卻倒數」</strong>與<strong>「每週可用極限上限 (1.80M)」</strong>！
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">⚡ 5h 窗口：</span>
+                                <span class="detail-value">即時統計過去 5 小時內滾動消耗，精確預警配額熔斷。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">🔍 對話明細：</span>
+                                <span class="detail-value">同頁彈窗展開每場對話的 Input / Output / Cache 分項與消耗標籤。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>本機即時</span>
+                        <a href="token_dashboard.html" class="action-link">開啟本地儀表板 ↗</a>
+                    </div>
+                </div>
+
+                <!-- 線上營運總表 -->
+                <div class="power-card" data-keywords="cloud_dashboard 線上 營運 總表 冷熱分離 每日彙總 月度總額 跨設備記帳">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-blue">☁️</div>
+                                <div class="card-title">
+                                    <h3>跨設備線上營運總表</h3>
+                                    <span>FILE: cloud_dashboard.html</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-init">MULTI-DEVICE</span>
+                        </div>
+                        <div class="card-desc">
+                            適合公司與家中跨設備同步。v2.67.1 升級<strong>「冷熱資料分離」</strong>，提供三層導覽視圖：<strong>📅 歷史每日彙總</strong>（表格精簡 90%）、<strong>⚡ 今日即時流水</strong>與<strong>🗓️ 帳號月度總額</strong>！
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">📅 每日彙總：</span>
+                                <span class="detail-value">按「日期 ✕ 帳號」聚合歷史對話，手機檢視不卡頓。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">🗓️ 月度結算：</span>
+                                <span class="detail-value">統計每月總消耗與調用次數，對齊官方月結特性。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>跨設備同步</span>
+                        <a href="cloud_dashboard.html" class="action-link">開啟線上總表 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊六：三層智慧備份與還原機制 -->
+        <!-- ==================================================================== -->
+        <div id="section-backup">
+            <div class="section-title">
+                <span>💾 三層智慧備份與資料庫安全防線（極速・輕量・零遺漏）</span>
+                <span class="count-badge">3 層備份防禦</span>
+            </div>
+
+            <div class="tier-card-container">
+                <div class="tier-box green">
+                    <span class="tier-badge">Layer 1: 輕量日常快照</span>
+                    <h4>auto_backup.smart_backup()</h4>
+                    <p>每次功能迭代完成時觸發，耗時 &lt; 0.2 秒。僅備份核心業務代碼與配置，自動排除巨型 GeoJSON、node_modules 與快取檔。</p>
+                </div>
+
+                <div class="tier-box yellow">
+                    <span class="tier-badge">Layer 2: 獨立資料持久化備份</span>
+                    <h4>auto_backup.backup_data_only()</h4>
+                    <p>專門備份 SQLite WAL 嵌入式資料庫（<code>parking_storage.db</code>）與各項 JSON 資料庫單檔，保障營運大數據永不丟失。</p>
+                </div>
+
+                <div class="tier-box red">
+                    <span class="tier-badge">Layer 3: 跨主版號全量備份</span>
+                    <h4>auto_backup.full_archive()</h4>
+                    <p>當跨越重大主版號或每週五下班時封存，包含全量靜態資產與歷史檔案，作為冷儲存長期保存終極防禦。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- 區塊七：Impeccable 頂級設計與前端品質守護工具鏈 -->
+        <!-- ==================================================================== -->
+        <div id="section-impeccable" class="manual-section">
+            <div class="section-title">
+                <span>🎨 Impeccable 頂級設計與前端品質守護工具鏈（反模式診斷 ✕ A11y 審計 ✕ 美感提煉）</span>
+                <span class="count-badge">設計中樞 SSOT</span>
+            </div>
+
+            <!-- 說明卡片 -->
+            <div class="hero-banner" style="margin-bottom: 24px; background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.25);">
+                <div class="hero-content">
+                    <h3 style="color: #c084fc; font-size: 18px; margin-bottom: 8px;">✨ 告別陽春半成品與廉價 AI 痕跡，打造頂級專業 Web 介面</h3>
+                    <p style="font-size: 13px; color: var(--text-muted);">
+                        Impeccable 為 Antigravity 體系專屬的頂級設計與程式碼品質守護系統。結合 <strong><code>PRODUCT.md</code></strong> 產品事實基準、<strong><code>.impeccable/config.json</code></strong> 流程設定，以及強大的反模式檢測引擎，能在介面開發前、中、後期自動把關無障礙 (WCAG AA)、排版階層、自然光影與觸控體驗。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 指令卡片網格 (融入原搜尋系統 data-keywords) -->
+            <div class="cards-grid">
+                <!-- /impeccable init -->
+                <div class="power-card" data-keywords="impeccable init 初始化 產品事實 product.md 訪談 設計中樞 基準">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-purple">🎯</div>
+                                <div class="card-title">
+                                    <h3>/impeccable init</h3>
+                                    <span>建立專案設計事實基準</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-init">SETUP</span>
+                        </div>
+                        <div class="card-desc">
+                            進行產品規格探索與多輪收斂訪談，自動生成 <code>PRODUCT.md</code>，鎖定受眾、平台、工作流預設（<code>buildPath: code / comp</code>）與核心原則。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">產出檔案：</span>
+                                <span class="detail-value"><code>PRODUCT.md</code>、<code>.impeccable/config.json</code></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">時機：</span>
+                                <span class="detail-value">新專案初始化或全新重大模組啟動時執行一次。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable init')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable audit -->
+                <div class="power-card" data-keywords="impeccable audit 審計 評分 a11y wcag 無障礙 效能 反模式 健康度">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-emerald">🩺</div>
+                                <div class="card-title">
+                                    <h3>/impeccable audit</h3>
+                                    <span>五維度品質與無障礙健康審計</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-sync">HEALTH 0-20</span>
+                        </div>
+                        <div class="card-desc">
+                            全自動執行 A11y（對比度/字級底線）、Performance、Responsive、Theming 與 Implementation Integrity 五大維度評分並輸出改善清單。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">評分體系：</span>
+                                <span class="detail-value">滿分 20 分（18-20 Excellent / 14-17 Good）</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">分級回報：</span>
+                                <span class="detail-value">自動標註 P0 阻斷、P1 重大、P2 次要與 P3 拋光</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable audit')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- npx impeccable detect -->
+                <div class="power-card" data-keywords="impeccable detect 終端 cli 掃描 反模式 語法 檢測 靜態掃描">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-gold">⚡</div>
+                                <div class="card-title">
+                                    <h3>npx impeccable detect</h3>
+                                    <span>終端 CLI 毫秒級反模式掃描</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-verify">TERMINAL CLI</span>
+                        </div>
+                        <div class="card-desc">
+                            在本機終端直接針對特定 HTML/CSS 檔案進行反模式即時掃描，精確定位低對比度 (low-contrast)、小於 11px 微標籤 (undersized-ui-text) 等細項。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">典型用法：</span>
+                                <span class="detail-value"><code>npx impeccable detect user_analytics_report.html</code></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">特性：</span>
+                                <span class="detail-value">零 AI Token 消耗，本機離線極速靜態 AST 與 CSS 分析。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>命令列</span>
+                        <button class="copy-btn" onclick="copyText('npx impeccable detect user_analytics_report.html')">複製範例</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable typeset -->
+                <div class="power-card" data-keywords="impeccable typeset 排版 字級 行距 字型 11px 底線 易讀性 font">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-blue">🖋️</div>
+                                <div class="card-title">
+                                    <h3>/impeccable typeset</h3>
+                                    <span>字級排版與易讀性階層精修</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-sync">A11Y TEXT</span>
+                        </div>
+                        <div class="card-desc">
+                            修復所有低於 11px 的不良微標籤與非必要字型依賴，建立嚴謹的 Modular Scale 字階、行距 (line-height) 與標題字重層級。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">鐵律底線：</span>
+                                <span class="detail-value">功能性介面文字嚴格 &gt;= 11px，內文建議 &gt;= 14px。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">效益：</span>
+                                <span class="detail-value">徹底根絕高 DPI 螢幕與車內晃動環境下的辨識困難。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable typeset')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable colorize -->
+                <div class="power-card" data-keywords="impeccable colorize 色彩 對比度 wcag aa 4.5:1 hover 懸停 語意色彩">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-purple">🎨</div>
+                                <div class="card-title">
+                                    <h3>/impeccable colorize</h3>
+                                    <span>色彩策略與無障礙對比度校正</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-init">CONTRAST AA</span>
+                        </div>
+                        <div class="card-desc">
+                            校準主色、輔色與語意色彩（成功綠/警告琥珀/危險紅），特別加強按鈕與標籤在 <code>:hover</code>、<code>:active</code> 狀態下的 4.5:1 對比度。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">標準遵循：</span>
+                                <span class="detail-value">符合 WCAG 2.1 AA 規範（內文 &gt;= 4.5:1，大字 &gt;= 3:1）。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">核心目標：</span>
+                                <span class="detail-value">避免夜間刺眼眩光與低反差無法點選之困擾。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable colorize')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable quieter -->
+                <div class="power-card" data-keywords="impeccable quieter 去除光暈 沉穩 物理陰影 降噪 沉著 專業">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-emerald">🌿</div>
+                                <div class="card-title">
+                                    <h3>/impeccable quieter</h3>
+                                    <span>去除 AI 霓虹光暈，回歸沉穩自然採光</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-sync">DE-GLOW</span>
+                        </div>
+                        <div class="card-desc">
+                            拔除 <code>box-shadow: 0 0 15px #color</code> 等廉價的 AI 科幻彩色光暈，改採遵循物理採光法則的自然單向柔和陰影。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">視覺轉變：</span>
+                                <span class="detail-value">從「刺眼賽博龐克光」轉向「頂級商用軟體質感」。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">適用對象：</span>
+                                <span class="detail-value">過度發光的卡片外框、發光按鈕、狀態圓點等。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable quieter')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable distill -->
+                <div class="power-card" data-keywords="impeccable distill 提煉 去除側條 拔除大陰影 簡練 專注 內容核心">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-gold">🧪</div>
+                                <div class="card-title">
+                                    <h3>/impeccable distill</h3>
+                                    <span>簡練提煉：拔除 4px 側條與冗餘裝飾</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-verify">DISTILL</span>
+                        </div>
+                        <div class="card-desc">
+                            消除經典 AI 生成介面痕跡：拔除卡片左側 4px 裝飾條（<code>.kpi-card::before</code>）、拔除 1px 邊框伴隨 40px 擴散陰影之衝突設計。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">核心原則：</span>
+                                <span class="detail-value">邊框定義與立體高度二選一，回歸純粹資訊本體。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">效益：</span>
+                                <span class="detail-value">視覺噪音歸零，讓車友焦點 100% 聚焦在數據與按鈕。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable distill')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable polish -->
+                <div class="power-card" data-keywords="impeccable polish 拋光 觸控熱區 44px 像素對齊 交付前 最後檢查">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-blue">✨</div>
+                                <div class="card-title">
+                                    <h3>/impeccable polish</h3>
+                                    <span>交付前終極拋光（觸控熱區 ✕ 像素對齊）</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-sync">FINAL PASS</span>
+                        </div>
+                        <div class="card-desc">
+                            對介面進行最終品質總校對：確保所有行動端可點擊元素達到 44×44px 觸控基準，檢查 margin/padding 節奏與圓角一致性。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">檢查項目：</span>
+                                <span class="detail-value">觸控熱區、間距統一 (4/8/16/24px)、層級堆疊 (z-index)。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">建議順序：</span>
+                                <span class="detail-value">作為所有設計修復與改造的最後一道封口收斂工序。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable polish')">複製指令</button>
+                    </div>
+                </div>
+
+                <!-- /impeccable shape & document -->
+                <div class="power-card" data-keywords="impeccable shape document 設計文檔 design.md 規劃 構想 萃取">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon icon-purple">📑</div>
+                                <div class="card-title">
+                                    <h3>/impeccable shape & document</h3>
+                                    <span>介面架構規劃 ✕ 系統文檔萃取</span>
+                                </div>
+                            </div>
+                            <span class="tag-pill tag-init">DOC & SHAPE</span>
+                        </div>
+                        <div class="card-desc">
+                            <code>/shape &lt;surface&gt;</code> 在動工寫代碼前進行 UX/UI 結構訪談與規劃；<code>/document</code> 則從現有成品萃取產出 <code>DESIGN.md</code> 設計系統規範書。
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">/shape：</span>
+                                <span class="detail-value">適合規劃全新型態的儀表板分頁或 LIFF 車位預約頁。</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">/document：</span>
+                                <span class="detail-value">產生專屬 <code>DESIGN.md</code>（顏色 Token、字階、陰影）。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <span style="font-size: 11px; color: var(--text-muted);"><span class="status-dot"></span>對話指令</span>
+                        <button class="copy-btn" onclick="copyText('/impeccable document')">複製 document</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 標準工作流 SOP -->
+            <div class="sop-card" style="margin-top: 24px;">
+                <div class="sop-header">
+                    <span class="brand-logo" style="font-size: 24px;">📋</span>
+                    <div>
+                        <h3>Impeccable 介面品質標準檢驗工作流 (Standard SOP)</h3>
+                        <span style="font-size: 12px; color: var(--text-muted);">從功能成形到無瑕交付的四步守護體系</span>
+                    </div>
+                </div>
+                <div class="step-list">
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <strong>全站健康審計與評分</strong>：新功能上線或頁面改版後，先執行 <code>/impeccable audit</code>，取得 0~20 分的健康度評估與 P0~P3 問題清單。
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <strong>P1 易讀與無障礙優先封堵</strong>：執行 <code>/impeccable typeset</code>（修復 &lt;11px 字體）與 <code>/impeccable colorize</code>（修補懸停對比度 &gt;= 4.5:1）。
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <strong>P2 去除 AI 反模式與降噪</strong>：執行 <code>/impeccable quieter</code>（移除霓虹光暈）與 <code>/impeccable distill</code>（拔除 4px 左側條與 40px 擴散大陰影）。
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">4</span>
+                        <div class="step-content">
+                            <strong>P3 觸控熱區檢查與終極拋光</strong>：執行 <code>/impeccable polish</code>，確保所有可點擊元素達到 44×44px 觸控基準，再次複查 <code>/impeccable audit</code> 驗收 18+ 滿血高分！
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮動通知 Toast -->
+    <div id="toast">
+        <span>✅ 已成功複製指令至剪貼簿！</span>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>Antigravity 跨專案 Token & 備份工具鏈總指揮中心 (Toolkit Hub) &copy; 2026</p>
+        <p style="margin-top: 6px; opacity: 0.7;">恪守單一真實來源 (SSOT) ✕ 三層安全隔離防線 ✕ 專案獨享進度 100% 絕對保護</p>
+    </footer>
+
+    <!-- 搜尋過濾與複製腳本 -->
+    <script>
+        function filterCards() {
+            var q = document.getElementById('searchInput').value.toLowerCase().trim();
+            var cards = document.querySelectorAll('.power-card');
+            cards.forEach(function(card) {
+                var text = card.innerText.toLowerCase();
+                var keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                if (!q || text.indexOf(q) !== -1 || keywords.indexOf(q) !== -1) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt).then(function() {
+                showToast('✅ 已成功複製指令：' + txt);
+            }).catch(function() {
+                var input = document.createElement('input');
+                input.value = txt;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('✅ 已成功複製指令：' + txt);
+            });
+        }
+
+        function showToast(msg) {
+            var toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

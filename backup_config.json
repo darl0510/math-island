@@ -1,0 +1,55 @@
+{
+  "project_name": "math-island",
+  "note": "奇幻數學島專案專屬備份自訂設定檔 (由 auto_backup.py 動態讀取)",
+  "extensions": [
+    ".bat",
+    ".css",
+    ".html",
+    ".jpg",
+    ".js",
+    ".json",
+    ".md",
+    ".mp3",
+    ".png",
+    ".py",
+    ".svg",
+    ".txt"
+  ],
+  "core_extensions": [
+    ".js",
+    ".html",
+    ".css",
+    ".json",
+    ".py",
+    ".bat",
+    ".md"
+  ],
+  "exclude_dirs": [
+    "__pycache__",
+    ".git",
+    "backups",
+    "scratch",
+    ".gemini",
+    "node_modules",
+    ".venv",
+    "venv",
+    "dist",
+    "build"
+  ],
+  "exclude_files": [
+    "*.zip",
+    "*.bak",
+    "*.tmp",
+    "*.log"
+  ],
+  "heavy_static": [
+    "title.mp3",
+    "hero.jpg",
+    "island-cloud.jpg",
+    "island-forest.jpg",
+    "island-ocean.jpg",
+    "island-space.jpg",
+    "og-cover.jpg"
+  ],
+  "retention_days": 20
+}

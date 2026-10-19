@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Antigravity 線上營運總表 (Cloud Master Board)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #090A0F;
+      --bg-surface: #12151C;
+      --bg-surface-elevated: #1A1E26;
+      --border-color: #262B36;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-focus: #3B82F6;
+      --text-primary: #F8FAFC;
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
+      --accent-green: #22C55E;
+      --accent-blue: #3B82F6;
+      --accent-orange: #F59E0B;
+      --accent-red: #F87171;
+      --accent-steel: #64748B;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --transition: all 0.15s ease-out;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      line-height: 1.5;
+      padding: 2rem 1.5rem 4rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1560px;
+      margin: 0 auto;
+    }
+
+    /* 頂部 Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .header-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-sm {
+      padding: 0.45rem 0.85rem;
+      font-size: 0.78rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+
+    .btn-sm:hover {
+      background: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .btn-primary-action {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38BDF8;
+      color: #38BDF8;
+      font-weight: 700;
+    }
+
+    .btn-primary-action:hover {
+      background: rgba(56, 189, 248, 0.28);
+      
+      color: #FFF;
+    }
+
+    /* 全域營運概況橫幅 */
+    .overview-banner {
+      background: linear-gradient(180deg, rgba(22, 27, 34, 0.95) 0%, rgba(13, 17, 23, 0.9) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+    }
+
+    .overview-kpis {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .overview-kpi-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .overview-kpi-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .overview-kpi-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFF;
+    }
+
+    /* 四組帳號卡片 Grid (徹底自適應、拒絕擠壓破版) */
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1380px) {
+      .account-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .account-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .account-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      position: relative;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .account-card:hover {
+      border-color: rgba(88, 166, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.35);
+    }
+
+    .account-card.active {
+      border-color: var(--accent-green);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      background: linear-gradient(180deg, rgba(22, 27, 34, 1) 0%, rgba(16, 26, 20, 0.4) 100%);
+    }
+
+    /* 卡片頂部 (Email 與服役徽章) */
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    .account-email-box {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .email-icon {
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .account-email {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(63, 185, 80, 0.15);
+      border: 1px solid rgba(63, 185, 80, 0.4);
+      color: var(--accent-green);
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .inactive-badge {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      border-radius: 9999px;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .inactive-badge:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-blue);
+      background: rgba(88, 166, 255, 0.15);
+    }
+
+    /* 📅 四維用量 2x2 專屬矩陣 (寬度翻倍，告別擁擠) */
+    .card-usage-quad {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.45rem;
+      background: rgba(13, 17, 23, 0.75);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .usage-tile {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.35rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+
+    .usage-tile-title {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .usage-tile-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+      font-weight: 800;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .usage-tile-sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .val-cyan { color: #38BDF8 !important; }
+    .val-blue { color: #60A5FA !important; }
+    .val-purple { color: #C084FC !important; }
+    .val-orange { color: #F59E0B !important; }
+
+    /* 🎯 冷卻警戒推論區塊 */
+    .card-quota-box {
+      background: rgba(13, 17, 23, 0.75);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .quota-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+
+    .quota-title {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .quota-pct-badge {
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      border: 1px solid;
+      background: rgba(0,0,0,0.25);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .quota-bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      margin: 0.35rem 0;
+    }
+
+    .quota-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    .quota-safe-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.7);
+      
+    }
+
+    .quota-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    /* 模型配額與冷卻列 */
+    .model-row {
+      margin-bottom: 0.65rem;
+    }
+
+    .model-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .model-name {
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .model-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    .bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    .fill-green { background: var(--accent-green); }
+    .fill-orange { background: var(--accent-orange); }
+    .fill-red { background: var(--accent-red); }
+
+    .pct-green { color: var(--accent-green); }
+    .pct-orange { color: var(--accent-orange); }
+    .pct-red { color: var(--accent-red); }
+
+    .model-cooldown {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cooldown-val {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-orange);
+      font-weight: 600;
+    }
+
+    .cooldown-val.done {
+      color: var(--accent-green);
+    }
+
+    /* 統計指標與歷史註記 */
+    .card-metrics {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 0.6rem;
+      font-size: 0.75rem;
+    }
+
+    .metric-item-label {
+      color: var(--text-muted);
+      font-size: 0.68rem;
+    }
+
+    .metric-item-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* 卡片底部按鈕列 (平分空間，整齊不折字) */
+    .card-footer {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .card-footer .btn-sm {
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0.45rem 0.4rem;
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-sm.active-switch {
+      background: rgba(63, 185, 80, 0.15);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    /* 📊 矩陣總表區塊 */
+    .quota-matrix-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+    }
+
+    .matrix-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 1rem;
+    }
+
+    .matrix-table th {
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .matrix-table td {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text-primary);
+    }
+
+    .matrix-table tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .matrix-table tr.row-active-acc {
+      background: rgba(56,189,248,0.06);
+    }
+
+    /* 歷史與調度紀錄 Section */
+    .history-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+    }
+
+    /* 雙軌 Tab 切換導覽 */
+    .dual-tab-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .dual-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.6rem 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+    }
+
+    .dual-tab-btn:hover {
+      color: #FFF;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .dual-tab-btn.active {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+      background: rgba(56,189,248,0.05);
+    }
+
+    .dual-tab-badge {
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1px 7px;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text-secondary);
+    }
+
+    .dual-tab-btn.active .dual-tab-badge {
+      background: rgba(56,189,248,0.2);
+      color: var(--accent-blue);
+    }
+
+    /* 三大子視圖切換導覽 Pills (每日彙總 / 今日即時 / 月度總額) */
+    .sub-filter-pill {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+    .sub-filter-pill:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .sub-filter-pill.active {
+      color: #38BDF8;
+      background: rgba(56,189,248,0.12);
+      border-color: rgba(56,189,248,0.35);
+    }
+    .pill-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text-secondary);
+    }
+    .sub-filter-pill.active .pill-badge {
+      background: rgba(56,189,248,0.22);
+      color: #38BDF8;
+    }
+
+    .conv-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .conv-table th {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    .conv-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: var(--text-primary);
+    }
+
+    .conv-table tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* Modal 彈跳視窗 */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 520px;
+      padding: 1.75rem;
+      box-shadow: 0 12px 12px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--border-focus);
+      outline: 1px solid var(--border-focus);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-submit {
+      padding: 0.6rem 1.2rem;
+      background: #15803D; color: #FFFFFF;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover { background: #166534; color: #FFFFFF; }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      box-shadow: 0 8px 12px rgba(0,0,0,0.5);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div style="display:flex; align-items:center; gap:0.65rem; flex-wrap:wrap;">
+          <h1>⚡ Antigravity 線上營運總表 (Cloud Master Board)</h1>
+          <span style="background:rgba(16, 185, 129, 0.15); border:1px solid #10B981; color:#34D399; font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:0.3rem;">
+            🌐 線上營運總表 (Render Cloud SSOT)
+          </span>
+        </div>
+        <p class="header-desc">
+          雲端單一真實來源 (SSOT)：即時監控四組常態帳號用量矩陣、長效冷卻倒數與調度排班，支援隨時匯入本機備份。
+        </p>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-sm" onclick="refreshCloudBoard(false)" id="btnManualRefresh" style="color:var(--accent-blue); border-color:rgba(56,189,248,0.35);">
+          <span>🔄 重新整理數據</span>
+        </button>
+        <button class="btn-sm btn-primary-action" onclick="openImportModal()">
+          <span>📥 匯入本機資料備份</span>
+        </button>
+        <button class="btn-sm" onclick="exportData()">
+          <span>💾 匯出資料備份</span>
+        </button>
+        <button class="btn-sm" onclick="resetDefaults()">
+          <span>🔄 還原初始設定</span>
+        </button>
+        <a href="/token_dashboard" class="btn-sm" style="text-decoration:none;" title="前往包含日誌掃描與記帳的地端工作台">
+          <span>💻 地端工作台</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- 全域營運概況橫幅 (Overview Banner) -->
+    <section class="overview-banner">
+      <div class="overview-kpis">
+        <div class="overview-kpi-item">
+          <span class="overview-kpi-label">⭐ 當前服役帳號</span>
+          <span class="overview-kpi-val" id="topActiveAccountBadge" style="color:var(--accent-green); font-size:1.15rem;">載入中...</span>
+        </div>
+        <div class="overview-kpi-item">
+          <span class="overview-kpi-label">📅 今日全域消耗</span>
+          <span class="overview-kpi-val" id="globalDailyVal" style="color:#38BDF8;">0</span>
+        </div>
+        <div class="overview-kpi-item">
+          <span class="overview-kpi-label">📆 本週全域累積</span>
+          <span class="overview-kpi-val" id="globalWeeklyVal" style="color:#60A5FA;">0</span>
+        </div>
+        <div class="overview-kpi-item">
+          <span class="overview-kpi-label">🗓️ 本月全域總計</span>
+          <span class="overview-kpi-val" id="globalMonthlyVal" style="color:#C084FC;">0</span>
+        </div>
+      </div>
+      <div style="font-size:0.8rem; color:var(--text-secondary); text-align:right;">
+        <div>最後同步時間：<span id="lastSyncedTime" style="color:#FFF; font-family:'JetBrains Mono',monospace;">尚未同步</span></div>
+        <div style="margin-top:4px; color:var(--text-muted);">儲存引擎：SQLite WAL (3,000+ QPS)</div>
+      </div>
+    </section>
+
+    <!-- 👥 1. 主視覺：四組常態帳號用量與服役狀態 (寬敞不擠壓) -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <h2 style="font-size:1.25rem; font-weight:800; margin:0; color:#f0f6fc; display:flex; align-items:center; gap:0.4rem;">
+          <span>👥 Antigravity 四組常態帳號用量與服役狀態</span>
+        </h2>
+        <span style="font-size:0.75rem; color:var(--text-secondary); background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:999px; border:1px solid var(--border-color);">
+          四維用量 ✕ 即時輪替池
+        </span>
+      </div>
+    </div>
+
+    <section class="account-grid" id="accountGrid">
+      <!-- 動態注入 4 個帳號卡片 -->
+    </section>
+
+    <!-- 📋 2. 記帳歷程明細 ✕ 帳號調度與冷卻紀錄 (雙軌 Tab 呈現) -->
+    <section class="history-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <!-- 雙軌 Tab 按鈕 -->
+        <div class="dual-tab-nav" style="border:none; margin:0; padding:0;">
+          <button class="dual-tab-btn active" id="btnTabHistory" onclick="switchHistoryTab('history')">
+            <span>📋 記帳歷程明細</span>
+            <span class="dual-tab-badge" id="historyCountBadge">0</span>
+          </button>
+          <button class="dual-tab-btn" id="btnTabDispatch" onclick="switchHistoryTab('dispatch')">
+            <span>🔄 帳號調度與冷卻紀錄</span>
+            <span class="dual-tab-badge" id="dispatchCountBadge">0</span>
+          </button>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <button class="btn-sm" onclick="clearCurrentHistoryTab()" style="color:#F85149; border-color:rgba(248,81,73,0.3);">
+            <span id="btnClearTabLabel">🗑️ 清空記帳歷史</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab 1: 記帳歷程明細容器 (三層視圖：每日彙總 / 今日即時 / 月度總額) -->
+      <div id="paneHistoryTable">
+        <!-- 🎯 三大子視圖切換導覽 Pills -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; flex-wrap:wrap; gap:0.5rem; background:rgba(0,0,0,0.18); padding:6px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="sub-filter-pill active" id="pillDailyRollup" onclick="switchHistorySubView('daily')">
+              <span>📅 歷史每日彙總</span>
+              <span class="pill-badge" id="dailyRollupBadge">0 組</span>
+            </button>
+            <button class="sub-filter-pill" id="pillTodayStream" onclick="switchHistorySubView('today')">
+              <span>⚡ 今日即時流水</span>
+              <span class="pill-badge" id="todayStreamBadge">0 筆</span>
+            </button>
+            <button class="sub-filter-pill" id="pillMonthlySummary" onclick="switchHistorySubView('monthly')">
+              <span>🗓️ 帳號月度總額</span>
+              <span class="pill-badge" id="monthlySummaryBadge">0 帳</span>
+            </button>
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted);" id="subViewHint">
+            💡 超過一日自動按「日期 ✕ 帳號」聚合加總，點擊「查看明細」可下鑽全量對話
+          </div>
+        </div>
+
+        <!-- 視圖 1: 歷史每日彙總表格 (預設展示) -->
+        <div id="viewDailyRollup" style="overflow-x:auto;">
+          <table class="conv-table">
+            <thead>
+              <tr>
+                <th style="width:140px;">統計日期</th>
+                <th style="width:220px;">使用帳號</th>
+                <th style="width:110px;">對話次數</th>
+                <th style="width:180px;">當日總消耗 Tokens</th>
+                <th style="width:130px;">官方模型主力</th>
+                <th>明細下鑽與操作</th>
+              </tr>
+            </thead>
+            <tbody id="dailyRollupTbody">
+              <!-- 動態注入每日彙總 -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 視圖 2: 今日即時流水表格 (當日對話) -->
+        <div id="viewTodayStream" style="display:none; overflow-x:auto;">
+          <table class="conv-table" id="historyTable">
+            <thead>
+              <tr>
+                <th style="width:140px;">時間</th>
+                <th style="width:220px;">使用帳號</th>
+                <th style="width:130px;">模型</th>
+                <th style="width:140px;">消耗 Tokens</th>
+                <th>工作備註 / 對話主題</th>
+              </tr>
+            </thead>
+            <tbody id="todayStreamTbody">
+              <!-- 動態注入今日流水 -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 視圖 3: 帳號月度總額表格 (近 1~2 個月月結) -->
+        <div id="viewMonthlySummary" style="display:none; overflow-x:auto;">
+          <table class="conv-table">
+            <thead>
+              <tr>
+                <th style="width:130px;">統計月份</th>
+                <th style="width:220px;">帳號 Email</th>
+                <th style="width:120px;">當月累計次數</th>
+                <th style="width:180px;">當月總消耗 Tokens</th>
+                <th>當月佔比與健康狀態</th>
+              </tr>
+            </thead>
+            <tbody id="monthlySummaryTbody">
+              <!-- 動態注入月度總額 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: 帳號調度與冷卻紀錄容器 -->
+      <div id="paneDispatchTable" style="display:none; overflow-x:auto;">
+        <table class="conv-table" id="dispatchTable">
+          <thead>
+            <tr>
+              <th style="width:140px;">時間</th>
+              <th style="width:130px;">事件類型</th>
+              <th style="width:220px;">關聯帳號</th>
+              <th>調度說明 / 觸發門檻</th>
+              <th style="width:140px;">基準用量 / 來源</th>
+            </tr>
+          </thead>
+          <tbody id="dispatchTbody">
+            <!-- 動態注入調度與冷卻事件 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- 📥 匯入本機資料 Modal -->
+  <div class="modal-overlay" id="importModal">
+    <div class="modal-content">
+      <div class="modal-title">
+        <span>📥 匯入本機資料備份至線上總表</span>
+      </div>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.4;">
+        可選擇地端導出的備份檔案 (<code>token_accounts_backup_*.json</code> 或 <code>token_storage.json</code>)，或直接貼上 JSON 內容。匯入後將立即持久化寫入線上雲端資料庫。
+      </p>
+
+      <div class="form-group">
+        <label>方式 A：選擇本機 JSON 檔案</label>
+        <input type="file" id="importFileInput" accept=".json" class="form-control" style="padding:0.4rem;">
+      </div>
+
+      <div class="form-group">
+        <label>方式 B：直接貼上 JSON 內容</label>
+        <textarea id="importJsonText" class="form-control" rows="5" placeholder='{"accounts": [...], "history": [...]}'></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-sm" onclick="closeImportModal()">取消</button>
+        <button class="btn-submit" onclick="executeImport()">確認匯入並同步</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✏️ 帳號手動數值調整 Modal -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-content">
+      <div class="modal-title">
+        <span>✏️ 調整帳號 Token 額度與狀態</span>
+      </div>
+      <input type="hidden" id="editAccId">
+      
+      <div class="form-group">
+        <label>帳號 Email</label>
+        <input type="text" id="editEmail" class="form-control" disabled style="opacity:0.7;">
+      </div>
+
+
+
+      <div class="form-group">
+        <label>Gemini 剩餘額度百分比 (%)</label>
+        <input type="number" id="editGeminiPct" class="form-control" min="0" max="100">
+      </div>
+
+      <div class="form-group">
+        <label>Gemini 冷卻倒數 (例: 5h 0m 或 1h 20m)</label>
+        <input type="text" id="editGeminiCooldown" class="form-control" placeholder="5h 0m">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-sm" onclick="closeEditModal()">取消</button>
+        <button class="btn-submit" onclick="saveAccountEdit()">儲存並更新</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔍 歷史對話明細下鑽 Modal -->
+  <div class="modal-overlay" id="historyDetailModal" style="display:none;">
+    <div class="modal-content" style="max-width:860px; width:92%; max-height:85vh; display:flex; flex-direction:column; padding:1.5rem;">
+      <div class="modal-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+        <span id="detailModalTitle">📜 對話明細清單</span>
+        <button class="btn-xs" onclick="closeHistoryDetailModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer; padding:2px 8px;">✕</button>
+      </div>
+      <div id="detailModalSummary" style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.85rem; padding:0.6rem 0.85rem; background:rgba(255,255,255,0.03); border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+        <!-- 動態摘要 -->
+      </div>
+      <div style="overflow-y:auto; flex:1; max-height:55vh;">
+        <table class="conv-table" id="detailModalTable">
+          <thead>
+            <tr>
+              <th style="width:140px;">時間</th>
+              <th style="width:110px;">模型</th>
+              <th style="width:130px;">消耗 Tokens</th>
+              <th>工作備註 / 對話主題</th>
+            </tr>
+          </thead>
+          <tbody id="detailModalTbody">
+            <!-- 動態注入明細 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-actions" style="margin-top:1rem;">
+        <button class="btn-sm" onclick="closeHistoryDetailModal()">關閉明細</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span id="toastMsg">通知訊息</span>
+  </div>
+
+  <script>
+    // 常態 4 組帳號基線設定
+    const DEFAULT_ACCOUNTS = [
+      {
+        id: "acc_1",
+        email: "cenghanqing31@gmail.com",
+        isActive: false,
+        geminiPct: 100,
+        geminiCooldown: "1h 17m",
+        totalRecordedTokens: 353417,
+        lastLoggedAt: "2026-09-21 09:14"
+      },
+      {
+        id: "acc_2",
+        email: "cengjieling33@gmail.com",
+        isActive: false,
+        geminiPct: 100,
+        geminiCooldown: "1h 19m",
+        totalRecordedTokens: 0,
+        lastLoggedAt: "-"
+      },
+      {
+        id: "acc_3",
+        email: "y011020002000@gmail.com",
+        isActive: true,
+        geminiPct: 86,
+        geminiCooldown: "5h 0m",
+        totalRecordedTokens: 0,
+        lastLoggedAt: "-"
+      },
+      {
+        id: "acc_4",
+        email: "carl37242002@gmail.com",
+        isActive: false,
+        geminiPct: 14,
+        geminiCooldown: "2d 1h 27m 35s",
+        totalRecordedTokens: 0,
+        lastLoggedAt: "-"
+      }
+    ];
+
+    let state = {
+      accounts: JSON.parse(JSON.stringify(DEFAULT_ACCOUNTS)),
+      history: [
+        { time: "2026-09-21 09:14", email: "cenghanqing31@gmail.com", model: "Gemini", tokens: 353417, note: "系統基線 (達到 25% 臨界)" }
+      ],
+      cooldownIncidents: [
+        {
+          id: "inc_baseline",
+          email: "carl37242002@gmail.com",
+          model: "Gemini",
+          cooldownStr: "2d 1h 28m",
+          tokensAtCooldown: 1800000,
+          tokensM: "1.80",
+          triggeredAt: "2026-09-21 09:20",
+          note: "累積達 1.80M 時觸發 2d 1h 28m 長效冷卻"
+        }
+      ],
+      dispatchLogs: [
+        {
+          id: "disp_init",
+          time: "2026-09-21 09:14",
+          type: "SYSTEM_INIT",
+          operator: "系統初始化",
+          email: "y011020002000@gmail.com",
+          detail: "設定初始服役帳號為 y011020002000@gmail.com",
+          tokensAtSwitch: 0
+        }
+      ]
+    };
+
+    function getLocalNowString(d = new Date()) {
+      const Y = d.getFullYear();
+      const M = String(d.getMonth() + 1).padStart(2, '0');
+      const D = String(d.getDate()).padStart(2, '0');
+      const h = String(d.getHours()).padStart(2, '0');
+      const m = String(d.getMinutes()).padStart(2, '0');
+      return `${Y}-${M}-${D} ${h}:${m}`;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      document.getElementById("toastMsg").innerText = msg;
+      t.style.display = "inline-flex";
+      setTimeout(() => { t.style.display = "none"; }, 3500);
+    }
+
+    // 將如 "50m", "5h 0m", "2d 1h 28m", "45分", "30" 解析為毫秒數
+    function parseCooldownStringToMs(str) {
+      if (!str || typeof str !== 'string') return 0;
+      str = str.trim().toLowerCase();
+      if (str === '0' || str === '0m' || str === '0s' || str === '完成' || str.includes('滿血') || str.includes('已冷卻')) return 0;
+
+      let totalMs = 0;
+      let matched = false;
+
+      const dayMatch = str.match(/(\d+(?:\.\d+)?)\s*(?:d|天)/);
+      if (dayMatch) { totalMs += parseFloat(dayMatch[1]) * 86400000; matched = true; }
+
+      const hrMatch = str.match(/(\d+(?:\.\d+)?)\s*(?:h|小時|hr)/);
+      if (hrMatch) { totalMs += parseFloat(hrMatch[1]) * 3600000; matched = true; }
+
+      const minMatch = str.match(/(\d+(?:\.\d+)?)\s*(?:m|分|min)/);
+      if (minMatch) { totalMs += parseFloat(minMatch[1]) * 60000; matched = true; }
+
+      const secMatch = str.match(/(\d+(?:\.\d+)?)\s*(?:s|秒|sec)/);
+      if (secMatch) { totalMs += parseFloat(secMatch[1]) * 1000; matched = true; }
+
+      if (!matched && /^\d+(?:\.\d+)?$/.test(str)) {
+        totalMs = parseFloat(str) * 60000;
+        matched = true;
+      }
+
+      return matched ? Math.round(totalMs) : 0;
+    }
+
+    // 格式化剩餘冷卻時間戳記
+    function formatRemainingCooldown(targetTimestamp, fallbackStr = '5h 0m', pct = 100) {
+      if (!targetTimestamp) return { text: pct >= 100 ? "5h 0m (滿血待命)" : (fallbackStr || "5h 0m"), isDone: true };
+      const remainMs = targetTimestamp - Date.now();
+      if (remainMs <= 0) {
+        return { text: pct >= 100 ? "5h 0m (滿血待命)" : "5h 0m", isDone: true };
+      }
+
+      const totalSec = Math.floor(remainMs / 1000);
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+
+      if (d > 0) {
+        return { text: `${d}d ${h}h ${m}m ${s}s`, isDone: false };
+      } else if (h > 0) {
+        return { text: `${h}h ${m}m ${s}s`, isDone: false };
+      } else {
+        return { text: `${m}m ${s}s`, isDone: false };
+      }
+    }
+
+    // 動態每秒跳秒倒數
+    function tickCooldowns() {
+      if (!state.accounts) return;
+      state.accounts.forEach(acc => {
+        // ⚡ 動態即時校準 5h 與 Weekly 倒數顯示
+        if (acc.geminiWeeklyResetTimestamp) {
+          const wEl = document.getElementById(`cd_weekly_${acc.id}`);
+          if (wEl) {
+            const diffSec = Math.floor((acc.geminiWeeklyResetTimestamp - Date.now()) / 1000);
+            if (diffSec <= 0) {
+              wEl.innerText = "✨ 滿血可用";
+              wEl.style.color = "#34D399";
+            } else {
+              const d = Math.floor(diffSec / 86400);
+              const h = Math.floor((diffSec % 86400) / 3600);
+              const m = Math.floor((diffSec % 3600) / 60);
+              const s = diffSec % 60;
+              wEl.innerText = d > 0 ? `${d}d ${h}h ${m}m` : (h > 0 ? `${h}h ${m}m ${s}s` : `${m}m ${s}s`);
+            }
+          }
+        }
+        if (acc.gemini5hResetTimestamp) {
+          const fEl = document.getElementById(`cd_5h_${acc.id}`);
+          if (fEl) {
+            const diffSec = Math.floor((acc.gemini5hResetTimestamp - Date.now()) / 1000);
+            if (diffSec <= 0) {
+              fEl.innerText = "✨ 滿血可用";
+            } else {
+              const h = Math.floor(diffSec / 3600);
+              const m = Math.floor((diffSec % 3600) / 60);
+              const s = diffSec % 60;
+              fEl.innerText = h > 0 ? `${h}h ${m}m ${s}s` : `${m}m ${s}s`;
+            }
+          }
+        }
+
+        if (acc.geminiCooldownUntil) {
+          const isPenalty = acc.geminiCooldown && (acc.geminiCooldown.includes('d') || acc.geminiCooldown.includes('天') || (acc.geminiCooldownUntil - Date.now() > 5.5 * 3600 * 1000));
+          if (acc.geminiPct >= 100 && !isPenalty) {
+            acc.geminiCooldownUntil = 0;
+            acc.geminiCooldown = "5h 0m";
+          }
+          const res = formatRemainingCooldown(acc.geminiCooldownUntil, acc.geminiCooldown, acc.geminiPct);
+          const el = document.getElementById(`cooldown_${acc.id}_gemini`);
+          if (el) {
+            el.innerHTML = `冷卻倒數：<span class="cooldown-val ${res.isDone ? 'done' : ''}">${res.text}</span>`;
+          }
+        }
+      });
+    }
+
+
+    function getAdminKey() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let key = urlParams.get('key');
+      if (key) {
+        localStorage.setItem("antigravity_admin_key", key);
+        localStorage.setItem("antigravity_token_admin_key", key);
+        return key;
+      }
+      return localStorage.getItem("antigravity_admin_key") || localStorage.getItem("antigravity_token_admin_key") || "tw_park_9b46_boss_2026";
+    }
+
+    // 嚴格消毒帳號，保證只維護 4 組常態核心帳號
+    function sanitizeAccounts(incoming) {
+      const defaultList = JSON.parse(JSON.stringify(DEFAULT_ACCOUNTS));
+      let list = Array.isArray(incoming) ? incoming : [];
+      list = list.filter(a => a && a.email && !a.email.includes("unit_test") && !a.email.includes("test@"));
+      
+      const result = defaultList.map(def => {
+        const found = list.find(a => a.email.toLowerCase().trim() === def.email.toLowerCase().trim());
+        if (found) {
+          return { ...def, ...found, id: def.id, email: def.email };
+        }
+        return def;
+      });
+
+      // 保留其餘使用者合法自訂帳號
+      list.forEach(a => {
+        const isCore = defaultList.some(def => def.email.toLowerCase().trim() === a.email.toLowerCase().trim());
+        if (!isCore) result.push(a);
+      });
+
+      return result;
+    }
+
+    // 四維用量統計計算
+    function getAccountDetailedUsage(email) {
+      const now = new Date();
+      const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const thisMonthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      
+      // 當週窗口 (以本週一 00:00:00 為重置起始錨點，若跨過週一官方重置日自動歸零重計，避免跨週累積膨脹)
+      const dayOfWeek = now.getDay(); // 0 是週日, 1 是週一 ... 6 是週六
+      const distToMonday = (dayOfWeek + 6) % 7;
+      const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - distToMonday, 0, 0, 0, 0);
+
+      // 真實滾動窗口 (三大鐵律防線判定專用：Rolling 24h 與 Rolling 7d / 168 小時)
+      const nowMs = now.getTime();
+      const rolling24hStart = nowMs - (24 * 3600 * 1000);
+      const rolling7dStart = nowMs - (7 * 86400 * 1000);
+      let rolling24hTokens = 0;
+      let rolling7dTokens = 0;
+
+      let dailyTokens = 0;
+      let weeklyTokens = 0;
+      let monthlyTokens = 0;
+      let periodTokens = 0;
+
+      (state.history || []).forEach(h => {
+        if (!h.email || h.email.toLowerCase().trim() !== email.toLowerCase().trim()) return;
+        const tokens = Number(h.tokens) || 0;
+        periodTokens += tokens;
+
+        if (h.time) {
+          if (h.time.startsWith(todayStr)) dailyTokens += tokens;
+          if (h.time.startsWith(thisMonthPrefix)) monthlyTokens += tokens;
+          const hDate = new Date(h.time.replace(/-/g, '/'));
+          if (!isNaN(hDate.getTime())) {
+            const hTimeMs = hDate.getTime();
+            if (hDate >= weekStart) {
+              weeklyTokens += tokens;
+            }
+            if (hTimeMs >= rolling24hStart && hTimeMs <= nowMs) {
+              rolling24hTokens += tokens;
+            }
+            if (hTimeMs >= rolling7dStart && hTimeMs <= nowMs) {
+              rolling7dTokens += tokens;
+            }
+          }
+        }
+      });
+
+      return {
+        dailyTokens,
+        dailyM: (dailyTokens / 1000000).toFixed(2),
+        weeklyTokens,
+        weeklyM: (weeklyTokens / 1000000).toFixed(2),
+        rolling24hTokens,
+        rolling24hM: (rolling24hTokens / 1000000).toFixed(2),
+        rolling7dTokens,
+        rolling7dM: (rolling7dTokens / 1000000).toFixed(2),
+        monthlyTokens,
+        monthlyM: (monthlyTokens / 1000000).toFixed(2),
+        periodTokens,
+        periodM: (periodTokens / 1000000).toFixed(2)
+      };
+    }
+
+    function getDynamicThresholds() {
+      try {
+        const saved = localStorage.getItem('antigravity_dynamic_thresholds');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            burst24h: Number(parsed.burst24h) || 50000000,
+            rolling7d: Number(parsed.rolling7d) || 75000000,
+            extreme7d: Number(parsed.extreme7d) || 100000000,
+            safeRatio: Number(parsed.safeRatio) || 0.8,
+            autoCalibrated: !!parsed.autoCalibrated
+          };
+        }
+      } catch (e) {}
+      return { burst24h: 50000000, rolling7d: 75000000, extreme7d: 100000000, safeRatio: 0.8, autoCalibrated: false };
+    }
+
+    // 🎯 冷卻警戒推論：以「雙帳號實測三大鐵律」重構雙軸威脅探測 (SSOT 專注 Google Gemini 官方即時直連)
+    function getAccountCooldownInference(acc) {
+      const usage = getAccountDetailedUsage(acc.email);
+      // 三大鐵律防線雙軸使用真實滾動窗口 (Rolling 24h & Rolling 7d)
+      const dailyTokens = typeof usage.rolling24hTokens === 'number' ? usage.rolling24hTokens : (usage.dailyTokens || 0);
+      const weeklyTokens = typeof usage.rolling7dTokens === 'number' ? usage.rolling7dTokens : (usage.weeklyTokens || 0);
+
+      // === 三大鐵律門檻常數 (支援動態自適應校準) ===
+      const dynCfg = getDynamicThresholds();
+      const BURST_24H_THRESHOLD = dynCfg.burst24h;
+      const BURST_24H_SAFE = Math.round(BURST_24H_THRESHOLD * dynCfg.safeRatio);
+      const ROLLING_7D_THRESHOLD = dynCfg.rolling7d;
+      const ROLLING_7D_SAFE = Math.round(ROLLING_7D_THRESHOLD * dynCfg.safeRatio);
+      const EXTREME_7D_THRESHOLD = dynCfg.extreme7d;
+
+      const b24M = (BURST_24H_THRESHOLD / 1000000).toFixed(0);
+      const r7M = (ROLLING_7D_THRESHOLD / 1000000).toFixed(0);
+      const ext7M = (EXTREME_7D_THRESHOLD / 1000000).toFixed(0);
+
+      // 官方即時配額狀態解析 (Gemini SSOT)
+      const geminiWeeklyPct = typeof acc.geminiWeeklyPct === 'number' ? acc.geminiWeeklyPct : (typeof acc.geminiPct === 'number' ? acc.geminiPct : 100);
+      const gemini5hPct = typeof acc.gemini5hPct === 'number' ? acc.gemini5hPct : (typeof acc.geminiPct === 'number' ? acc.geminiPct : 100);
+      const geminiPct = typeof acc.geminiPct === 'number' ? acc.geminiPct : Math.min(geminiWeeklyPct, gemini5hPct);
+      const minOfficialPct = geminiPct;
+      const isFullHealth = (geminiWeeklyPct >= 99 && gemini5hPct >= 99);
+      const hasOfficial = (typeof acc.geminiWeeklyPct === 'number' || typeof acc.geminiPct === 'number');
+
+      // 官方真實冷卻判定（🚨 核心鐵律升級：正常 7 天每週倒數絕非懲罰冷卻）
+      const nowMs = Date.now();
+      const isRealCooling = (geminiWeeklyPct <= 5) || (gemini5hPct <= 0);
+      const isLowQuota = (geminiWeeklyPct <= 20 || gemini5hPct <= 20);
+
+      // === 📊 週 Token 總額推論與動態容量演算 ===
+      let inferredWeeklyTotal = ROLLING_7D_THRESHOLD;
+      const officialWeeklyConsumedPct = hasOfficial ? Math.max(0, 100 - geminiWeeklyPct) : (100 - geminiPct);
+
+      if (weeklyTokens >= 500000 && officialWeeklyConsumedPct >= 5) {
+        const dynamicCap = Math.round(weeklyTokens / (officialWeeklyConsumedPct / 100));
+        if (dynamicCap >= 20000000 && dynamicCap <= 200000000) {
+          inferredWeeklyTotal = dynamicCap;
+        }
+      }
+
+      const inferredWeeklyM = (inferredWeeklyTotal / 1000000).toFixed(0);
+      const weeklyTokensM = (weeklyTokens / 1000000).toFixed(1);
+      const dailyTokensM = (dailyTokens / 1000000).toFixed(1);
+
+      // 雙軸到達率計算 (整合 24h 暴衝 50M 與 7d 滾動推估總額)
+      const reachPct24h = Math.round((dailyTokens / BURST_24H_THRESHOLD) * 100);
+      const reachPct7d = Math.round((weeklyTokens / inferredWeeklyTotal) * 100);
+      const weeklyLoadPct = Math.max(reachPct7d, Math.round(officialWeeklyConsumedPct));
+      let reachPct = Math.max(reachPct24h, weeklyLoadPct);
+
+      if (isRealCooling) {
+        reachPct = Math.max(reachPct, 100);
+      }
+
+      const safeBuffer = Math.round(inferredWeeklyTotal * dynCfg.safeRatio) - weeklyTokens;
+      const safeBufferWan = Math.round(Math.abs(safeBuffer) / 10000);
+      const safeBufferM = (Math.abs(safeBuffer) / 1000000).toFixed(2);
+
+      let riskColor = '#3FB950';
+      let riskLevel = 'SAFE';
+      let statusBadge = acc.isActive ? '⭐ 當前主力服役中' : (isFullHealth ? '✨ 滿血備用' : '🟢 充裕可用');
+      let loadBadgeText = `推估週額度 ~${inferredWeeklyM}M (已用 ${reachPct}%)`;
+      let advice = safeBuffer > 0 ? `狀態健康 · 充裕可用 (餘 ~${safeBufferWan} 萬)` : `已達換手線 (超標 ${safeBufferWan} 萬)`;
+      let thresholdDesc = `三大鐵律防線 (24h: ${b24M}M · 7d: ${inferredWeeklyM}M)${dynCfg.autoCalibrated ? ' [動態校準]' : ''}`;
+
+      if (isRealCooling) {
+        riskColor = '#F85149';
+        riskLevel = 'COOLING';
+        statusBadge = '🚨 官方配額已耗盡';
+        loadBadgeText = '官方冷卻 100%';
+        advice = `週配額剩餘 ${geminiWeeklyPct}% · 等待官方重置`;
+      } else if (reachPct >= 100) {
+        riskColor = '#F85149';
+        riskLevel = 'DANGER';
+        statusBadge = '🚨 臨界極度危險 (立即換手)';
+        loadBadgeText = `週負載 ${reachPct}% (破上限 ~${inferredWeeklyM}M)`;
+        advice = dailyTokens >= BURST_24H_THRESHOLD 
+          ? `⚠️ 24h達 ${dailyTokensM}M (衝破${b24M}M暴衝線)！`
+          : `⚠️ 7天達 ${weeklyTokensM}M (衝破推估上限 ~${inferredWeeklyM}M)！`;
+      } else if (reachPct >= 80) {
+        riskColor = '#D29922';
+        riskLevel = 'WARNING';
+        statusBadge = '🟡 達安全換手線 (建議交接)';
+        loadBadgeText = `週負載 ${reachPct}% (逼近換手線)`;
+        advice = dailyTokens >= BURST_24H_SAFE 
+          ? `24h 達 ${dailyTokensM}M (逼近 ${b24M}M 暴衝防線)`
+          : `7天達 ${weeklyTokensM}M (逼近 ~${inferredWeeklyM}M 換手線)`;
+      } else if (reachPct >= 50 || isLowQuota) {
+        riskColor = '#FBBF24';
+        riskLevel = 'WARNING';
+        statusBadge = '🟡 負載適中';
+        loadBadgeText = `推估週額度 ~${inferredWeeklyM}M (已用 ${reachPct}%)`;
+        advice = safeBuffer > 0 ? `用量正常 · 剩餘約 ${safeBufferWan} 萬安全 Tokens` : `狀態穩定`;
+      } else {
+        riskColor = '#3FB950';
+        riskLevel = 'SAFE';
+        statusBadge = acc.isActive ? '⭐ 當前主力服役中' : (isFullHealth ? '✨ 滿血備用' : '🟢 充裕可用');
+        loadBadgeText = `推估週額度 ~${inferredWeeklyM}M (已用 ${reachPct}%)`;
+        advice = `狀態健康 · 充裕可用 (餘 ~${safeBufferWan} 萬)`;
+      }
+
+      // 產生官方即時狀態顯示字串與彩色徽章 (專注 Gemini)
+      let officialBadgeHtml = '';
+      if (isRealCooling) {
+        const cdStr = acc.geminiCooldown || '配額耗盡';
+        officialBadgeHtml = `<span style="display:inline-flex; align-items:center; gap:4px; padding:2px 7px; border-radius:4px; font-size:0.72rem; font-weight:700; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); color:#F85149;">
+          🚨 Gemini ${geminiPct}% (${cdStr})
+        </span>`;
+      } else if (isFullHealth) {
+        const weeklyInfo = acc.geminiWeeklyResetFormatted ? ` · 週 ${acc.geminiWeeklyResetFormatted}` : '';
+        const titleStr = `Gemini 週重置: ${acc.geminiWeeklyCountdown || ''} (${acc.geminiWeeklyResetFormatted || ''}) · 5h重置: ${acc.gemini5hResetFormatted || ''}`;
+        officialBadgeHtml = `<span style="display:inline-flex; align-items:center; gap:4px; padding:2px 7px; border-radius:4px; font-size:0.72rem; font-weight:700; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); color:#34D399;" title="${titleStr}">
+          ⚡ Gemini 100% 滿血${weeklyInfo}
+        </span>`;
+      } else {
+        const pColor = geminiPct <= 25 ? '#F85149' : (geminiPct <= 60 ? '#FBBF24' : '#34D399');
+        const cdStr = acc.geminiCooldown ? ` · ${acc.geminiCooldown}` : '';
+        const weeklyInfo = acc.geminiWeeklyResetFormatted ? ` (週 ${acc.geminiWeeklyResetFormatted})` : '';
+        const titleStr = `Gemini 週重置: ${acc.geminiWeeklyCountdown || ''} (${acc.geminiWeeklyResetFormatted || ''}) · 5h重置: ${acc.gemini5hResetFormatted || ''}`;
+        officialBadgeHtml = `<span style="display:inline-flex; align-items:center; gap:4px; padding:2px 7px; border-radius:4px; font-size:0.72rem; font-weight:700; background:rgba(255,255,255,0.05); border:1px solid ${pColor}; color:${pColor};" title="${titleStr}">
+          Gemini ${geminiPct}%${cdStr}${weeklyInfo}
+        </span>`;
+      }
+
+      return {
+        ...usage,
+        dailyTokens: usage.dailyTokens || 0,
+        dailyM: usage.dailyM || '0.00',
+        weeklyTokens: usage.weeklyTokens || 0,
+        weeklyM: usage.weeklyM || '0.00',
+        rolling24hTokens: usage.rolling24hTokens || 0,
+        rolling24hM: usage.rolling24hM || '0.00',
+        rolling7dTokens: usage.rolling7dTokens || 0,
+        rolling7dM: usage.rolling7dM || '0.00',
+        monthlyTokens: usage.monthlyTokens || 0,
+        monthlyM: usage.monthlyM || '0.00',
+        periodTokens: usage.periodTokens || 0,
+        periodM: usage.periodM || '0.00',
+        reachPct,
+        reachPct24h,
+        reachPct7d,
+        weeklyLoadPct,
+        inferredWeeklyTotal,
+        inferredWeeklyM,
+        weeklyTokensM,
+        dailyTokensM,
+        burst24hM: b24M,
+        rolling7dThresholdM: inferredWeeklyM,
+        dynCfg,
+        safeBuffer,
+        safeBufferWan,
+        safeBufferM,
+        statusBadge,
+        loadBadgeText,
+        thresholdDesc,
+        riskColor,
+        riskLevel,
+        advice,
+        isCoolingNow: isRealCooling,
+        isPenaltyCooling: isRealCooling,
+        officialBadgeHtml,
+        minOfficialPct,
+        isFullHealth
+      };
+    }
+
+    // 渲染卡片 (四維用量矩陣 ✕ 數據驅動冷卻推論，移除手動模型條)
+    function renderCards() {
+      const container = document.getElementById("accountGrid");
+      container.innerHTML = "";
+
+      const activeAcc = (state.accounts || []).find(a => a.isActive);
+      const topBadge = document.getElementById("topActiveAccountBadge");
+      if (topBadge) {
+        topBadge.innerText = activeAcc ? activeAcc.email : '未指定';
+      }
+
+      state.accounts.forEach(acc => {
+        const inf = getAccountCooldownInference(acc);
+        const card = document.createElement("div");
+        card.className = `account-card ${acc.isActive ? 'active' : ''}`;
+
+        function calcLiveCountdown(targetTs, fallbackStr) {
+          if (!targetTs) return fallbackStr || '—';
+          const diffSec = Math.floor((targetTs - Date.now()) / 1000);
+          if (diffSec <= 0) return '✨ 滿血可用';
+          const d = Math.floor(diffSec / 86400);
+          const h = Math.floor((diffSec % 86400) / 3600);
+          const m = Math.floor((diffSec % 3600) / 60);
+          if (d > 0) return `${d}d ${h}h ${m}m`;
+          if (h > 0) return `${h}h ${m}m`;
+          return `${m}m`;
+        }
+
+        function formatTwResetLabel(ts, fallbackFormatted) {
+          if (ts) {
+            try {
+              const d = new Date(ts);
+              const m = d.getMonth() + 1;
+              const dt = d.getDate();
+              const days = ['週日', '週一', '週二', '週三', '週四', '週五', '週六'];
+              const w = days[d.getDay()];
+              const hh = String(d.getHours()).padStart(2, '0');
+              const mm = String(d.getMinutes()).padStart(2, '0');
+              return `重置時間：${m} 月 ${dt} 日 ${hh}:${mm} (${w})`;
+            } catch(e) {}
+          }
+          if (fallbackFormatted) {
+            return `重置時間：${fallbackFormatted}`;
+          }
+          return '';
+        }
+
+        const gWeeklyPct = typeof acc.geminiWeeklyPct === 'number' ? Math.round(acc.geminiWeeklyPct) : acc.geminiPct;
+        const gWeeklyPctClass = gWeeklyPct > 50 ? 'pct-green' : (gWeeklyPct > 20 ? 'pct-orange' : 'pct-red');
+        const gWeeklyFillClass = gWeeklyPct > 50 ? 'fill-green' : (gWeeklyPct > 20 ? 'fill-orange' : 'fill-red');
+        const gWeeklyCd = acc.geminiWeeklyResetTimestamp ? calcLiveCountdown(acc.geminiWeeklyResetTimestamp, acc.geminiWeeklyCountdown) : (acc.geminiWeeklyCountdown || (gWeeklyPct >= 100 ? '✨ 滿血可用' : '計算中'));
+        const gWeeklyResetStr = formatTwResetLabel(acc.geminiWeeklyResetTimestamp, acc.geminiWeeklyResetFormatted);
+
+        const g5hPct = typeof acc.gemini5hPct === 'number' ? Math.round(acc.gemini5hPct) : acc.geminiPct;
+        const g5hPctClass = g5hPct > 50 ? 'pct-green' : (g5hPct > 20 ? 'pct-orange' : 'pct-red');
+        const g5hFillClass = g5hPct > 50 ? 'fill-green' : (g5hPct > 20 ? 'fill-orange' : 'fill-red');
+        const gRemain = formatRemainingCooldown(acc.geminiCooldownUntil, acc.geminiCooldown, acc.geminiPct);
+        const g5hCd = acc.gemini5hResetTimestamp ? calcLiveCountdown(acc.gemini5hResetTimestamp, acc.gemini5hCountdown || gRemain.text) : (acc.gemini5hCountdown || gRemain.text);
+        const g5hResetStr = formatTwResetLabel(acc.gemini5hResetTimestamp, acc.gemini5hResetFormatted);
+
+        const cWeeklyPct = typeof acc.claudeWeeklyPct === 'number' ? Math.round(acc.claudeWeeklyPct) : 100;
+        const cWeeklyPctClass = cWeeklyPct > 50 ? 'pct-green' : (cWeeklyPct > 20 ? 'pct-orange' : 'pct-red');
+        const cWeeklyFillClass = cWeeklyPct > 50 ? 'fill-green' : (cWeeklyPct > 20 ? 'fill-orange' : 'fill-red');
+        const cWeeklyCd = acc.claudeWeeklyResetTimestamp ? calcLiveCountdown(acc.claudeWeeklyResetTimestamp, acc.claudeWeeklyCountdown) : (acc.claudeWeeklyCountdown || (cWeeklyPct >= 100 ? '✨ 滿血可用' : '計算中'));
+        const cWeeklyResetStr = formatTwResetLabel(acc.claudeWeeklyResetTimestamp, acc.claudeWeeklyResetFormatted);
+
+        const accHistory = (state.history || []).filter(h => h.email === acc.email);
+        const accHistoryCount = accHistory.length;
+        const latestTimeInHistory = accHistory.length > 0 ? accHistory.reduce((maxT, h) => (h.time > maxT ? h.time : maxT), "") : "";
+        const displayLastLoggedAt = latestTimeInHistory || acc.lastLoggedAt || '-';
+
+        card.innerHTML = `
+          <div>
+            <!-- 卡片頂部：Email 與狀態標籤 -->
+            <div class="card-top">
+              <div class="account-email-box" title="${acc.email}" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                <span class="email-icon">📧</span>
+                <span class="account-email">${acc.email}</span>
+                ${inf.officialBadgeHtml}
+              </div>
+              <div class="account-badge-box">
+                ${acc.isActive ? 
+                  `<span class="active-badge">⭐ 服役中</span>` : 
+                  `<span class="inactive-badge" onclick="setActiveAccount('${acc.id}')">設為當前</span>`
+                }
+              </div>
+            </div>
+
+            <!-- 📅 四維用量 2x2 矩陣 -->
+            <div class="card-usage-quad">
+              <div class="usage-tile">
+                <span class="usage-tile-title">📅 當日用量</span>
+                <span class="usage-tile-num val-cyan">${(inf.dailyTokens || 0).toLocaleString()}</span>
+                <span class="usage-tile-sub">~${inf.dailyM || '0.00'}M</span>
+              </div>
+              <div class="usage-tile" title="過去 7 天 (168小時) 真實滾動用量，精準對標三大鐵律 75M 防線 (佔 ${inf.reachPct7d || 0}%)">
+                <span class="usage-tile-title">🛡️ 滾動 7 天</span>
+                <span class="usage-tile-num val-blue">${(inf.rolling7dTokens || 0).toLocaleString()}</span>
+                <span class="usage-tile-sub">~${inf.rolling7dM || '0.00'}M</span>
+              </div>
+              <div class="usage-tile">
+                <span class="usage-tile-title">🗓️ 本月累積</span>
+                <span class="usage-tile-num val-purple">${(inf.monthlyTokens || 0).toLocaleString()}</span>
+                <span class="usage-tile-sub">~${inf.monthlyM || '0.00'}M</span>
+              </div>
+              <div class="usage-tile">
+                <span class="usage-tile-title">📈 期間累計</span>
+                <span class="usage-tile-num val-orange">${(inf.periodTokens || 0).toLocaleString()}</span>
+                <span class="usage-tile-sub">~${inf.periodM || '0.00'}M</span>
+              </div>
+            </div>
+
+            <!-- 📊 週 Token 總額推論 (7d 滾動容量) -->
+            <div class="card-quota-box">
+              <div class="quota-header">
+                <span class="quota-title">📊 週 Token 總額推論 (7d 滾動容量)</span>
+                <span class="quota-pct-badge" style="color:${inf.riskColor}; border-color:${inf.riskColor};" title="雙軸負載到達率與推估每週總容量">
+                  ${inf.loadBadgeText}
+                </span>
+              </div>
+              <div class="quota-bar-track" title="當週總額負載進度: ${inf.reachPct}% (7d用量: ${inf.weeklyTokensM}M / ~${inf.inferredWeeklyM}M · 24h: ${inf.dailyTokensM}M)">
+                <div class="quota-bar-fill" style="width: ${Math.min(100, inf.reachPct)}%; background: ${inf.riskColor};"></div>
+                <div class="quota-safe-line" style="left: 80%;" title="80% 安全換手線"></div>
+              </div>
+              <div class="quota-meta-row">
+                <span style="font-family:'JetBrains Mono',monospace;">7d已用: ${inf.weeklyTokensM}M / ~${inf.inferredWeeklyM}M · 24h: ${inf.dailyTokensM}M</span>
+                <span style="color:${inf.riskColor}; font-weight:700;">${inf.advice}</span>
+              </div>
+            </div>
+
+            <!-- 🛡️ 三大鐵律門檻標籤 -->
+            <div style="font-size:0.74rem; color:var(--text-muted); background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:4px; padding:3px 8px; margin-top:0.6rem; font-family:'JetBrains Mono',monospace; display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:#60A5FA;">🛡️ 鐵律防線：<strong>24h ${inf.burst24hM}M · 7d ${inf.rolling7dThresholdM || inf.rolling7dM}M</strong>${inf.dynCfg && inf.dynCfg.autoCalibrated ? ' <span style="color:#34D399; font-size:0.68rem; margin-left:4px;">(動態校準中)</span>' : ''}</span>
+              <span style="font-size:0.7rem; color:var(--text-secondary);" title="三大鐵律 80% 安全換手線">80%安全交接線</span>
+            </div>
+
+            <!-- 🤖 雙軌官方 SSOT 配額矩陣 (Gemini 週額度 ✕ 5h 窗口) -->
+            <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:6px; padding:8px 10px; margin-top:0.75rem;">
+              <!-- 🗓️ Gemini 每週總額度 -->
+              <div class="model-row" style="margin-bottom:0.6rem;">
+                <div class="model-header" style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-bottom:0.25rem;">
+                  <span class="model-name" style="color:#60A5FA;">🗓️ Gemini 每週額度 (官方 SSOT)</span>
+                  <span class="model-pct ${gWeeklyPctClass}">${gWeeklyPct}%</span>
+                </div>
+                <div class="bar-track" style="margin-bottom:0.25rem;">
+                  <div class="bar-fill ${gWeeklyFillClass}" style="width: ${gWeeklyPct}%;"></div>
+                </div>
+                <div style="font-size:0.72rem; color:var(--text-secondary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; font-family:'JetBrains Mono',monospace;">
+                  <span>週重置倒數：<strong id="cd_weekly_${acc.id}" style="color:${gWeeklyPct <= 20 ? '#F85149' : (gWeeklyPct <= 50 ? '#FBBF24' : '#34D399')};">${gWeeklyCd}</strong></span>
+                  <span style="color:#60A5FA; font-weight:600;" title="每週官方重置時間">${gWeeklyResetStr}</span>
+                </div>
+              </div>
+
+              <!-- ⚡ Gemini 5小時滾動窗口 -->
+              <div class="model-row">
+                <div class="model-header" style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:600; margin-bottom:0.25rem;">
+                  <span class="model-name" style="color:var(--text-secondary);">⚡ 5 小時即時窗口</span>
+                  <span class="model-pct ${g5hPctClass}">${g5hPct}%</span>
+                </div>
+                <div class="bar-track" style="margin-bottom:0.25rem;">
+                  <div class="bar-fill ${g5hFillClass}" style="width: ${g5hPct}%;"></div>
+                </div>
+                <div style="font-size:0.72rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; font-family:'JetBrains Mono',monospace;">
+                  <span>窗口倒數：<strong id="cd_5h_${acc.id}" style="color:var(--text-primary);">${g5hCd}</strong></span>
+                  <span style="color:#FBBF24; font-weight:600;" title="5小時窗口重置時間">${g5hResetStr}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 🟣 Claude / 3P 模型每週狀態 (若有消耗或非100%醒目提示) -->
+            ${cWeeklyPct < 100 ? `
+            <div class="model-row" style="margin-top:0.5rem; background:rgba(168,85,247,0.06); border:1px solid rgba(168,85,247,0.25); border-radius:6px; padding:6px 9px;">
+              <div class="model-header" style="display:flex; justify-content:space-between; font-size:0.76rem; font-weight:700; margin-bottom:0.2rem;">
+                <span class="model-name" style="color:#C084FC;">Claude 每週額度 (3P SSOT)</span>
+                <span class="model-pct ${cWeeklyPctClass}">${cWeeklyPct}%</span>
+              </div>
+              <div class="bar-track" style="margin-bottom:0.2rem;">
+                <div class="bar-fill ${cWeeklyFillClass}" style="width: ${cWeeklyPct}%;"></div>
+              </div>
+              <div style="font-size:0.71rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; font-family:'JetBrains Mono',monospace;">
+                <span>倒數：<strong style="color:#E2E8F0;">${cWeeklyCd}</strong></span>
+                <span style="color:#C084FC; font-weight:600;" title="Claude 每週重置時間">${cWeeklyResetStr}</span>
+              </div>
+            </div>` : ''}
+
+            <!-- 指標 (已記帳對話筆數 ✕ 最後記帳時間) -->
+            <div class="card-metrics" style="margin-top:0.75rem;">
+              <div>
+                <div class="metric-item-label">已記帳對話</div>
+                <div class="metric-item-val" style="font-size:0.88rem; font-weight:700; color:var(--text-primary); font-family:'JetBrains Mono',monospace;">${accHistoryCount} 筆</div>
+              </div>
+              <div>
+                <div class="metric-item-label">最後記帳時間</div>
+                <div class="metric-item-val" style="font-size:0.75rem; color:var(--text-secondary);">${displayLastLoggedAt}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 卡片操作按鈕 (雙軌並行：左切換服役、右調整數值) -->
+          <div class="card-footer" style="display:flex; gap:0.5rem; margin-top:0.85rem;">
+            <button class="btn-sm ${acc.isActive ? 'active-switch' : ''}" style="flex:1.2; justify-content:center;" onclick="setActiveAccount('${acc.id}')">
+              ${acc.isActive ? '🟢 當前服役中' : '⚡ 切換此帳號'}
+            </button>
+            <button class="btn-sm" style="flex:1; justify-content:center;" onclick="openEditModal('${acc.id}')">
+              ✏️ 調整數值
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+    }
+
+    // 同步頂部橫幅 KPI (四維用量聚合)
+    function updateGlobalKpi() {
+      let totalDaily = 0, totalWeekly = 0, totalMonthly = 0;
+      (state.accounts || []).forEach(acc => {
+        const inf = getAccountCooldownInference(acc);
+        totalDaily += inf.dailyTokens;
+        totalWeekly += inf.weeklyTokens;
+        totalMonthly += inf.monthlyTokens;
+      });
+
+      const elD = document.getElementById("globalDailyVal");
+      if (elD) elD.innerText = `${totalDaily.toLocaleString()} (~${(totalDaily/1000000).toFixed(2)}M)`;
+      const elW = document.getElementById("globalWeeklyVal");
+      if (elW) elW.innerText = `${totalWeekly.toLocaleString()} (~${(totalWeekly/1000000).toFixed(2)}M)`;
+      const elM = document.getElementById("globalMonthlyVal");
+      if (elM) elM.innerText = `${totalMonthly.toLocaleString()} (~${(totalMonthly/1000000).toFixed(2)}M)`;
+    }
+
+    let activeHistoryTab = 'history';
+
+    // 雙軌 Tab 切換控制 (項目 A)
+    function switchHistoryTab(tab) {
+      activeHistoryTab = tab;
+      const btnHist = document.getElementById("btnTabHistory");
+      const btnDisp = document.getElementById("btnTabDispatch");
+      const paneHist = document.getElementById("paneHistoryTable");
+      const paneDisp = document.getElementById("paneDispatchTable");
+      const btnClearLabel = document.getElementById("btnClearTabLabel");
+
+      if (tab === 'history') {
+        btnHist.classList.add("active");
+        btnDisp.classList.remove("active");
+        paneHist.style.display = "block";
+        paneDisp.style.display = "none";
+        if (btnClearLabel) btnClearLabel.innerText = "🗑️ 清空記帳歷史";
+      } else {
+        btnHist.classList.remove("active");
+        btnDisp.classList.add("active");
+        paneHist.style.display = "none";
+        paneDisp.style.display = "block";
+        if (btnClearLabel) btnClearLabel.innerText = "🗑️ 清空調度紀錄";
+      }
+    }
+
+    let historySubView = 'daily'; // 'daily', 'today', 'monthly'
+
+    // 切換記帳歷程的三層子視圖
+    function switchHistorySubView(view) {
+      historySubView = view;
+      const pillDaily = document.getElementById("pillDailyRollup");
+      const pillToday = document.getElementById("pillTodayStream");
+      const pillMonthly = document.getElementById("pillMonthlySummary");
+
+      const viewDaily = document.getElementById("viewDailyRollup");
+      const viewToday = document.getElementById("viewTodayStream");
+      const viewMonthly = document.getElementById("viewMonthlySummary");
+      const hint = document.getElementById("subViewHint");
+
+      if (pillDaily) pillDaily.classList.toggle("active", view === 'daily');
+      if (pillToday) pillToday.classList.toggle("active", view === 'today');
+      if (pillMonthly) pillMonthly.classList.toggle("active", view === 'monthly');
+
+      if (viewDaily) viewDaily.style.display = view === 'daily' ? 'block' : 'none';
+      if (viewToday) viewToday.style.display = view === 'today' ? 'block' : 'none';
+      if (viewMonthly) viewMonthly.style.display = view === 'monthly' ? 'block' : 'none';
+
+      if (hint) {
+        if (view === 'daily') {
+          hint.innerText = "💡 超過一日自動按「日期 ✕ 帳號」聚合加總，點擊「查看明細」可下鑽全量對話";
+        } else if (view === 'today') {
+          hint.innerText = "⚡ 今日即時流水帳：即時監控本日每筆新增對話消耗";
+        } else {
+          hint.innerText = "🗓️ 帳號月度總額：以月份與帳號維度統計，聚焦近 1~2 個月消耗水位";
+        }
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // 渲染雙軌明細 (記帳歷程三層視圖 ✕ 帳號調度與冷卻紀錄)
+    function renderHistoryAndDispatch() {
+      const historyList = (state.history || []).slice().sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+      const hBadge = document.getElementById("historyCountBadge");
+      if (hBadge) hBadge.innerText = historyList.length;
+
+      const now = new Date();
+      const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+      // 1. 渲染 View 1: 歷史每日彙總 (按 日期 ✕ 帳號 聚合)
+      renderDailyRollupView(historyList, todayStr);
+
+      // 2. 渲染 View 2: 今日即時流水 (今日對話)
+      renderTodayStreamView(historyList, todayStr);
+
+      // 3. 渲染 View 3: 帳號月度總額 (按 月份 ✕ 帳號 聚合)
+      renderMonthlySummaryView(historyList);
+
+      // 4. 渲染 Tab 2: 帳號調度與冷卻紀錄
+      renderDispatchTableView();
+    }
+
+    // 渲染 View 1: 歷史每日彙總
+    function renderDailyRollupView(historyList, todayStr) {
+      const tbody = document.getElementById("dailyRollupTbody");
+      const badge = document.getElementById("dailyRollupBadge");
+      if (!tbody) return;
+
+      const dailyGroups = {};
+      historyList.forEach(h => {
+        const timeStr = h.time || '';
+        const dateStr = timeStr.slice(0, 10) || '未知日期';
+        const email = (h.email || 'unknown').toLowerCase().trim();
+        const key = `${dateStr}__${email}`;
+        if (!dailyGroups[key]) {
+          dailyGroups[key] = {
+            date: dateStr,
+            email: h.email || 'unknown',
+            count: 0,
+            tokens: 0,
+            models: {},
+            isToday: dateStr === todayStr
+          };
+        }
+        dailyGroups[key].count += 1;
+        dailyGroups[key].tokens += (Number(h.tokens) || 0);
+        const m = h.model || 'Gemini';
+        dailyGroups[key].models[m] = (dailyGroups[key].models[m] || 0) + 1;
+      });
+
+      const groupKeys = Object.keys(dailyGroups).sort((a, b) => {
+        const [dateA] = a.split('__');
+        const [dateB] = b.split('__');
+        if (dateA !== dateB) return dateB.localeCompare(dateA);
+        return dailyGroups[b].tokens - dailyGroups[a].tokens;
+      });
+
+      if (badge) badge.innerText = `${groupKeys.length} 組`;
+
+      if (groupKeys.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">📅 暫無歷史記帳紀錄</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = groupKeys.map(k => {
+        const g = dailyGroups[k];
+        const topModel = Object.keys(g.models).sort((a, b) => g.models[b] - g.models[a])[0] || 'Gemini';
+        const dateBadge = g.isToday 
+          ? `<span style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); color:#38BDF8; font-size:0.7rem; padding:1px 6px; border-radius:4px; margin-left:4px;">今日</span>` 
+          : '';
+        const tokensM = (g.tokens / 1000000).toFixed(2);
+
+        return `
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600;">${g.date} ${dateBadge}</td>
+            <td style="font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--text-primary);">${g.email}</td>
+            <td><span class="val-blue" style="font-weight:700; font-family:'JetBrains Mono',monospace;">${g.count}</span> <span style="font-size:0.75rem; color:var(--text-secondary);">場</span></td>
+            <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#38BDF8;">${g.tokens.toLocaleString()} <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:normal;">(~${tokensM}M)</span></td>
+            <td><span style="background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; font-size:0.75rem; color:var(--accent-blue);">${topModel}</span></td>
+            <td>
+              <button class="btn-xs" style="background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); color:#38BDF8; font-weight:700; padding:3px 10px; border-radius:4px; cursor:pointer;" onclick="openHistoryDetailModal('${escapeAttr(g.date)}', '${escapeAttr(g.email)}')">
+                🔍 查看明細 (${g.count}筆)
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 渲染 View 2: 今日即時流水
+    function renderTodayStreamView(historyList, todayStr) {
+      const tbody = document.getElementById("todayStreamTbody");
+      const badge = document.getElementById("todayStreamBadge");
+      if (!tbody) return;
+
+      const todayList = historyList.filter(h => (h.time || '').startsWith(todayStr));
+      if (badge) badge.innerText = `${todayList.length} 筆`;
+
+      if (todayList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:2rem;">⚡ 今日 (${todayStr}) 尚無新對話記帳（完成對話將即時於此呈現流水明細）</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = todayList.map(h => `
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-secondary);">${h.time || '-'}</td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:600;">${h.email || '-'}</td>
+          <td><span style="background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; font-size:0.75rem; color:var(--accent-blue);">${h.model || 'Gemini'}</span></td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#38BDF8;">${(Number(h.tokens)||0).toLocaleString()}</td>
+          <td style="color:var(--text-secondary);">${escapeHtml(h.note || '-')}</td>
+        </tr>
+      `).join('');
+    }
+
+    // 渲染 View 3: 帳號月度總額
+    function renderMonthlySummaryView(historyList) {
+      const tbody = document.getElementById("monthlySummaryTbody");
+      const badge = document.getElementById("monthlySummaryBadge");
+      if (!tbody) return;
+
+      const monthlyGroups = {};
+      const monthTotals = {};
+
+      historyList.forEach(h => {
+        const timeStr = h.time || '';
+        const monthStr = timeStr.slice(0, 7) || '未知月份';
+        const email = (h.email || 'unknown').toLowerCase().trim();
+        const key = `${monthStr}__${email}`;
+        const tokens = Number(h.tokens) || 0;
+
+        monthTotals[monthStr] = (monthTotals[monthStr] || 0) + tokens;
+
+        if (!monthlyGroups[key]) {
+          monthlyGroups[key] = {
+            month: monthStr,
+            email: h.email || 'unknown',
+            count: 0,
+            tokens: 0
+          };
+        }
+        monthlyGroups[key].count += 1;
+        monthlyGroups[key].tokens += tokens;
+      });
+
+      const groupKeys = Object.keys(monthlyGroups).sort((a, b) => {
+        const [monthA] = a.split('__');
+        const [monthB] = b.split('__');
+        if (monthA !== monthB) return monthB.localeCompare(monthA);
+        return monthlyGroups[b].tokens - monthlyGroups[a].tokens;
+      });
+
+      if (badge) badge.innerText = `${groupKeys.length} 帳/月`;
+
+      if (groupKeys.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:2rem;">🗓️ 暫無月度累積紀錄</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = groupKeys.map(k => {
+        const g = monthlyGroups[k];
+        const mTotal = monthTotals[g.month] || 1;
+        const pct = Math.round((g.tokens / mTotal) * 100);
+        const tokensM = (g.tokens / 1000000).toFixed(2);
+
+        let statusHtml = g.tokens >= 1800000 
+          ? `<span style="color:#F87171; font-weight:700;">⚠️ 接近官方每週/月度高耗防線</span>` 
+          : `<span style="color:#34D399; font-weight:600;">🟢 額度健康</span>`;
+
+        return `
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace; font-size:0.82rem; font-weight:700; color:var(--accent-purple);">${g.month}</td>
+            <td style="font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--text-primary);">${g.email}</td>
+            <td><span class="val-blue" style="font-weight:700; font-family:'JetBrains Mono',monospace;">${g.count}</span> <span style="font-size:0.75rem; color:var(--text-secondary);">場</span></td>
+            <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#38BDF8;">${g.tokens.toLocaleString()} <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:normal;">(~${tokensM}M)</span></td>
+            <td>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="flex:1; height:6px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden; max-width:120px;">
+                  <div style="width:${pct}%; height:100%; background:var(--accent-purple); border-radius:999px;"></div>
+                </div>
+                <span style="font-size:0.75rem; font-family:'JetBrains Mono',monospace; color:var(--text-secondary);">${pct}% 當月佔比</span>
+                ${statusHtml}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 渲染 Tab 2: 帳號調度與冷卻紀錄
+    function renderDispatchTableView() {
+      const dTbody = document.getElementById("dispatchTbody");
+      const dBadge = document.getElementById("dispatchCountBadge");
+
+      const mergedEvents = [];
+      (state.cooldownIncidents || []).forEach(inc => {
+        mergedEvents.push({
+          time: inc.triggeredAt || inc.time || '-',
+          typeBadge: `<span style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#F87171; font-size:0.72rem; padding:2px 8px; border-radius:999px; font-weight:700;">🛑 長效冷卻</span>`,
+          email: inc.email || '-',
+          detail: `累積達 <strong>${inc.tokensM || (inc.tokensAtCooldown/1000000).toFixed(2)}M</strong> 時觸發 <strong>${inc.cooldownStr}</strong> 冷卻倒數`,
+          meta: `實測門檻 ${(Number(inc.tokensAtCooldown)||0).toLocaleString()}`
+        });
+      });
+
+      (state.dispatchLogs || []).forEach(disp => {
+        mergedEvents.push({
+          time: disp.time || '-',
+          typeBadge: `<span style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); color:#38BDF8; font-size:0.72rem; padding:2px 8px; border-radius:999px; font-weight:700;">🔄 主動調度</span>`,
+          email: disp.email || '-',
+          detail: disp.detail || '手動切換服役帳號',
+          meta: `${disp.operator || '線上總表'}`
+        });
+      });
+
+      mergedEvents.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+      if (dBadge) dBadge.innerText = mergedEvents.length;
+
+      if (!dTbody) return;
+      if (mergedEvents.length === 0) {
+        dTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:2rem;">🔄 暫無調度與冷卻紀錄 (點擊上方卡片「切換使用此帳號」將自動記錄調度軌跡)</td></tr>`;
+      } else {
+        dTbody.innerHTML = mergedEvents.map(e => `
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-secondary);">${e.time}</td>
+            <td>${e.typeBadge}</td>
+            <td style="font-family:'JetBrains Mono',monospace; font-weight:600;">${e.email}</td>
+            <td style="color:var(--text-primary); font-size:0.82rem;">${e.detail}</td>
+            <td style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-secondary);">${e.meta}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 🔍 歷史對話明細下鑽彈窗控制
+    function openHistoryDetailModal(dateStr, email) {
+      const modal = document.getElementById("historyDetailModal");
+      const title = document.getElementById("detailModalTitle");
+      const summary = document.getElementById("detailModalSummary");
+      const tbody = document.getElementById("detailModalTbody");
+      if (!modal || !tbody) return;
+
+      const targetEmail = (email || '').toLowerCase().trim();
+      const matched = (state.history || []).filter(h => {
+        const hDate = (h.time || '').slice(0, 10);
+        const hEmail = (h.email || '').toLowerCase().trim();
+        return hDate === dateStr && hEmail === targetEmail;
+      }).sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+
+      const totalTokens = matched.reduce((sum, h) => sum + (Number(h.tokens) || 0), 0);
+      const totalM = (totalTokens / 1000000).toFixed(2);
+
+      if (title) title.innerHTML = `📜 <span>${dateStr} 對話流水明細</span>`;
+      if (summary) {
+        summary.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div>
+              <span>帳號：<strong style="color:var(--text-primary); font-family:'JetBrains Mono',monospace;">${email}</strong></span>
+              <span style="margin:0 8px; color:var(--border-color);">|</span>
+              <span>統計日期：<strong style="color:var(--text-primary);">${dateStr}</strong></span>
+            </div>
+            <div>
+              共計 <strong style="color:var(--accent-blue);">${matched.length}</strong> 場對話，當日總消耗：<strong style="color:#38BDF8; font-family:'JetBrains Mono',monospace;">${totalTokens.toLocaleString()} Tokens</strong> (~${totalM}M)
+            </div>
+          </div>
+        `;
+      }
+
+      if (matched.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:2rem;">該日暫無明細紀錄</td></tr>`;
+      } else {
+        tbody.innerHTML = matched.map(h => `
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-secondary);">${h.time || '-'}</td>
+            <td><span style="background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; font-size:0.75rem; color:var(--accent-blue);">${h.model || 'Gemini'}</span></td>
+            <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#38BDF8;">${(Number(h.tokens)||0).toLocaleString()}</td>
+            <td style="color:var(--text-primary); font-size:0.8rem;">${escapeHtml(h.note || '-')}</td>
+          </tr>
+        `).join('');
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeHistoryDetailModal() {
+      const modal = document.getElementById("historyDetailModal");
+      if (modal) modal.style.display = 'none';
+    }
+
+    // 相容別名
+    function renderHistory() {
+      renderHistoryAndDispatch();
+    }
+
+    // 儲存狀態至本地與線上同步 (支援 dispatchLogs 持久化)
+    async function persistState(showNotice = false) {
+      localStorage.setItem("antigravity_token_accounts", JSON.stringify(state.accounts));
+      localStorage.setItem("antigravity_token_history", JSON.stringify(state.history));
+      localStorage.setItem("antigravity_token_cooldown_incidents", JSON.stringify(state.cooldownIncidents));
+      localStorage.setItem("antigravity_token_dispatch_logs", JSON.stringify(state.dispatchLogs || []));
+
+      // 取得同步端點 (相容 file://, localhost 以及 Render 雲端部署)
+      function getSyncEndpointUrl(k) {
+        if (window.location.protocol === 'file:') {
+          return `http://127.0.0.1:8765/api/token_sync?key=${encodeURIComponent(k)}`;
+        }
+        return `/api/token_sync?key=${encodeURIComponent(k)}`;
+      }
+
+      // 若在線上環境，呼叫 API 持久化至 SQLite WAL
+      const key = getAdminKey();
+      try {
+        const payloadStr = JSON.stringify({
+          accounts: state.accounts,
+          history: state.history,
+          cooldownIncidents: state.cooldownIncidents,
+          dispatchLogs: state.dispatchLogs || [],
+          updated_at: new Date().toISOString()
+        });
+        let resp = null;
+        try {
+          resp = await fetch(getSyncEndpointUrl(key), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: payloadStr
+          });
+        } catch (localErr) {
+          if (window.location.protocol === 'file:' || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+            try {
+              resp = await fetch(`https://tw-parking-linebot.onrender.com/api/token_sync?key=${encodeURIComponent(key)}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: payloadStr
+              });
+            } catch(e) {}
+          }
+        }
+        if (resp && resp.ok) {
+          const res = await resp.json();
+          document.getElementById("lastSyncedTime").innerText = res.synced_at || new Date().toLocaleString();
+          if (showNotice) showToast("🎉 數據已同步儲存至線上雲端 (SQLite WAL)！");
+        }
+      } catch(e) {
+        console.warn("線上同步警示:", e);
+      }
+    }
+
+    // 切換活躍帳號並自動留存調度紀錄 (項目 B)
+    function setActiveAccount(accId) {
+      const targetAcc = state.accounts.find(a => a.id === accId);
+      if (!targetAcc) return;
+      if (targetAcc.isActive) {
+        showToast("ℹ️ 此帳號已是當前活躍服役帳號！");
+        return;
+      }
+      const prevActive = state.accounts.find(a => a.isActive);
+      state.accounts.forEach(a => a.isActive = (a.id === accId));
+      
+      // 自動留存調度紀錄 (項目 B)
+      const nowStr = getLocalNowString();
+      const logEntry = {
+        id: "disp_" + Date.now(),
+        time: nowStr,
+        type: "SWITCH_ACCOUNT",
+        operator: "線上指揮中心 (Web)",
+        email: targetAcc.email,
+        detail: `[主動調度] 將服役帳號由 ${prevActive ? prevActive.email : '無'} 切換至 ${targetAcc.email}`,
+        tokensAtSwitch: targetAcc.totalRecordedTokens || 0
+      };
+      if (!state.dispatchLogs) state.dispatchLogs = [];
+      state.dispatchLogs.unshift(logEntry);
+      if (state.dispatchLogs.length > 50) state.dispatchLogs = state.dispatchLogs.slice(0, 50);
+
+      persistState(true);
+      renderCards();
+      updateGlobalKpi();
+      renderHistoryAndDispatch();
+      showToast(`🔄 已成功調度！當前服役帳號切換為 ${targetAcc.email}`);
+    }
+
+    // 清空當前 Tab 紀錄
+    function clearCurrentHistoryTab() {
+      if (activeHistoryTab === 'history') {
+        if (confirm("確定要清空歷史記帳紀錄嗎？")) {
+          state.history = [];
+          persistState(true);
+          renderHistoryAndDispatch();
+          updateGlobalKpi();
+        }
+      } else {
+        if (confirm("確定要清空所有調度與冷卻紀錄嗎？")) {
+          state.dispatchLogs = [];
+          state.cooldownIncidents = [];
+          persistState(true);
+          renderHistoryAndDispatch();
+          renderCards();
+          updateGlobalKpi();
+        }
+      }
+    }
+
+    // 匯入備份 Modal
+    function openImportModal() {
+      document.getElementById("importFileInput").value = "";
+      document.getElementById("importJsonText").value = "";
+      document.getElementById("importModal").style.display = "flex";
+    }
+
+    function closeImportModal() {
+      document.getElementById("importModal").style.display = "none";
+    }
+
+    function openEditModal(accId) {
+      const acc = state.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      document.getElementById("editAccId").value = acc.id;
+      document.getElementById("editEmail").value = acc.email;
+      document.getElementById("editGeminiPct").value = acc.geminiPct;
+      document.getElementById("editGeminiCooldown").value = acc.geminiCooldown || '5h 0m';
+      document.getElementById("editModal").style.display = "flex";
+    }
+
+    function closeEditModal() {
+      document.getElementById("editModal").style.display = "none";
+    }
+
+    async function saveAccountEdit() {
+      const accId = document.getElementById("editAccId").value;
+      const acc = state.accounts.find(a => a.id === accId);
+      if (!acc) return;
+
+      const gPct = parseInt(document.getElementById("editGeminiPct").value);
+      const gCd = document.getElementById("editGeminiCooldown").value.trim();
+
+      delete acc.claudePct;
+      delete acc.claudeCooldown;
+      delete acc.claudeCooldownUntil;
+
+      acc.geminiPct = isNaN(gPct) ? acc.geminiPct : Math.min(100, Math.max(0, gPct));
+      acc.geminiCooldown = gCd || '5h 0m';
+
+      // 檢查是否觸發多日長效冷卻信標 (Google Gemini 專屬 SSOT)
+      if (gCd && gCd.includes('d')) {
+        const usage = getAccountDetailedUsage(acc.email);
+        const effective = Math.max(acc.totalRecordedTokens || 0, usage.weeklyTokens || 0, usage.periodTokens || 0, 1800000);
+        acc.totalRecordedTokens = effective;
+        if (!state.cooldownIncidents) state.cooldownIncidents = [];
+        state.cooldownIncidents.unshift({
+          id: "inc_" + Date.now(),
+          time: getLocalNowString(),
+          email: acc.email,
+          model: 'Gemini',
+          cooldownStr: gCd,
+          tokensAtCooldown: effective,
+          tokensM: (effective / 1000000).toFixed(2),
+          note: `累積達 ${(effective / 1000000).toFixed(2)}M 時觸發長效冷卻`
+        });
+      }
+
+      await persistState(true);
+      renderCards();
+      updateGlobalKpi();
+      closeEditModal();
+      showToast(`✅ 已更新 ${acc.email} 之額度與冷卻數值！`);
+    }
+
+    async function executeImport() {
+      const fileInput = document.getElementById("importFileInput");
+      const jsonText = document.getElementById("importJsonText").value.trim();
+
+      let dataToImport = null;
+
+      if (fileInput.files && fileInput.files[0]) {
+        try {
+          const text = await fileInput.files[0].text();
+          dataToImport = JSON.parse(text);
+        } catch(e) {
+          alert("讀取檔案失敗，請確保為有效的 JSON 檔案！");
+          return;
+        }
+      } else if (jsonText) {
+        try {
+          dataToImport = JSON.parse(jsonText);
+        } catch(e) {
+          alert("解析 JSON 失敗，格式有誤！");
+          return;
+        }
+      } else {
+        alert("請選擇 JSON 檔案或貼上 JSON 內容！");
+        return;
+      }
+
+      if (!dataToImport || (!dataToImport.accounts && !Array.isArray(dataToImport))) {
+        alert("未偵測到 accounts 資料結構！");
+        return;
+      }
+
+      const incomingAccs = dataToImport.accounts || (Array.isArray(dataToImport) ? dataToImport : []);
+      state.accounts = sanitizeAccounts(incomingAccs);
+
+      if (Array.isArray(dataToImport.history)) {
+        state.history = dataToImport.history.filter(h => h && (!h.email || !h.email.includes("unit_test")));
+      }
+      if (Array.isArray(dataToImport.cooldownIncidents)) {
+        state.cooldownIncidents = dataToImport.cooldownIncidents.filter(i => i && (!i.email || !i.email.includes("unit_test")));
+      }
+      if (Array.isArray(dataToImport.dispatchLogs)) {
+        state.dispatchLogs = dataToImport.dispatchLogs;
+      }
+
+      closeImportModal();
+      await persistState(false);
+      renderCards();
+      updateGlobalKpi();
+      renderHistoryAndDispatch();
+      showToast("🎉 成功匯入本機資料！線上四組帳號、調度與用量已完全同步！");
+    }
+
+    // 匯出資料
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `cloud_token_accounts_${new Date().toISOString().substring(0,10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    // 還原初始設定
+    function resetDefaults() {
+      if (confirm("確定要將線上 4 個帳號與用量還原回初始設定嗎？")) {
+        state.accounts = JSON.parse(JSON.stringify(DEFAULT_ACCOUNTS));
+        state.history = [];
+        state.dispatchLogs = [];
+        persistState(true);
+        renderCards();
+        updateGlobalKpi();
+        renderHistoryAndDispatch();
+      }
+    }
+
+    // 重新整理雲端數據 (項目 C: 手動刷新 ✕ 30 秒自動輪詢)
+    async function refreshCloudBoard(silent = false) {
+      const key = getAdminKey();
+      const btn = document.getElementById("btnManualRefresh");
+      if (btn && !silent) {
+        btn.innerHTML = "<span>⏳ 正在更新...</span>";
+        btn.style.opacity = "0.7";
+      }
+
+      try {
+        let resp = null;
+        const endpoint = window.location.protocol === 'file:' 
+          ? `http://127.0.0.1:8765/api/token_sync?key=${encodeURIComponent(key)}`
+          : `/api/token_sync?key=${encodeURIComponent(key)}`;
+        const headers = {};
+        if (window._lastCloudEtag) {
+          headers["If-None-Match"] = window._lastCloudEtag;
+        }
+        try {
+          resp = await fetch(endpoint, { headers });
+        } catch (netErr) {
+          if (window.location.protocol === 'file:' || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+            try {
+              resp = await fetch(`https://tw-parking-linebot.onrender.com/api/token_sync?key=${encodeURIComponent(key)}`, { headers });
+            } catch(e) {}
+          }
+        }
+        if (resp && resp.status === 304) {
+          // 🛡️ 雲端數據未變更，0 位元組傳輸防禦生效！
+          return;
+        }
+        if (resp && resp.ok) {
+          const etag = resp.headers.get("ETag");
+          if (etag) window._lastCloudEtag = etag;
+          const cData = await resp.json();
+          if (cData && cData.accounts && cData.accounts.length > 0) {
+            state.accounts = sanitizeAccounts(cData.accounts);
+            if (Array.isArray(cData.history)) {
+              state.history = cData.history.filter(h => !h.email || !h.email.includes("unit_test"));
+            }
+            if (Array.isArray(cData.cooldownIncidents)) {
+              state.cooldownIncidents = cData.cooldownIncidents.filter(i => !i.email || !i.email.includes("unit_test"));
+            }
+            if (Array.isArray(cData.dispatchLogs)) {
+              state.dispatchLogs = cData.dispatchLogs;
+            }
+            const syncTime = (cData.pulseData && cData.pulseData.updated_at) ? cData.pulseData.updated_at : (cData.updated_at || new Date().toLocaleString());
+            const elSyncTime = document.getElementById("lastSyncedTime");
+            if (elSyncTime) elSyncTime.innerText = syncTime;
+
+            renderCards();
+            updateGlobalKpi();
+            renderHistoryAndDispatch();
+            if (!silent) showToast("🎉 數據已同步更新至最新狀態！");
+          }
+        }
+      } catch(e) {
+        if (!silent) console.warn("無法從雲端 API 載入數據:", e);
+      } finally {
+        if (btn && !silent) {
+          btn.innerHTML = "<span>🔄 重新整理數據</span>";
+          btn.style.opacity = "1";
+        }
+      }
+    }
+
+    // 初始化載入
+    async function initCloudBoard() {
+      const savedLogs = localStorage.getItem("antigravity_token_dispatch_logs");
+      if (savedLogs) {
+        try { state.dispatchLogs = JSON.parse(savedLogs); } catch(e) {}
+      }
+
+      // 立即渲染本地預設基準，避免網路延遲時畫面空白
+      renderCards();
+      updateGlobalKpi();
+      renderHistoryAndDispatch();
+
+      await refreshCloudBoard(true);
+
+      // ⏱️ 實時每秒跳秒動態倒數
+      setInterval(tickCooldowns, 1000);
+
+      // 🛡️ 智能輪詢：切換至背景分頁時停止輪詢，回到前台時立即校準，杜絕頻寬失控
+      setInterval(() => {
+        if (document.visibilityState === "visible") {
+          refreshCloudBoard(true);
+        }
+      }, 60000);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          refreshCloudBoard(true);
+        }
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", initCloudBoard);
+
+  </script>
+</body>
+</html>

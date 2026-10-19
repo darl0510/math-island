@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "奇幻數學島題庫範本 (Question Bank Template for Grades 3-6)",
+  "description": "供擴充三年級、四年級、五年級、六年級題庫使用之標準 JSON 格式範本",
+  "generatedAt": "2026-10-19T12:00:00.000Z",
+  "grade": 3,
+  "gradeName": "國小三年級",
+  "targetPerLevel": 12,
+  "levels": {
+    "1": [
+      {
+        "prompt": "題目文字（例如：四位數的大小比較：3450 和 3540 哪一個比較大？）",
+        "speak": "語音朗讀文本（若無靜態 mp3，瀏覽器 Web Speech API 會自動以標準台灣國語朗讀）",
+        "hint": "小朋友點擊提示按鈕時顯示的引導文字",
+        "explanation": "答題結束後顯示的詳細解答說明",
+        "answer": "3540",
+        "options": [
+          "3540",
+          "3450",
+          "一樣大"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 3450,
+          "b": 1200,
+          "op": "+"
+        }
+      }
+    ]
+  }
+}

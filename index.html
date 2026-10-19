@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd93d" />
+  <meta name="description" content="台灣國小一年級（108 課綱）的 16 關彩虹數學冒險！用十格板、時鐘、錢幣與生活應用題學加減，搭配 Gemini 台灣口音語音讀題、歡樂音樂與三顆星挑戰，免費線上玩。" />
+  <meta name="keywords" content="台灣小一數學,一年級數學遊戲,108課綱,數學冒險,加減法,十格板,時鐘,錢幣,語音讀題,免費線上遊戲" />
+  <meta name="author" content="Will 保哥" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="application-name" content="奇幻數學島大冒險" />
+  <meta name="apple-mobile-web-app-title" content="奇幻數學島" />
+  <link rel="canonical" href="https://math-1.gh.miniasp.com/" />
+  <title>奇幻數學島大冒險｜台灣小一 16 關數學遊戲</title>
+
+  <!-- Open Graph（Facebook、LINE、Messenger 分享預覽） -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="奇幻數學島大冒險" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:title" content="奇幻數學島大冒險｜台灣小一 16 關數學遊戲" />
+  <meta property="og:description" content="16 關彩虹數學冒險，從數數、加減到錢幣與生活應用題。台灣小一（108 課綱）免費線上玩，搭配台灣口音語音讀題與歡樂音樂！" />
+  <meta property="og:url" content="https://math-1.gh.miniasp.com/" />
+  <meta property="og:image" content="https://math-1.gh.miniasp.com/assets/images/og-cover.jpg" />
+  <meta property="og:image:secure_url" content="https://math-1.gh.miniasp.com/assets/images/og-cover.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="奇幻數學島大冒險遊戲封面：橘色狐狸站在漂浮島上，背景有森林、海洋、雲朵與星空四座主題島嶼。" />
+
+  <!-- Twitter／X 大型卡片 -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="奇幻數學島大冒險｜台灣小一 16 關數學遊戲" />
+  <meta name="twitter:description" content="16 關彩虹數學冒險，從數數、加減到錢幣與生活應用題。台灣小一（108 課綱）免費線上玩！" />
+  <meta name="twitter:image" content="https://math-1.gh.miniasp.com/assets/images/og-cover.jpg" />
+  <meta name="twitter:image:alt" content="奇幻數學島大冒險遊戲封面：橘色狐狸與四座主題島嶼。" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "奇幻數學島大冒險",
+    "alternateName": "Fantasy Math Island Adventure",
+    "url": "https://math-1.gh.miniasp.com/",
+    "description": "專為台灣國小一年級（108 課綱）設計的 16 關數學冒險遊戲，涵蓋數數、比多少、序數、分與合、加減法、圖形、時間、位值、長度、錢幣、日曆統計與生活應用題。",
+    "image": "https://math-1.gh.miniasp.com/assets/images/og-cover.jpg",
+    "inLanguage": "zh-Hant-TW",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TWD"
+    },
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student",
+      "audienceType": "國小一年級"
+    },
+    "creator": {
+      "@type": "Person",
+      "name": "Will 保哥",
+      "url": "https://github.com/doggy8088"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>" />
+</head>
+<body data-screen="home">
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <header id="global-bar">
+    <button id="home-btn" class="bar-btn home-btn" type="button" aria-label="回到首頁">
+      <span>🏠</span>
+    </button>
+    <div class="brand">
+      <span class="brand-star" aria-hidden="true">✦</span>
+      <span>奇幻數學島</span>
+      <span class="brand-sub" id="brand-sub-text">大冒險</span>
+      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.1.2">v2.1.2</span>
+    </div>
+
+    <!-- 年級快速切換膠囊 -->
+    <div class="grade-pill-container" id="grade-pill-container">
+      <button id="grade-dropdown-btn" class="grade-dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false" title="點擊切換年級">
+        <span id="grade-btn-icon">🎒</span>
+        <span id="grade-btn-text">一年級</span>
+        <span class="grade-arrow">▾</span>
+      </button>
+      <div id="grade-dropdown-menu" class="grade-dropdown-menu hidden">
+        <button class="grade-dropdown-item" data-grade="1">🍎 一年級 (16 關)</button>
+        <button class="grade-dropdown-item" data-grade="2">🌟 二年級 (16 關)</button>
+        <button class="grade-dropdown-item" data-grade="3">🚀 三年級 (16 關)</button>
+      </div>
+    </div>
+    <div class="bar-actions">
+      <button id="music-btn" class="bar-btn music-btn" type="button" aria-pressed="true" aria-label="開關音樂">
+        <span>🎵</span>
+      </button>
+      <button id="tts-btn" class="bar-btn tts-btn" type="button" aria-pressed="true" aria-label="開關語音讀題">
+        <span>🔊</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="app">
+    <section id="screen-home" class="screen active" aria-label="首頁"></section>
+    <section id="screen-map" class="screen" aria-label="冒險地圖"></section>
+    <section id="screen-level" class="screen" aria-label="關卡"></section>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="noscript">請開啟 JavaScript 才能遊玩奇幻數學島大冒險。</div>
+  </noscript>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

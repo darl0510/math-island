@@ -1,0 +1,3312 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏛️ LINE 智慧生活與停車自駕系統 - 平鋪架構與代碼健康度可視化看板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070a13;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-glow: rgba(56, 189, 248, 0.25);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --emerald: #10b981;
+      --emerald-bg: rgba(16, 185, 129, 0.12);
+      --emerald-border: rgba(16, 185, 129, 0.3);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.12);
+      --amber-border: rgba(245, 158, 11, 0.3);
+      --rose: #f43f5e;
+      --rose-bg: rgba(244, 63, 94, 0.12);
+      --rose-border: rgba(244, 63, 94, 0.3);
+      --cyan: #06b6d4;
+      --indigo: #6366f1;
+      --purple: #8b5cf6;
+      --sky: #0ea5e9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      padding: 24px 20px 60px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+    }
+
+    /* --- 頂部標題區與品牌 --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-icon {
+      font-size: 38px;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(14, 165, 233, 0.15);
+    }
+
+    .brand-title h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .version-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
+      -webkit-text-fill-color: initial;
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(30, 41, 59, 0.8);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn:hover {
+      background: rgba(51, 65, 85, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+    }
+
+    .btn-warning:hover {
+      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+    }
+
+    .btn-danger-outline {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+    }
+
+    .btn-danger-outline:hover {
+      background: rgba(244, 63, 94, 0.22);
+      border-color: rgba(244, 63, 94, 0.6);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      border-color: rgba(244, 63, 94, 0.5);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(135deg, #be123c 0%, #9f1239 100%);
+      box-shadow: 0 6px 20px rgba(225, 29, 72, 0.5);
+    }
+
+    /* --- 核心 KPI 狀態卡 --- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px 20px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent-color, var(--cyan)), transparent);
+      opacity: 0.6;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+    }
+
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .kpi-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .kpi-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* --- 平鋪架構 4 大紅線守護橫幅 --- */
+    .compliance-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(6, 182, 212, 0.06) 100%);
+      border: 1px solid var(--emerald-border);
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .compliance-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .compliance-badge-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .compliance-title h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .compliance-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .rule-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .rule-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #a7f3d0;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .rule-chip.warning {
+      background: var(--amber-bg);
+      border-color: var(--amber-border);
+      color: #fde68a;
+    }
+
+    /* --- 分層架構拓撲流向圖 (Architecture Flow) --- */
+    .flow-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(12px);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topology-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .topo-layer {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .topo-layer:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(30, 41, 59, 0.5);
+    }
+
+    .topo-layer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .topo-layer-name {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topo-layer-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .topo-nodes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .topo-node {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .topo-node:hover {
+      background: rgba(51, 65, 85, 0.8);
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+    }
+
+    .topo-node-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .topo-node-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-healthy {
+      background: var(--emerald-bg);
+      color: var(--emerald);
+      border: 1px solid var(--emerald-border);
+    }
+
+    .badge-watch {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid var(--amber-border);
+    }
+
+    .badge-alert {
+      background: var(--rose-bg);
+      color: var(--rose);
+      border: 1px solid var(--rose-border);
+    }
+
+    .topo-connector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 18px;
+      margin: -6px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* --- 控制列：過濾器與搜尋 --- */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(51, 65, 85, 0.7);
+    }
+
+    .tab-btn.active {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #070a13;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.3);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 6px 14px;
+      width: 280px;
+      max-width: 100%;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 13px;
+      width: 100%;
+      margin-left: 8px;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-dim);
+    }
+
+    /* --- 檔案矩陣清單卡片 (Modules Grid) --- */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .module-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .module-name-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .module-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .module-role-tag {
+      font-size: 11px;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .module-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .module-stats-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .stat-lines-current {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-lines-ceiling {
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+
+    .module-meter {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .module-meter-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+
+    .module-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .layer-badge {
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* --- 彈窗 Modal --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+      font-size: 13px;
+      line-height: 1.6;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .detail-item {
+      margin-bottom: 14px;
+    }
+
+    .detail-label {
+      color: var(--text-dim);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .detail-content {
+      color: var(--text-main);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: #38bdf8;
+    }
+
+    /* 指令輸出框與清理清單樣式 */
+    .prompt-box {
+      background: #030712;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 340px;
+      overflow-y: auto;
+      line-height: 1.6;
+      margin: 14px 0;
+      user-select: all;
+    }
+
+    .clean-table-container {
+      max-height: 380px;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      background: rgba(10, 15, 29, 0.6);
+      margin-top: 12px;
+    }
+
+    .clean-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .clean-table th {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .clean-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    .clean-table tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .file-chip {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .chip-corrupt { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .chip-bak { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .chip-temp { background: rgba(14, 165, 233, 0.15); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.3); }
+    .chip-cache { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--border-glow);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(12px);
+      animation: toastIn 0.25s ease-out;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translate(-50%, 15px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    /* 🧭 全功能網址傳送門 Modal */
+    .portal-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: portalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes portalFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .portal-card {
+      background: #0F172A;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 1.25rem;
+      max-width: 980px;
+      width: 100%;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .portal-header {
+      padding: 1.25rem 1.75rem;
+      background: rgba(17, 24, 39, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .portal-title h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .portal-title p {
+      font-size: 0.85rem;
+      color: #94A3B8;
+      margin-top: 0.25rem;
+    }
+
+    .portal-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #CBD5E1;
+      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .portal-close-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #F87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    .portal-toolbar {
+      padding: 0.75rem 1.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .portal-host-switch {
+      display: inline-flex;
+      background: rgba(30, 41, 59, 0.95);
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .portal-host-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .portal-host-btn.active {
+      background: #6366F1;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    }
+
+    .portal-body {
+      padding: 1.5rem 1.75rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .portal-section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .portal-item {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.75rem;
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .portal-item:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .portal-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .portal-item-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .portal-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .badge-micro {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-flask {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818CF8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    .badge-file {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .portal-item-desc {
+      font-size: 0.8rem;
+      color: #94A3B8;
+      line-height: 1.4;
+    }
+
+    .portal-item-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #38BDF8;
+      background: rgba(15, 23, 42, 0.75);
+      padding: 5px 8px;
+      border-radius: 4px;
+      word-break: break-all;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .portal-item-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .btn-portal-open {
+      flex: 1;
+      background: #4F46E5;
+      color: #FFFFFF;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-portal-open:hover {
+      background: #6366F1;
+    }
+
+    .btn-portal-copy {
+      background: rgba(255, 255, 255, 0.08);
+      color: #CBD5E1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-portal-copy:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+    }
+
+    /* 響應式優化 */
+    @media (max-width: 768px) {
+      body { padding: 16px 12px 40px; }
+      header { flex-direction: column; align-items: stretch; }
+      .header-actions { justify-content: flex-start; }
+      .brand-title h1 { font-size: 20px; }
+      .controls-bar { flex-direction: column; align-items: stretch; }
+      .search-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- 頂部品牌與導航 -->
+    <header>
+      <div class="brand-group">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-title">
+          <h1>系統平鋪架構 ✕ 代碼健康度可視化看板 <span class="version-tag" id="appVersion">v2.69.43</span></h1>
+          <div class="brand-sub">Flat Architecture & Anti-Bloat Codebase Health Monitor · 單一真實來源 (SSOT) 視覺化中樞</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="token_dashboard.html" class="btn" target="_blank"
+          style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.2) 0%, rgba(188, 140, 255, 0.25) 100%); border-color: rgba(88, 166, 255, 0.5); color: #58a6ff; font-weight: 700; text-decoration: none;"
+          title="切換至 Antigravity Token 總指揮中心與配額輪替池">
+          ⚡ Token 總指揮中心
+        </a>
+        <button class="btn" onclick="openNavPortal()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: rgba(16, 185, 129, 0.4); color: #fff; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);">
+          🧭 系統全功能傳送門
+        </button>
+        <button class="btn btn-warning" id="btnGenOptimization" onclick="openOptimizationModal()">
+          💡 生成架構優化指令
+        </button>
+        <button class="btn btn-danger-outline" id="btnScanRedundant" onclick="openRedundantFilesModal()">
+          🧹 掃描專案多餘檔案
+        </button>
+        <button class="btn btn-primary" id="btnRefreshScan" onclick="refreshLiveData()">
+          <span id="scanIcon">🔄</span> 重新即時掃描
+        </button>
+        <button class="btn" onclick="copyMarkdownTable()">
+          📋 複製手冊 Markdown
+        </button>
+        <a href="admin_guide.html" class="btn" target="_blank" title="查看管理者使用手冊與權力全書">
+          📖 管理者手冊
+        </a>
+      </div>
+    </header>
+
+    <!-- 核心 KPI 狀態卡 -->
+    <section class="kpi-grid">
+      <!-- KPI 1: app.py 防線 -->
+      <div class="kpi-card" style="--accent-color: var(--emerald);">
+        <div class="kpi-label">⚡ 主入口純淨度 (app.py)</div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="appLinesVal">197</div>
+          <div class="kpi-sub">/ 850 行健康上限</div>
+        </div>
+        <div class="kpi-progress-bar">
+          <div class="kpi-progress-fill" id="appBar" style="width: 23.2%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+        </div>
+        <div style="font-size: 11px; color: #a7f3d0; margin-top: 8px; font-weight: 600;">
+          🟢 極度純淨 · 僅佔健康上限 23.2% (純路由無業務)
+        </div>
+      </div>
+
+      <!-- KPI 2: Flex 巨石瘦身成效 -->
+      <div class="kpi-card" style="--accent-color: var(--cyan);">
+        <div class="kpi-label">🎨 Flex 巨石平鋪拆解率</div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="flexReductionVal">-97.7%</div>
+          <div class="kpi-sub">單檔巨石瘦身</div>
+        </div>
+        <div class="kpi-progress-bar">
+          <div class="kpi-progress-fill" style="width: 97.7%; background: linear-gradient(90deg, #06b6d4, #38bdf8);"></div>
+        </div>
+        <div style="font-size: 11px; color: #bae6fd; margin-top: 8px; font-weight: 600;">
+          原 8,790 行 ➔ 拆解為 6 大專責領域子模組 (門面 202 行)
+        </div>
+      </div>
+
+      <!-- KPI 3: 平鋪模組健康率 -->
+      <div class="kpi-card" style="--accent-color: var(--purple);">
+        <div class="kpi-label">🛡️ 平鋪解耦模組數</div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="moduleCountVal">33</div>
+          <div class="kpi-sub">個獨立專責 Python 模組</div>
+        </div>
+        <div class="kpi-progress-bar">
+          <div class="kpi-progress-fill" style="width: 100%; background: linear-gradient(90deg, #8b5cf6, #c084fc);"></div>
+        </div>
+        <div style="font-size: 11px; color: #e9d5ff; margin-top: 8px; font-weight: 600;">
+          全模組恪守單一職責原則 (Single Responsibility)
+        </div>
+      </div>
+
+      <!-- KPI 4: 守護測試覆蓋率 -->
+      <div class="kpi-card" style="--accent-color: var(--indigo);">
+        <div class="kpi-label">🧪 平鋪架構守護防線</div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="testPassVal">100%</div>
+          <div class="kpi-sub">PASS (6/6 鐵律全綠)</div>
+        </div>
+        <div class="kpi-progress-bar">
+          <div class="kpi-progress-fill" style="width: 100%; background: linear-gradient(90deg, #6366f1, #818cf8);"></div>
+        </div>
+        <div style="font-size: 11px; color: #c7d2fe; margin-top: 8px; font-weight: 600;">
+          TestFlatArchitectureCompliance 自動化回歸守護
+        </div>
+      </div>
+    </section>
+
+    <!-- 平鋪架構 4 大紅線守護狀態 -->
+    <div class="compliance-banner">
+      <div class="compliance-title">
+        <div class="compliance-badge-icon">🛡️</div>
+        <div>
+          <h3>Antigravity 平鋪架構 4 大紅線守護狀態</h3>
+          <p>每次交付與版本迭代強制通過自動化測試驗證，未通過嚴禁交付換手</p>
+        </div>
+      </div>
+      <div class="rule-chips">
+        <div class="rule-chip">✅ 1. app.py &le; 850 行 (現 197 行)</div>
+        <div class="rule-chip">✅ 2. 零內嵌視圖/樣板/SQL</div>
+        <div class="rule-chip">✅ 3. 實體 POI 導航官方專名</div>
+        <div class="rule-chip">✅ 4. 守護測試 100% 全綠 PASS</div>
+      </div>
+    </div>
+
+    <!-- 視覺化架構拓撲流程圖 (Architecture Flow) -->
+    <section class="flow-section">
+      <div class="section-header">
+        <div class="section-title">
+          <span>🧭</span> 系統縱深拓撲流向圖 (Data Flow & Layer Dispatch)
+        </div>
+        <div style="font-size: 12px; color: var(--text-dim);">
+          點擊任意節點查看職責與最新健康狀態
+        </div>
+      </div>
+
+      <div class="topology-container">
+        
+        <!-- Layer 1: Web 入口與藍圖 -->
+        <div class="topo-layer">
+          <div class="topo-layer-header">
+            <div class="topo-layer-name" style="color: #38bdf8;">
+              <span>🌐</span> Layer 1: Web 路由入口與商業藍圖層 (Web Entry & Blueprints)
+            </div>
+            <div class="topo-layer-desc">負責 HTTP 路由、Web 請求分發、反向代理與資安過濾 (< 200 行入口，零內嵌 HTML 樣板)</div>
+          </div>
+          <div class="topo-nodes">
+            <div class="topo-node" onclick="showModuleDetail('app.py')">
+              <span class="topo-node-name">⚡ app.py</span>
+              <span class="topo-node-badge badge-healthy">197 行 · 🟢 主應用入口</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('ad_routes.py')">
+              <span class="topo-node-name">📈 ad_routes.py</span>
+              <span class="topo-node-badge badge-healthy">132 行 · 🟢 商業廣告</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('admin_routes.py')">
+              <span class="topo-node-name">🛡️ admin_routes.py</span>
+              <span class="topo-node-badge badge-healthy">350 行 · 🟢 管理後台</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('token_routes.py')">
+              <span class="topo-node-name">⚡ token_routes.py</span>
+              <span class="topo-node-badge badge-healthy">192 行 · 🟢 Token藍圖</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('compat.py')">
+              <span class="topo-node-name">🧩 compat.py</span>
+              <span class="topo-node-badge badge-healthy">185 行 · 🟢 相容層</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('web_templates.py')">
+              <span class="topo-node-name">🎨 web_templates.py</span>
+              <span class="topo-node-badge badge-healthy">1,955 行 · 🟢 視圖渲染</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topo-connector">⬇️ 派發 Webhook 監聽與指令排程</div>
+
+        <!-- Layer 2: 監聽與分發調度 -->
+        <div class="topo-layer">
+          <div class="topo-layer-header">
+            <div class="topo-layer-name" style="color: #a78bfa;">
+              <span>🤖</span> Layer 2: 事件監聽與指令優先級分發層 (Event Handlers & Dispatcher)
+            </div>
+            <div class="topo-layer-desc">負責 LINE 訊息解析、非同步背景 Worker、自然語言意圖與 35+ 種指令排程 (解耦子路由全數達標)</div>
+          </div>
+          <div class="topo-nodes">
+            <div class="topo-node" onclick="showModuleDetail('bot_handlers.py')">
+              <span class="topo-node-name">🤖 bot_handlers.py</span>
+              <span class="topo-node-badge badge-healthy">1,193 行 · 🟢 事件監聽</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('command_router.py')">
+              <span class="topo-node-name">🧩 command_router.py</span>
+              <span class="topo-node-badge badge-healthy">2,068 行 · 🟢 指令門面</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('command_travel.py')">
+              <span class="topo-node-name">🎡 command_travel.py</span>
+              <span class="topo-node-badge badge-healthy">711 行 · 🟢 景點國道</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('command_transit.py')">
+              <span class="topo-node-name">🧭 command_transit.py</span>
+              <span class="topo-node-badge badge-healthy">392 行 · 🟢 多運具接駁</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('bot_state.py')">
+              <span class="topo-node-name">🧠 bot_state.py</span>
+              <span class="topo-node-badge badge-healthy">334 行 · 🟢 核心狀態</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topo-connector">⬇️ 調用 Flex 卡片外觀門面 (Facade SSOT)</div>
+
+        <!-- Layer 3: Flex 表現層與 10 大專責子模組 -->
+        <div class="topo-layer" style="border-color: rgba(6, 182, 212, 0.3); background: rgba(6, 182, 212, 0.03);">
+          <div class="topo-layer-header">
+            <div class="topo-layer-name" style="color: #06b6d4;">
+              <span>🎨</span> Layer 3: Flex Message 門面 ✕ 10 大專責領域子模組 (Flex Presentation Layer)
+            </div>
+            <div class="topo-layer-desc">原 8,790 行巨石平鋪拆解成果！門面僅 202 行，100% 零破壞向下掛載 10 大專責子模組 (全綠健康)</div>
+          </div>
+          <div class="topo-nodes">
+            <div class="topo-node" style="border-color: var(--cyan);" onclick="showModuleDetail('flex_templates.py')">
+              <span class="topo-node-name">🎨 flex_templates.py (門面 SSOT)</span>
+              <span class="topo-node-badge badge-healthy">202 行 · 🟢 門面</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_core.py')">
+              <span class="topo-node-name">♿ flex_core.py</span>
+              <span class="topo-node-badge badge-healthy">328 行 · 🟢 A11y縮放</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_facilities.py')">
+              <span class="topo-node-name">🚻 flex_facilities.py</span>
+              <span class="topo-node-badge badge-healthy">1,151 行 · 🟢 生活公廁</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_transit.py')">
+              <span class="topo-node-name">🧭 flex_transit.py</span>
+              <span class="topo-node-badge badge-healthy">957 行 · 🟢 交通行程</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_transit_stations.py')">
+              <span class="topo-node-name">🚲 flex_transit_stations.py</span>
+              <span class="topo-node-badge badge-healthy">802 行 · 🟢 運具站點</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_menu.py')">
+              <span class="topo-node-name">📱 flex_menu.py</span>
+              <span class="topo-node-badge badge-healthy">1,224 行 · 🟢 動態選單</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_announcements.py')">
+              <span class="topo-node-name">🔰 flex_announcements.py</span>
+              <span class="topo-node-badge badge-healthy">783 行 · 🟢 新手公告</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_travel.py')">
+              <span class="topo-node-name">🎡 flex_travel.py</span>
+              <span class="topo-node-badge badge-healthy">1,438 行 · 🟢 景點國道</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_highway.py')">
+              <span class="topo-node-name">🛣️ flex_highway.py</span>
+              <span class="topo-node-badge badge-healthy">847 行 · 🟢 國道休息站</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_parking.py')">
+              <span class="topo-node-name">🅿️ flex_parking.py</span>
+              <span class="topo-node-badge badge-healthy">1,330 行 · 🟢 停車地磁</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('flex_parking_nav.py')">
+              <span class="topo-node-name">🅿️ flex_parking_nav.py</span>
+              <span class="topo-node-badge badge-healthy">1,199 行 · 🟢 尋車鬧鐘</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topo-connector">⬇️ 驅動地理空間運算、大眾運輸與業務引擎</div>
+
+        <!-- Layer 4: 核心服務與感知引擎 -->
+        <div class="topo-layer">
+          <div class="topo-layer-header">
+            <div class="topo-layer-name" style="color: #34d399;">
+              <span>⚡</span> Layer 4: 核心業務服務與感知引擎層 (Core Services & Business Engines)
+            </div>
+            <div class="topo-layer-desc">負責 0ms 空間計算、YouBike 在席、地磁路段、自然語音意圖與廣告閉環 (解耦後全綠達標)</div>
+          </div>
+          <div class="topo-nodes">
+            <div class="topo-node" onclick="showModuleDetail('transit_service.py')">
+              <span class="topo-node-name">🚲 transit_service.py</span>
+              <span class="topo-node-badge badge-healthy">318 行 · 🟢 大眾接駁</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('geo_service.py')">
+              <span class="topo-node-name">🧭 geo_service.py</span>
+              <span class="topo-node-badge badge-healthy">909 行 · 🟢 地理語音</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('tdx_service.py')">
+              <span class="topo-node-name">🅿️ tdx_service.py</span>
+              <span class="topo-node-badge badge-healthy">764 行 · 🟢 智慧地磁</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('city_opendata.py')">
+              <span class="topo-node-name">🏙️ city_opendata.py</span>
+              <span class="topo-node-badge badge-healthy">741 行 · 🟢 縣市快取</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('highway_service.py')">
+              <span class="topo-node-name">🛣️ highway_service.py</span>
+              <span class="topo-node-badge badge-healthy">634 行 · 🟢 國道外援</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('spot_service.py')">
+              <span class="topo-node-name">🎡 spot_service.py</span>
+              <span class="topo-node-badge badge-healthy">281 行 · 🟢 自駕景點</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('keyword_service.py')">
+              <span class="topo-node-name">🔍 keyword_service.py</span>
+              <span class="topo-node-badge badge-healthy">482 行 · 🟢 搜尋脫敏</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('reminder_service.py')">
+              <span class="topo-node-name">⏰ reminder_service.py</span>
+              <span class="topo-node-badge badge-healthy">738 行 · 🟢 鬧鐘排程</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('parking_fee_service.py')">
+              <span class="topo-node-name">💰 parking_fee_service.py</span>
+              <span class="topo-node-badge badge-healthy">296 行 · 🟢 停車計費</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('parking_report_service.py')">
+              <span class="topo-node-name">📢 parking_report_service.py</span>
+              <span class="topo-node-badge badge-healthy">352 行 · 🟢 現地提報</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('ad_service.py')">
+              <span class="topo-node-name">📈 ad_service.py</span>
+              <span class="topo-node-badge badge-healthy">1,002 行 · 🟢 廣告引擎</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('cloud_stats_sync.py')">
+              <span class="topo-node-name">☁️ cloud_stats_sync.py</span>
+              <span class="topo-node-badge badge-healthy">437 行 · 🟢 雲端同步</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('user_analytics_service.py')">
+              <span class="topo-node-name">📊 user_analytics_service.py</span>
+              <span class="topo-node-badge badge-healthy">133 行 · 🟢 大數據分析</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('log_service.py')">
+              <span class="topo-node-name">📋 log_service.py</span>
+              <span class="topo-node-badge badge-healthy">651 行 · 🟢 日誌分析</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('error_knowledge_service.py')">
+              <span class="topo-node-name">🗄️ error_knowledge_service.py</span>
+              <span class="topo-node-badge badge-healthy">272 行 · 🟢 錯誤經驗庫</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('cockpit_service.py')">
+              <span class="topo-node-name">⚡ cockpit_service.py</span>
+              <span class="topo-node-badge badge-healthy">620 行 · 🟢 配額直連</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topo-connector">⬇️ 資料持久化與本機 3.6 萬筆設施庫</div>
+
+        <!-- Layer 5: 持久化與儲存 -->
+        <div class="topo-layer">
+          <div class="topo-layer-header">
+            <div class="topo-layer-name" style="color: #f472b6;">
+              <span>💾</span> Layer 5: SQLite WAL 高效持久化 ✕ 本機 3.6 萬筆零成本設施庫 (Data & Storage)
+            </div>
+            <div class="topo-layer-desc">單檔嵌入式 SQLite WAL (3,000+ QPS) 與 0 元離線設施 JSON，免外部昂貴 API 呼叫</div>
+          </div>
+          <div class="topo-nodes">
+            <div class="topo-node" onclick="showModuleDetail('db_service.py')">
+              <span class="topo-node-name">💾 db_service.py</span>
+              <span class="topo-node-badge badge-healthy">1,180 行 · 🟢 存取引擎</span>
+            </div>
+            <div class="topo-node" style="background: rgba(244, 114, 182, 0.1); border-color: rgba(244, 114, 182, 0.3);">
+              <span class="topo-node-name">🗄️ parking_storage.db</span>
+              <span class="topo-node-badge badge-healthy">SQLite WAL · 13.9萬 QPS</span>
+            </div>
+            <div class="topo-node" style="background: rgba(244, 114, 182, 0.1); border-color: rgba(244, 114, 182, 0.3);">
+              <span class="topo-node-name">🗄️ keyword_analytics.db</span>
+              <span class="topo-node-badge badge-healthy">SQLite WAL · 脫敏日誌</span>
+            </div>
+            <div class="topo-node" style="background: rgba(244, 114, 182, 0.1); border-color: rgba(244, 114, 182, 0.3);">
+              <span class="topo-node-name">📦 本機設施庫 (JSON)</span>
+              <span class="topo-node-badge badge-healthy">36,000+ 筆 · 0元架構</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topo-connector">⬇️ 跨專案維運工具鏈與資安護衛</div>
+
+        <!-- Layer 6: 運維自動化與跨專案工具鏈 -->
+        <div class="topo-layer">
+          <div class="topo-layer-header">
+            <div class="topo-layer-name" style="color: #fb923c;">
+              <span>🛠️</span> Layer 6: 運維自動化 ✕ 三層備份 ✕ 安全部署工具鏈 (Tooling & DevOps)
+            </div>
+            <div class="topo-layer-desc">負責改版備份、跨專案同步 (SSOT)、GitHub 安全發布檢核、Token 記帳與冗餘清理</div>
+          </div>
+          <div class="topo-nodes">
+            <div class="topo-node" onclick="showModuleDetail('auto_backup.py')">
+              <span class="topo-node-name">💾 auto_backup.py</span>
+              <span class="topo-node-badge badge-healthy">727 行 · 🟢 智慧備份</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('deploy_to_github.py')">
+              <span class="topo-node-name">🚀 deploy_to_github.py</span>
+              <span class="topo-node-badge badge-healthy">220 行 · 🟢 安全部署</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('package_toolkit.py')">
+              <span class="topo-node-name">📦 package_toolkit.py</span>
+              <span class="topo-node-badge badge-healthy">288 行 · 🟢 工具封裝</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('sync_projects.py')">
+              <span class="topo-node-name">🌐 sync_projects.py</span>
+              <span class="topo-node-badge badge-healthy">413 行 · 🟢 跨專案同步</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('scan_tokens.py')">
+              <span class="topo-node-name">📊 scan_tokens.py</span>
+              <span class="topo-node-badge badge-healthy">913 行 · 🟢 Token記帳</span>
+            </div>
+            <div class="topo-node" onclick="showModuleDetail('cleanup_service.py')">
+              <span class="topo-node-name">🧹 cleanup_service.py</span>
+              <span class="topo-node-badge badge-healthy">218 行 · 🟢 冗餘清理</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      </div>
+    </section>
+
+    <!-- 控制過濾列 -->
+    <div class="controls-bar">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="tab-btn active" onclick="filterModules('all', this)">全部模組 (All)</button>
+        <button class="tab-btn" onclick="filterModules('web_entry', this)">🌐 Web 入口與藍圖</button>
+        <button class="tab-btn" onclick="filterModules('bot_event', this)">🤖 監聽與調度</button>
+        <button class="tab-btn" onclick="filterModules('flex_layer', this)">🎨 Flex 卡片層</button>
+        <button class="tab-btn" onclick="filterModules('service', this)">⚡ 核心服務引擎</button>
+        <button class="tab-btn" onclick="filterModules('toolkit', this)">🛠️ 運維自動化工具</button>
+        <button class="tab-btn" onclick="filterModules('watch_only', this)">🟡 警戒觀察對象</button>
+      </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="搜尋模組名、職責或符號..." oninput="handleSearch()">
+      </div>
+    </div>
+
+    <!-- 模組卡片網格 (Modules Grid) -->
+    <section class="modules-grid" id="modulesGrid">
+      <!-- 由 JavaScript 動態渲染卡片清單 -->
+    </section>
+
+  </div>
+
+  <!-- 詳情彈窗 Modal -->
+  <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title" id="modalFileName">app.py</div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- 動態填入詳情 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 架構優化指令彈窗 Modal -->
+  <div class="modal-overlay" id="optimizationModal" onclick="closeOptimizationModal(event)">
+    <div class="modal-card" style="max-width: 780px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title" style="display:flex; align-items:center; gap:8px;">
+          <span>💡</span> 平鋪架構未達健康模組 ✕ 一鍵優化指令生成器
+        </div>
+        <button class="modal-close" onclick="closeOptimizationModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="optSummaryBanner" style="margin-bottom: 14px;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
+          <div style="font-size:12px; font-weight:700; color:var(--text-muted);">
+            📋 請複製下方優化指令直接提供給 AI (Antigravity IDE) 執行平鋪解耦與瘦身：
+          </div>
+          <div style="font-size:11px; color:var(--cyan); font-family:'JetBrains Mono', monospace;">
+            已注入 4 大平鋪紅線約束
+          </div>
+        </div>
+        <pre class="prompt-box" id="optimizationPromptBox"></pre>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+          <button class="btn btn-warning" onclick="copyOptimizationPrompt()">
+            📋 一鍵複製完整優化 Prompt
+          </button>
+          <button class="btn" onclick="copyUnhealthyListOnly()">
+            📋 僅複製模組清單
+          </button>
+          <button class="btn" onclick="closeOptimizationModal()">
+            關閉
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 多餘檔案掃描與清理彈窗 Modal -->
+  <div class="modal-overlay" id="redundantModal" onclick="closeRedundantModal(event)">
+    <div class="modal-card" style="max-width: 860px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title" style="display:flex; align-items:center; gap:8px;">
+          <span>🧹</span> 專案冗餘與多餘檔案安全清理中樞
+        </div>
+        <button class="modal-close" onclick="closeRedundantModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="redundantStatsBar"></div>
+        <div id="redundantFilesList"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; flex-wrap:wrap; gap:12px;">
+          <div id="selectedCleanSummary" style="font-size:12px; color:var(--text-muted); font-weight:600;">
+            已勾選 0 個檔案
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-danger" id="btnExecuteClean" onclick="executeCleanRedundantFiles()">
+              🗑️ 清除選取的檔案
+            </button>
+            <button class="btn" onclick="fetchRedundantFiles()">
+              🔄 重新掃描
+            </button>
+            <button class="btn" onclick="closeRedundantModal()">
+              關閉
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全域浮動 Toast 通知 -->
+  <div class="toast-msg" id="toastNotification">
+    <span id="toastIcon">✅</span>
+    <span id="toastText">操作成功</span>
+  </div>
+
+  <!-- 離線預載資料 (可由 scan_architecture.py 自動產出，支援 file:// 雙擊開啟) -->
+  <script src="architecture_data.js"></script>
+
+  <!-- 核心資料與互動腳本 -->
+  <script>
+    // 預載資料快照 (支援直接以 file:// 雙擊開啟時 100% 完整運作)
+    const STATIC_MODULES_DATA = [
+      {
+            "fname": "app.py",
+            "cat": "web_entry",
+            "catName": "🌐 Web 入口與藍圖",
+            "role": "⚡ 主應用後端入口 (Flask)",
+            "lines": 197,
+            "limit": 850,
+            "desc": "純輕量 Web 路由分發入口與藍圖掛載層 (<200行)，嚴守平鋪紅線，嚴禁直接寫入業務邏輯、HTML 或 SQL 操作。",
+            "symbols": [
+                  "app",
+                  "health_check",
+                  "root_index",
+                  "dashboard_view",
+                  "calendar_sync_redirect"
+            ],
+            "governance": "曾從 8,215 行巨石重構至 197 行，設立 TestFlatArchitectureCompliance 嚴守 850 行健康上限！"
+      },
+      {
+            "fname": "ad_routes.py",
+            "cat": "web_entry",
+            "catName": "🌐 Web 入口與藍圖",
+            "role": "📈 商業廣告成效路由藍圖",
+            "lines": 132,
+            "limit": 500,
+            "desc": "專職負責付費名店 0.05s 無縫跳轉追蹤 (/go)、成效即時看板 (/ad_stats)、防偽 Token 驗證與廣告重置 API。",
+            "symbols": [
+                  "ad_bp",
+                  "ad_click_redirect",
+                  "ad_stats_page",
+                  "ad_reset_page"
+            ],
+            "governance": "純業務藍圖隔離，零內嵌 HTML 樣板。"
+      },
+      {
+            "fname": "admin_routes.py",
+            "cat": "web_entry",
+            "catName": "🌐 Web 入口與藍圖",
+            "role": "🛡️ 管理員後台審核藍圖",
+            "lines": 350,
+            "limit": 500,
+            "desc": "專職負責路段匯出、提報視覺化審核/核准/駁回、店家留單狀態、Raw Log 清洗診斷、架構看板與管理者手冊。",
+            "symbols": [
+                  "admin_bp",
+                  "admin_export_slots",
+                  "admin_parking_reports",
+                  "admin_logs_analyzer"
+            ],
+            "governance": "集中管理管理員金鑰 (ADMIN_STATS_KEY) 防護，操作審核安全防禦。"
+      },
+      {
+            "fname": "token_routes.py",
+            "cat": "web_entry",
+            "catName": "🌐 Web 入口與藍圖",
+            "role": "⚡ Token 儀表板與大數據藍圖",
+            "lines": 192,
+            "limit": 500,
+            "desc": "專職負責開發工作台、線上總表、/api/token_sync 雲端多端同步、車友行為大數據、規模里程碑與關鍵字分析。",
+            "symbols": [
+                  "token_bp",
+                  "serve_protected_page",
+                  "token_dashboard_view",
+                  "api_token_sync"
+            ],
+            "governance": "防範商業機密與 Token 數據外洩，多端點同步安全防禦。"
+      },
+      {
+            "fname": "compat.py",
+            "cat": "web_entry",
+            "catName": "🌐 Web 入口與藍圖",
+            "role": "🧩 歷史向後相容導出層 (SSOT)",
+            "lines": 185,
+            "limit": 500,
+            "desc": "專職承接歷史匯出符號 (SSOT)，確保舊單元測試與外部呼叫端 100% 向上相容且不污染主入口行數。",
+            "symbols": [
+                  "ADMIN_STATS_KEY",
+                  "USER_PINNED_LOCATION",
+                  "haversine",
+                  "generate_ics_content"
+            ],
+            "governance": "平鋪重構之無損過渡橋樑，保證零 Breaking Change。"
+      },
+      {
+            "fname": "bot_handlers.py",
+            "cat": "bot_event",
+            "catName": "🤖 監聽與調度",
+            "role": "🤖 LINE Webhook 事件處理中心",
+            "lines": 1193,
+            "limit": 1500,
+            "desc": "專職 Webhook 事件監聽 (FollowEvent, LocationMessage, ImageMessage, PostbackEvent)、非同步背景 Worker 與斷線自癒。",
+            "symbols": [
+                  "handle_text",
+                  "handle_location",
+                  "handle_image",
+                  "handle_postback",
+                  "query_and_reply_worker"
+            ],
+            "governance": "解耦非同步回傳執行緒，避免 LINE 1秒超時 (HTTP 500) 痛點。"
+      },
+      {
+            "fname": "command_router.py",
+            "cat": "bot_event",
+            "catName": "🤖 監聽與調度",
+            "role": "🧩 指令路由分發表核心中心",
+            "lines": 2068,
+            "limit": 3000,
+            "desc": "集中管理全站 35+ 種指令匹配 (Priority 0~99 階梯調度)，整合自然語音意圖與極簡自駕助理反饋。",
+            "symbols": [
+                  "route_command",
+                  "extract_nearby_transit_intent",
+                  "detect_voice_intent",
+                  "COMMAND_REGISTRY"
+            ],
+            "governance": "自 2,999 行解耦為 command_travel 與 command_transit 子模組，瘦身至 2,068 行，達 68.9% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "command_travel.py",
+            "cat": "bot_event",
+            "catName": "🤖 監聽與調度",
+            "role": "🎡 景點與海外特區指令子路由",
+            "lines": 711,
+            "limit": 1000,
+            "desc": "專職處理國道休息站、六大景點、日本自駕、碰運氣與隱藏彩蛋指令調度。",
+            "symbols": [
+                  "handle_highway_hub_menu",
+                  "handle_spot_hub_menu",
+                  "handle_japan_hub_menu",
+                  "handle_lucky_food"
+            ],
+            "governance": "自 command_router 解耦之專責子路由，100% 綠色健康。"
+      },
+      {
+            "fname": "command_transit.py",
+            "cat": "bot_event",
+            "catName": "🤖 監聽與調度",
+            "role": "🧭 多運具與接駁指令子路由",
+            "lines": 392,
+            "limit": 800,
+            "desc": "專職處理去哪裡多運具導航與周邊交通 (YouBike/捷運/公車/計程車) 指令調度。",
+            "symbols": [
+                  "extract_where_to_go_intent",
+                  "handle_where_to_go",
+                  "extract_nearby_transit_intent",
+                  "handle_nearby_transit"
+            ],
+            "governance": "自 command_router 解耦之專責子路由，100% 綠色健康。"
+      },
+      {
+            "fname": "flex_templates.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🎨 LINE Flex 門面門戶 (Facade SSOT)",
+            "lines": 202,
+            "limit": 500,
+            "desc": "統一對外導出門面（從 8,790 行巨石徹底瘦身至 202 行），向下掛載專責領域子模組，100% 零破壞相容。",
+            "symbols": [
+                  "create_parking_bubble",
+                  "create_toilet_bubble",
+                  "build_quick_reply",
+                  "apply_bubble_zoom_mode"
+            ],
+            "governance": "重大里程碑：自 8,790 行巨石重構解耦，單檔瘦身 -97.7%，對外暴露 63 個公開符號！"
+      },
+      {
+            "fname": "flex_core.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "♿ Flex 核心基礎工具 ✕ A11y 縮放",
+            "lines": 328,
+            "limit": 800,
+            "desc": "專職負責全站 Flex 雙軌縮放引擎 (apply_bubble_zoom_mode)、分享連結、收藏 Postback 與費率解析器。",
+            "symbols": [
+                  "apply_bubble_zoom_mode",
+                  "build_line_share_url",
+                  "build_fav_postback_data",
+                  "parse_parking_fee_tier"
+            ],
+            "governance": "提供全站字級切換與共用按鈕構建標準。"
+      },
+      {
+            "fname": "flex_facilities.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🚻 生活應急 ✕ 公廁 ✕ 24H ATM ✕ 美食",
+            "lines": 1151,
+            "limit": 1500,
+            "desc": "專職負責友善公廁、應急 ATM 跨行提款卡片、周邊美食名店與美食盲盒卡片渲染。",
+            "symbols": [
+                  "create_toilet_bubble",
+                  "create_atm_bubble",
+                  "create_restaurant_bubble",
+                  "create_food_box_bubble"
+            ],
+            "governance": "自巨石拆出之獨立生活設施專責子模組。"
+      },
+      {
+            "fname": "flex_transit.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🧭 多運具行程 ✕ YouBike ✕ 接駁小助手",
+            "lines": 957,
+            "limit": 2000,
+            "desc": "專職負責去哪裡雙定位行程規劃導航卡、附近交通工具接駁導引卡片門面。",
+            "symbols": [
+                  "create_where_to_go_bubble",
+                  "create_nearby_transit_bubble",
+                  "create_youbike_stations_bubble",
+                  "create_metro_stations_bubble"
+            ],
+            "governance": "將站點接駁卡片解耦至 flex_transit_stations，瘦身至 957 行，達 47.9% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "flex_transit_stations.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🚲 大眾運具站點接駁卡片",
+            "lines": 802,
+            "limit": 1200,
+            "desc": "專職負責周邊 YouBike 2.0 租借站、捷運/輕軌/台鐵、公車站牌與計程車專線卡片渲染。",
+            "symbols": [
+                  "create_youbike_stations_bubble",
+                  "create_metro_stations_bubble",
+                  "create_bus_transit_bubble",
+                  "create_taxi_bubble"
+            ],
+            "governance": "自 flex_transit 解耦之專責子模組，100% 綠色健康。"
+      },
+      {
+            "fname": "flex_menu.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "📱 動態 Quick Reply 選單 ✕ 會員營運",
+            "lines": 1224,
+            "limit": 2000,
+            "desc": "專職負責動態 Quick Reply 選單、個人收藏中心、VIP 升級與偏遠運具感知。",
+            "symbols": [
+                  "build_quick_reply",
+                  "create_favorites_hub_bubble",
+                  "create_vip_upgrade_bubble",
+                  "create_fulfilled_wishes_bubble"
+            ],
+            "governance": "將新手與版本公告解耦至 flex_announcements，瘦身至 1,224 行，達 61.2% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "flex_announcements.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🔰 新手引導 ✕ 版本公告 ✕ 願望清單",
+            "lines": 783,
+            "limit": 1000,
+            "desc": "專職負責互動式新手引導流程輪播卡、版本升級公告卡與已達成願望清單成果卡片。",
+            "symbols": [
+                  "create_onboarding_carousel",
+                  "create_version_announcement_bubble",
+                  "create_fulfilled_wishes_bubble"
+            ],
+            "governance": "自 flex_menu 解耦之專責子模組，100% 綠色健康。"
+      },
+      {
+            "fname": "flex_travel.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🎡 景點探索 ✕ 國道服務區 ✕ 海外特區",
+            "lines": 1438,
+            "limit": 2500,
+            "desc": "專職負責全台六大景點分類導覽、沖繩/北海道/宇治日本特區與彩蛋卡片門面。",
+            "symbols": [
+                  "create_spot_bubble",
+                  "create_highway_hub_carousel",
+                  "create_japan_hub_carousel",
+                  "create_lucky_hub_bubble"
+            ],
+            "governance": "將國道休息站卡片解耦至 flex_highway，瘦身至 1,438 行，達 57.5% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "flex_highway.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🛣️ 連假國道停車休息站卡片",
+            "lines": 847,
+            "limit": 1200,
+            "desc": "專職負責國道1/3/5號與交流道快充服務區總覽、單站指南與檢索比較卡片渲染。",
+            "symbols": [
+                  "create_highway_hub_carousel",
+                  "create_highway_station_bubble",
+                  "create_highway_stations_carousel"
+            ],
+            "governance": "自 flex_travel 解耦之專責子模組，100% 綠色健康。"
+      },
+      {
+            "fname": "flex_parking.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🅿️ 停車 ✕ 地磁 ✕ 尋車導航 ✕ 釘位卡片",
+            "lines": 1330,
+            "limit": 2500,
+            "desc": "專職負責停車場、即時地磁、回報獎勵卡門面 (全站最高頻核心卡片)。",
+            "symbols": [
+                  "create_parking_bubble",
+                  "create_parking_guide_bubble",
+                  "create_onstreet_bubble",
+                  "create_reminder_bubble"
+            ],
+            "governance": "將釘位尋車鬧鐘卡片解耦至 flex_parking_nav，瘦身至 1,330 行，達 53.2% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "flex_parking_nav.py",
+            "cat": "flex_layer",
+            "catName": "🎨 Flex 卡片層",
+            "role": "🅿️ 車位釘住 ✕ 尋車步行導航 ✕ 鬧鐘",
+            "lines": 1199,
+            "limit": 1500,
+            "desc": "專職負責車位拍照存證柱號卡、釘住車位二合一卡、停車鬧鐘倒數與步行尋車導引卡片渲染。",
+            "symbols": [
+                  "create_parking_photo_card",
+                  "create_pin_location_bubbles",
+                  "build_parking_reminder_bubble",
+                  "build_navigation_guidance_bubble"
+            ],
+            "governance": "自 flex_parking 解耦之專責子模組，100% 綠色健康。"
+      },
+      {
+            "fname": "web_templates.py",
+            "cat": "web_entry",
+            "catName": "🎨 Web 視圖渲染層",
+            "role": "🎨 Web 前端樣板與視圖渲染中心",
+            "lines": 1955,
+            "limit": 2500,
+            "desc": "專職負責車友成就卡、現場提報表單、審核後台、廣告數據看板與 Log 智慧診斷中心之 HTML/CSS/JS 渲染。",
+            "symbols": [
+                  "render_report_parking_form",
+                  "render_admin_parking_reports_page",
+                  "render_ad_stats_page",
+                  "render_log_analyzer_page"
+            ],
+            "governance": "落實「app.py 零內嵌視圖樣板」之神聖殿堂。"
+      },
+      {
+            "fname": "transit_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🚲 大眾接駁服務核心引擎",
+            "lines": 318,
+            "limit": 800,
+            "desc": "專職負責全台 YouBike 2.0 即時在席/車位 (90s快取)、310+ 處捷運/輕軌/台鐵空間推算與縣市適配。",
+            "symbols": [
+                  "get_nearby_youbike_stations",
+                  "get_nearby_rail_stations",
+                  "get_transit_options_summary",
+                  "eval_transit_mode_distances"
+            ],
+            "governance": "收斂捷運半徑為 4.5km，台鐵近距智慧優先推薦。"
+      },
+      {
+            "fname": "geo_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🧭 地理空間幾何與語音意圖分類",
+            "lines": 909,
+            "limit": 1200,
+            "desc": "自然語音意圖分類引擎 (detect_voice_intent)、長距離搭車防呆、Haversine、街景解析、地址階梯式降級解析。",
+            "symbols": [
+                  "haversine",
+                  "resolve_location_smart",
+                  "clean_taiwan_address_candidates",
+                  "extract_taiwan_city"
+            ],
+            "governance": "建構全台 22 縣市標準化感知與動態地標快取 (0ms 命中)。"
+      },
+      {
+            "fname": "city_opendata.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🏙️ 縣市 Open Data 即時車位快取",
+            "lines": 741,
+            "limit": 1000,
+            "desc": "雙北桃中高全台縣市快取與日本沖繩、北海道、京都宇治海外特區庫，含 resolve_japan_poi_smart 0ms POI 引擎。",
+            "symbols": [
+                  "fetch_static_store",
+                  "resolve_japan_poi_smart",
+                  "load_okinawa_store",
+                  "fetch_taipei_realtime_parking"
+            ],
+            "governance": "維護各縣市政府停車在席開放資料介接。"
+      },
+      {
+            "fname": "tdx_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🅿️ 交通部 TDX 地磁檢索服務",
+            "lines": 764,
+            "limit": 1000,
+            "desc": "全台 5,086 處路邊智慧地磁路段檢索、即時在席二級快取 (TTL=60s) 與 OAuth2 Token 防限流保護。",
+            "symbols": [
+                  "get_location_lots",
+                  "fetch_onstreet_by_location",
+                  "get_tdx_token",
+                  "SMART_SLOTS_PATH"
+            ],
+            "governance": "具備本機地磁快取與精確空間索引。"
+      },
+      {
+            "fname": "db_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "💾 SQLite WAL 嵌入式持久化服務",
+            "lines": 1180,
+            "limit": 1500,
+            "desc": "單檔嵌入式 SQLite WAL 模式，支援釘位、提醒、定位、系統設定 (system_settings)、車友偏好高效 ACID 事務。",
+            "symbols": [
+                  "db_save_pinned",
+                  "db_get_pinned",
+                  "db_save_user_zoom_mode",
+                  "get_db_stats",
+                  "init_db_schema"
+            ],
+            "governance": "實測事務寫入 QPS 達 139,000+，零外部資料庫相依。"
+      },
+      {
+            "fname": "reminder_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "⏰ 車位釘住持久化 ✕ 守護排程輪詢",
+            "lines": 738,
+            "limit": 1500,
+            "desc": "倒數排程、Single Scheduler Worker 守護輪詢、日曆鬧鐘、提報審核與費用試算門面。",
+            "symbols": [
+                  "schedule_parking_reminder",
+                  "cancel_parking_reminder",
+                  "save_pinned_location",
+                  "approve_parking_report"
+            ],
+            "governance": "將計費規則與提報審核解耦至 parking_fee 與 parking_report，瘦身至 738 行，達 49.2% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "parking_fee_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "💰 停車費自訂計費規則與試算",
+            "lines": 296,
+            "limit": 800,
+            "desc": "專職自訂計費規則模板解析 (時租/每日上限/平假日差別費率/計次) 與費用精確試算引擎。",
+            "symbols": [
+                  "parse_custom_rate_rule",
+                  "calculate_parking_fee"
+            ],
+            "governance": "自 reminder_service 解耦之專責服務，100% 綠色健康。"
+      },
+      {
+            "fname": "parking_report_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "📢 車友現地提報 ✕ 管理員審核",
+            "lines": 352,
+            "limit": 800,
+            "desc": "專職車友現地路況/車位提報持久化、管理員審核核准/駁回與測試資料清洗隔離。",
+            "symbols": [
+                  "load_user_parking_reports",
+                  "save_user_parking_report",
+                  "approve_parking_report",
+                  "reject_parking_report"
+            ],
+            "governance": "自 reminder_service 解耦之專責服務，100% 綠色健康。"
+      },
+      {
+            "fname": "ad_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "📈 商業廣告閉環服務 ✕ 簽約上架",
+            "lines": 1002,
+            "limit": 1500,
+            "desc": "支援廣告輪播、曝光權重、留單狀態扭轉 (update_lead_status)、大數據持久化保護與一鍵簽約門面。",
+            "symbols": [
+                  "record_ad_impression",
+                  "normalize_ad_store_name",
+                  "get_ad_stats_overview",
+                  "sign_ad_contract"
+            ],
+            "governance": "將雲端同步與行為大數據解耦至 cloud_stats_sync 與 user_analytics，瘦身至 1,002 行，達 66.8% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "cloud_stats_sync.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "☁️ 雲端永久持久化 ✕ Gist/JSONBin",
+            "lines": 437,
+            "limit": 800,
+            "desc": "專職對接 GitHub Gist 與 JSONBin 雲端永久持久化雙向增量合併與非同步防抖推送。",
+            "symbols": [
+                  "get_cloud_provider_status",
+                  "init_and_pull_cloud_stats",
+                  "trigger_async_cloud_push",
+                  "merge_stats_data"
+            ],
+            "governance": "自 ad_service 解耦之專責服務，100% 綠色健康。"
+      },
+      {
+            "fname": "user_analytics_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "📊 車友行為大數據持久化保護",
+            "lines": 133,
+            "limit": 500,
+            "desc": "專職提供標準 7 大維度初始基底、安全讀取與保護全域 fan_scale 指標的大數據持久化服務。",
+            "symbols": [
+                  "get_default_analytics_data",
+                  "load_user_analytics",
+                  "save_user_analytics"
+            ],
+            "governance": "自 ad_service 解耦之專責服務，100% 綠色健康。"
+      },
+      {
+            "fname": "keyword_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🔍 搜尋關鍵字安全日誌 ✕ 脫敏",
+            "lines": 482,
+            "limit": 800,
+            "desc": "隱私脫敏 (手機/車牌/個資自動抹除)、SQLite WAL 非同步記錄 (3,000+ QPS)、Zero-Hit 未命中熱門排行分析。",
+            "symbols": [
+                  "log_keyword_search_async",
+                  "mask_sensitive_text",
+                  "get_top_zero_hit_keywords"
+            ],
+            "governance": "獨立 keyword_analytics.db 資料庫，保護使用者個資隱私。"
+      },
+      {
+            "fname": "highway_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🛣️ 連假國道停車休息站 ✕ 外援專區",
+            "lines": 634,
+            "limit": 800,
+            "desc": "專職國道1/3/5號指標服務區與重點交流道外援站、GPS 最近距離推算、模糊搜尋與塞車避坑指引。",
+            "symbols": [
+                  "HIGHWAY_SERVICE_AREAS",
+                  "get_highway_stations_by_route",
+                  "get_nearby_highway_stops",
+                  "search_highway_stations"
+            ],
+            "governance": "長途返鄉連假車友最實用導引庫。"
+      },
+      {
+            "fname": "cockpit_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "⚡ Antigravity Cockpit 配額直連",
+            "lines": 620,
+            "limit": 800,
+            "desc": "專職對接 Google 官方 retrieveUserQuotaSummary 端點與本機 authorized 快取 (100% 官方真實每週/5h 百分比與秒級倒數)。",
+            "symbols": [
+                  "fetch_google_official_quota",
+                  "load_cockpit_cached_accounts",
+                  "sync_cockpit_to_dashboard"
+            ],
+            "governance": "與 Google 官方配額毫秒級對齊，告別猜測。"
+      },
+      {
+            "fname": "log_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "📋 日誌智慧分析 ✕ 錯誤經驗知識庫",
+            "lines": 651,
+            "limit": 1000,
+            "desc": "專職 Raw Log 正則清洗、自動過濾健康雜訊、雙軌轉發 (TeeCapture)、安全匯出 API 與 URL 防禦門面。",
+            "symbols": [
+                  "clean_raw_log_entry",
+                  "filter_benign_logs",
+                  "extract_error_fingerprint",
+                  "append_error_knowledge"
+            ],
+            "governance": "將錯誤知識庫解耦至 error_knowledge_service，瘦身至 651 行，達 65.1% 🟢 綠色健康水位！"
+      },
+      {
+            "fname": "error_knowledge_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🗄️ 錯誤經驗知識庫 ✕ AI Prompt 引擎",
+            "lines": 272,
+            "limit": 500,
+            "desc": "專職將線上錯誤增量沉澱至 error_knowledge.json、錯誤指紋狀態流轉與 AI 修復 Prompt 自動生成。",
+            "symbols": [
+                  "load_error_knowledge",
+                  "save_error_knowledge",
+                  "record_analyzed_logs",
+                  "generate_ai_fix_prompt"
+            ],
+            "governance": "自 log_service 解耦之專責服務，100% 綠色健康。"
+      },
+      {
+            "fname": "spot_service.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🎡 全台六大自駕景點探索引擎",
+            "lines": 281,
+            "limit": 800,
+            "desc": "風景爬山、遊樂園、親子休閒、室內觀光工廠、老街商圈、觀光夜市等 6 大類別自駕景點感知探測。",
+            "symbols": [
+                  "load_spot_stores",
+                  "get_nearby_spots_by_category",
+                  "search_spot_by_name"
+            ],
+            "governance": "專職特色景點資料庫檢索與過濾。"
+      },
+      {
+            "fname": "bot_state.py",
+            "cat": "service",
+            "catName": "⚡ 核心服務引擎",
+            "role": "🧠 核心共用狀態中心 (SSOT)",
+            "lines": 334,
+            "limit": 500,
+            "desc": "集中管理記憶體暫態快取 (USER_PINNED_LOCATION, USER_ZOOM_MODE, PARKING_REMINDERS) 與 Lock，配置 TCP Keep-Alive。",
+            "symbols": [
+                  "get_user_effective_location",
+                  "get_user_zoom_mode",
+                  "USER_PINNED_LOCATION",
+                  "USER_ZOOM_MODE"
+            ],
+            "governance": "多執行緒安全鎖保護，高併發 0 競爭死鎖。"
+      },
+      {
+            "fname": "auto_backup.py",
+            "cat": "toolkit",
+            "catName": "🛠️ 運維自動化工具",
+            "role": "💾 三層智慧備份分流架構",
+            "lines": 727,
+            "limit": 1000,
+            "desc": "支援資料專屬備份、排除巨型 GeoJSON 之輕量版本備份 (<0.2s) 與跨主版號全量備份，動態載入 backup_config.json。",
+            "symbols": [
+                  "smart_backup",
+                  "check_and_trim_handover",
+                  "rotate_backups_by_quota"
+            ],
+            "governance": "改版必備份自動化防護盾牌。"
+      },
+      {
+            "fname": "deploy_to_github.py",
+            "cat": "toolkit",
+            "catName": "🛠️ 運維自動化工具",
+            "role": "🚀 GitHub 一鍵安全自動化部署中樞",
+            "lines": 220,
+            "limit": 500,
+            "desc": "自動解析版號、強制預檢阻斷 .env / OAuth 憑證 / SQLite 資料庫，一鍵乾淨同步推送到 GitHub 觸發 Render 自動構建。",
+            "symbols": [
+                  "deploy_release_to_github",
+                  "validate_pre_push_security",
+                  "extract_current_version"
+            ],
+            "governance": "資安紅線哨兵，杜絕任何敏感金鑰外洩。"
+      },
+      {
+            "fname": "package_toolkit.py",
+            "cat": "toolkit",
+            "catName": "🛠️ 運維自動化工具",
+            "role": "📦 工具鏈跨專案封裝工具",
+            "lines": 288,
+            "limit": 500,
+            "desc": "封裝 Token 儀表板、備份腳本、自動化手冊至可獨立分發套件 (嚴格限制僅在修改儀表板核心組件時執行)。",
+            "symbols": [
+                  "package_toolkit",
+                  "find_file"
+            ],
+            "governance": "節約 Token 鐵律守護。"
+      },
+      {
+            "fname": "sync_projects.py",
+            "cat": "toolkit",
+            "catName": "🛠️ 運維自動化工具",
+            "role": "🌐 跨專案工具鏈同步 ✕ 新專案佈署",
+            "lines": 413,
+            "limit": 600,
+            "desc": "單一真實來源 (SSOT) 守護，區分共用組件覆蓋與專案獨享保護，支援 --sync, --init, --add, --list。",
+            "symbols": [
+                  "sync_all_managed_projects",
+                  "init_new_project_with_toolkit"
+            ],
+            "governance": "跨專案一鍵秒級同步最新開發工具鏈。"
+      },
+      {
+            "fname": "scan_tokens.py",
+            "cat": "toolkit",
+            "catName": "🛠️ 運維自動化工具",
+            "role": "📊 本機 Token 自動掃描與記帳器",
+            "lines": 913,
+            "limit": 1200,
+            "desc": "常駐背景掃描本機對話日誌，提供本地 API 端點、自動計算 5h 滑動窗口與自動喚起 token_dashboard.html。",
+            "symbols": [
+                  "scan_antigravity_logs",
+                  "run_token_server",
+                  "compute_sliding_window_usage"
+            ],
+            "governance": "提供 Antigravity 跨對話 Token 統計第一手數據。"
+      },
+      {
+            "fname": "cleanup_service.py",
+            "cat": "toolkit",
+            "catName": "🛠️ 運維自動化工具",
+            "role": "🧹 專案冗餘檔案掃描與安全清理",
+            "lines": 218,
+            "limit": 500,
+            "desc": "專職掃描與安全清理過期備份、SQLite損毀轉儲、臨時測試檔與快取，嚴守白名單與防穿越防護。",
+            "symbols": [
+                  "scan_redundant_files",
+                  "clean_redundant_files",
+                  "format_file_size"
+            ],
+            "governance": "防範任何核心代碼或資料庫誤刪，零外部依賴。"
+      }
+];
+
+    let currentFilter = 'all';
+    let currentSearch = '';
+    // 優先採用 scan_architecture 產出的即時快照，若無則降級為靜態預載資料
+    let modulesData = (typeof window !== 'undefined' && window.ARCHITECTURE_LIVE_DATA && window.ARCHITECTURE_LIVE_DATA.modules)
+      ? [...window.ARCHITECTURE_LIVE_DATA.modules]
+      : [...STATIC_MODULES_DATA];
+
+    function getStatusBadge(lines, limit) {
+      const pct = (lines / limit) * 100;
+      if (pct <= 80) {
+        return { cls: 'badge-healthy', text: `${lines} 行 · 🟢 健康`, pct: pct.toFixed(1) };
+      } else if (pct <= 100) {
+        return { cls: 'badge-watch', text: `${lines} 行 · 🟡 觀察`, pct: pct.toFixed(1) };
+      } else {
+        return { cls: 'badge-alert', text: `${lines} 行 · 🔴 預警`, pct: pct.toFixed(1) };
+      }
+    }
+
+    // 🌟 動態渲染分類切換標籤 (支援任何新專案自訂分類與數量統計)
+    function renderCategoryTabs() {
+      const tabsContainer = document.getElementById('filterTabs');
+      if (!tabsContainer) return;
+
+      const catMap = new Map();
+      modulesData.forEach(m => {
+        if (m.cat && !catMap.has(m.cat)) {
+          catMap.set(m.cat, m.catName || m.cat);
+        }
+      });
+
+      let html = `<button class="tab-btn ${currentFilter === 'all' ? 'active' : ''}" onclick="filterModules('all', this)">全部模組 (${modulesData.length})</button>`;
+
+      catMap.forEach((name, id) => {
+        const count = modulesData.filter(m => m.cat === id).length;
+        html += `<button class="tab-btn ${currentFilter === id ? 'active' : ''}" onclick="filterModules('${id}', this)">${name} (${count})</button>`;
+      });
+
+      const watchCount = modulesData.filter(m => (m.lines / m.limit) > 0.8).length;
+      html += `<button class="tab-btn ${currentFilter === 'watch_only' ? 'active' : ''}" onclick="filterModules('watch_only', this)">🟡 警戒觀察對象 (${watchCount})</button>`;
+
+      tabsContainer.innerHTML = html;
+    }
+
+    function renderModules() {
+      const grid = document.getElementById('modulesGrid');
+      grid.innerHTML = '';
+
+      // 即時同步頂部 KPI 模組總數
+      const countElem = document.getElementById('moduleCountVal');
+      if (countElem) countElem.innerText = modulesData.length;
+
+      const filtered = modulesData.filter(m => {
+        const matchCat = (currentFilter === 'all') 
+          || (currentFilter === 'watch_only' ? (m.lines / m.limit > 0.8) : m.cat === currentFilter);
+        const matchSearch = !currentSearch 
+          || m.fname.toLowerCase().includes(currentSearch.toLowerCase())
+          || m.role.toLowerCase().includes(currentSearch.toLowerCase())
+          || m.desc.toLowerCase().includes(currentSearch.toLowerCase())
+          || (m.symbols && m.symbols.some(s => s.toLowerCase().includes(currentSearch.toLowerCase())));
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-dim);">
+            <div style="font-size: 36px; margin-bottom: 12px;">🔍</div>
+            <div style="font-size: 15px; font-weight: 600;">未找到符合條件的架構模組</div>
+            <div style="font-size: 12px; margin-top: 4px;">請嘗試更換搜尋關鍵字或切換上方分類標籤</div>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(m => {
+        const badge = getStatusBadge(m.lines, m.limit);
+        const card = document.createElement('div');
+        card.className = 'module-card';
+        card.onclick = () => showModuleDetail(m.fname);
+
+        const meterColor = badge.cls === 'badge-healthy' ? 'linear-gradient(90deg, #10b981, #34d399)'
+                         : badge.cls === 'badge-watch' ? 'linear-gradient(90deg, #f59e0b, #fbbf24)'
+                         : 'linear-gradient(90deg, #f43f5e, #fb7185)';
+
+        card.innerHTML = `
+          <div>
+            <div class="module-header">
+              <div class="module-name-group">
+                <div class="module-name">${m.fname}</div>
+                <div class="module-role-tag">${m.role}</div>
+              </div>
+              <span class="topo-node-badge ${badge.cls}">${badge.text}</span>
+            </div>
+            <div class="module-desc">${m.desc}</div>
+          </div>
+
+          <div>
+            <div class="module-stats-row">
+              <span class="stat-lines-current">${m.lines} <span style="font-size:11px; font-weight:normal; color:var(--text-dim);">行</span></span>
+              <span class="stat-lines-ceiling">健康門檻 ${m.limit} 行 (${badge.pct}%)</span>
+            </div>
+            <div class="module-meter">
+              <div class="module-meter-fill" style="width: ${Math.min(badge.pct, 100)}%; background: ${meterColor};"></div>
+            </div>
+            <div class="module-footer">
+              <span class="layer-badge">${m.catName}</span>
+              <span style="color:var(--cyan); cursor:pointer; font-weight:600;">檢視職責詳情 ➔</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // 同步上方拓撲圖各節點行數與狀態 (SSOT 連動)
+      syncTopologyBadges();
+    }
+
+    // 拓撲圖節點行數與狀態動態連動函數
+    function syncTopologyBadges() {
+      document.querySelectorAll('.topo-node[onclick]').forEach(node => {
+        const onclickAttr = node.getAttribute('onclick') || '';
+        const match = onclickAttr.match(/showModuleDetail\('([^']+)'\)/);
+        if (!match) return;
+        const fname = match[1];
+        const mod = modulesData.find(m => m.fname === fname);
+        if (!mod) return;
+        const badge = getStatusBadge(mod.lines, mod.limit);
+        const badgeSpan = node.querySelector('.topo-node-badge');
+        if (badgeSpan) {
+          badgeSpan.className = `topo-node-badge ${badge.cls}`;
+          const parts = badgeSpan.innerText.split('·');
+          let roleSuffix = parts.length > 1 ? parts[1].replace(/^[🟢🟡🔴\s]+/, '').trim() : '';
+          const icon = badge.cls === 'badge-healthy' ? '🟢' : (badge.cls === 'badge-watch' ? '🟡' : '🔴');
+          badgeSpan.innerText = `${mod.lines} 行 · ${icon} ${roleSuffix || '健康'}`;
+        }
+      });
+    }
+
+    function filterModules(category, btnElem) {
+      currentFilter = category;
+      document.querySelectorAll('#filterTabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElem) btnElem.classList.add('active');
+      renderModules();
+    }
+
+    function handleSearch() {
+      currentSearch = document.getElementById('searchInput').value.trim();
+      renderModules();
+    }
+
+    function showModuleDetail(filename) {
+      const mod = modulesData.find(m => m.fname === filename);
+      if (!mod) return;
+
+      const badge = getStatusBadge(mod.lines, mod.limit);
+      document.getElementById('modalFileName').innerText = `📄 ${mod.fname}`;
+
+      const symbolsHtml = mod.symbols 
+        ? mod.symbols.map(s => `<span class="code-tag">${s}</span>`).join('') 
+        : '<span style="color:var(--text-dim);">無特別註明</span>';
+
+      document.getElementById('modalBody').innerHTML = `
+        <div class="detail-item">
+          <div class="detail-label">🏷️ 模組角色與職能定位</div>
+          <div class="detail-content" style="font-size:15px; font-weight:700; color:#fff;">${mod.role}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">📏 代碼行數與健康水位</div>
+          <div class="detail-content" style="display:flex; align-items:center; gap:10px;">
+            <span style="font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:800; color:#fff;">${mod.lines} 行</span>
+            <span class="topo-node-badge ${badge.cls}">${badge.text}</span>
+            <span style="font-size:12px; color:var(--text-dim);">(健康門檻: ${mod.limit} 行, 佔用率: ${badge.pct}%)</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">📋 模組架構職責說明</div>
+          <div class="detail-content" style="color:var(--text-muted); background:rgba(30,41,59,0.5); padding:10px 14px; border-radius:10px; border:1px solid var(--border-subtle);">
+            ${mod.desc}
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">🧩 關鍵導出符號與核心函數 (SSOT)</div>
+          <div class="tag-list">${symbolsHtml}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">🏛️ 平鋪治理成果與防護備忘</div>
+          <div class="detail-content" style="color:#fde68a; background:var(--amber-bg); border:1px solid var(--amber-border); padding:10px 14px; border-radius:10px; font-size:12px;">
+            💡 ${mod.governance || "符合全系統平鋪架構規範，落實單一職責與零業務滲透。"}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeModal(e) {
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    // 複製手冊用的 Markdown 表格
+    function copyMarkdownTable() {
+      let md = `| 檔案名稱 | 角色與職責 | 當前行數 / 健康門檻 | 狀態 |\n| :--- | :--- | :--- | :--- |\n`;
+      modulesData.forEach(m => {
+        const badge = getStatusBadge(m.lines, m.limit);
+        const icon = badge.cls === 'badge-healthy' ? '🟢 正常' : (badge.cls === 'badge-watch' ? '🟡 觀察' : '🔴 預警');
+        md += `| **\`${m.fname}\`** | ${m.role} | \`${m.lines}\` / \`${m.limit}\` 行 (${badge.pct}%) | ${icon} |\n`;
+      });
+
+      navigator.clipboard.writeText(md).then(() => {
+        alert("✅ 已成功複製最新平鋪架構 Markdown 表格至剪貼簿！可直接貼上至手冊中！");
+      }).catch(err => {
+        console.error("複製失敗", err);
+      });
+    }
+
+    // 智慧多端點呼叫引擎 (支援 Flask 模式、開發者總控中心 8765、獨立微服務模式 5055 與 file:// 模式)
+    async function callApi(endpoint, options = {}) {
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        try {
+          const res = await fetch(endpoint, options);
+          if (res.ok) return res;
+        } catch (e) {}
+      }
+      try {
+        const res = await fetch(`http://127.0.0.1:8765${endpoint}`, options);
+        if (res.ok) return res;
+      } catch (e) {}
+      try {
+        const res = await fetch(`http://127.0.0.1:5055${endpoint}`, options);
+        if (res.ok) return res;
+      } catch (e) {}
+      throw new Error(`無法連線至 ${endpoint}`);
+    }
+
+    // 即時重新掃描資料 (支援後端 Flask 模式與 scan_architecture 微服務 5055 模式)
+    async function refreshLiveData(silent = false) {
+      const btn = document.getElementById('btnRefreshScan');
+      const icon = document.getElementById('scanIcon');
+      if (icon) {
+        icon.style.display = 'inline-block';
+        icon.style.animation = 'spin 1s infinite linear';
+      }
+
+      try {
+        const res = await callApi('/api/architecture_stats');
+        const data = await res.json();
+        if (data && data.modules) {
+          modulesData = data.modules;
+          if (data.version) document.getElementById('appVersion').innerText = data.version;
+          if (data.app_lines !== undefined) {
+            document.getElementById('appLinesVal').innerText = data.app_lines;
+            const appLimit = data.entrypoint_limit || 850;
+            const appPct = ((data.app_lines / appLimit) * 100).toFixed(1);
+            document.getElementById('appBar').style.width = `${Math.min(appPct, 100)}%`;
+          }
+          renderCategoryTabs();
+          renderModules();
+          if (!silent) alert("✅ 成功自伺服器完成最新代碼行數即時掃描與重新繪製！(包含最新動態新增檔案)");
+        }
+      } catch (err) {
+        if (!silent) {
+          setTimeout(() => {
+            renderCategoryTabs();
+            renderModules();
+            alert("ℹ️ 目前為本機靜態離線模式 (file://)，已重繪目前架構快照！\n\n💡 提示：雙擊執行「查看架構看板.bat」即可啟動獨立即時掃描微服務 (port 5055) 進行秒級全盤掃描。");
+          }, 300);
+        }
+      } finally {
+        if (icon) icon.style.animation = 'none';
+      }
+    }
+
+    // --- 浮動 Toast 提示 ---
+    function showToast(msg, icon = '✅') {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastIcon').innerText = icon;
+      document.getElementById('toastText').innerText = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+
+    // --- 💡 一鍵生成架構優化指令 (AI Prompt) ---
+    let cachedUnhealthyModules = [];
+
+    function openOptimizationModal() {
+      // 篩選未達健康水位之模組 (非綠色，或佔用率 >= 80%)
+      cachedUnhealthyModules = modulesData.filter(m => {
+        const badge = getStatusBadge(m.lines, m.limit);
+        return badge.cls !== 'badge-healthy' || parseFloat(badge.pct) >= 80;
+      });
+
+      const modal = document.getElementById('optimizationModal');
+      const banner = document.getElementById('optSummaryBanner');
+      const box = document.getElementById('optimizationPromptBox');
+      const versionElem = document.getElementById('appVersion');
+      const versionStr = (versionElem ? versionElem.innerText.trim() : 'v2.69.43') || 'v2.69.43';
+
+      if (cachedUnhealthyModules.length === 0) {
+        banner.innerHTML = `
+          <div style="background:var(--emerald-bg); border:1px solid var(--emerald-border); border-radius:12px; padding:14px 18px; color:#a7f3d0; display:flex; align-items:center; gap:12px;">
+            <span style="font-size:24px;">🎉</span>
+            <div>
+              <div style="font-weight:700; font-size:14px; color:#fff;">全站 45+ 個模組皆處於極致健康 (🟢 &lt;80%) 水位！</div>
+              <div style="font-size:12px; margin-top:2px;">目前無任何模組超過健康警戒門檻，平鋪解耦守護狀態極佳。</div>
+            </div>
+          </div>
+        `;
+
+        const safePrompt = `【${versionStr}】你好！目前「系統平鋪架構看板」全站 45+ 模組皆處於極致健康 (🟢 <80%) 水位，請協助執行常態平鋪守護健檢：\n` +
+`1. 執行守護測試：python -m unittest test_core.TestFlatArchitectureCompliance 確保全綠 PASS。\n` +
+`2. 檢查 app.py 嚴守 <= 850 行純路由與入口規範，零內嵌 HTML、Flex 與 SQL 操作。\n` +
+`3. 檢視現有模組職責邊界，落實單一真實來源 (SSOT)。`;
+        box.innerText = safePrompt;
+      } else {
+        const badgeChips = cachedUnhealthyModules.map(m => {
+          const badge = getStatusBadge(m.lines, m.limit);
+          const colorCls = badge.cls === 'badge-alert' ? 'var(--rose)' : 'var(--amber)';
+          const bgCls = badge.cls === 'badge-alert' ? 'var(--rose-bg)' : 'var(--amber-bg)';
+          const bdCls = badge.cls === 'badge-alert' ? 'var(--rose-border)' : 'var(--amber-border)';
+          return `<span style="background:${bgCls}; border:1px solid ${bdCls}; color:${colorCls}; padding:3px 8px; border-radius:6px; font-size:12px; font-family:'JetBrains Mono', monospace; font-weight:700;">${m.fname} (${m.lines}/${m.limit}行 · ${badge.pct}%)</span>`;
+        }).join(' ');
+
+        banner.innerHTML = `
+          <div style="background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:12px; padding:14px 18px; color:#fde68a;">
+            <div style="font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px;">
+              <span>⚠️</span> 檢測到 ${cachedUnhealthyModules.length} 個模組接近或超過健康警戒線（佔用率 ≥ 80%）：
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">
+              ${badgeChips}
+            </div>
+          </div>
+        `;
+
+        let promptText = `【${versionStr}】你好！請針對目前「系統平鋪架構 ✕ 代碼健康度看板」中檢測出未達綠色健康（高負載/接近警戒線）的模組進行平鋪解耦與代碼瘦身優化：\n\n`;
+        promptText += `### 🎯 待優化模組清單與架構診斷：\n`;
+
+        cachedUnhealthyModules.forEach((m, idx) => {
+          const badge = getStatusBadge(m.lines, m.limit);
+          promptText += `${idx + 1}. **\`${m.fname}\`** (${m.role})\n`;
+          promptText += `   - 當前行數：${m.lines} 行 / 健康門檻：${m.limit} 行 (佔用率 ${badge.pct}% · ${badge.text})\n`;
+          promptText += `   - 所屬層級：${m.catName}\n`;
+          promptText += `   - 模組職責：${m.desc}\n`;
+          if (m.governance) {
+            promptText += `   - 現有治理備忘：${m.governance}\n`;
+          }
+          promptText += `   - 平鋪重構建議：恪守單一職責，將非核心輔助函數抽離為專責子模組或子路由，原檔案保留為門面 (Facade) 對外暴露現有符號（100% 零破壞向下相容），將行數瘦身至健康水位 (<80%)。\n\n`;
+        });
+
+        promptText += `### 🛡️ 平鋪架構 4 大紅線與改版交付鐵律（違者測試不通嚴禁交付）：\n`;
+        promptText += `1. 模組行數需重構至安全門檻以下，app.py 嚴格保持 <= 850 行純輕量 Web 路由入口。\n`;
+        promptText += `2. 零內嵌視圖/樣板/SQL：HTML 歸 web_templates.py、Flex 歸 flex_* 子模組、SQL 持久化歸 db_service.py。\n`;
+        promptText += `3. 零破壞相容性：重構後對外暴露符號與函數必須保持 100% 向上相容，杜絕 Breaking Changes。\n`;
+        promptText += `4. 交付前必跑守護測試：python -m unittest test_core.TestFlatArchitectureCompliance 必須 100% 全綠 PASS。\n`;
+        promptText += `5. 改版必備份：完成重構後調用 auto_backup.smart_backup() 並更新 PROJECT_HANDOVER.md。\n`;
+
+        box.innerText = promptText;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeOptimizationModal(e) {
+      document.getElementById('optimizationModal').style.display = 'none';
+    }
+
+    function copyOptimizationPrompt() {
+      const box = document.getElementById('optimizationPromptBox');
+      const text = box.innerText || box.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("已成功複製完整優化 Prompt 指令！直接貼給 AI 即可開始重構！", "📋");
+      }).catch(err => {
+        alert("複製失敗，請手動全選複製！");
+      });
+    }
+
+    function copyUnhealthyListOnly() {
+      if (cachedUnhealthyModules.length === 0) {
+        navigator.clipboard.writeText("全站模組目前皆為 🟢 綠色極度健康！").then(() => {
+          showToast("已複製健康狀態訊息！", "📋");
+        });
+        return;
+      }
+      let listText = "待優化模組清單：\n" + cachedUnhealthyModules.map(m => {
+        const badge = getStatusBadge(m.lines, m.limit);
+        return `- ${m.fname}: ${m.lines} / ${m.limit} 行 (${badge.pct}%) - ${m.role}`;
+      }).join("\n");
+
+      navigator.clipboard.writeText(listText).then(() => {
+        showToast("已成功複製待優化模組清單！", "📋");
+      }).catch(err => {
+        alert("複製失敗，請手動複製！");
+      });
+    }
+
+    // --- 🧹 專案多餘與冗餘檔案安全清理中樞 ---
+    let redundantFilesCache = [];
+
+    async function openRedundantFilesModal() {
+      document.getElementById('redundantModal').style.display = 'flex';
+      await fetchRedundantFiles();
+    }
+
+    function closeRedundantModal(e) {
+      document.getElementById('redundantModal').style.display = 'none';
+    }
+
+    async function fetchRedundantFiles() {
+      const container = document.getElementById('redundantFilesList');
+      const statsBar = document.getElementById('redundantStatsBar');
+      container.innerHTML = `
+        <div style="text-align:center; padding:40px 20px; color:var(--text-muted);">
+          <span style="display:inline-block; animation:spin 1s infinite linear; font-size:24px;">🔄</span>
+          <div style="margin-top:10px; font-size:13px;">正在安全掃描專案非核心多餘與冗餘檔案...</div>
+        </div>
+      `;
+
+      try {
+        const res = await callApi('/api/scan_redundant_files');
+        const data = await res.json();
+        redundantFilesCache = data.files || [];
+        renderRedundantTable(data);
+      } catch (err) {
+        renderOfflineRedundantGuide();
+      }
+    }
+
+    function renderRedundantTable(data) {
+      const container = document.getElementById('redundantFilesList');
+      const statsBar = document.getElementById('redundantStatsBar');
+      const files = data.files || [];
+
+      if (files.length === 0) {
+        statsBar.innerHTML = `
+          <div style="background:var(--emerald-bg); border:1px solid var(--emerald-border); border-radius:12px; padding:12px 16px; color:#a7f3d0; font-size:13px; font-weight:600;">
+            🎉 太棒了！專案目錄乾淨整潔，未發現任何多餘或冗餘檔案！
+          </div>
+        `;
+        container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-dim); font-size:13px;">無可清理檔案</div>`;
+        document.getElementById('btnExecuteClean').disabled = true;
+        document.getElementById('selectedCleanSummary').innerText = `已勾選 0 個檔案`;
+        return;
+      }
+
+      statsBar.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:rgba(30,41,59,0.6); border:1px solid var(--border-subtle); padding:12px 16px; border-radius:12px;">
+          <div>
+            <span style="font-weight:700; color:#fff; font-size:14px;">共掃描到 ${data.total_files} 個多餘檔案</span>
+            <span style="color:var(--text-dim); font-size:12px; margin-left:8px;">(預估可釋放 <strong style="color:var(--cyan);">${data.total_size_formatted}</strong> 磁碟空間)</span>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn" style="padding:4px 10px; font-size:11px;" onclick="toggleSelectAllRedundant(true)">☑️ 全選</button>
+            <button class="btn" style="padding:4px 10px; font-size:11px;" onclick="toggleSelectAllRedundant(false)">⬜ 全不選</button>
+            <button class="btn" style="padding:4px 10px; font-size:11px;" onclick="selectSafeRedundantOnly()">🛡️ 僅選推薦項</button>
+          </div>
+        </div>
+      `;
+
+      let tableHtml = `
+        <div class="clean-table-container">
+          <table class="clean-table">
+            <thead>
+              <tr>
+                <th style="width:40px; text-align:center;"><input type="checkbox" id="checkMaster" checked onchange="toggleSelectAllRedundant(this.checked)"></th>
+                <th style="width:130px;">分類類別</th>
+                <th>相對路徑與檔案名稱</th>
+                <th style="width:90px;">檔案大小</th>
+                <th style="width:140px;">最後修改時間</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      files.forEach(f => {
+        let chipCls = 'chip-temp';
+        if (f.category.includes('損毀')) chipCls = 'chip-corrupt';
+        else if (f.category.includes('備份')) chipCls = 'chip-bak';
+        else if (f.category.includes('快取')) chipCls = 'chip-cache';
+
+        tableHtml += `
+          <tr>
+            <td style="text-align:center;">
+              <input type="checkbox" class="file-chk" data-path="${f.rel_path}" data-size="${f.size_bytes}" checked onchange="updateCleanCount()">
+            </td>
+            <td><span class="file-chip ${chipCls}">${f.category}</span></td>
+            <td>
+              <div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#fff; word-break:break-all;">${f.rel_path}</div>
+              <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">${f.reason || ''}</div>
+            </td>
+            <td style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-muted);">${f.size_formatted}</td>
+            <td style="font-size:11px; color:var(--text-dim);">${f.mtime}</td>
+          </tr>
+        `;
+      });
+
+      tableHtml += `
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      container.innerHTML = tableHtml;
+      updateCleanCount();
+    }
+
+    function updateCleanCount() {
+      const chks = document.querySelectorAll('.file-chk:checked');
+      let totalBytes = 0;
+      chks.forEach(c => {
+        totalBytes += parseInt(c.getAttribute('data-size') || 0, 10);
+      });
+
+      let formatted = totalBytes < 1024 
+        ? `${totalBytes} B` 
+        : (totalBytes < 1024*1024 ? `${(totalBytes/1024).toFixed(1)} KB` : `${(totalBytes/(1024*1024)).toFixed(2)} MB`);
+
+      const btn = document.getElementById('btnExecuteClean');
+      const summary = document.getElementById('selectedCleanSummary');
+
+      summary.innerText = `已勾選 ${chks.length} 個檔案 · 預計釋放 ${formatted}`;
+      btn.disabled = chks.length === 0;
+      if (btn.disabled) {
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
+      } else {
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+    }
+
+    function toggleSelectAllRedundant(selectAll) {
+      document.querySelectorAll('.file-chk').forEach(c => c.checked = selectAll);
+      const master = document.getElementById('checkMaster');
+      if (master) master.checked = selectAll;
+      updateCleanCount();
+    }
+
+    function selectSafeRedundantOnly() {
+      document.querySelectorAll('.file-chk').forEach(c => c.checked = true);
+      const master = document.getElementById('checkMaster');
+      if (master) master.checked = true;
+      updateCleanCount();
+    }
+
+    async function executeCleanRedundantFiles() {
+      const checkedBoxes = Array.from(document.querySelectorAll('.file-chk:checked'));
+      if (checkedBoxes.length === 0) return;
+
+      const files = checkedBoxes.map(c => c.getAttribute('data-path'));
+      const confirmed = confirm(`⚠️ 安全確認：確定要永久清除勾選的 ${files.length} 個多餘檔案嗎？\n\n此動作將立即釋放磁碟空間，核心代碼與資料庫皆受到嚴密白名單保護。`);
+      if (!confirmed) return;
+
+      const btn = document.getElementById('btnExecuteClean');
+      btn.disabled = true;
+      btn.innerText = '⏳ 清理中...';
+
+      try {
+        const res = await callApi('/api/clean_redundant_files', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ files: files })
+        });
+
+        const result = await res.json();
+        showToast(`🎉 成功清除 ${result.deleted_count} 個多餘檔案，共釋放 ${result.reclaimed_formatted} 磁碟空間！`, "🧹");
+        await fetchRedundantFiles();
+      } catch (err) {
+        alert('❌ 清除操作失敗，請確認後端服務或「查看架構看板.bat」微服務是否已啟動！');
+      } finally {
+        btn.innerText = '🗑️ 清除選取的檔案';
+        btn.disabled = false;
+      }
+    }
+
+    function renderOfflineRedundantGuide() {
+      const statsBar = document.getElementById('redundantStatsBar');
+      const container = document.getElementById('redundantFilesList');
+      statsBar.innerHTML = `
+        <div style="background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:12px; padding:12px 16px; color:#fde68a; font-size:13px;">
+          ℹ️ 目前為本機靜態瀏覽模式 (file://)，伺服器 API 端點未連線。
+        </div>
+      `;
+      container.innerHTML = `
+        <div style="background:rgba(30,41,59,0.5); border:1px solid var(--border-subtle); padding:18px; border-radius:12px; margin-top:12px;">
+          <div style="font-weight:700; color:#fff; font-size:14px; margin-bottom:8px;">💡 本機快速執行安全清理方式：</div>
+          <div style="font-size:12px; color:var(--text-muted); line-height:1.7;">
+            若您未啟動 Flask 服務，可開啟終端機或命令提示字元，執行下方 Python 一秒掃描與清理指令：
+          </div>
+          <pre class="prompt-box" style="margin:10px 0; max-height:160px;">python -c "from cleanup_service import scan_redundant_files, clean_redundant_files; res = scan_redundant_files(); print('掃描出:', res['total_files'], '個多餘檔案，共', res['total_size_formatted']); clean_res, _ = clean_redundant_files([f['rel_path'] for f in res['files']]); print('清理成功:', clean_res['deleted_count'], '個檔案，釋放:', clean_res['reclaimed_formatted'])"</pre>
+          <div style="font-size:12px; color:var(--text-dim); margin-top:8px;">
+            或啟動主後端服務 <code style="color:var(--cyan);">python app.py</code> 後重新開啟本看板，即可在網頁端直接點選勾選即時清除！
+          </div>
+        </div>
+      `;
+      document.getElementById('btnExecuteClean').disabled = true;
+    }
+
+    // 初始化渲染
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCategoryTabs();
+      renderModules();
+      // 靜默嘗試自動連線即時微服務以獲取最新行數 (若微服務已啟動則秒級無縫更新)
+      setTimeout(() => refreshLiveData(true), 200);
+    });
+
+    // ESC 鍵關閉彈窗
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeOptimizationModal();
+        closeRedundantModal();
+        closeNavPortal();
+      }
+    });
+
+    // 🧭 全功能網址傳送門切換與複製邏輯
+    let portalHostMode = 'local';
+    
+    function openNavPortal() {
+      const modal = document.getElementById('navPortalModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeNavPortal() {
+      const modal = document.getElementById('navPortalModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function setPortalHost(mode) {
+      portalHostMode = mode;
+      document.querySelectorAll('.portal-host-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('btnHost' + (mode === 'local' ? 'Local' : 'Render'));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const adminKey = sessionStorage.getItem('admin_key') || '';
+      const keyParam = adminKey ? ('?key=' + encodeURIComponent(adminKey)) : '';
+
+      document.querySelectorAll('[data-portal-path]').forEach(el => {
+        const path = el.getAttribute('data-portal-path');
+        const reqKey = el.getAttribute('data-req-key') === 'true';
+        const base = mode === 'local' ? 'http://127.0.0.1:5000' : 'https://tw-parking-linebot.onrender.com';
+        const finalUrl = base + path + (reqKey ? keyParam : '');
+        
+        const urlDisplay = el.querySelector('.portal-item-url');
+        if (urlDisplay) urlDisplay.innerText = finalUrl;
+
+        const openBtn = el.querySelector('.btn-portal-open');
+        if (openBtn) openBtn.setAttribute('href', finalUrl);
+        
+        const copyBtn = el.querySelector('.btn-portal-copy');
+        if (copyBtn) copyBtn.setAttribute('data-copy-url', finalUrl);
+      });
+    }
+
+    function copyPortalUrl(btn) {
+      const url = btn.getAttribute('data-copy-url') || (btn.parentElement && btn.parentElement.querySelector('.btn-portal-open') ? btn.parentElement.querySelector('.btn-portal-open').getAttribute('href') : '');
+      if (!url) return;
+      navigator.clipboard.writeText(url).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = '✅ 已複製';
+        btn.style.color = '#34D399';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.color = '';
+        }, 1500);
+      }).catch(e => {
+        prompt('請手動複製網址：', url);
+      });
+    }
+
+    // 頁面初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      setPortalHost('local');
+    });
+  </script>
+  <style>
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+
+  <!-- 🧭 專案全功能網址傳送門 Modal -->
+  <div id="navPortalModal" class="portal-modal-overlay" onclick="if(event.target===this)closeNavPortal()">
+    <div class="portal-card">
+      <div class="portal-header">
+        <div class="portal-title">
+          <h2>🧭 專案全功能網址傳送門 (Navigation Hub)</h2>
+          <p>⚡ 獨立微服務 ✕ 主營運後台 ✕ 離線手冊 · 單一真實來源 (SSOT) 快速導航</p>
+        </div>
+        <button type="button" class="portal-close-btn" onclick="closeNavPortal()" title="關閉 (Esc)">✕</button>
+      </div>
+      
+      <div class="portal-toolbar">
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span style="color:#94A3B8; font-weight:600;">🌐 主營運環境切換：</span>
+          <div class="portal-host-switch">
+            <button type="button" id="btnHostLocal" class="portal-host-btn active" onclick="setPortalHost('local')">💻 本機開發 (127.0.0.1:5000)</button>
+            <button type="button" id="btnHostRender" class="portal-host-btn" onclick="setPortalHost('render')">☁️ 線上 Render 伺服器</button>
+          </div>
+        </div>
+        <div style="color:#64748B; font-size:0.75rem;">
+          💡 提示：按 <kbd style="background:#1E293B; padding:2px 6px; border-radius:4px; border:1px solid #334155; color:#94A3B8;">Esc</kbd> 隨時關閉
+        </div>
+      </div>
+
+      <div class="portal-body">
+        <!-- 區塊 1: 本機微服務 -->
+        <div>
+          <div class="portal-section-title">
+            <span>💻 本機獨立開發微服務 (Local Microservices)</span>
+            <span style="font-size:0.75rem; color:#64748B; font-weight:normal;">需在終端機或雙擊 .bat 執行</span>
+          </div>
+          <div class="portal-grid">
+            <!-- 架構看板 -->
+            <div class="portal-item">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">🏛️ 平鋪架構 ✕ 健康看板</div>
+                  <span class="portal-badge badge-micro">Port 5055</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">代碼行數即時動態監控、4 大紅線守護、多餘檔案清理</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5055/architecture_dashboard.html</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5055/architecture_dashboard.html" target="_blank" class="btn-portal-open">🚀 開啟看板</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5055/architecture_dashboard.html" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- Token 指揮中心 -->
+            <div class="portal-item">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">⚡ Token 總指揮中心</div>
+                  <span class="portal-badge badge-micro">Port 5050</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">4 組帳號官方配額即時監控、對話 Token 記帳 (SSOT)</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5050/token_dashboard.html</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5050/token_dashboard.html" target="_blank" class="btn-portal-open">🚀 開啟中心</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5050/token_dashboard.html" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- Token 雲端線上總表 -->
+            <div class="portal-item">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">🌐 Token 雲端線上總表</div>
+                  <span class="portal-badge badge-micro">Port 5050</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">跨專案、雲端多端同步之 Token 狀態總覽</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5050/cloud_dashboard.html</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5050/cloud_dashboard.html" target="_blank" class="btn-portal-open">🚀 開啟總表</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5050/cloud_dashboard.html" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 區塊 2: Flask 主營運應用 -->
+        <div>
+          <div class="portal-section-title">
+            <span>⚡ Flask 主營運應用 (Main Web App)</span>
+            <span style="font-size:0.75rem; color:#64748B; font-weight:normal;">隨上方切換按鈕即時變更本機或線上網址</span>
+          </div>
+          <div class="portal-grid">
+            <!-- 生活設施數據監控中心 -->
+            <div class="portal-item" data-portal-path="/dashboard" data-req-key="true">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">📊 生活設施數據監控中心</div>
+                  <span class="portal-badge badge-flask">👑 金鑰</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">全台 22 縣市設施、全日本 47 都道府縣、車友審計表</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/dashboard</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/dashboard" target="_blank" class="btn-portal-open">🚀 直達主控台</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/dashboard" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 車友行為大數據分析報表 -->
+            <div class="portal-item" data-portal-path="/analytics" data-req-key="false">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">📈 車友行為大數據報表</div>
+                  <span class="portal-badge badge-flask">公開</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">熱搜詞排行、時段分佈曲線、最愛收藏設施聚合</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/analytics</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/analytics" target="_blank" class="btn-portal-open">🚀 開啟報表</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/analytics" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 線上 Log 智慧清洗與經驗庫 -->
+            <div class="portal-item" data-portal-path="/admin/logs" data-req-key="true">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">📋 線上 Log 清洗 ✕ 經驗庫</div>
+                  <span class="portal-badge badge-flask">👑 金鑰</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">線上日誌清洗診斷、Zero-Hit 痛點待補、AI 3-in-1 Prompt</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/admin/logs</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/admin/logs" target="_blank" class="btn-portal-open">🚀 診斷日誌</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/admin/logs" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 商業廣告成效看板 -->
+            <div class="portal-item" data-portal-path="/ad_stats" data-req-key="true">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">👑 廣告成效 ✕ 店家留單</div>
+                  <span class="portal-badge badge-flask">👑 金鑰</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">付費名店導流跳轉追蹤、店家合作留單跟進、VIP 開通</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/ad_stats</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/ad_stats" target="_blank" class="btn-portal-open">🚀 開啟後台</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/ad_stats" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 車位提報審核後台 -->
+            <div class="portal-item" data-portal-path="/admin/parking_reports" data-req-key="true">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">🅿️ 車位提報審核後台</div>
+                  <span class="portal-badge badge-flask">👑 金鑰</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">車友路況校準與街景 GPS 提報人工審核、一鍵入庫</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/admin/parking_reports</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/admin/parking_reports" target="_blank" class="btn-portal-open">🚀 審核後台</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/admin/parking_reports" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 管理者手冊與權力全書 -->
+            <div class="portal-item" data-portal-path="/admin/guide" data-req-key="true">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">📖 管理者手冊與權力全書</div>
+                  <span class="portal-badge badge-flask">👑 金鑰</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">系統架構手冊、全權管理員指令集與後台營運指南</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/admin/guide</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/admin/guide" target="_blank" class="btn-portal-open">🚀 查看手冊</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/admin/guide" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 手機端車位提報表單 -->
+            <div class="portal-item" data-portal-path="/report_parking" data-req-key="false">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">📱 手機端車位提報表單</div>
+                  <span class="portal-badge badge-flask">公開</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">供車友現場回報路況/街景校準之輕量 Web 介面</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/report_parking</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/report_parking" target="_blank" class="btn-portal-open">🚀 開啟表單</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/report_parking" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <!-- 健康檢查端點 -->
+            <div class="portal-item" data-portal-path="/health" data-req-key="false">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">🛡️ 系統心跳健康檢查</div>
+                  <span class="portal-badge badge-flask">公開</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">Render / UptimeRobot 輕量心跳檢測 API 端點</div>
+              </div>
+              <div class="portal-item-url">http://127.0.0.1:5000/health</div>
+              <div class="portal-item-actions">
+                <a href="http://127.0.0.1:5000/health" target="_blank" class="btn-portal-open">🚀 查看 JSON</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="http://127.0.0.1:5000/health" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 區塊 3: 離線手冊與檔案 -->
+        <div>
+          <div class="portal-section-title">
+            <span>📂 本機離線手冊 (Direct Local Guides)</span>
+            <span style="font-size:0.75rem; color:#64748B; font-weight:normal;">免開伺服器，直接在專案根目錄開啟</span>
+          </div>
+          <div class="portal-grid">
+            <div class="portal-item">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">⚡ Token 總指揮中心</div>
+                  <span class="portal-badge badge-file">開發微服務</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">本機 Token 消耗統計、5h 滑動窗口、多帳號配額輪替與冷卻</div>
+              </div>
+              <div class="portal-item-url">token_dashboard.html</div>
+              <div class="portal-item-actions">
+                <a href="token_dashboard.html" target="_blank" class="btn-portal-open">🚀 開啟看板</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="token_dashboard.html" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <div class="portal-item">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">🛠️ 跨專案工具鏈手冊</div>
+                  <span class="portal-badge badge-file">靜態 HTML</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">可用「查看工具鏈管理手冊.bat」秒開，含 Token & 備份指南</div>
+              </div>
+              <div class="portal-item-url">toolkit_guide.html</div>
+              <div class="portal-item-actions">
+                <a href="toolkit_guide.html" target="_blank" class="btn-portal-open">🚀 開啟手冊</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="toolkit_guide.html" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+
+            <div class="portal-item">
+              <div>
+                <div class="portal-item-top">
+                  <div class="portal-item-name">📖 管理者離線手冊</div>
+                  <span class="portal-badge badge-file">靜態 HTML</span>
+                </div>
+                <div class="portal-item-desc" style="margin-top:0.35rem;">本機免金鑰離線查看管理者說明手冊與權力全書</div>
+              </div>
+              <div class="portal-item-url">admin_guide.html</div>
+              <div class="portal-item-actions">
+                <a href="admin_guide.html" target="_blank" class="btn-portal-open">🚀 開啟手冊</a>
+                <button type="button" class="btn-portal-copy" data-copy-url="admin_guide.html" onclick="copyPortalUrl(this)">📋 複製</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+env/
+venv/
+
+# Local backups & cache
+backups/
+scratch/
+*.log
+.gemini/
+
+# Token & Private Configs
+cockpit_oauth.json
+token_data.js
+token_data.json
+token_storage.json
+credentials.json
+token.pickle
