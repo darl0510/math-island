@@ -439,6 +439,66 @@ function updateStatus(connected) {
   connectBtn.textContent = connected ? '📡 已連線' : '📡 連線裝置';
 }
 
+// ===== Adaptive Decoders (Air Mentor 2 / 2S / Pro) =====
+function readU16(buf, offset, le = false) {
+  const b = new Uint8Array(buf);
+  if (offset + 1 >= b.length) return 0;
+  return le ? (b[offset + 1] << 8) | b[offset] : (b[offset] << 8) | b[offset + 1];
+}
+
+function decodeTemp(raw) {
+  if (raw === undefined || raw === null || raw === 0) return null;
+  let t;
+  if (raw < 200) {
+    t = raw; // Direct °C
+  } else if (raw > 3000) {
+    t = (raw - 4000) * 0.01;
+  } else {
+    t = raw * 0.01;
+  }
+  // Sanity check
+  if (t < -10 || t > 70) {
+    const alt1 = raw * 0.01;
+    const alt2 = (raw - 4000) * 0.01;
+    if (alt1 >= -10 && alt1 <= 70) t = alt1;
+    else if (alt2 >= -10 && alt2 <= 70) t = alt2;
+    else t = Math.max(-10, Math.min(70, t));
+  }
+  return Math.round(t * 10) / 10;
+}
+
+function decodeHum(raw) {
+  if (raw === undefined || raw === null || raw === 0) return null;
+  let h;
+  if (raw <= 100) h = raw;
+  else if (raw <= 1000) h = raw * 0.1;
+  else h = raw * 0.01;
+  if (h < 0 || h > 100) {
+    const alt1 = raw * 0.01;
+    const alt2 = raw * 0.1;
+    if (alt1 >= 0 && alt1 <= 100) h = alt1;
+    else if (alt2 >= 0 && alt2 <= 100) h = alt2;
+    else h = Math.max(0, Math.min(100, h));
+  }
+  return Math.round(h * 10) / 10;
+}
+
+function decodeIAQ(bytes, offset) {
+  if (offset + 1 >= bytes.length) return null;
+  const combined = (bytes[offset] << 8) | bytes[offset + 1];
+  if (combined >= 0 && combined <= 500) return combined;
+  const b8 = bytes[offset], b9 = bytes[offset + 1];
+  if (b9 >= 1 && b9 <= 5) {
+    return {1: 30, 2: 75, 3: 125, 4: 200, 5: 350}[b9];
+  }
+  if (b8 >= 1 && b8 <= 5) {
+    return {1: 30, 2: 75, 3: 125, 4: 200, 5: 350}[b8];
+  }
+  if (b8 >= 0 && b8 <= 500) return b8;
+  if (b9 >= 0 && b9 <= 500) return b9;
+  return Math.max(0, Math.min(500, combined));
+}
+
 // ===== Data Parsing (Adaptive for Air Mentor 2 / 2S) =====
 function onDataReceived(event) {
   const value = event.target.value;
@@ -471,28 +531,30 @@ function onDataReceived(event) {
   } else if (type === 0x02 && bytes.length >= 10) {
     const tvoc = (bytes[2] << 8) | bytes[3];
     const tempRaw = (bytes[4] << 8) | bytes[5];
-    const temp = (tempRaw - 4000) * 0.01;
+    const temp = decodeTemp(tempRaw);
     const humRaw = (bytes[6] << 8) | bytes[7];
-    const hum = humRaw * 0.1;
-    const iaq = (bytes[8] << 8) | bytes[9];
+    const hum = decodeHum(humRaw);
+    const iaq = decodeIAQ(bytes, 8);
 
     $('tvocValue').textContent = tvoc;
-    $('tempValue').textContent = temp.toFixed(1) + '°C';
-    $('humValue').textContent = '濕度: ' + hum.toFixed(1) + '%';
-    $('iaqValue').textContent = iaq;
+    $('tempValue').textContent = (temp !== null ? temp.toFixed(1) : '--') + '°C';
+    $('humValue').textContent = '濕度: ' + (hum !== null ? hum.toFixed(1) : '--') + '%';
+    $('iaqValue').textContent = iaq !== null ? iaq : '--';
 
     // IAQ Badge
     const badge = $('iaqBadge');
-    if (iaq <= 1) { badge.textContent = '極佳'; badge.className = 'iaq-badge iaq-good'; }
-    else if (iaq <= 2) { badge.textContent = '良好'; badge.className = 'iaq-badge iaq-good'; }
-    else if (iaq <= 3) { badge.textContent = '警戒'; badge.className = 'iaq-badge iaq-moderate'; }
-    else { badge.textContent = '不良/危險'; badge.className = 'iaq-badge iaq-bad'; }
+    if (iaq !== null) {
+      if (iaq <= 50) { badge.textContent = '極佳'; badge.className = 'iaq-badge iaq-good'; }
+      else if (iaq <= 100) { badge.textContent = '良好'; badge.className = 'iaq-badge iaq-good'; }
+      else if (iaq <= 150) { badge.textContent = '警戒'; badge.className = 'iaq-badge iaq-moderate'; }
+      else { badge.textContent = '不良/危險'; badge.className = 'iaq-badge iaq-bad'; }
+      pushSpark('iaq', iaq);
+      checkAlert(iaq);
+    }
 
     pushSpark('tvoc', tvoc);
-    pushSpark('temp', temp);
-    pushSpark('iaq', iaq * 80);
-    logHex('info', `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp.toFixed(1)}°C, 濕度=${hum.toFixed(1)}%, IAQ=${iaq}`);
-    checkAlert(iaq);
+    if (temp !== null) pushSpark('temp', temp);
+    logHex('info', `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp}°C, 濕度=${hum}%, IAQ=${iaq}`);
     updated = true;
   } else if (bytes.length >= 16) {
     // 模式 B: 單一大封包 (16~20 bytes 全量數據)
@@ -500,29 +562,29 @@ function onDataReceived(event) {
     const pm25 = (bytes[4] << 8) | bytes[5];
     const tvoc = (bytes[8] << 8) | bytes[9];
     const tempRaw = (bytes[10] << 8) | bytes[11];
-    const temp = (tempRaw - 4000) * 0.01;
+    const temp = decodeTemp(tempRaw);
     const humRaw = (bytes[12] << 8) | bytes[13];
-    const hum = humRaw * 0.1;
-    const iaq = (bytes[14] << 8) | bytes[15];
+    const hum = decodeHum(humRaw);
+    const iaq = decodeIAQ(bytes, 14);
 
-    $('co2Value').textContent = co2;
-    $('pm25Value').textContent = pm25;
+    if (co2 > 0) { $('co2Value').textContent = co2; pushSpark('co2', co2); }
+    if (pm25 > 0) { $('pm25Value').textContent = pm25; pushSpark('pm25', pm25); }
     $('tvocValue').textContent = tvoc;
-    $('tempValue').textContent = temp.toFixed(1) + '°C';
-    $('humValue').textContent = '濕度: ' + hum.toFixed(1) + '%';
-    $('iaqValue').textContent = iaq;
+    $('tempValue').textContent = (temp !== null ? temp.toFixed(1) : '--') + '°C';
+    $('humValue').textContent = '濕度: ' + (hum !== null ? hum.toFixed(1) : '--') + '%';
+    $('iaqValue').textContent = iaq !== null ? iaq : '--';
 
     const badge = $('iaqBadge');
-    if (iaq <= 2) { badge.textContent = '良好'; badge.className = 'iaq-badge iaq-good'; }
-    else if (iaq <= 3) { badge.textContent = '警戒'; badge.className = 'iaq-badge iaq-moderate'; }
-    else { badge.textContent = '危險'; badge.className = 'iaq-badge iaq-bad'; }
+    if (iaq !== null) {
+      if (iaq <= 100) { badge.textContent = '良好'; badge.className = 'iaq-badge iaq-good'; }
+      else if (iaq <= 150) { badge.textContent = '警戒'; badge.className = 'iaq-badge iaq-moderate'; }
+      else { badge.textContent = '危險'; badge.className = 'iaq-badge iaq-bad'; }
+      pushSpark('iaq', iaq);
+      checkAlert(iaq);
+    }
 
-    pushSpark('co2', co2);
-    pushSpark('pm25', pm25);
     pushSpark('tvoc', tvoc);
-    pushSpark('temp', temp);
-    pushSpark('iaq', iaq * 80);
-    checkAlert(iaq);
+    if (temp !== null) pushSpark('temp', temp);
     updated = true;
   }
 
