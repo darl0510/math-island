@@ -536,6 +536,24 @@ function onDataReceived(event) {
     const hum = decodeHum(humRaw);
     const iaq = decodeIAQ(bytes, 8);
 
+    // 當 Packet 2 帶有 16~20 bytes 全量數據時，提取後續的 PM2.5 與 CO2
+    let co2Ext = null;
+    let pm25Ext = null;
+    if (bytes.length >= 16) {
+      const pm25Candidate = (bytes[12] << 8) | bytes[13];
+      const co2Candidate = (bytes[14] << 8) | bytes[15];
+      if (pm25Candidate >= 0 && pm25Candidate <= 1000) {
+        pm25Ext = pm25Candidate;
+        $('pm25Value').textContent = pm25Candidate;
+        pushSpark('pm25', pm25Candidate);
+      }
+      if (co2Candidate >= 350 && co2Candidate <= 5000) {
+        co2Ext = co2Candidate;
+        $('co2Value').textContent = co2Candidate;
+        pushSpark('co2', co2Candidate);
+      }
+    }
+
     $('tvocValue').textContent = tvoc;
     $('tempValue').textContent = (temp !== null ? temp.toFixed(1) : '--') + '°C';
     $('humValue').textContent = '濕度: ' + (hum !== null ? hum.toFixed(1) : '--') + '%';
@@ -554,21 +572,30 @@ function onDataReceived(event) {
 
     pushSpark('tvoc', tvoc);
     if (temp !== null) pushSpark('temp', temp);
-    logHex('info', `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp}°C, 濕度=${hum}%, IAQ=${iaq}`);
+
+    let logMsg = `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp !== null ? temp.toFixed(1) : '--'}°C, 濕度=${hum !== null ? hum.toFixed(1) : '--'}%, IAQ=${iaq}`;
+    if (co2Ext !== null) logMsg += `, CO2=${co2Ext} ppm`;
+    if (pm25Ext !== null) logMsg += `, PM2.5=${pm25Ext} µg/m³`;
+    logHex('info', logMsg);
+
+    // 溫升預熱提示 (若初次開機溫度低於 22°C)
+    if (temp !== null && temp < 22 && tvoc < 100) {
+      logHex('warn', '  ⚠️ 感測器溫升預熱中 (初次讀數約 18°C，待 30 秒穩定校準至約 25°C)');
+    }
     updated = true;
   } else if (bytes.length >= 16) {
-    // 模式 B: 單一大封包 (16~20 bytes 全量數據)
-    const co2 = (bytes[2] << 8) | bytes[3];
-    const pm25 = (bytes[4] << 8) | bytes[5];
-    const tvoc = (bytes[8] << 8) | bytes[9];
-    const tempRaw = (bytes[10] << 8) | bytes[11];
+    // 模式 B: 單一大封包 (16~20 bytes 全量數據，兼容舊款或獨立廣播)
+    const co2 = (bytes[14] << 8) | bytes[15] || (bytes[2] << 8) | bytes[3];
+    const pm25 = (bytes[12] << 8) | bytes[13] || (bytes[4] << 8) | bytes[5];
+    const tvoc = (bytes[2] << 8) | bytes[3];
+    const tempRaw = (bytes[4] << 8) | bytes[5];
     const temp = decodeTemp(tempRaw);
-    const humRaw = (bytes[12] << 8) | bytes[13];
+    const humRaw = (bytes[6] << 8) | bytes[7];
     const hum = decodeHum(humRaw);
-    const iaq = decodeIAQ(bytes, 14);
+    const iaq = decodeIAQ(bytes, 8);
 
-    if (co2 > 0) { $('co2Value').textContent = co2; pushSpark('co2', co2); }
-    if (pm25 > 0) { $('pm25Value').textContent = pm25; pushSpark('pm25', pm25); }
+    if (co2 >= 350 && co2 <= 5000) { $('co2Value').textContent = co2; pushSpark('co2', co2); }
+    if (pm25 >= 0 && pm25 <= 1000) { $('pm25Value').textContent = pm25; pushSpark('pm25', pm25); }
     $('tvocValue').textContent = tvoc;
     $('tempValue').textContent = (temp !== null ? temp.toFixed(1) : '--') + '°C';
     $('humValue').textContent = '濕度: ' + (hum !== null ? hum.toFixed(1) : '--') + '%';
@@ -593,21 +620,43 @@ function onDataReceived(event) {
   }
 }
 
-// ===== GATT Write Commands =====
+// ===== GATT Write Queue (防範 GATT operation already in progress 併發衝突) =====
+const txQueue = [];
+let isTxBusy = false;
+
 async function gattWrite(data) {
   if (!writeChar || !isConnected) {
     logHex('warn', '[TX] 未連線，已記錄設定至本地');
     return false;
   }
+  return new Promise(resolve => {
+    txQueue.push({ data, resolve });
+    processTxQueue();
+  });
+}
+
+async function processTxQueue() {
+  if (isTxBusy || txQueue.length === 0) return;
+  isTxBusy = true;
+  const { data, resolve } = txQueue.shift();
   try {
-    await writeChar.writeValue(data);
-    const hex = bytesToHex(new Uint8Array(data.buffer || data));
+    const bytes = new Uint8Array(data.buffer || data);
+    if (writeChar.writeValueWithResponse) {
+      await writeChar.writeValueWithResponse(bytes);
+    } else {
+      await writeChar.writeValue(bytes);
+    }
+    const hex = bytesToHex(bytes);
     logHex('tx', `[TX] 指令發送成功: ${hex}`);
-    return true;
+    resolve(true);
   } catch (err) {
     logHex('error', `[TX] 寫入指令失敗: ${err.message}`);
-    return false;
+    resolve(false);
   }
+  // 延遲 250ms 確保 GATT 頻道平滑釋放，杜絕碰撞
+  await new Promise(r => setTimeout(r, 250));
+  isTxBusy = false;
+  if (txQueue.length > 0) processTxQueue();
 }
 
 // ===== Apply LED Setting =====
