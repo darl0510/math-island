@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>氣質寶 Air Mentor — 即時空氣品質看板</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a;--surface:rgba(255,255,255,.04);--surface2:rgba(255,255,255,.07);
+  --glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.1);
+  --text:#e8ecf4;--text-dim:#8892a4;--accent:#4fc3f7;--accent2:#7c4dff;
+  --green:#4caf50;--yellow:#ffc107;--orange:#ff9800;--red:#f44336;
+  --glow-green:0 0 20px rgba(76,175,80,.4);--glow-red:0 0 20px rgba(244,67,54,.4);
+  --radius:16px;--radius-sm:10px;
+}
+html,body{height:100%;font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(ellipse at 20% 20%,rgba(79,195,247,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(124,77,255,.05) 0%,transparent 50%),var(--bg)}
+.app{max-width:1200px;margin:0 auto;padding:16px;min-height:100vh}
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 20px;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:sticky;top:8px;z-index:100}
+.header-left{display:flex;align-items:center;gap:12px}
+.logo{font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.status-dot{width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:var(--glow-red);transition:all .4s}
+.status-dot.connected{background:var(--green);box-shadow:var(--glow-green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn{padding:10px 18px;border:none;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.5px}
+.btn-connect{background:linear-gradient(135deg,var(--accent),#29b6f6);color:#fff;box-shadow:0 4px 15px rgba(79,195,247,.3)}
+.btn-connect:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(79,195,247,.4)}
+.btn-connect:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-demo{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-demo.active{background:linear-gradient(135deg,var(--accent2),#651fff);color:#fff;border-color:transparent;box-shadow:0 4px 15px rgba(124,77,255,.3)}
+.btn-disconnect{background:rgba(244,67,54,.15);color:var(--red);border:1px solid rgba(244,67,54,.3)}
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px}
+.card{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden;transition:all .3s}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--card-accent,var(--accent)),transparent);opacity:.6}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.15);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.card-icon{font-size:1.8rem;margin-bottom:8px;display:block}
+.card-label{font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:4px}
+.card-value{font-size:2.8rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.card-unit{font-size:.9rem;color:var(--text-dim);margin-left:4px;font-weight:400}
+.card-sub{font-size:.8rem;color:var(--text-dim);margin-top:8px}
+.rating-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600;margin-top:10px;letter-spacing:.5px}
+.rating-good{background:rgba(76,175,80,.15);color:#81c784;border:1px solid rgba(76,175,80,.3)}
+.rating-normal{background:rgba(255,193,7,.12);color:#ffd54f;border:1px solid rgba(255,193,7,.3)}
+.rating-warning{background:rgba(255,152,0,.12);color:#ffb74d;border:1px solid rgba(255,152,0,.3)}
+.rating-danger{background:rgba(244,67,54,.12);color:#ef5350;border:1px solid rgba(244,67,54,.3)}
+/* IAQ Gauge */
+.iaq-card{grid-column:1/-1}
+.iaq-gauge{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.iaq-ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.iaq-ring svg{width:120px;height:120px;transform:rotate(-90deg)}
+.iaq-ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.iaq-ring .bg{stroke:rgba(255,255,255,.08)}
+.iaq-ring .fg{transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1),stroke .5s}
+.iaq-center{position:absolute;font-size:2.2rem;font-weight:700}
+.iaq-info{flex:1;min-width:200px}
+.iaq-bars{display:flex;gap:4px;margin-top:12px}
+.iaq-bar{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.08);transition:all .5s}
+.iaq-bar.active{background:var(--bar-color,var(--green))}
+/* Sparkline */
+.sparkline{width:100%;height:40px;margin-top:12px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.2)}
+.sparkline canvas{width:100%;height:100%}
+/* Footer */
+.footer{text-align:center;padding:20px;color:var(--text-dim);font-size:.75rem;border-top:1px solid var(--border);margin-top:20px}
+.footer a{color:var(--accent);text-decoration:none}
+/* Toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--surface2);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 24px;font-size:.85rem;transition:transform .4s cubic-bezier(.4,0,.2,1);z-index:999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:fadeUp .6s ease both}
+.card:nth-child(2){animation-delay:.1s}.card:nth-child(3){animation-delay:.2s}
+.card:nth-child(4){animation-delay:.3s}.card:nth-child(5){animation-delay:.4s}
+.card:nth-child(6){animation-delay:.5s}
+/* Responsive */
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .card-value{font-size:2.2rem}
+  .header{padding:12px 14px}
+  .logo{font-size:1.1rem}
+  .btn{padding:8px 14px;font-size:.78rem}
+  .iaq-gauge{flex-direction:column;align-items:flex-start}
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+/* PWA hint */
+.pwa-hint{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--surface2);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 18px;font-size:.8rem;z-index:998}
+@media(display-mode:standalone){.pwa-hint{display:block}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">氣質寶 Air Mentor</span>
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText" style="font-size:.8rem;color:var(--text-dim)">未連線</span>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-connect" id="btnConnect" onclick="connectBluetooth()">🔗 連線藍牙</button>
+      <button class="btn btn-disconnect" id="btnDisconnect" onclick="disconnectBluetooth()" style="display:none">⏏ 中斷</button>
+      <button class="btn btn-demo" id="btnDemo" onclick="toggleDemo()">🎭 演示模式</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- CO2 -->
+    <div class="card" style="--card-accent:#4fc3f7">
+      <span class="card-icon">🫧</span>
+      <div class="card-label">二氧化碳 CO₂</div>
+      <div class="card-value" id="co2Val">--<span class="card-unit">ppm</span></div>
+      <div class="card-sub" id="co2Sub">等待數據…</div>
+      <span class="rating-badge rating-good" id="co2Badge">等待中</span>
+      <div class="sparkline"><canvas id="sparkCo2"></canvas></div>
+    </div>
+    <!-- PM2.5 -->
+    <div class="card" style="--card-accent:#7c4dff">
+      <span class="card-icon">🌫️</span>
+      <div class="card-label">PM2.5 懸浮微粒</div>
+      <div class="card-value" id="pm25Val">--<span class="card-unit">μg/m³</span></div>
+      <div class="card-sub" id="pm25Sub">等待數據…</div>
+      <span class="rating-badge rating-good" id="pm25Badge">等待中</span>
+      <div class="sparkline"><canvas id="sparkPm25"></canvas></div>
+    </div>
+    <!-- PM10 -->
+    <div class="card" style="--card-accent:#26c6da">
+      <span class="card-icon">🌬️</span>
+      <div class="card-label">PM10 懸浮微粒</div>
+      <div class="card-value" id="pm10Val">--<span class="card-unit">μg/m³</span></div>
+      <div class="card-sub" id="pm10Sub">等待數據…</div>
+      <span class="rating-badge rating-good" id="pm10Badge">等待中</span>
+      <div class="sparkline"><canvas id="sparkPm10"></canvas></div>
+    </div>
+    <!-- TVOC -->
+    <div class="card" style="--card-accent:#ff9800">
+      <span class="card-icon">🧪</span>
+      <div class="card-label">總揮發性有機物 TVOC</div>
+      <div class="card-value" id="tvocVal">--<span class="card-unit">ppb</span></div>
+      <div class="card-sub" id="tvocSub">等待數據…</div>
+      <span class="rating-badge rating-good" id="tvocBadge">等待中</span>
+      <div class="sparkline"><canvas id="sparkTvoc"></canvas></div>
+    </div>
+    <!-- Temperature -->
+    <div class="card" style="--card-accent:#ef5350">
+      <span class="card-icon">🌡️</span>
+      <div class="card-label">溫度 Temperature</div>
+      <div class="card-value" id="tempVal">--<span class="card-unit">°C</span></div>
+      <div class="card-sub" id="tempSub">等待數據…</div>
+    </div>
+    <!-- Humidity -->
+    <div class="card" style="--card-accent:#42a5f5">
+      <span class="card-icon">💧</span>
+      <div class="card-label">相對濕度 Humidity</div>
+      <div class="card-value" id="humVal">--<span class="card-unit">%</span></div>
+      <div class="card-sub" id="humSub">等待數據…</div>
+    </div>
+    <!-- IAQ -->
+    <div class="card iaq-card" style="--card-accent:#66bb6a">
+      <span class="card-icon">📊</span>
+      <div class="card-label">綜合空氣品質指數 IAQ</div>
+      <div class="iaq-gauge">
+        <div class="iaq-ring">
+          <svg viewBox="0 0 120 120">
+            <circle class="bg" cx="60" cy="60" r="52"/>
+            <circle class="fg" id="iaqRing" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7" stroke="var(--green)"/>
+          </svg>
+          <span class="iaq-center" id="iaqVal">--</span>
+        </div>
+        <div class="iaq-info">
+          <div class="card-value" style="font-size:1.4rem" id="iaqLabel">等待數據…</div>
+          <div class="iaq-bars" id="iaqBars">
+            <div class="iaq-bar"></div><div class="iaq-bar"></div><div class="iaq-bar"></div>
+            <div class="iaq-bar"></div><div class="iaq-bar"></div><div class="iaq-bar"></div>
+          </div>
+          <div class="card-sub" id="iaqSub" style="margin-top:8px">0=極佳 1=良好 2=普通 3=警戒 4=不良 5=危險</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>氣質寶 Air Mentor 2 / 2S — Web Bluetooth 即時看板</p>
+    <p style="margin-top:6px">💡 提示：在 Chrome 瀏覽器中可「⋮ → 新增到主畫面」將此頁安裝為 PWA 原生 App</p>
+    <p style="margin-top:4px;color:var(--text-dim)">GATT Service: 2dd62dfe-b55c-4d82-ac85-212f500b512e</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="pwa-hint">📱 已以 App 模式開啟</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIGURATION
+// ═══════════════════════════════════════════════════════
+const SERVICE_UUID = '2dd62dfe-b55c-4d82-ac85-212f500b512e';
+const CHAR_UUID = '6dfe5997-fd7b-4e31-a609-c2af9cba78cf';
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let device = null;
+let gattServer = null;
+let characteristic = null;
+let demoMode = false;
+let demoInterval = null;
+let connected = false;
+
+const data = { co2:0, pm25:0, pm10:0, tvoc:0, temp:0, hum:0, iaq:0 };
+const history = { co2:[], pm25:[], pm10:[], tvoc:[] };
+const MAX_HISTORY = 60;
+
+// ═══════════════════════════════════════════════════════
+// PACKET DECODER
+// ═══════════════════════════════════════════════════════
+function decodePacket(buffer) {
+  const b = new Uint8Array(buffer);
+  if (b.length < 4) return;
+  const type = b[0];
+
+  if (type === 0x01 && b.length >= 8) {
+    data.co2 = (b[2] << 8) | b[3];
+    data.pm25 = (b[4] << 8) | b[5];
+    data.pm10 = (b[6] << 8) | b[7];
+    pushHistory('co2', data.co2);
+    pushHistory('pm25', data.pm25);
+    pushHistory('pm10', data.pm10);
+  } else if (type === 0x02 && b.length >= 10) {
+    data.tvoc = (b[2] << 8) | b[3];
+    const tempRaw = (b[4] << 8) | b[5];
+    data.temp = (tempRaw - 4000) * 0.01;
+    const humRaw = (b[6] << 8) | b[7];
+    data.hum = humRaw * 0.1;
+    data.iaq = (b[8] << 8) | b[9];
+    pushHistory('tvoc', data.tvoc);
+  }
+  updateUI();
+}
+
+function pushHistory(key, val) {
+  history[key].push(val);
+  if (history[key].length > MAX_HISTORY) history[key].shift();
+  drawSparkline(key);
+}
+
+// ═══════════════════════════════════════════════════════
+// WEB BLUETOOTH
+// ═══════════════════════════════════════════════════════
+async function connectBluetooth() {
+  if (!navigator.bluetooth) {
+    showToast('⚠️ 此瀏覽器不支援 Web Bluetooth，請使用 Chrome/Edge');
+    return;
+  }
+  try {
+    showToast('🔍 搜尋氣質寶裝置…');
+    device = await navigator.bluetooth.requestDevice({
+      filters: [{ namePrefix: 'Air' }],
+      optionalServices: [SERVICE_UUID]
+    });
+  } catch (e) {
+    // Fallback: acceptAllDevices
+    try {
+      device = await navigator.bluetooth.requestDevice({
+        acceptAllDevices: true,
+        optionalServices: [SERVICE_UUID]
+      });
+    } catch (e2) {
+      showToast('❌ 連線失敗: ' + e2.message);
+      return;
+    }
+  }
+
+  device.addEventListener('gattserverdisconnected', onDisconnected);
+
+  try {
+    gattServer = await device.gatt.connect();
+    const service = await gattServer.getPrimaryService(SERVICE_UUID);
+    characteristic = await service.getCharacteristic(CHAR_UUID);
+    await characteristic.startNotifications();
+    characteristic.addEventListener('characteristicvaluechanged', (e) => {
+      decodePacket(e.target.value.buffer);
+    });
+    if (device.watchAdvertisements) {
+      try {
+        await device.watchAdvertisements();
+        device.addEventListener('advertisementreceived', (e) => {
+          if (e.manufacturerData) {
+            for (const [k, v] of e.manufacturerData) {
+              decodePacket(v.buffer);
+            }
+          }
+        });
+      } catch (eAdv) { console.log('watchAdvertisements:', eAdv); }
+    }
+    connected = true;
+    setConnected(true);
+    showToast('✅ 已連線: ' + (device.name || 'Air Mentor'));
+  } catch (e) {
+    showToast('❌ GATT 連線失敗: ' + e.message);
+    connected = false;
+  }
+}
+
+function disconnectBluetooth() {
+  if (device && device.gatt && device.gatt.connected) {
+    device.gatt.disconnect();
+  }
+  connected = false;
+  setConnected(false);
+  showToast('⏏ 已中斷連線');
+}
+
+function onDisconnected() {
+  connected = false;
+  setConnected(false);
+  showToast('⚠️ 裝置已斷線');
+}
+
+// ═══════════════════════════════════════════════════════
+// DEMO MODE
+// ═══════════════════════════════════════════════════════
+function toggleDemo() {
+  demoMode = !demoMode;
+  const btn = document.getElementById('btnDemo');
+  btn.classList.toggle('active', demoMode);
+  if (demoMode) {
+    showToast('🎭 演示模式已啟動');
+    demoInterval = setInterval(simulateData, 1500);
+  } else {
+    showToast('🎭 演示模式已關閉');
+    clearInterval(demoInterval);
+  }
+}
+
+function simulateData() {
+  data.co2 = 350 + Math.floor(Math.random() * 800);
+  data.pm25 = Math.floor(Math.random() * 80);
+  data.pm10 = Math.floor(Math.random() * 120);
+  data.tvoc = Math.floor(Math.random() * 400);
+  data.temp = 20 + Math.random() * 12;
+  data.hum = 40 + Math.random() * 35;
+  data.iaq = Math.floor(Math.random() * 6);
+  pushHistory('co2', data.co2);
+  pushHistory('pm25', data.pm25);
+  pushHistory('pm10', data.pm10);
+  pushHistory('tvoc', data.tvoc);
+  updateUI();
+}
+
+// ═══════════════════════════════════════════════════════
+// UI UPDATE
+// ═══════════════════════════════════════════════════════
+function updateUI() {
+  animateValue('co2Val', data.co2, 'ppm');
+  animateValue('pm25Val', data.pm25, 'μg/m³');
+  animateValue('pm10Val', data.pm10, 'μg/m³');
+  animateValue('tvocVal', data.tvoc, 'ppb');
+  animateValue('tempVal', data.temp.toFixed(1), '°C');
+  animateValue('humVal', data.hum.toFixed(1), '%');
+  animateValue('iaqVal', data.iaq, '');
+
+  // CO2 rating
+  setRating('co2Badge', 'co2Sub', data.co2, [
+    { max: 600, label: '優良', cls: 'rating-good' },
+    { max: 1000, label: '普通', cls: 'rating-normal' },
+    { max: 1500, label: '警戒', cls: 'rating-warning' },
+    { max: 99999, label: '危險', cls: 'rating-danger' }
+  ]);
+
+  // PM2.5 rating
+  setRating('pm25Badge', 'pm25Sub', data.pm25, [
+    { max: 15, label: '優良', cls: 'rating-good' },
+    { max: 37, label: '普通', cls: 'rating-normal' },
+    { max: 75, label: '警戒', cls: 'rating-warning' },
+    { max: 99999, label: '危險', cls: 'rating-danger' }
+  ]);
+
+  // PM10 rating
+  setRating('pm10Badge', 'pm10Sub', data.pm10, [
+    { max: 50, label: '優良', cls: 'rating-good' },
+    { max: 100, label: '普通', cls: 'rating-normal' },
+    { max: 200, label: '警戒', cls: 'rating-warning' },
+    { max: 99999, label: '危險', cls: 'rating-danger' }
+  ]);
+
+  // TVOC rating
+  setRating('tvocBadge', 'tvocSub', data.tvoc, [
+    { max: 100, label: '優良', cls: 'rating-good' },
+    { max: 300, label: '普通', cls: 'rating-normal' },
+    { max: 600, label: '警戒', cls: 'rating-warning' },
+    { max: 99999, label: '危險', cls: 'rating-danger' }
+  ]);
+
+  // IAQ gauge
+  const iaqColors = ['#4caf50','#8bc34a','#ffeb3b','#ff9800','#f44336','#b71c1c'];
+  const iaqLabels = ['極佳 Excellent','良好 Good','普通 Moderate','警戒 Alert','不良 Poor','危險 Hazardous'];
+  const ring = document.getElementById('iaqRing');
+  const circumference = 326.7;
+  const offset = circumference - (data.iaq / 5) * circumference;
+  ring.style.strokeDashoffset = offset;
+  ring.style.stroke = iaqColors[data.iaq] || iaqColors[0];
+  document.getElementById('iaqLabel').textContent = iaqLabels[data.iaq] || '等待中';
+  document.getElementById('iaqLabel').style.color = iaqColors[data.iaq] || 'var(--text-dim)';
+
+  const bars = document.getElementById('iaqBars').children;
+  for (let i = 0; i < 6; i++) {
+    bars[i].classList.toggle('active', i <= data.iaq);
+    bars[i].style.setProperty('--bar-color', iaqColors[i]);
+  }
+}
+
+function setRating(badgeId, subId, value, thresholds) {
+  const badge = document.getElementById(badgeId);
+  const sub = document.getElementById(subId);
+  for (const t of thresholds) {
+    if (value <= t.max) {
+      badge.textContent = t.label;
+      badge.className = 'rating-badge ' + t.cls;
+      sub.textContent = '目前: ' + value;
+      return;
+    }
+  }
+}
+
+function animateValue(id, val, unit) {
+  const el = document.getElementById(id);
+  const unitSpan = el.querySelector('.card-unit');
+  const unitHTML = unit ? `<span class="card-unit">${unit}</span>` : '';
+  el.innerHTML = val + unitHTML;
+}
+
+// ═══════════════════════════════════════════════════════
+// SPARKLINE
+// ═══════════════════════════════════════════════════════
+function drawSparkline(key) {
+  const canvasId = 'spark' + key.charAt(0).toUpperCase() + key.slice(1);
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.offsetWidth * 2;
+  const h = canvas.height = canvas.offsetHeight * 2;
+  ctx.clearRect(0, 0, w, h);
+
+  const arr = history[key];
+  if (arr.length < 2) return;
+
+  const max = Math.max(...arr, 1);
+  const min = Math.min(...arr, 0);
+  const range = max - min || 1;
+
+  ctx.beginPath();
+  ctx.strokeStyle = 'rgba(79,195,247,.7)';
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+
+  for (let i = 0; i < arr.length; i++) {
+    const x = (i / (MAX_HISTORY - 1)) * w;
+    const y = h - ((arr[i] - min) / range) * (h - 4) - 2;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // Gradient fill
+  const lastX = ((arr.length - 1) / (MAX_HISTORY - 1)) * w;
+  const lastY = h - ((arr[arr.length - 1] - min) / range) * (h - 4) - 2;
+  ctx.lineTo(lastX, h);
+  ctx.lineTo(0, h);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, 'rgba(79,195,247,.2)');
+  grad.addColorStop(1, 'rgba(79,195,247,0)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+}
+
+// ═══════════════════════════════════════════════════════
+// STATUS & TOAST
+// ═══════════════════════════════════════════════════════
+function setConnected(isConn) {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  const btnC = document.getElementById('btnConnect');
+  const btnD = document.getElementById('btnDisconnect');
+  if (isConn) {
+    dot.classList.add('connected');
+    txt.textContent = '已連線';
+    txt.style.color = 'var(--green)';
+    btnC.style.display = 'none';
+    btnD.style.display = 'flex';
+  } else {
+    dot.classList.remove('connected');
+    txt.textContent = '未連線';
+    txt.style.color = 'var(--text-dim)';
+    btnC.style.display = 'flex';
+    btnD.style.display = 'none';
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  if (!navigator.bluetooth) {
+    showToast('💡 請使用 Chrome 或 Edge 瀏覽器以啟用 Web Bluetooth');
+  }
+});
+</script>
+</body>
+</html>
