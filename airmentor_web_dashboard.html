@@ -2,519 +2,671 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>氣質寶 AirMentor - 空氣品質監控儀表板</title>
+<meta name="description" content="AirMentor 空氣品質即時監控儀表板">
 <meta name="theme-color" content="#0a0e1a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>氣質寶 Air Mentor — 即時空氣品質看板</title>
+<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkFpck1lbnRvciIsCiAgInNob3J0X25hbWUiOiAiQWlyTWVudG9yIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAidGhlbWVfY29sb3IiOiAiIzBhMGUxYSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMGUxYSIsCiAgImljb25zIjogW3sKICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInPjxyZWN0IHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyByeD0nMTAwJyBmaWxsPScjMGEwZTFhJy8+PHRleHQgeD0nMjU2JyB5PScyNTYnIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC1zaXplPScyMDAnIGZpbGw9JyMwMGYwZmEnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGRvbWluYW50LWJhc2VsaW5lPSdtaWRkbGUnPkFJPC90ZXh0Pjwvc3ZnPiIsCiAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogIH1dCn0=">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0e1a;--surface:rgba(255,255,255,.04);--surface2:rgba(255,255,255,.07);
-  --glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.1);
-  --text:#e8ecf4;--text-dim:#8892a4;--accent:#4fc3f7;--accent2:#7c4dff;
-  --green:#4caf50;--yellow:#ffc107;--orange:#ff9800;--red:#f44336;
-  --glow-green:0 0 20px rgba(76,175,80,.4);--glow-red:0 0 20px rgba(244,67,54,.4);
-  --radius:16px;--radius-sm:10px;
+  --bg:#0a0e1a;--surface:rgba(255,255,255,0.04);--glass:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.12);--text:#e8ecf4;--text-dim:#8892a4;
+  --accent:#00f0fa;--accent2:#7c4dff;--green:#00e676;--orange:#ff9100;--red:#ff1744;
+  --shadow:0 8px 32px rgba(0,0,0,0.4);--radius:16px;
 }
-html,body{height:100%;font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-body{background:radial-gradient(ellipse at 20% 20%,rgba(79,195,247,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(124,77,255,.05) 0%,transparent 50%),var(--bg)}
-.app{max-width:1200px;margin:0 auto;padding:16px;min-height:100vh}
-/* Header */
-.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 20px;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:sticky;top:8px;z-index:100}
-.header-left{display:flex;align-items:center;gap:12px}
-.logo{font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.status-dot{width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:var(--glow-red);transition:all .4s}
-.status-dot.connected{background:var(--green);box-shadow:var(--glow-green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
-.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.btn{padding:10px 18px;border:none;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.5px}
-.btn-connect{background:linear-gradient(135deg,var(--accent),#29b6f6);color:#fff;box-shadow:0 4px 15px rgba(79,195,247,.3)}
-.btn-connect:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(79,195,247,.4)}
-.btn-connect:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-demo{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
-.btn-demo.active{background:linear-gradient(135deg,var(--accent2),#651fff);color:#fff;border-color:transparent;box-shadow:0 4px 15px rgba(124,77,255,.3)}
-.btn-disconnect{background:rgba(244,67,54,.15);color:var(--red);border:1px solid rgba(244,67,54,.3)}
-/* Grid */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px}
-.card{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden;transition:all .3s}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--card-accent,var(--accent)),transparent);opacity:.6}
-.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.15);box-shadow:0 8px 32px rgba(0,0,0,.3)}
-.card-icon{font-size:1.8rem;margin-bottom:8px;display:block}
-.card-label{font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:4px}
-.card-value{font-size:2.8rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;transition:all .5s cubic-bezier(.4,0,.2,1)}
-.card-unit{font-size:.9rem;color:var(--text-dim);margin-left:4px;font-weight:400}
-.card-sub{font-size:.8rem;color:var(--text-dim);margin-top:8px}
-.rating-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600;margin-top:10px;letter-spacing:.5px}
-.rating-good{background:rgba(76,175,80,.15);color:#81c784;border:1px solid rgba(76,175,80,.3)}
-.rating-normal{background:rgba(255,193,7,.12);color:#ffd54f;border:1px solid rgba(255,193,7,.3)}
-.rating-warning{background:rgba(255,152,0,.12);color:#ffb74d;border:1px solid rgba(255,152,0,.3)}
-.rating-danger{background:rgba(244,67,54,.12);color:#ef5350;border:1px solid rgba(244,67,54,.3)}
-/* IAQ Gauge */
-.iaq-card{grid-column:1/-1}
-.iaq-gauge{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.iaq-ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
-.iaq-ring svg{width:120px;height:120px;transform:rotate(-90deg)}
-.iaq-ring circle{fill:none;stroke-width:8;stroke-linecap:round}
-.iaq-ring .bg{stroke:rgba(255,255,255,.08)}
-.iaq-ring .fg{transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1),stroke .5s}
-.iaq-center{position:absolute;font-size:2.2rem;font-weight:700}
-.iaq-info{flex:1;min-width:200px}
-.iaq-bars{display:flex;gap:4px;margin-top:12px}
-.iaq-bar{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.08);transition:all .5s}
-.iaq-bar.active{background:var(--bar-color,var(--green))}
-/* Sparkline */
-.sparkline{width:100%;height:40px;margin-top:12px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.2)}
-.sparkline canvas{width:100%;height:100%}
-/* Footer */
-.footer{text-align:center;padding:20px;color:var(--text-dim);font-size:.75rem;border-top:1px solid var(--border);margin-top:20px}
-.footer a{color:var(--accent);text-decoration:none}
-/* Toast */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--surface2);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 24px;font-size:.85rem;transition:transform .4s cubic-bezier(.4,0,.2,1);z-index:999;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
-/* Animations */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.card{animation:fadeUp .6s ease both}
-.card:nth-child(2){animation-delay:.1s}.card:nth-child(3){animation-delay:.2s}
-.card:nth-child(4){animation-delay:.3s}.card:nth-child(5){animation-delay:.4s}
-.card:nth-child(6){animation-delay:.5s}
-/* Responsive */
-@media(max-width:600px){
-  .grid{grid-template-columns:1fr}
-  .card-value{font-size:2.2rem}
-  .header{padding:12px 14px}
-  .logo{font-size:1.1rem}
-  .btn{padding:8px 14px;font-size:.78rem}
-  .iaq-gauge{flex-direction:column;align-items:flex-start}
-}
-/* Scrollbar */
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
-/* PWA hint */
-.pwa-hint{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--surface2);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 18px;font-size:.8rem;z-index:998}
-@media(display-mode:standalone){.pwa-hint{display:block}}
+html,body{height:100%;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{background:radial-gradient(ellipse at 20% 20%,rgba(0,240,250,0.03) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(124,77,255,0.03) 0%,transparent 50%),var(--bg)}
+.container{max-width:1200px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;box-shadow:var(--shadow)}
+header h1{font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+header .status{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-dim)}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--red);transition:background 0.3s}
+.status-dot.connected{background:var(--green);box-shadow:0 0 8px var(--green)}
+.btn{padding:8px 16px;border:1px solid var(--border);border-radius:10px;background:var(--glass);backdrop-filter:blur(10px);color:var(--text);cursor:pointer;font-size:0.85rem;transition:all 0.2s}
+.btn:hover{background:rgba(255,255,255,0.12);border-color:var(--accent)}
+.btn-accent{background:linear-gradient(135deg,rgba(0,240,250,0.15),rgba(124,77,255,0.15));border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:16px}
+.card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0.6}
+.card h3{font-size:0.85rem;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.card .value{font-size:2.2rem;font-weight:700;margin-bottom:4px}
+.card .unit{font-size:0.8rem;color:var(--text-dim)}
+.sparkline-wrap{margin-top:12px;height:60px;position:relative}
+.sparkline-wrap canvas{width:100%;height:100%;border-radius:8px}
+.iaq-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;margin-top:8px}
+.iaq-good{background:rgba(0,230,118,0.15);color:var(--green);border:1px solid rgba(0,230,118,0.3)}
+.iaq-moderate{background:rgba(255,145,0,0.15);color:var(--orange);border:1px solid rgba(255,145,0,0.3)}
+.iaq-bad{background:rgba(255,23,68,0.15);color:var(--red);border:1px solid rgba(255,23,68,0.3)}
+.hex-stream{background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;max-height:200px;overflow-y:auto;font-family:'JetBrains Mono','Fira Code',monospace;font-size:0.75rem;line-height:1.6}
+.hex-stream .tx{color:var(--accent)}
+.hex-stream .rx{color:var(--green)}
+.hex-stream .info{color:var(--text-dim)}
+.hex-stream .warn{color:var(--orange)}
+.hex-stream .error{color:var(--red)}
+.settings-panel{background:var(--glass);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.settings-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent2));opacity:0.8}
+.settings-panel h2{font-size:1.1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.settings-section{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.settings-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.settings-section h4{font-size:0.9rem;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.radio-group{display:flex;flex-wrap:wrap;gap:8px}
+.radio-option{position:relative}
+.radio-option input{position:absolute;opacity:0;pointer-events:none}
+.radio-option label{display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;font-size:0.85rem;background:rgba(255,255,255,0.03)}
+.radio-option label:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2)}
+.radio-option input:checked+label{background:linear-gradient(135deg,rgba(0,240,250,0.12),rgba(124,77,255,0.12));border-color:var(--accent);box-shadow:0 0 12px rgba(0,240,250,0.1)}
+.checkbox-wrap{display:flex;align-items:center;gap:10px;margin-top:12px}
+.checkbox-wrap input[type="checkbox"]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
+.checkbox-wrap label{font-size:0.85rem;cursor:pointer}
+.settings-toggle{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,240,250,0.3);z-index:1000;transition:transform 0.2s}
+.settings-toggle:hover{transform:scale(1.1)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+.modal h2{font-size:1.2rem;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.modal .close-btn{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer}
+.level-indicator{display:flex;align-items:center;gap:12px;margin-top:8px}
+.level-bar{height:6px;border-radius:3px;background:rgba(255,255,255,0.1);flex:1;overflow:hidden}
+.level-bar-fill{height:100%;border-radius:3px;transition:width 0.5s ease,background 0.5s ease}
+.led-preview{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);transition:all 0.5s;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.led-preview.on{background:radial-gradient(circle,rgba(0,240,250,0.4),transparent);border-color:var(--accent);box-shadow:0 0 20px rgba(0,240,250,0.3)}
+.led-preview.dim{background:radial-gradient(circle,rgba(0,240,250,0.1),transparent);border-color:rgba(0,240,250,0.3)}
+.led-preview.off{background:transparent;border-color:rgba(255,255,255,0.1)}
+@keyframes breathe{0%,100%{opacity:0.4}50%{opacity:1}}
+.led-preview.breathing{animation:breathe 3s ease-in-out infinite}
+@media(max-width:600px){.grid{grid-template-columns:1fr}header{flex-direction:column;gap:8px}.settings-toggle{bottom:12px;right:12px;width:48px;height:48px;font-size:1.2rem}}
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="header">
-    <div class="header-left">
-      <span class="logo">氣質寶 Air Mentor</span>
+<div class="container">
+  <header>
+    <h1>🌬️ 氣質寶 AirMentor</h1>
+    <div class="status">
       <span class="status-dot" id="statusDot"></span>
-      <span id="statusText" style="font-size:.8rem;color:var(--text-dim)">未連線</span>
-    </div>
-    <div class="header-right">
-      <button class="btn btn-connect" id="btnConnect" onclick="connectBluetooth()">🔗 連線藍牙</button>
-      <button class="btn btn-disconnect" id="btnDisconnect" onclick="disconnectBluetooth()" style="display:none">⏏ 中斷</button>
-      <button class="btn btn-demo" id="btnDemo" onclick="toggleDemo()">🎭 演示模式</button>
+      <span id="statusText">未連線</span>
+      <button class="btn btn-accent" id="connectBtn">📡 連線裝置</button>
     </div>
   </header>
 
   <div class="grid">
-    <!-- CO2 -->
-    <div class="card" style="--card-accent:#4fc3f7">
-      <span class="card-icon">🫧</span>
-      <div class="card-label">二氧化碳 CO₂</div>
-      <div class="card-value" id="co2Val">--<span class="card-unit">ppm</span></div>
-      <div class="card-sub" id="co2Sub">等待數據…</div>
-      <span class="rating-badge rating-good" id="co2Badge">等待中</span>
-      <div class="sparkline"><canvas id="sparkCo2"></canvas></div>
+    <div class="card">
+      <h3>IAQ 空氣品質指數</h3>
+      <div class="value" id="iaqValue">--</div>
+      <div class="unit">0-500 綜合指數</div>
+      <span class="iaq-badge iaq-good" id="iaqBadge">等待數據</span>
+      <div class="sparkline-wrap"><canvas id="sparkIAQ"></canvas></div>
     </div>
-    <!-- PM2.5 -->
-    <div class="card" style="--card-accent:#7c4dff">
-      <span class="card-icon">🌫️</span>
-      <div class="card-label">PM2.5 懸浮微粒</div>
-      <div class="card-value" id="pm25Val">--<span class="card-unit">μg/m³</span></div>
-      <div class="card-sub" id="pm25Sub">等待數據…</div>
-      <span class="rating-badge rating-good" id="pm25Badge">等待中</span>
-      <div class="sparkline"><canvas id="sparkPm25"></canvas></div>
+    <div class="card">
+      <h3>PM2.5 微粒</h3>
+      <div class="value" id="pm25Value">--</div>
+      <div class="unit">µg/m³</div>
+      <div class="sparkline-wrap"><canvas id="sparkPM25"></canvas></div>
     </div>
-    <!-- PM10 -->
-    <div class="card" style="--card-accent:#26c6da">
-      <span class="card-icon">🌬️</span>
-      <div class="card-label">PM10 懸浮微粒</div>
-      <div class="card-value" id="pm10Val">--<span class="card-unit">μg/m³</span></div>
-      <div class="card-sub" id="pm10Sub">等待數據…</div>
-      <span class="rating-badge rating-good" id="pm10Badge">等待中</span>
-      <div class="sparkline"><canvas id="sparkPm10"></canvas></div>
+    <div class="card">
+      <h3>CO₂ 二氧化碳</h3>
+      <div class="value" id="co2Value">--</div>
+      <div class="unit">ppm</div>
+      <div class="sparkline-wrap"><canvas id="sparkCO2"></canvas></div>
     </div>
-    <!-- TVOC -->
-    <div class="card" style="--card-accent:#ff9800">
-      <span class="card-icon">🧪</span>
-      <div class="card-label">總揮發性有機物 TVOC</div>
-      <div class="card-value" id="tvocVal">--<span class="card-unit">ppb</span></div>
-      <div class="card-sub" id="tvocSub">等待數據…</div>
-      <span class="rating-badge rating-good" id="tvocBadge">等待中</span>
-      <div class="sparkline"><canvas id="sparkTvoc"></canvas></div>
+    <div class="card">
+      <h3>TVOC 揮發性有機物</h3>
+      <div class="value" id="tvocValue">--</div>
+      <div class="unit">ppb</div>
+      <div class="sparkline-wrap"><canvas id="sparkTVOC"></canvas></div>
     </div>
-    <!-- Temperature -->
-    <div class="card" style="--card-accent:#ef5350">
-      <span class="card-icon">🌡️</span>
-      <div class="card-label">溫度 Temperature</div>
-      <div class="card-value" id="tempVal">--<span class="card-unit">°C</span></div>
-      <div class="card-sub" id="tempSub">等待數據…</div>
+    <div class="card">
+      <h3>溫度 / 濕度</h3>
+      <div class="value" id="tempValue">--</div>
+      <div class="unit" id="humValue">--</div>
+      <div class="sparkline-wrap"><canvas id="sparkTemp"></canvas></div>
     </div>
-    <!-- Humidity -->
-    <div class="card" style="--card-accent:#42a5f5">
-      <span class="card-icon">💧</span>
-      <div class="card-label">相對濕度 Humidity</div>
-      <div class="card-value" id="humVal">--<span class="card-unit">%</span></div>
-      <div class="card-sub" id="humSub">等待數據…</div>
-    </div>
-    <!-- IAQ -->
-    <div class="card iaq-card" style="--card-accent:#66bb6a">
-      <span class="card-icon">📊</span>
-      <div class="card-label">綜合空氣品質指數 IAQ</div>
-      <div class="iaq-gauge">
-        <div class="iaq-ring">
-          <svg viewBox="0 0 120 120">
-            <circle class="bg" cx="60" cy="60" r="52"/>
-            <circle class="fg" id="iaqRing" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7" stroke="var(--green)"/>
-          </svg>
-          <span class="iaq-center" id="iaqVal">--</span>
+    <div class="card">
+      <h3>機體狀態</h3>
+      <div class="level-indicator">
+        <div class="led-preview off" id="ledPreview">💡</div>
+        <div style="flex:1">
+          <div style="font-size:0.8rem;color:var(--text-dim)">LED 亮度</div>
+          <div class="level-bar"><div class="level-bar-fill" id="ledBar" style="width:0%;background:var(--accent)"></div></div>
         </div>
-        <div class="iaq-info">
-          <div class="card-value" style="font-size:1.4rem" id="iaqLabel">等待數據…</div>
-          <div class="iaq-bars" id="iaqBars">
-            <div class="iaq-bar"></div><div class="iaq-bar"></div><div class="iaq-bar"></div>
-            <div class="iaq-bar"></div><div class="iaq-bar"></div><div class="iaq-bar"></div>
-          </div>
-          <div class="card-sub" id="iaqSub" style="margin-top:8px">0=極佳 1=良好 2=普通 3=警戒 4=不良 5=危險</div>
-        </div>
+      </div>
+      <div style="margin-top:12px;font-size:0.8rem;color:var(--text-dim)">
+        警報模式: <span id="alertModeDisplay">警戒級提醒</span>
       </div>
     </div>
   </div>
 
-  <footer class="footer">
-    <p>氣質寶 Air Mentor 2 / 2S — Web Bluetooth 即時看板</p>
-    <p style="margin-top:6px">💡 提示：在 Chrome 瀏覽器中可「⋮ → 新增到主畫面」將此頁安裝為 PWA 原生 App</p>
-    <p style="margin-top:4px;color:var(--text-dim)">GATT Service: 2dd62dfe-b55c-4d82-ac85-212f500b512e</p>
-  </footer>
+  <div class="hex-stream" id="hexStream">
+    <div class="info">[SYS] 氣質寶 AirMentor 監控系統啟動</div>
+    <div class="info">[SYS] 等待 BLE 裝置連線...</div>
+  </div>
 </div>
 
-<div class="toast" id="toast"></div>
-<div class="pwa-hint">📱 已以 App 模式開啟</div>
+<button class="settings-toggle" id="settingsToggle" title="機體控制與警報設定">⚙️</button>
+
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal" style="position:relative">
+    <button class="close-btn" id="closeSettings">✕</button>
+    <h2>⚙️ 氣質寶機體控制與警報設定</h2>
+
+    <div class="settings-section">
+      <h4>💡 機體燈光控制 (LED Breathing Light)</h4>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" name="ledMode" id="ledStandard" value="10" checked>
+          <label for="ledStandard">💡 標準模式 (Level 10)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="ledMode" id="ledDim" value="3">
+          <label for="ledDim">🌙 夜間微光 (Level 3)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="ledMode" id="ledOff" value="0">
+          <label for="ledOff">🌑 完全熄燈 (Level 0)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h4>🔔 空氣品質警報與提示音 (Alert Thresholds)</h4>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" name="alertMode" id="alertSilent" value="0">
+          <label for="alertSilent">🔕 完全靜音</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="alertMode" id="alertWarn" value="1" checked>
+          <label for="alertWarn">⚠️ 警戒級提醒 (Orange 3+)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="alertMode" id="alertDanger" value="2">
+          <label for="alertDanger">🚨 危險級警報 (Red 4+)</label>
+        </div>
+      </div>
+      <div class="checkbox-wrap">
+        <input type="checkbox" id="webAudioAlarm" checked>
+        <label for="webAudioAlarm">🔊 手機/電腦即時語音與蜂鳴警示 (Web Audio Dual-Tone)</label>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h4>📋 指令格式參考</h4>
+      <div style="font-family:monospace;font-size:0.75rem;color:var(--text-dim);line-height:1.8">
+        LED: [0x21, 0x01, level] → WRITE_CHAR<br>
+        Alert: [0x22, 0x01, mode] → WRITE_CHAR<br>
+        WRITE_CHAR: 335a5025-1a3a-4a6c-9565-eb924b0d982f
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// CONFIGURATION
-// ═══════════════════════════════════════════════════════
+// ===== Constants =====
 const SERVICE_UUID = '2dd62dfe-b55c-4d82-ac85-212f500b512e';
-const CHAR_UUID = '6dfe5997-fd7b-4e31-a609-c2af9cba78cf';
+const READ_CHAR_UUID = '6dfe5997-fd7b-4e31-a609-c2af9cba78cf';
+const WRITE_CHAR_UUID = '335a5025-1a3a-4a6c-9565-eb924b0d982f';
+const DEVICE_NAME_FILTER = 'Air';
 
-// ═══════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════
+// ===== State =====
 let device = null;
 let gattServer = null;
-let characteristic = null;
-let demoMode = false;
-let demoInterval = null;
-let connected = false;
+let writeChar = null;
+let readChar = null;
+let isConnected = false;
+let reconnectTimer = null;
+let audioCtx = null;
+let alarmActive = false;
 
-const data = { co2:0, pm25:0, pm10:0, tvoc:0, temp:0, hum:0, iaq:0 };
-const history = { co2:[], pm25:[], pm10:[], tvoc:[] };
-const MAX_HISTORY = 60;
+// Sparkline data buffers
+const sparkData = { iaq: [], pm25: [], co2: [], tvoc: [], temp: [] };
+const SPARK_MAX = 60;
 
-// ═══════════════════════════════════════════════════════
-// PACKET DECODER
-// ═══════════════════════════════════════════════════════
-function decodePacket(buffer) {
-  const b = new Uint8Array(buffer);
-  if (b.length < 4) return;
-  const type = b[0];
+// Settings from localStorage
+let ledLevel = parseInt(localStorage.getItem('am_led_level') || '10');
+let alertMode = parseInt(localStorage.getItem('am_alert_mode') || '1');
+let webAudioEnabled = localStorage.getItem('am_web_audio') !== 'false';
 
-  if (type === 0x01 && b.length >= 8) {
-    data.co2 = (b[2] << 8) | b[3];
-    data.pm25 = (b[4] << 8) | b[5];
-    data.pm10 = (b[6] << 8) | b[7];
-    pushHistory('co2', data.co2);
-    pushHistory('pm25', data.pm25);
-    pushHistory('pm10', data.pm10);
-  } else if (type === 0x02 && b.length >= 10) {
-    data.tvoc = (b[2] << 8) | b[3];
-    const tempRaw = (b[4] << 8) | b[5];
-    data.temp = (tempRaw - 4000) * 0.01;
-    const humRaw = (b[6] << 8) | b[7];
-    data.hum = humRaw * 0.1;
-    data.iaq = (b[8] << 8) | b[9];
-    pushHistory('tvoc', data.tvoc);
-  }
-  updateUI();
+// ===== DOM =====
+const $ = id => document.getElementById(id);
+const statusDot = $('statusDot');
+const statusText = $('statusText');
+const connectBtn = $('connectBtn');
+const hexStream = $('hexStream');
+const settingsToggle = $('settingsToggle');
+const settingsModal = $('settingsModal');
+const closeSettings = $('closeSettings');
+const ledPreview = $('ledPreview');
+const ledBar = $('ledBar');
+const alertModeDisplay = $('alertModeDisplay');
+
+// ===== Hex Stream Logging =====
+function logHex(type, msg) {
+  const line = document.createElement('div');
+  line.className = type;
+  const ts = new Date().toLocaleTimeString('zh-TW', {hour12:false});
+  line.textContent = `[${ts}] ${msg}`;
+  hexStream.appendChild(line);
+  hexStream.scrollTop = hexStream.scrollHeight;
+  if (hexStream.children.length > 200) hexStream.removeChild(hexStream.firstChild);
 }
 
-function pushHistory(key, val) {
-  history[key].push(val);
-  if (history[key].length > MAX_HISTORY) history[key].shift();
-  drawSparkline(key);
+function hexToBytes(hex) {
+  return hex.match(/.{1,2}/g).map(b => parseInt(b, 16));
 }
 
-// ═══════════════════════════════════════════════════════
-// WEB BLUETOOTH
-// ═══════════════════════════════════════════════════════
-async function connectBluetooth() {
-  if (!navigator.bluetooth) {
-    showToast('⚠️ 此瀏覽器不支援 Web Bluetooth，請使用 Chrome/Edge');
-    return;
-  }
-  try {
-    showToast('🔍 搜尋氣質寶裝置…');
-    device = await navigator.bluetooth.requestDevice({
-      filters: [{ namePrefix: 'Air' }],
-      optionalServices: [SERVICE_UUID]
-    });
-  } catch (e) {
-    // Fallback: acceptAllDevices
-    try {
-      device = await navigator.bluetooth.requestDevice({
-        acceptAllDevices: true,
-        optionalServices: [SERVICE_UUID]
-      });
-    } catch (e2) {
-      showToast('❌ 連線失敗: ' + e2.message);
-      return;
-    }
-  }
-
-  device.addEventListener('gattserverdisconnected', onDisconnected);
-
-  try {
-    gattServer = await device.gatt.connect();
-    const service = await gattServer.getPrimaryService(SERVICE_UUID);
-    characteristic = await service.getCharacteristic(CHAR_UUID);
-    await characteristic.startNotifications();
-    characteristic.addEventListener('characteristicvaluechanged', (e) => {
-      decodePacket(e.target.value.buffer);
-    });
-    if (device.watchAdvertisements) {
-      try {
-        await device.watchAdvertisements();
-        device.addEventListener('advertisementreceived', (e) => {
-          if (e.manufacturerData) {
-            for (const [k, v] of e.manufacturerData) {
-              decodePacket(v.buffer);
-            }
-          }
-        });
-      } catch (eAdv) { console.log('watchAdvertisements:', eAdv); }
-    }
-    connected = true;
-    setConnected(true);
-    showToast('✅ 已連線: ' + (device.name || 'Air Mentor'));
-  } catch (e) {
-    showToast('❌ GATT 連線失敗: ' + e.message);
-    connected = false;
-  }
+function bytesToHex(arr) {
+  return Array.from(arr).map(b => b.toString(16).padStart(2,'0')).join(' ');
 }
 
-function disconnectBluetooth() {
-  if (device && device.gatt && device.gatt.connected) {
-    device.gatt.disconnect();
-  }
-  connected = false;
-  setConnected(false);
-  showToast('⏏ 已中斷連線');
-}
-
-function onDisconnected() {
-  connected = false;
-  setConnected(false);
-  showToast('⚠️ 裝置已斷線');
-}
-
-// ═══════════════════════════════════════════════════════
-// DEMO MODE
-// ═══════════════════════════════════════════════════════
-function toggleDemo() {
-  demoMode = !demoMode;
-  const btn = document.getElementById('btnDemo');
-  btn.classList.toggle('active', demoMode);
-  if (demoMode) {
-    showToast('🎭 演示模式已啟動');
-    demoInterval = setInterval(simulateData, 1500);
-  } else {
-    showToast('🎭 演示模式已關閉');
-    clearInterval(demoInterval);
-  }
-}
-
-function simulateData() {
-  data.co2 = 350 + Math.floor(Math.random() * 800);
-  data.pm25 = Math.floor(Math.random() * 80);
-  data.pm10 = Math.floor(Math.random() * 120);
-  data.tvoc = Math.floor(Math.random() * 400);
-  data.temp = 20 + Math.random() * 12;
-  data.hum = 40 + Math.random() * 35;
-  data.iaq = Math.floor(Math.random() * 6);
-  pushHistory('co2', data.co2);
-  pushHistory('pm25', data.pm25);
-  pushHistory('pm10', data.pm10);
-  pushHistory('tvoc', data.tvoc);
-  updateUI();
-}
-
-// ═══════════════════════════════════════════════════════
-// UI UPDATE
-// ═══════════════════════════════════════════════════════
-function updateUI() {
-  animateValue('co2Val', data.co2, 'ppm');
-  animateValue('pm25Val', data.pm25, 'μg/m³');
-  animateValue('pm10Val', data.pm10, 'μg/m³');
-  animateValue('tvocVal', data.tvoc, 'ppb');
-  animateValue('tempVal', data.temp.toFixed(1), '°C');
-  animateValue('humVal', data.hum.toFixed(1), '%');
-  animateValue('iaqVal', data.iaq, '');
-
-  // CO2 rating
-  setRating('co2Badge', 'co2Sub', data.co2, [
-    { max: 600, label: '優良', cls: 'rating-good' },
-    { max: 1000, label: '普通', cls: 'rating-normal' },
-    { max: 1500, label: '警戒', cls: 'rating-warning' },
-    { max: 99999, label: '危險', cls: 'rating-danger' }
-  ]);
-
-  // PM2.5 rating
-  setRating('pm25Badge', 'pm25Sub', data.pm25, [
-    { max: 15, label: '優良', cls: 'rating-good' },
-    { max: 37, label: '普通', cls: 'rating-normal' },
-    { max: 75, label: '警戒', cls: 'rating-warning' },
-    { max: 99999, label: '危險', cls: 'rating-danger' }
-  ]);
-
-  // PM10 rating
-  setRating('pm10Badge', 'pm10Sub', data.pm10, [
-    { max: 50, label: '優良', cls: 'rating-good' },
-    { max: 100, label: '普通', cls: 'rating-normal' },
-    { max: 200, label: '警戒', cls: 'rating-warning' },
-    { max: 99999, label: '危險', cls: 'rating-danger' }
-  ]);
-
-  // TVOC rating
-  setRating('tvocBadge', 'tvocSub', data.tvoc, [
-    { max: 100, label: '優良', cls: 'rating-good' },
-    { max: 300, label: '普通', cls: 'rating-normal' },
-    { max: 600, label: '警戒', cls: 'rating-warning' },
-    { max: 99999, label: '危險', cls: 'rating-danger' }
-  ]);
-
-  // IAQ gauge
-  const iaqColors = ['#4caf50','#8bc34a','#ffeb3b','#ff9800','#f44336','#b71c1c'];
-  const iaqLabels = ['極佳 Excellent','良好 Good','普通 Moderate','警戒 Alert','不良 Poor','危險 Hazardous'];
-  const ring = document.getElementById('iaqRing');
-  const circumference = 326.7;
-  const offset = circumference - (data.iaq / 5) * circumference;
-  ring.style.strokeDashoffset = offset;
-  ring.style.stroke = iaqColors[data.iaq] || iaqColors[0];
-  document.getElementById('iaqLabel').textContent = iaqLabels[data.iaq] || '等待中';
-  document.getElementById('iaqLabel').style.color = iaqColors[data.iaq] || 'var(--text-dim)';
-
-  const bars = document.getElementById('iaqBars').children;
-  for (let i = 0; i < 6; i++) {
-    bars[i].classList.toggle('active', i <= data.iaq);
-    bars[i].style.setProperty('--bar-color', iaqColors[i]);
-  }
-}
-
-function setRating(badgeId, subId, value, thresholds) {
-  const badge = document.getElementById(badgeId);
-  const sub = document.getElementById(subId);
-  for (const t of thresholds) {
-    if (value <= t.max) {
-      badge.textContent = t.label;
-      badge.className = 'rating-badge ' + t.cls;
-      sub.textContent = '目前: ' + value;
-      return;
-    }
-  }
-}
-
-function animateValue(id, val, unit) {
-  const el = document.getElementById(id);
-  const unitSpan = el.querySelector('.card-unit');
-  const unitHTML = unit ? `<span class="card-unit">${unit}</span>` : '';
-  el.innerHTML = val + unitHTML;
-}
-
-// ═══════════════════════════════════════════════════════
-// SPARKLINE
-// ═══════════════════════════════════════════════════════
-function drawSparkline(key) {
-  const canvasId = 'spark' + key.charAt(0).toUpperCase() + key.slice(1);
-  const canvas = document.getElementById(canvasId);
+// ===== Sparkline Rendering =====
+function drawSparkline(canvasId, data, color, maxVal) {
+  const canvas = $(canvasId);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const w = canvas.width = canvas.offsetWidth * 2;
   const h = canvas.height = canvas.offsetHeight * 2;
   ctx.clearRect(0, 0, w, h);
+  if (data.length < 2) return;
 
-  const arr = history[key];
-  if (arr.length < 2) return;
-
-  const max = Math.max(...arr, 1);
-  const min = Math.min(...arr, 0);
+  const max = maxVal || Math.max(...data, 1);
+  const min = Math.min(...data, 0);
   const range = max - min || 1;
+  const step = w / (SPARK_MAX - 1);
 
   ctx.beginPath();
-  ctx.strokeStyle = 'rgba(79,195,247,.7)';
+  ctx.strokeStyle = color;
   ctx.lineWidth = 2;
   ctx.lineJoin = 'round';
 
-  for (let i = 0; i < arr.length; i++) {
-    const x = (i / (MAX_HISTORY - 1)) * w;
-    const y = h - ((arr[i] - min) / range) * (h - 4) - 2;
+  for (let i = 0; i < data.length; i++) {
+    const x = i * step;
+    const y = h - ((data[i] - min) / range) * (h - 10) - 5;
     if (i === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
   ctx.stroke();
 
   // Gradient fill
-  const lastX = ((arr.length - 1) / (MAX_HISTORY - 1)) * w;
-  const lastY = h - ((arr[arr.length - 1] - min) / range) * (h - 4) - 2;
+  const lastX = (data.length - 1) * step;
+  const lastY = h - ((data[data.length-1] - min) / range) * (h - 10) - 5;
   ctx.lineTo(lastX, h);
   ctx.lineTo(0, h);
   ctx.closePath();
   const grad = ctx.createLinearGradient(0, 0, 0, h);
-  grad.addColorStop(0, 'rgba(79,195,247,.2)');
-  grad.addColorStop(1, 'rgba(79,195,247,0)');
+  grad.addColorStop(0, color.replace(')', ',0.2)').replace('rgb', 'rgba'));
+  grad.addColorStop(1, 'transparent');
   ctx.fillStyle = grad;
   ctx.fill();
 }
 
-// ═══════════════════════════════════════════════════════
-// STATUS & TOAST
-// ═══════════════════════════════════════════════════════
-function setConnected(isConn) {
-  const dot = document.getElementById('statusDot');
-  const txt = document.getElementById('statusText');
-  const btnC = document.getElementById('btnConnect');
-  const btnD = document.getElementById('btnDisconnect');
-  if (isConn) {
-    dot.classList.add('connected');
-    txt.textContent = '已連線';
-    txt.style.color = 'var(--green)';
-    btnC.style.display = 'none';
-    btnD.style.display = 'flex';
-  } else {
-    dot.classList.remove('connected');
-    txt.textContent = '未連線';
-    txt.style.color = 'var(--text-dim)';
-    btnC.style.display = 'flex';
-    btnD.style.display = 'none';
+function pushSpark(key, val) {
+  sparkData[key].push(val);
+  if (sparkData[key].length > SPARK_MAX) sparkData[key].shift();
+}
+
+function renderAllSparklines() {
+  drawSparkline('sparkIAQ', sparkData.iaq, 'rgb(0,240,250)', 500);
+  drawSparkline('sparkPM25', sparkData.pm25, 'rgb(255,145,0)', 200);
+  drawSparkline('sparkCO2', sparkData.co2, 'rgb(124,77,255)', 2000);
+  drawSparkline('sparkTVOC', sparkData.tvoc, 'rgb(0,230,118)', 1000);
+  drawSparkline('sparkTemp', sparkData.temp, 'rgb(255,23,68)', 50);
+}
+
+// ===== Web Audio Dual-Tone Alarm =====
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function playDualToneAlarm() {
+  if (!webAudioEnabled || !audioCtx) return;
+  if (alarmActive) return;
+  alarmActive = true;
+
+  const now = audioCtx.currentTime;
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const gain1 = audioCtx.createGain();
+  const gain2 = audioCtx.createGain();
+
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(880, now);
+  osc1.frequency.exponentialRampToValueAtTime(659, now + 0.4);
+
+  osc2.type = 'sine';
+  osc2.frequency.setValueAtTime(659, now + 0.4);
+  osc2.frequency.exponentialRampToValueAtTime(880, now + 0.8);
+
+  gain1.gain.setValueAtTime(0.15, now);
+  gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+  gain2.gain.setValueAtTime(0.001, now);
+  gain2.gain.setValueAtTime(0.15, now + 0.4);
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+
+  osc1.connect(gain1).connect(audioCtx.destination);
+  osc2.connect(gain2).connect(audioCtx.destination);
+
+  osc1.start(now); osc1.stop(now + 0.8);
+  osc2.start(now + 0.4); osc2.stop(now + 0.8);
+
+  setTimeout(() => { alarmActive = false; }, 1200);
+  logHex('warn', '[ALARM] 🔊 Web Audio 雙音警示播放 (880Hz→659Hz)');
+}
+
+// ===== Alert Check =====
+function checkAlert(iaq) {
+  if (alertMode === 0) return; // Silent
+  let shouldAlert = false;
+  if (alertMode === 1 && iaq >= 150) shouldAlert = true; // Orange 3+
+  if (alertMode === 2 && iaq >= 200) shouldAlert = true; // Red 4+
+  if (shouldAlert) playDualToneAlarm();
+}
+
+// ===== BLE Connection =====
+async function connectDevice() {
+  try {
+    if (!navigator.bluetooth) {
+      logHex('error', '[ERR] 此瀏覽器不支援 Web Bluetooth API');
+      return;
+    }
+    device = await navigator.bluetooth.requestDevice({
+      filters: [{ namePrefix: DEVICE_NAME_FILTER }],
+      optionalServices: [SERVICE_UUID]
+    });
+    logHex('info', `[BLE] 發現裝置: ${device.name}`);
+    device.addEventListener('gattserverdisconnected', onDisconnected);
+    await connectGatt();
+  } catch (e) {
+    logHex('error', `[ERR] 連線失敗: ${e.message}`);
   }
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+async function connectGatt() {
+  try {
+    gattServer = await device.gatt.connect();
+    logHex('info', '[BLE] GATT 連線成功');
+    const service = await gattServer.getPrimaryService(SERVICE_UUID);
+    writeChar = await service.getCharacteristic(WRITE_CHAR_UUID);
+    readChar = await service.getCharacteristic(READ_CHAR_UUID);
+    await readChar.startNotifications();
+    readChar.addEventListener('characteristicvaluechanged', onDataReceived);
+    isConnected = true;
+    updateStatus(true);
+    logHex('info', '[BLE] 訂閱通知成功，開始接收數據');
+    // Apply saved settings
+    applyLedSetting(ledLevel);
+    applyAlertSetting(alertMode);
+  } catch (e) {
+    logHex('error', `[ERR] GATT 連線失敗: ${e.message}`);
+    isConnected = false;
+    updateStatus(false);
+  }
 }
 
-// ═══════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════
+function onDisconnected() {
+  isConnected = false;
+  updateStatus(false);
+  logHex('warn', '[BLE] 裝置斷線，嘗試自動重連...');
+  startAutoReconnect();
+}
+
+function startAutoReconnect() {
+  if (reconnectTimer) return;
+  reconnectTimer = setInterval(async () => {
+    if (isConnected) { clearInterval(reconnectTimer); reconnectTimer = null; return; }
+    try {
+      const devices = await navigator.bluetooth.getDevices();
+      const target = devices.find(d => d.name && d.name.includes(DEVICE_NAME_FILTER));
+      if (target) {
+        device = target;
+        logHex('info', `[BLE] 自動重連: ${device.name}`);
+        device.addEventListener('gattserverdisconnected', onDisconnected);
+        await connectGatt();
+        clearInterval(reconnectTimer);
+        reconnectTimer = null;
+      }
+    } catch (e) {
+      logHex('info', '[BLE] 自動重連嘗試中...');
+    }
+  }, 5000);
+}
+
+function updateStatus(connected) {
+  statusDot.className = 'status-dot' + (connected ? ' connected' : '');
+  statusText.textContent = connected ? '已連線' : '未連線';
+  connectBtn.textContent = connected ? '📡 已連線' : '📡 連線裝置';
+}
+
+// ===== Data Parsing (Adaptive for Air Mentor 2 / 2S) =====
+function onDataReceived(event) {
+  const value = event.target.value;
+  const bytes = new Uint8Array(value.buffer);
+  const hexStr = bytesToHex(bytes);
+  logHex('rx', `[RX] ${hexStr}`);
+
+  // 檢測是否全為 0（感測器暖機預熱中）
+  if (bytes.length >= 4 && bytes.every(v => v === 0)) {
+    logHex('warn', '[SYS] ⚠️ 數值全為 0（感測器暖機校正中，請稍候約 30 秒）');
+    $('iaqBadge').textContent = '暖機校正中';
+    $('iaqBadge').className = 'iaq-badge iaq-moderate';
+    return;
+  }
+
+  const type = bytes[0];
+  let updated = false;
+
+  // 模式 A: 標準 Air Mentor 雙封包協定
+  if (type === 0x01 && bytes.length >= 8) {
+    const co2 = (bytes[2] << 8) | bytes[3];
+    const pm25 = (bytes[4] << 8) | bytes[5];
+    const pm10 = (bytes[6] << 8) | bytes[7];
+    $('co2Value').textContent = co2;
+    $('pm25Value').textContent = pm25;
+    pushSpark('co2', co2);
+    pushSpark('pm25', pm25);
+    logHex('info', `  ↳ Packet 1: CO2=${co2} ppm, PM2.5=${pm25} µg/m³, PM10=${pm10}`);
+    updated = true;
+  } else if (type === 0x02 && bytes.length >= 10) {
+    const tvoc = (bytes[2] << 8) | bytes[3];
+    const tempRaw = (bytes[4] << 8) | bytes[5];
+    const temp = (tempRaw - 4000) * 0.01;
+    const humRaw = (bytes[6] << 8) | bytes[7];
+    const hum = humRaw * 0.1;
+    const iaq = (bytes[8] << 8) | bytes[9];
+
+    $('tvocValue').textContent = tvoc;
+    $('tempValue').textContent = temp.toFixed(1) + '°C';
+    $('humValue').textContent = '濕度: ' + hum.toFixed(1) + '%';
+    $('iaqValue').textContent = iaq;
+
+    // IAQ Badge
+    const badge = $('iaqBadge');
+    if (iaq <= 1) { badge.textContent = '極佳'; badge.className = 'iaq-badge iaq-good'; }
+    else if (iaq <= 2) { badge.textContent = '良好'; badge.className = 'iaq-badge iaq-good'; }
+    else if (iaq <= 3) { badge.textContent = '警戒'; badge.className = 'iaq-badge iaq-moderate'; }
+    else { badge.textContent = '不良/危險'; badge.className = 'iaq-badge iaq-bad'; }
+
+    pushSpark('tvoc', tvoc);
+    pushSpark('temp', temp);
+    pushSpark('iaq', iaq * 80);
+    logHex('info', `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp.toFixed(1)}°C, 濕度=${hum.toFixed(1)}%, IAQ=${iaq}`);
+    checkAlert(iaq);
+    updated = true;
+  } else if (bytes.length >= 16) {
+    // 模式 B: 單一大封包 (16~20 bytes 全量數據)
+    const co2 = (bytes[2] << 8) | bytes[3];
+    const pm25 = (bytes[4] << 8) | bytes[5];
+    const tvoc = (bytes[8] << 8) | bytes[9];
+    const tempRaw = (bytes[10] << 8) | bytes[11];
+    const temp = (tempRaw - 4000) * 0.01;
+    const humRaw = (bytes[12] << 8) | bytes[13];
+    const hum = humRaw * 0.1;
+    const iaq = (bytes[14] << 8) | bytes[15];
+
+    $('co2Value').textContent = co2;
+    $('pm25Value').textContent = pm25;
+    $('tvocValue').textContent = tvoc;
+    $('tempValue').textContent = temp.toFixed(1) + '°C';
+    $('humValue').textContent = '濕度: ' + hum.toFixed(1) + '%';
+    $('iaqValue').textContent = iaq;
+
+    const badge = $('iaqBadge');
+    if (iaq <= 2) { badge.textContent = '良好'; badge.className = 'iaq-badge iaq-good'; }
+    else if (iaq <= 3) { badge.textContent = '警戒'; badge.className = 'iaq-badge iaq-moderate'; }
+    else { badge.textContent = '危險'; badge.className = 'iaq-badge iaq-bad'; }
+
+    pushSpark('co2', co2);
+    pushSpark('pm25', pm25);
+    pushSpark('tvoc', tvoc);
+    pushSpark('temp', temp);
+    pushSpark('iaq', iaq * 80);
+    checkAlert(iaq);
+    updated = true;
+  }
+
+  if (updated) {
+    renderAllSparklines();
+  }
+}
+
+// ===== GATT Write Commands =====
+async function gattWrite(data) {
+  if (!writeChar || !isConnected) {
+    logHex('warn', '[TX] 未連線，已記錄設定至本地');
+    return false;
+  }
+  try {
+    await writeChar.writeValue(data);
+    const hex = bytesToHex(new Uint8Array(data.buffer || data));
+    logHex('tx', `[TX] 指令發送成功: ${hex}`);
+    return true;
+  } catch (err) {
+    logHex('error', `[TX] 寫入指令失敗: ${err.message}`);
+    return false;
+  }
+}
+
+// ===== Apply LED Setting =====
+async function applyLedSetting(level) {
+  ledLevel = level;
+  localStorage.setItem('am_led_level', String(level));
+
+  // 更新 UI 預覽
+  ledPreview.className = 'led-preview ' + (level === 10 ? 'on breathing' : level === 3 ? 'dim breathing' : 'off');
+  ledBar.style.width = (level === 10 ? '100%' : level === 3 ? '30%' : '0%');
+
+  // 發送硬體 BLE 控制封包: [0x21, 0x01, level]
+  const cmd = new Uint8Array([0x21, 0x01, level]);
+  logHex('info', `[CMD] 正在設定機體 LED 亮度: Level ${level}…`);
+  await gattWrite(cmd);
+}
+
+// ===== Apply Alert Setting =====
+async function applyAlertSetting(mode) {
+  alertMode = mode;
+  localStorage.setItem('am_alert_mode', String(mode));
+
+  const labels = ['完全靜音 (Silent)', '警戒級提醒 (Orange 3+)', '危險級警報 (Red 4+)'];
+  alertModeDisplay.textContent = labels[mode] || '自訂';
+
+  // 發送硬體 BLE 控制封包: [0x22, 0x01, mode]
+  const cmd = new Uint8Array([0x22, 0x01, mode]);
+  logHex('info', `[CMD] 正在設定機體警報模式: ${labels[mode]}…`);
+  await gattWrite(cmd);
+}
+
+// ===== UI Event Bindings =====
+connectBtn.addEventListener('click', () => {
+  initAudio();
+  if (!isConnected) connectDevice();
+  else if (device && device.gatt) device.gatt.disconnect();
+});
+
+// Settings Modal
+settingsToggle.addEventListener('click', () => {
+  settingsModal.classList.add('active');
+  initAudio();
+});
+closeSettings.addEventListener('click', () => {
+  settingsModal.classList.remove('active');
+});
+settingsModal.addEventListener('click', (e) => {
+  if (e.target === settingsModal) settingsModal.classList.remove('active');
+});
+
+// LED Radio Buttons
+document.querySelectorAll('input[name="ledMode"]').forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    applyLedSetting(parseInt(e.target.value));
+  });
+});
+
+// Alert Mode Radio Buttons
+document.querySelectorAll('input[name="alertMode"]').forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    applyAlertSetting(parseInt(e.target.value));
+  });
+});
+
+// Web Audio Checkbox
+$('webAudioAlarm').addEventListener('change', (e) => {
+  webAudioEnabled = e.target.checked;
+  localStorage.setItem('am_web_audio', String(webAudioEnabled));
+  logHex('info', `[SYS] 手機端 Web Audio 雙音警報: ${webAudioEnabled ? '已開啟' : '已關閉'}`);
+  if (webAudioEnabled) {
+    initAudio();
+    playDualToneAlarm(); // 試聽一聲
+  }
+});
+
+// ===== Page Initialization =====
 window.addEventListener('DOMContentLoaded', () => {
-  if (!navigator.bluetooth) {
-    showToast('💡 請使用 Chrome 或 Edge 瀏覽器以啟用 Web Bluetooth');
+  // 恢復已儲存之設定選項
+  const savedLed = localStorage.getItem('am_led_level');
+  if (savedLed !== null) {
+    const radio = document.querySelector(`input[name="ledMode"][value="${savedLed}"]`);
+    if (radio) radio.checked = true;
+    ledLevel = parseInt(savedLed);
+  }
+  const savedAlert = localStorage.getItem('am_alert_mode');
+  if (savedAlert !== null) {
+    const radio = document.querySelector(`input[name="alertMode"][value="${savedAlert}"]`);
+    if (radio) radio.checked = true;
+    alertMode = parseInt(savedAlert);
+  }
+  const savedAudio = localStorage.getItem('am_web_audio');
+  if (savedAudio !== null) {
+    $('webAudioAlarm').checked = (savedAudio !== 'false');
+    webAudioEnabled = $('webAudioAlarm').checked;
+  }
+
+  applyLedSetting(ledLevel);
+  applyAlertSetting(alertMode);
+
+  // 嘗試自動重連
+  if (navigator.bluetooth && navigator.bluetooth.getDevices) {
+    navigator.bluetooth.getDevices().then(devices => {
+      const target = devices.find(d => d.name && d.name.includes(DEVICE_NAME_FILTER));
+      if (target) {
+        logHex('info', `[BLE] 發現已配對歷史裝置: ${target.name}，開始自動重連…`);
+        device = target;
+        device.addEventListener('gattserverdisconnected', onDisconnected);
+        connectGatt();
+      }
+    }).catch(e => {
+      logHex('info', '[BLE] 歷史授權檢測: ' + e.message);
+    });
+  }
+
+  // 註冊微型 Service Worker (符合 PWA 安裝資格)
+  if ('serviceWorker' in navigator) {
+    try {
+      const swCode = "self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => clients.claim()); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));";
+      const blob = new Blob([swCode], { type: 'application/javascript' });
+      navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+    } catch(e) {}
   }
 });
 </script>
