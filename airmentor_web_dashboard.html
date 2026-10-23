@@ -395,6 +395,18 @@ async function connectGatt() {
     isConnected = true;
     updateStatus(true);
     logHex('info', '[BLE] 訂閱通知成功，開始接收數據');
+
+    // 連線後立即主動讀取一次特徵值，免除乾等 30 秒廣播
+    try {
+      const initialVal = await readChar.readValue();
+      if (initialVal && initialVal.byteLength > 0) {
+        logHex('info', '[BLE] 初始數據主動讀取完成');
+        onDataReceived({ target: { value: initialVal } });
+      }
+    } catch (re) {
+      logHex('info', '[BLE] 等待感測器週期性推送...');
+    }
+
     // Apply saved settings
     applyLedSetting(ledLevel);
     applyAlertSetting(alertMode);
@@ -536,23 +548,10 @@ function onDataReceived(event) {
     const hum = decodeHum(humRaw);
     const iaq = decodeIAQ(bytes, 8);
 
-    // 當 Packet 2 帶有 16~20 bytes 全量數據時，提取後續的 PM2.5 與 CO2
-    let co2Ext = null;
-    let pm25Ext = null;
-    if (bytes.length >= 16) {
-      const pm25Candidate = (bytes[12] << 8) | bytes[13];
-      const co2Candidate = (bytes[14] << 8) | bytes[15];
-      if (pm25Candidate >= 0 && pm25Candidate <= 1000) {
-        pm25Ext = pm25Candidate;
-        $('pm25Value').textContent = pm25Candidate;
-        pushSpark('pm25', pm25Candidate);
-      }
-      if (co2Candidate >= 350 && co2Candidate <= 5000) {
-        co2Ext = co2Candidate;
-        $('co2Value').textContent = co2Candidate;
-        pushSpark('co2', co2Candidate);
-      }
-    }
+    // ⚠️ 嚴格遵循氣質寶硬體協定：
+    // Packet 2 (type 0x02) 僅傳輸 TVOC、溫度、濕度、IAQ。
+    // bytes[10..19] 為感測器內部校正與暫存器，絕對不是 PM2.5 或 CO2！
+    // 嚴禁在此處覆寫 PM2.5 或 CO2，防止覆蓋真實空氣數據。
 
     $('tvocValue').textContent = tvoc;
     $('tempValue').textContent = (temp !== null ? temp.toFixed(1) : '--') + '°C';
@@ -573,9 +572,7 @@ function onDataReceived(event) {
     pushSpark('tvoc', tvoc);
     if (temp !== null) pushSpark('temp', temp);
 
-    let logMsg = `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp !== null ? temp.toFixed(1) : '--'}°C, 濕度=${hum !== null ? hum.toFixed(1) : '--'}%, IAQ=${iaq}`;
-    if (co2Ext !== null) logMsg += `, CO2=${co2Ext} ppm`;
-    if (pm25Ext !== null) logMsg += `, PM2.5=${pm25Ext} µg/m³`;
+    const logMsg = `  ↳ Packet 2: TVOC=${tvoc} ppb, 溫度=${temp !== null ? temp.toFixed(1) : '--'}°C, 濕度=${hum !== null ? hum.toFixed(1) : '--'}%, IAQ=${iaq}`;
     logHex('info', logMsg);
 
     // 溫升預熱提示 (若初次開機溫度低於 22°C)
