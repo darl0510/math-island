@@ -13,7 +13,7 @@
 【v2.5.1】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
-python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "跨領域綜合素養成果分享海報與家長成績單報表功能實裝，完成後 node --check 自檢"
+python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置，完成後 node --check 自檢"
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -33,7 +33,7 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 | **`server.py`** | 輕量本機 HTTP 伺服器 | 預設監聽 8085，支援 MIME 與 CORS 標頭 |
 | **`js/main.js`** | 主程式入口調度 | 畫面切換、事件監聽與年級狀態聯動 |
 | **`js/grades.js`** | 年級設定字典 | 定義小一至小三島嶼、關卡數與題庫對應；`SUBJECT_GRADES` 科目掛表 |
-| **`js/subjects.js`** | 科目註冊表 (SSOT) | 數學/英文/國語/期末挑戰島定義、語音語系與就緒旗標 |
+| **`js/subjects.js`** | 科目註冊表 (SSOT) | 數學/英文/國語/期末挑戰/自然科學島定義、語音語系與就緒旗標 |
 | **`js/trophy.js`** | 期末綜合挑戰金盃頒發盛典模組 | 旋轉光芒、浮動金盃、三科PASS認證與頒獎祝賀語音 |
 | **`js/levels/island_defs_challenge.js`** | 跨科目期末綜合挑戰島 48 關卡定義 | 數英中跨學科融合評量 (小一至小三各 4 島 16 關) |
 | **`data/question-bank-challenge-g{1,2,3}.json`** | 期末綜合挑戰題庫 | 小一至小三各 16 關 x 6 題 = 96 題跨領域素養會考題 |
@@ -44,9 +44,10 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
-- [ ] **跨領域綜合素養成果分享海報與家長成績單報表功能實裝**
+- [ ] **奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置**
 
 ### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
+- [ ] 奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置
 - [ ] 跨領域綜合素養成果分享海報與家長成績單報表功能實裝
 
 ---
