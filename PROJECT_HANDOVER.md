@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.5.4 版)  
+> **最後更新時間**：2026-10-25 (v2.5.5 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,10 +10,10 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.5.4】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.5.5】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
-python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "奇幻自然科學島小三 16 關自然探索關卡題庫建置與驗證，完成後 node --check 自檢"
+python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "實裝全域注音標示系統：題目預設標註注音（ruby/rt），頂部導覽列新增注音開關按鈕與狀態記憶，完成後 node --check 自檢"
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -26,9 +26,9 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 | :--- | :--- | :--- |
 | **`PROJECT_HANDOVER.md`** | 跨對話進度與交接手冊 | 記錄當前版號與待辦 (SSOT) |
 | **`AGENTS.md`** | AI 開發守則與架構規範 | 常駐規則守護與架構紅線 |
-| **`index.html`** | 遊戲前端主頁面 | 含頂部全域導覽、科目切換膠囊、年級切換膠囊與版號標籤 (v2.5.4) |
+| **`index.html`** | 遊戲前端主頁面 | 含頂部全域導覽、科目切換膠囊、年級切換膠囊與版號標籤 (v2.5.5) |
 | **`manifest.webmanifest`** | PWA 漸進式應用清單 | 定義獨立桌面視窗、全螢幕與吉祥物圖示 |
-| **`sw.js`** | Service Worker 離線快取 | 支援離線秒開與 Android/iOS/Chrome 安裝條件 (v2.5.4) |
+| **`sw.js`** | Service Worker 離線快取 | 支援離線秒開與 Android/iOS/Chrome 安裝條件 (v2.5.5) |
 | **`assets/icons/`** | PWA 桌面圖示集合 | 192x192 與 512x512 高畫質 PNG 圖示 |
 | **`server.py`** | 輕量本機 HTTP 伺服器 | 預設監聽 8085，支援 MIME 與 CORS 標頭 |
 | **`js/main.js`** | 主程式入口調度 | 畫面切換、事件監聽與年級狀態聯動 |
@@ -37,8 +37,8 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 | **`js/trophy.js`** | 期末綜合挑戰金盃頒發盛典模組 | 旋轉光芒、浮動金盃、三科PASS認證與頒獎祝賀語音 |
 | **`js/levels/island_defs_challenge.js`** | 跨科目期末綜合挑戰島 48 關卡定義 | 數英中跨學科融合評量 (小一至小三各 4 島 16 關) |
 | **`data/question-bank-challenge-g{1,2,3}.json`** | 期末綜合挑戰題庫 | 小一至小三各 16 關 x 6 題 = 96 題跨領域素養會考題 |
-| **`data/question-bank-science-g{1,2}.json`** | 奇幻自然科學島題庫 | 小一與小二各 16 關 x 8 題 = 128 題自然科學素養探索題 |
-| **`js/levels/island_defs_science_g{1,2}.js`** | 奇幻自然科學島關卡定義 | 小一與小二自然探索各 4 島 16 關中文導讀與島嶼規格 |
+| **`data/question-bank-science-g{1,2,3}.json`** | 奇幻自然科學島題庫 | 小一至小三各 16 關 x 8 題 = 128 題自然科學素養探索題 |
+| **`js/levels/island_defs_science_g{1,2,3}.js`** | 奇幻自然科學島關卡定義 | 小一至小三自然探索各 4 島 16 關中文導讀與島嶼規格 |
 | **`js/visuals.js`** | 豐富數學動態教具與繪本情境渲染 | 支援直式、分數、幾何、SVG 數線與情境教具 |
 | **`auto_backup.py`** | 三層智慧備份與自動封存 | 支援日常備份與 Handover 防膨脹修剪 |
 | **`一鍵推送GitHub版本.bat`** | GitHub 一鍵推送自動化腳本 | 自動 commit 與 push 至 main 分支 |
@@ -46,21 +46,21 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
-- [ ] **奇幻自然科學島小三 16 關自然探索關卡題庫建置與整合**
+- [ ] **全域注音標示系統（預設開啟注音標示，頂部導覽列提供注音開關與偏好記憶）**
 
 ### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
-- [ ] 奇幻自然科學島小三 16 關自然探索關卡題庫建置與整合
+- [ ] 全域注音標示系統（題庫/題目/選項預設標註注音，頂部導覽列提供注音顯示開關，支援偏好記憶）
 - [ ] 跨領域綜合素養成果分享海報與家長成績單報表功能實裝
 
 ---
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
-- [x] **奇幻自然科學島小二 16 關自然進階探索關卡題庫建置** (完成 `data/question-bank-science-g2.json` 128 題自然探索題庫、建置 `js/levels/island_defs_science_g2.js` 4 島 16 關定義、在 `js/levels/index.js` 與 `js/grades.js` 註冊掛表，`node --check` 自檢全綠燈) (v2.5.4)
+- [x] **奇幻自然科學島小三 16 關自然探索關卡題庫建置與整合** (完成 `data/question-bank-science-g3.json` 128 題小三自然科學題庫、建立 `js/levels/island_defs_science_g3.js` 4 島 16 關定義、在 `js/levels/index.js` 與 `js/grades.js` 註冊小三自然領域，`node --check` 自檢全綠燈) (v2.5.5)
+- [x] **奇幻自然科學島小二 16 關自然進階探索關卡題庫建置** (完成 `data/question-bank-science-g2.json` 128 題自然探索題庫、建置 `js/levels/island_defs_science_g2.js` 4 島 16 關定義) (v2.5.4)
 - [x] **奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置** (完成小一 128 題自然探索題庫與關卡定義掛載) (v2.5.3)
-- [x] **跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝** (建立 `js/trophy.js` 通關金盃頒發盛典模組、整合旋轉射線與浮動金盃動畫、在 `map.js` 實裝挑戰會考 Banner 與獎盃快捷、在 `engine.js` 完賽聯動金盃慶祝與語音賀詞，全年級 192 關自檢全綠燈) (v2.5.1)
+- [x] **跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝** (建立 `js/trophy.js` 通關金盃頒發盛典模組) (v2.5.1)
 - [x] **英文島答案洩漏全面修復 ✕ 跨科目期末綜合挑戰島關卡規劃與規則串接** (v2.5.0)
-- [x] **奇幻英文島自然發音卡與單字拼讀積木教具實裝** (v2.4.9)
 <details><summary>過往已完成歷史任務</summary>
 - [x] **國語島生字筆順動態繪製與筆畫指引教具擴展** (v2.4.8)
 - [x] **多科目關卡前置星數解鎖與學習徽章系統實裝** (v2.4.7)

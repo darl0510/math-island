@@ -255,6 +255,23 @@ export const SCIENCE_GRADES = [
       { id: 4, name: '地球守護科學殿', theme: 'space', color: '#8b5cf6', emoji: '🌍', blurb: '生活材料特性比一比、沉浮實驗中空原理、節能減碳綠生活與榮譽總試煉。' },
     ],
   },
+  {
+    id: 3,
+    name: '三年級',
+    shortName: '小三',
+    icon: '⚡',
+    badge: '台灣小三 · 108 課綱自然科學領域',
+    title: '奇幻自然科學島 · 三年級',
+    subtitle: '4 座自然科學探索島嶼 · 16 個植物、磁鐵、空氣與動物關卡 · 邊玩邊探索科學奧秘',
+    age: '適合 8–9 歲',
+    questionBankUrl: 'data/question-bank-science-g3.json',
+    islands: [
+      { id: 1, name: '綠色植物探索島', theme: 'forest', color: '#10b981', emoji: '🌱', blurb: '植物根莖葉機能、花果種子傳播奇蹟、生活與水生植物探秘、校園植物生長觀察。' },
+      { id: 2, name: '磁力與動態探索島', theme: 'ocean', color: '#3b82f6', emoji: '🧲', blurb: '磁鐵磁極同斥異吸、指北針與地球大磁場、生活磁力應用、力與物體運動摩擦力。' },
+      { id: 3, name: '空氣與聲波探索島', theme: 'cloud', color: '#0ea5e9', emoji: '🫧', blurb: '空氣佔有空間與彈性、熱脹冷縮與天燈熱氣球、聲音由物體振動產生、音調高低與噪音防制。' },
+      { id: 4, name: '奇妙動物與自然探索島', theme: 'space', color: '#8b5cf6', emoji: '🐾', blurb: '脊椎與昆蟲運動特徵、卵生胎生育幼撫育、恆溫變溫適應與冬眠、小三自然科學榮譽大試煉。' },
+    ],
+  },
 ];
 
 /* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島 / 奇幻自然島 / 期末綜合挑戰島」時在此掛上該科年級表即可 */
