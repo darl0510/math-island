@@ -3,7 +3,9 @@ import { startLevel } from './engine.js';
 import { isUnlocked, getState, totalStars, completedCount, unlockedLevel, resetProgress } from './state.js';
 import { escapeHtml, setScreen, showToast, starsMarkup } from './ui.js';
 import { islands, getLevelById, syncGradeLevels } from './levels/index.js';
-import { getGradeConfig, GRADES } from './grades.js';
+import { getGradeConfig, getSubjectGrades } from './grades.js';
+import { getCurrentSubject } from './state.js';
+import { getSubjectConfig, isSubjectReady } from './subjects.js';
 import { getCurrentGrade, setCurrentGrade } from './state.js';
 import { loadQuestionBankForGrade } from './question-bank.js';
 
@@ -17,14 +19,18 @@ const ISLAND_IMAGES = {
 export function renderHome() {
   const screen = document.getElementById('screen-home');
   const grade = getCurrentGrade();
-  const gradeConfig = getGradeConfig(grade);
+  const subject = getCurrentSubject();
+  const subjectConfig = getSubjectConfig(subject);
+  const subjectReady = isSubjectReady(subject);
+  const subjectGrades = getSubjectGrades(subject);
+  const gradeConfig = getGradeConfig(grade, subject);
   syncGradeLevels(grade);
   const state = getState();
 
-  const gradeCardsMarkup = GRADES.map(g => {
+  const gradeCardsMarkup = subjectGrades.map(g => {
     const isActive = g.id === grade;
-    const stars = totalStars(g.id);
-    const count = completedCount(g.id);
+    const stars = totalStars(g.id, subject);
+    const count = completedCount(g.id, subject);
     const isPrep = g.id > 3;
     return `
       <button class="grade-card ${isActive ? 'is-active' : ''} ${isPrep ? 'is-prep' : ''}" type="button" data-grade="${g.id}">
@@ -41,7 +47,9 @@ export function renderHome() {
   }).join('');
 
   const titleBottomText = grade === 3 ? '三年級篇' : (grade === 2 ? '二年級篇' : '大冒險');
-  const mascotText = grade === 3 ? '小三大數與分數冒險開跑！' : (grade === 2 ? '小二乘法大冒險來囉！' : '準備好一起冒險了嗎？');
+  const mascotText = subjectReady
+    ? (grade === 3 ? '小三大數與分數冒險開跑！' : (grade === 2 ? '小二乘法大冒險來囉！' : '準備好一起冒險了嗎？'))
+    : `${subjectConfig.name}正在蓋島中，敬請期待！`;
 
   screen.innerHTML = `
     <div class="home-view">
@@ -51,7 +59,7 @@ export function renderHome() {
         <div class="title-lockup">
           <span class="eyebrow">${escapeHtml(gradeConfig.badge)}</span>
           <h1 class="game-title">
-            <span class="title-top">奇幻數學島</span>
+            <span class="title-top">${escapeHtml(subjectConfig.brandTitle)}</span>
             <span class="title-bottom">${titleBottomText}</span>
           </h1>
           <p class="subtitle">${escapeHtml(gradeConfig.subtitle)}</p>
@@ -70,16 +78,16 @@ export function renderHome() {
         </div>
 
         <div class="home-actions">
-          <button class="start-adventure" type="button" id="start-adventure">
+          <button class="start-adventure ${subjectReady ? '' : 'is-soon'}" type="button" id="start-adventure" ${subjectReady ? '' : 'disabled'}>
             <span class="start-shine"></span>
-            <span class="start-label">進入 ${escapeHtml(gradeConfig.name)} 冒險</span>
-            <span class="start-icon" aria-hidden="true">🚀</span>
+            <span class="start-label">${subjectReady ? `進入 ${escapeHtml(gradeConfig.name)} 冒險` : `${escapeHtml(subjectConfig.name)} 即將啟航`}</span>
+            <span class="start-icon" aria-hidden="true">${subjectReady ? '🚀' : subjectConfig.icon}</span>
           </button>
           <button class="how-btn" type="button" id="how-btn">怎麼玩？</button>
         </div>
         <div class="home-stats">
-          <div class="stat-chip"><span class="stat-emoji">⭐</span><strong>${totalStars()}</strong><span>顆星</span></div>
-          <div class="stat-chip"><span class="stat-emoji">🏝️</span><strong>${completedCount()}</strong><span>/ 16 關</span></div>
+          <div class="stat-chip"><span class="stat-emoji">⭐</span><strong>${subjectReady ? totalStars(grade, subject) : 0}</strong><span>顆星</span></div>
+          <div class="stat-chip"><span class="stat-emoji">🏝️</span><strong>${subjectReady ? completedCount(grade, subject) : 0}</strong><span>/ 16 關</span></div>
           <div class="stat-chip"><span class="stat-emoji">🎵</span><span>歡樂音樂</span></div>
           <div class="stat-chip"><span class="stat-emoji">🔊</span><span>語音讀題</span></div>
         </div>
@@ -90,7 +98,7 @@ export function renderHome() {
         <div class="mascot-bubble">${mascotText}</div>
       </div>
       <div class="floating-symbols" aria-hidden="true">
-        <span>+</span><span>7</span><span>×</span><span>10</span><span>●</span><span>3</span><span>★</span><span>8</span><span>÷</span>
+        ${subjectConfig.symbols.map((symbol) => `<span>${symbol}</span>`).join('')}
       </div>
     </div>
   `;
@@ -111,14 +119,20 @@ export function renderHome() {
       audio.playSfx('whoosh', 0.5);
       setCurrentGrade(targetGrade);
       syncGradeLevels(targetGrade);
-      await loadQuestionBankForGrade(targetGrade);
+      await loadQuestionBankForGrade(targetGrade, getCurrentSubject());
       if (window.__syncGradeUI) window.__syncGradeUI(targetGrade);
-      showToast(`已切換至 ${getGradeConfig(targetGrade).name}！`, '🎒');
+      if (window.__syncSubjectUI) window.__syncSubjectUI();
+      showToast(`已切換至 ${getGradeConfig(targetGrade, getCurrentSubject()).name}！`, '🎒');
       renderHome();
     });
   });
 
   screen.querySelector('#start-adventure').addEventListener('click', () => {
+    if (!subjectReady) {
+      showToast(`${subjectConfig.name} 即將啟航：${subjectConfig.tagline}`, '🚀');
+      audio.playSfx('click', 0.4);
+      return;
+    }
     audio.unlock();
     audio.playSfx('whoosh', 0.5);
     audio.playMusic('title');
@@ -130,7 +144,7 @@ export function renderHome() {
     showHowTo();
   });
 
-  if (state.unlocked > 1) {
+  if (subjectReady && state.unlocked > 1) {
     const continueButton = document.createElement('button');
     continueButton.className = 'continue-btn';
     continueButton.type = 'button';
@@ -144,6 +158,14 @@ export function renderHome() {
 }
 
 export function openMap() {
+  const subject = getCurrentSubject();
+  if (!isSubjectReady(subject)) {
+    const config = getSubjectConfig(subject);
+    showToast(`${config.name} 即將啟航：${config.tagline}`, '🚀');
+    setScreen('home');
+    renderHome();
+    return;
+  }
   setScreen('map');
   renderMap();
   audio.playMusic('title');
@@ -152,7 +174,7 @@ export function openMap() {
 export function renderMap() {
   const screen = document.getElementById('screen-map');
   const grade = getCurrentGrade();
-  const gradeConfig = getGradeConfig(grade);
+  const gradeConfig = getGradeConfig(grade, getCurrentSubject());
   syncGradeLevels(grade);
   const state = getState();
   const unlocked = unlockedLevel();
@@ -167,7 +189,7 @@ export function renderMap() {
           <p>完成一關，就能解鎖下一關。慢慢來，每一關都可以再玩一次！</p>
         </div>
         <div class="map-summary">
-          <span class="summary-star">⭐ ${totalStars()} / 48</span>
+          <span class="summary-star">⭐ ${totalStars(grade, getCurrentSubject())} / 48</span>
           <span class="summary-level">已解鎖 ${unlocked} / 16</span>
         </div>
       </div>

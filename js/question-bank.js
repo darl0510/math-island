@@ -1,12 +1,17 @@
-import { getCurrentGrade } from './state.js';
+import { getCurrentGrade, getCurrentSubject } from './state.js';
+import { getGradeConfig } from './grades.js';
+import { DEFAULT_SUBJECT } from './subjects.js';
 
 let bank = null;
 let currentGrade = null;
+let currentSubject = null;
 let loaded = false;
 
-export async function loadQuestionBankForGrade(grade = getCurrentGrade()) {
+/* 題庫路徑由科目年級字典提供，嚴禁在此硬編碼 */
+export async function loadQuestionBankForGrade(grade = getCurrentGrade(), subjectId = getCurrentSubject()) {
   const g = Number(grade) || 1;
-  const url = g === 3 ? 'data/question-bank-g3.json' : (g === 2 ? 'data/question-bank-g2.json' : 'data/question-bank-g1.json');
+  const subject = String(subjectId || getCurrentSubject());
+  const url = getGradeConfig(g, subject).questionBankUrl || 'data/question-bank.json';
   try {
     const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error(`bank ${response.status}`);
@@ -14,6 +19,7 @@ export async function loadQuestionBankForGrade(grade = getCurrentGrade()) {
     if (!json || typeof json !== 'object' || !json.levels) throw new Error('題庫格式錯誤');
     bank = json;
     currentGrade = g;
+    currentSubject = subject;
     loaded = true;
     return bank;
   } catch (err) {
@@ -23,6 +29,7 @@ export async function loadQuestionBankForGrade(grade = getCurrentGrade()) {
       if (fb.ok) {
         bank = await fb.json();
         currentGrade = 1;
+        currentSubject = DEFAULT_SUBJECT;
         loaded = true;
         return bank;
       }
@@ -34,7 +41,7 @@ export async function loadQuestionBankForGrade(grade = getCurrentGrade()) {
 }
 
 export async function loadQuestionBank(url = 'data/question-bank.json') {
-  return loadQuestionBankForGrade(getCurrentGrade());
+  return loadQuestionBankForGrade(getCurrentGrade(), getCurrentSubject());
 }
 
 export function getBankQuestions(levelId) {
@@ -51,6 +58,7 @@ export function isBankLoaded() {
 export function bankInfo() {
   return bank ? {
     grade: currentGrade,
+    subject: currentSubject,
     generatedAt: bank.generatedAt,
     levels: Object.keys(bank.levels || {}).length,
   } : null;

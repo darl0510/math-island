@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-19 (v2.1.3 版)  
+> **最後更新時間**：2026-10-25 (v2.2.0 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,9 +10,11 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.1.3】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
-請先閱讀本專案根目錄下的 PROJECT_HANDOVER.md 與 AGENTS.md，了解目前最新版本 (v2.1.3) 的功能架構。
-【⚠️ 啟動極限省 Token 協議】：初次喚起僅需快速瀏覽現況即可，切勿在新對話啟動時執行耗時之全套單元測試或大量檢視巨型源碼檔，保持極簡對話步驟，待命並回報就緒即可。
+【v2.2.0】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
+
+【🚨 五大紅線】已由 AGENTS.md 自動注入（本節由 sync_all_projects_rules.py 維護），本 Prompt 拒絕重複貼上。
+
+【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】：python scripts/claude_delegator.py -w "C:\Users\達爾\projects\math-island" -t "奇幻英文島小一 MVP：16 關自然發音與生活單字題庫 (data/question-bank-en-g1.json) + js/grades.js SUBJECT_GRADES.english 掛表 + js/subjects.js ready 翻綠燈"，完成後自檢驗證
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -25,13 +27,14 @@
 | :--- | :--- | :--- |
 | **`PROJECT_HANDOVER.md`** | 跨對話進度與交接手冊 | 記錄當前版號與待辦 (SSOT) |
 | **`AGENTS.md`** | AI 開發守則與架構規範 | 常駐規則守護與架構紅線 |
-| **`index.html`** | 遊戲前端主頁面 | 含頂部全域導覽、年級切換膠囊與版號標籤 (v2.1.3) |
+| **`index.html`** | 遊戲前端主頁面 | 含頂部全域導覽、科目切換膠囊、年級切換膠囊與版號標籤 (v2.2.0) |
 | **`manifest.webmanifest`** | PWA 漸進式應用清單 | 定義獨立桌面視窗、全螢幕與吉祥物圖示 |
 | **`sw.js`** | Service Worker 離線快取 | 支援離線秒開與 Android/iOS/Chrome 安裝條件 |
 | **`assets/icons/`** | PWA 桌面圖示集合 | 192x192 與 512x512 高畫質 PNG 圖示 |
 | **`server.py`** | 輕量本機 HTTP 伺服器 | 預設監聽 8085，支援 MIME 與 CORS 標頭 |
 | **`js/main.js`** | 主程式入口調度 | 畫面切換、事件監聽與年級狀態聯動 |
-| **`js/grades.js`** | 年級設定字典 | 定義小一至小三島嶼、關卡數與題庫對應 |
+| **`js/grades.js`** | 年級設定字典 | 定義小一至小三島嶼、關卡數與題庫對應；`SUBJECT_GRADES` 科目掛表 |
+| **`js/subjects.js`** | 科目註冊表 (SSOT) | 數學/英文/國語島定義、語音語系 (en-US / zh-TW) 與就緒旗標 |
 | **`js/levels/island_defs_g3.js`** | 小三 4 大島嶼與 16 關卡定義 | 算術神殿、幾何迷宮、分數花園、時空星盤 |
 | **`js/visuals.js`** | 豐富數學動態教具與繪本情境渲染 | 支援直式、分數、幾何、SVG 數線與 `renderStoryVisual` 情境卡 |
 | **`assets/images/story-*.jpg`** | 智慧繪本插圖庫 | 花園冒險、思考筆記、海島尋寶高品質萌系插圖 |
@@ -47,7 +50,25 @@
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
+- [ ] **啟動「奇幻英文島」小一～小三 16 關自然發音與生活單字冒險建置** (方案 A 架構已就緒：只需掛 `SUBJECT_GRADES.english` 題庫表並翻 `ready` 綠燈)
+- [ ] **啟動「奇幻國語島」小一～小三 16 關注音、筆順與部首部件冒險建置**
 
+### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
+
+> 💡 **中長期全科學習宇宙擴展藍圖**：已完整收錄至 [`docs/ROADMAP.md`](docs/ROADMAP.md)，涵蓋英文、國語、自然、社會、生活、資訊邏輯等科目之教具與題型規格！
+
+---
+
+### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
+
+<details>
+<summary>📦 點擊展開過往已完成歷史任務（共 4 項已收折防膨脹）</summary>
+
+
+</details>
+
+<details><summary>過往已完成歷史任務</summary>
+- [x] **方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳) (v2.2.0)**
 - [x] **納入 Token & Backup Toolkit 核心機制** (SSOT 工具鏈同步、登記清單、雲端同步管家)
 - [x] **前端介面版本標籤 (v2.0.0 / v2.1.0 / v2.1.1 / v2.1.2) 與樣式配置**
 - [x] **建立基準重大版本備份快照 (`backup_MAJOR_v2.0.0`)**
@@ -57,15 +78,29 @@
 - [x] **啟動 GitHub Pages 免費即時上線準備與 Git 倉庫初始化 (含一鍵推送腳本)**
 - [x] **全面升級 PWA 桌面/平板 App 安裝支援 (Manifest + Service Worker 離線快取) (v2.1.3)**
 - [x] **確立「小一～小三橫向主科奠基」戰略方針與方案 A Roadmap (`docs/ROADMAP.md`)**
-- [ ] **方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳)**
-- [ ] **啟動「奇幻英文島」小一～小三 16 關自然發音與生活單字冒險建置**
-- [ ] **啟動「奇幻國語島」小一～小三 16 關注音、筆順與部首部件冒險建置**
+</details>## 🌟 近期重大功能更新歷程 (Version Changelog)
 
-> 💡 **中長期全科學習宇宙擴展藍圖**：已完整收錄至 [`docs/ROADMAP.md`](docs/ROADMAP.md)，涵蓋英文、國語、自然、社會、生活、資訊邏輯等科目之教具與題型規格！
+### 【v2.2.0 版】🧭 多科目切換大廳架構 (方案 A) ✕ 頂部科目膠囊 ✕ en-US 美語語音引擎 ✕ 多科進度獨立記帳 📅 2026-10-25
 
----
-
-## 🌟 近期重大功能更新歷程 (Version Changelog)
+1. **科目註冊表 SSOT (`js/subjects.js` 新檔)**：
+   - 資料表驅動：數學島 (ready) / 英文島 (en-US, 即將啟航) / 國語島 (zh-TW, 即將啟航)，嚴禁 UI 端硬編碼科目清單。
+   - 每科自帶 `speechLang`、`brandTitle`、`tagline`、`symbols`（首頁漂浮符號依科目切換）。
+2. **頂部科目膠囊 UI (`index.html` + `css/style.css` + `js/main.js`)**：
+   - 導覽列新增 `#subject-capsules`，由註冊表動態渲染，膠囊內嵌該科該年級獨立顆星徽章。
+   - 選中膠囊依 `--subject-color` 著色；未就緒科目顯示虛線「即將啟航」狀態；≤720px 自動收為圖示並保留 `aria-label`。
+3. **多科進度獨立記帳 (`js/state.js`)**：
+   - 新增 `getCurrentSubject()` / `setCurrentSubject()`，科目狀態存於 `fantasy-island-current-subject`。
+   - 數學沿用既有 `fantasy-math-island-progress-*` 舊 key（既有進度零遺失），新科目各自獨立空間 `fantasy-island-progress-<科目>-g<年級>-v1`。
+   - 新增 `subjectProgress(subject, grade)` 提供膠囊徽章；`totalStars()` / `completedCount()` 向后相容並新增科目參數。
+4. **雙軌語音引擎 (`js/audio.js`)**：
+   - `setSpeechLang()` 依科目切換語系；英文島走 **en-US 美語引擎**（優先媒合 `en-US` 語音，語速降至 0.82 協助自然發音分節）。
+   - 非中文語系一律繞過 zh-TW 靜態音檔與伺服器 TTS，平滑降級至 Web Speech API；語音快取 key 納入語系避免串音。
+5. **科目化年級字典與題庫解耦 (`js/grades.js` / `js/question-bank.js`)**：
+   - `SUBJECT_GRADES` 掛表設計：新增科目只需掛上該科年級表；`getGradeConfig(grade, subject)` 向后相容舊呼叫。
+   - 題庫 URL 改由年級字典 `questionBankUrl` 提供，剔除 `question-bank.js` 內的路徑硬編碼。
+6. **大廳與地圖科目防護 (`js/map.js`)**：未就緒科目進入首頁顯示科目品牌標題與「即將啟航」禁用按鈕，`openMap()` 攔截並退回首頁。
+7. **版號熱同步**：`#brand-version-badge` → `v2.2.0`，`sw.js` `CACHE_NAME` → `math-island-v2.2.0` 並納入 `./js/subjects.js` 離線快取。
+8. **自檢結果**：7 個模組 `node --check` 全綠；架構煙霧測試 14/14 pass；19 個 ESM 模組 import/export 對照全數解析；本機 HTTP 服務 `index.html` / `js/subjects.js` / `js/main.js` / `css/style.css` 全 200。
 
 ### 【v2.1.3 版】📱 PWA 桌面與平板 App 安裝架構 ✕ Service Worker 離線快取 📅 2026-10-19
 
@@ -79,6 +114,7 @@
 3. **版本與相容性同步**：
    - 前端介面 `#brand-version-badge` 版號全面同步推進至 `v2.1.3`。
    - 補齊 iOS / iPad Safari 之 `apple-touch-icon` 與全螢幕相容標籤。
+
 
 ### 【v2.1.2 版】📏 數線教具重構升級為響應式 SVG ✕ 題庫指標防洩漏修復 📅 2026-10-19
 

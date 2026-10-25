@@ -1,5 +1,6 @@
-import { getCurrentGrade, setCurrentGrade } from './state.js';
+import { getCurrentGrade, setCurrentGrade, getCurrentSubject, setCurrentSubject, subjectProgress } from './state.js';
 import { getGradeConfig } from './grades.js';
+import { SUBJECTS, getSubjectConfig, isSubjectReady, getSubjectSpeechLang } from './subjects.js';
 import { syncGradeLevels } from './levels/index.js';
 import { loadQuestionBankForGrade } from './question-bank.js';
 import { audio } from './audio.js';
@@ -12,13 +13,72 @@ const musicButton = document.getElementById('music-btn');
 const ttsButton = document.getElementById('tts-btn');
 const homeButton = document.getElementById('home-btn');
 
+/* ===== 頂部科目膠囊 (方案 A：多科目切換大廳) ===== */
+function syncSubjectUI(subjectId = getCurrentSubject()) {
+  const config = getSubjectConfig(subjectId);
+  const titleEl = document.getElementById('brand-subject-title');
+  if (titleEl) titleEl.textContent = config.brandTitle;
+  document.body.dataset.subject = String(config.id);
+  audio.setSpeechLang(getSubjectSpeechLang(config.id));
+
+  document.querySelectorAll('.subject-capsule').forEach((capsule) => {
+    const isActive = capsule.dataset.subject === String(config.id);
+    capsule.classList.toggle('is-selected', isActive);
+    capsule.setAttribute('aria-pressed', String(isActive));
+    const badge = capsule.querySelector('.subject-capsule-stars');
+    if (badge) {
+      const stars = subjectProgress(capsule.dataset.subject, getCurrentGrade()).stars;
+      badge.textContent = stars > 0 ? `⭐${stars}` : '';
+    }
+  });
+}
+
+function renderSubjectCapsules() {
+  const bar = document.getElementById('subject-capsules');
+  if (!bar) return;
+  bar.innerHTML = SUBJECTS.map((subject) => `
+      <button class="subject-capsule ${subject.ready ? '' : 'is-soon'}" type="button" data-subject="${subject.id}" aria-pressed="false" aria-label="${subject.shortName} ${subject.name}" title="${subject.name} · ${subject.tagline}" style="--subject-color:${subject.color}">
+        <span class="subject-capsule-icon" aria-hidden="true">${subject.icon}</span>
+        <span class="subject-capsule-name">${subject.shortName}</span>
+        <span class="subject-capsule-stars"></span>
+      </button>`).join('');
+
+  bar.querySelectorAll('.subject-capsule').forEach((capsule) => {
+    capsule.addEventListener('click', async () => {
+      const targetSubject = capsule.dataset.subject;
+      const config = getSubjectConfig(targetSubject);
+      audio.playSfx('click', 0.4);
+      if (targetSubject === getCurrentSubject()) {
+        showToast(`目前在 ${config.name}：${config.tagline}`, config.icon);
+        return;
+      }
+
+      setCurrentSubject(targetSubject);
+      syncSubjectUI(targetSubject);
+
+      if (isSubjectReady(targetSubject)) {
+        audio.playSfx('whoosh', 0.5);
+        syncGradeLevels(getCurrentGrade());
+        await loadQuestionBankForGrade(getCurrentGrade(), targetSubject);
+        showToast(`已切換至 ${config.name}！`, config.icon);
+      } else {
+        showToast(`${config.name} 即將啟航：${config.tagline}`, '🚀');
+      }
+
+      if (window.__syncGradeUI) window.__syncGradeUI(getCurrentGrade());
+      if (document.body.dataset.screen === 'home') renderHome();
+      else openMap();
+    });
+  });
+}
+
 function init() {
   // 年級切換膠囊按鈕
   const gradeBtn = document.getElementById('grade-dropdown-btn');
   const gradeMenu = document.getElementById('grade-dropdown-menu');
 
   function syncGradeUI(grade = getCurrentGrade()) {
-    const config = getGradeConfig(grade);
+    const config = getGradeConfig(grade, getCurrentSubject());
     const iconEl = document.getElementById('grade-btn-icon');
     const textEl = document.getElementById('grade-btn-text');
     const subText = document.getElementById('brand-sub-text');
@@ -29,7 +89,10 @@ function init() {
       item.classList.toggle('is-selected', Number(item.dataset.grade) === Number(grade));
     });
   }
+  window.__syncSubjectUI = syncSubjectUI;
   window.__syncGradeUI = syncGradeUI;
+  renderSubjectCapsules();
+  syncSubjectUI();
   syncGradeUI();
 
   if (gradeBtn && gradeMenu) {
@@ -63,9 +126,9 @@ function init() {
         audio.playSfx('whoosh', 0.5);
         setCurrentGrade(targetGrade);
         syncGradeLevels(targetGrade);
-        await loadQuestionBankForGrade(targetGrade);
+        await loadQuestionBankForGrade(targetGrade, getCurrentSubject());
         syncGradeUI(targetGrade);
-        showToast(`已切換至 ${getGradeConfig(targetGrade).name}！`, '🎒');
+        showToast(`已切換至 ${getGradeConfig(targetGrade, getCurrentSubject()).name}！`, '🎒');
         if (document.body.dataset.screen === 'home') renderHome();
         else openMap();
       });
@@ -143,7 +206,7 @@ document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}
 async function boot() {
   const grade = getCurrentGrade();
   syncGradeLevels(grade);
-  await loadQuestionBankForGrade(grade);
+  await loadQuestionBankForGrade(grade, getCurrentSubject());
   await audio.loadStaticManifest();
   init();
 }

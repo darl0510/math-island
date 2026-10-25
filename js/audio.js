@@ -9,6 +9,7 @@ class AudioManager {
   constructor() {
     this.musicOn = getState().musicOn !== false;
     this.ttsOn = getState().ttsOn !== false;
+    this.speechLang = 'zh-TW';
     this.channels = [new Audio(), new Audio()];
     this.activeChannel = 0;
     this.currentTheme = null;
@@ -51,6 +52,16 @@ class AudioManager {
     }
     if (this.onMusicChange) this.onMusicChange(this.musicOn);
     return this.musicOn;
+  }
+
+  /* 雙軌語音引擎：科目決定語系（英文島 → en-US 美語引擎） */
+  setSpeechLang(lang) {
+    const next = lang || 'zh-TW';
+    if (this.speechLang === next) return next;
+    this.speechLang = next;
+    this.stopSpeech();
+    window.speechSynthesis?.cancel();
+    return next;
   }
 
   toggleTts(force) {
@@ -186,12 +197,17 @@ class AudioManager {
   }
 
   speechKey(text, style) {
-    return `${TTS_VOICE}|${style || TTS_STYLE}|${text}`;
+    return `${this.speechLang || 'zh-TW'}|${TTS_VOICE}|${style || TTS_STYLE}|${text}`;
   }
 
   async fetchSpeech(text, style) {
     const key = this.speechKey(text, style);
     if (this.speechCache.has(key)) return this.speechCache.get(key);
+
+    // 靜態音檔與伺服器 TTS 音色皆為 zh-TW；非中文語系一律改走瀏覽器語音引擎
+    if (this.speechLang && this.speechLang !== 'zh-TW') {
+      throw new Error(`瀏覽器語音引擎語系：${this.speechLang}`);
+    }
 
     const staticPath = this.staticClips.get(text);
     if (staticPath) {
@@ -297,14 +313,21 @@ class AudioManager {
   browserSpeak(text) {
     return new Promise((resolve) => {
       if (!('speechSynthesis' in window)) return resolve();
+      const lang = this.speechLang || 'zh-TW';
+      const isChinese = /^zh/i.test(lang);
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'zh-TW';
-      utterance.rate = 0.88;
-      utterance.pitch = 1.08;
+      utterance.lang = lang;
+      // 美語島：語速稍慢、音調中性，協助自然發音分節
+      utterance.rate = isChinese ? 0.88 : 0.82;
+      utterance.pitch = isChinese ? 1.08 : 1.0;
       const voices = window.speechSynthesis.getVoices();
-      const zhVoice = voices.find((voice) => /zh[-_]TW|zh[-_]Hant|Taiwan/i.test(voice.lang + voice.name))
-        || voices.find((voice) => /zh/i.test(voice.lang));
-      if (zhVoice) utterance.voice = zhVoice;
+      const voice = isChinese
+        ? voices.find((v) => /zh[-_]TW|zh[-_]Hant|Taiwan/i.test(`${v.lang} ${v.name}`))
+          || voices.find((v) => /zh/i.test(v.lang))
+        : voices.find((v) => /^en[-_]US$/i.test(v.lang))
+          || voices.find((v) => /en[-_](US|GB)|American|English \(United States\)/i.test(`${v.lang} ${v.name}`))
+          || voices.find((v) => /^en/i.test(v.lang));
+      if (voice) utterance.voice = voice;
       utterance.onend = resolve;
       utterance.onerror = resolve;
       window.speechSynthesis.cancel();

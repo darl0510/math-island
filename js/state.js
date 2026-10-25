@@ -1,4 +1,7 @@
+import { DEFAULT_SUBJECT } from './subjects.js';
+
 const TOTAL_LEVELS = 16;
+const SUBJECT_STORAGE_KEY = 'fantasy-island-current-subject';
 
 const defaultState = {
   unlocked: 1,
@@ -19,22 +22,45 @@ export function getCurrentGrade() {
   }
 }
 
+export function getCurrentSubject() {
+  try {
+    const raw = localStorage.getItem(SUBJECT_STORAGE_KEY);
+    return raw ? String(raw) : DEFAULT_SUBJECT;
+  } catch {
+    return DEFAULT_SUBJECT;
+  }
+}
+
+export function setCurrentSubject(subjectId) {
+  const id = String(subjectId || DEFAULT_SUBJECT);
+  try {
+    localStorage.setItem(SUBJECT_STORAGE_KEY, id);
+  } catch {}
+  state = load(getCurrentGrade(), id);
+  return id;
+}
+
 export function setCurrentGrade(grade) {
   const g = Number(grade) || 1;
   try {
     localStorage.setItem('fantasy-math-current-grade', String(g));
   } catch {}
-  state = load(g);
+  state = load(g, getCurrentSubject());
   return g;
 }
 
-function getStorageKey(grade = getCurrentGrade()) {
-  return Number(grade) === 1 ? 'fantasy-math-island-progress-v1' : `fantasy-math-island-progress-g${grade}-v1`;
+/* 多科進度獨立記帳：數學沿用舊 key 保住既有進度，新科目各自獨立空間 */
+function getStorageKey(grade = getCurrentGrade(), subject = getCurrentSubject()) {
+  const g = Number(grade) || 1;
+  if (subject === DEFAULT_SUBJECT) {
+    return g === 1 ? 'fantasy-math-island-progress-v1' : `fantasy-math-island-progress-g${g}-v1`;
+  }
+  return `fantasy-island-progress-${subject}-g${g}-v1`;
 }
 
-function load(grade = getCurrentGrade()) {
+function load(grade = getCurrentGrade(), subject = getCurrentSubject()) {
   try {
-    const key = getStorageKey(grade);
+    const key = getStorageKey(grade, subject);
     const raw = localStorage.getItem(key);
     if (!raw) return { ...defaultState };
     const parsed = JSON.parse(raw);
@@ -93,14 +119,29 @@ export function setTtsOn(value) {
   saveState();
 }
 
-export function totalStars(grade = getCurrentGrade()) {
-  const s = grade === getCurrentGrade() ? state : load(grade);
+function snapshot(grade, subject) {
+  return (Number(grade) === getCurrentGrade() && String(subject) === getCurrentSubject())
+    ? state
+    : load(grade, subject);
+}
+
+export function totalStars(grade = getCurrentGrade(), subject = getCurrentSubject()) {
+  const s = snapshot(grade, subject);
   return Object.values(s.stars || {}).reduce((sum, value) => sum + Number(value || 0), 0);
 }
 
-export function completedCount(grade = getCurrentGrade()) {
-  const s = grade === getCurrentGrade() ? state : load(grade);
+export function completedCount(grade = getCurrentGrade(), subject = getCurrentSubject()) {
+  const s = snapshot(grade, subject);
   return Object.keys(s.stars || {}).length;
+}
+
+/* 科目膠囊徽章：各科目獨立顆星與完成關數 */
+export function subjectProgress(subjectId = getCurrentSubject(), grade = getCurrentGrade()) {
+  const s = snapshot(grade, subjectId);
+  return {
+    stars: Object.values(s.stars || {}).reduce((sum, value) => sum + Number(value || 0), 0),
+    levels: Object.keys(s.stars || {}).length,
+  };
 }
 
 export function resetProgress() {

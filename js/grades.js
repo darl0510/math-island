@@ -1,3 +1,5 @@
+import { DEFAULT_SUBJECT } from './subjects.js';
+
 export const GRADES = [
   {
     id: 1,
@@ -52,6 +54,20 @@ export const GRADES = [
   }
 ];
 
-export function getGradeConfig(gradeId = 1) {
-  return GRADES.find((g) => Number(g.id) === Number(gradeId)) || GRADES[0];
+/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島」時在此掛上該科年級表即可 */
+export const SUBJECT_GRADES = {
+  math: GRADES,
+};
+
+export function getSubjectGrades(subjectId = DEFAULT_SUBJECT) {
+  return SUBJECT_GRADES[subjectId] || SUBJECT_GRADES[DEFAULT_SUBJECT];
+}
+
+export function isSubjectGradePrepared(subjectId = DEFAULT_SUBJECT) {
+  return Boolean(SUBJECT_GRADES[subjectId]);
+}
+
+export function getGradeConfig(gradeId = 1, subjectId = DEFAULT_SUBJECT) {
+  const grades = getSubjectGrades(subjectId);
+  return grades.find((g) => Number(g.id) === Number(gradeId)) || grades[0];
 }
