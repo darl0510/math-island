@@ -219,11 +219,33 @@ export const CHALLENGE_GRADES = [
   },
 ];
 
-/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島 / 期末綜合挑戰島」時在此掛上該科年級表即可 */
+/* 奇幻自然科學島年級表：小一 16 關自然探索（4 島 × 4 關） */
+export const SCIENCE_GRADES = [
+  {
+    id: 1,
+    name: '一年級',
+    shortName: '小一',
+    icon: '🔬',
+    badge: '台灣小一 · 108 課綱生活領域',
+    title: '奇幻自然科學島',
+    subtitle: '4 座自然生態島嶼 · 16 個動植物與光影探索關卡 · 邊玩邊探索科學',
+    age: '適合 6–7 歲',
+    questionBankUrl: 'data/question-bank-science-g1.json',
+    islands: [
+      { id: 1, name: '綠意植物島', theme: 'forest', color: '#10b981', emoji: '🌱', blurb: '校園植物尋寶、認識葉片形狀、植物身體構造與種子發芽的秘密。' },
+      { id: 2, name: '奇趣動物島', theme: 'ocean', color: '#06b6d4', emoji: '🦋', blurb: '校園小動物的特徵、運動方式、動物的家與用五官探索大自然。' },
+      { id: 3, name: '光影與氣象島', theme: 'cloud', color: '#f59e0b', emoji: '☀️', blurb: '太陽與影子的捉迷藏、雨滴與彩虹、風的吹動與四季天氣感受。' },
+      { id: 4, name: '科學探索魔王殿', theme: 'space', color: '#8b5cf6', emoji: '🧲', blurb: '神奇磁鐵吸一吸、水中的浮與沉、聲音敲一敲與自然科學素養大挑戰！' },
+    ],
+  },
+];
+
+/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島 / 奇幻自然島 / 期末綜合挑戰島」時在此掛上該科年級表即可 */
 export const SUBJECT_GRADES = {
   math: GRADES,
   english: ENGLISH_GRADES,
   chinese: CHINESE_GRADES,
+  science: SCIENCE_GRADES,
   challenge: CHALLENGE_GRADES,
 };
 

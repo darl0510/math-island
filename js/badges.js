@@ -61,6 +61,21 @@ export const BADGE_DEFINITIONS = [
     },
   },
   {
+    id: 'science_explorer',
+    name: '小小科學家',
+    category: '科目',
+    icon: '🔬',
+    description: '在奇幻自然科學島累積獲得 10 顆星',
+    check: (summary) => {
+      const s = summary.subjects.science?.totalStars || 0;
+      return {
+        current: Math.min(10, s),
+        target: 10,
+        unlocked: s >= 10,
+      };
+    },
+  },
+  {
     id: 'perfect_striker',
     name: '三星滿貫',
     category: '技巧',
@@ -210,7 +225,7 @@ function saveSeenBadges(badgeIds) {
 
 function loadAllRawStates() {
   const states = [];
-  const subjects = ['math', 'english', 'chinese', 'challenge'];
+  const subjects = ['math', 'english', 'chinese', 'science', 'challenge'];
   const grades = [1, 2, 3];
   for (const sub of subjects) {
     for (const g of grades) {

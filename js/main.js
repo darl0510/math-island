@@ -104,6 +104,8 @@ function init() {
     document.querySelectorAll('.grade-dropdown-item').forEach(item => {
       item.classList.toggle('is-selected', Number(item.dataset.grade) === Number(grade));
     });
+  }
+
   function syncBadgesCount() {
     const pill = document.getElementById('badge-count-pill');
     if (pill) {

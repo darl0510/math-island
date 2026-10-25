@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.5.1 版)  
+> **最後更新時間**：2026-10-25 (v2.5.3 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,7 +10,7 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.5.1】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.5.3】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
 python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置，完成後 node --check 自檢"
@@ -121,16 +121,6 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 4. **版本同步與安全備份**：
    - `python scripts/bump_version.py 2.4.6` 一鍵同步 `PROJECT_HANDOVER.md`、`index.html`、`sw.js`。
    - 自動調用 `auto_backup` 產出 `backup_v2.4.6_2026-10-25_214351.zip` 還原節點。
-
-### 【v2.4.3 版】📖 奇幻國語島小三題庫建置 ✕ 128 題修辭成語閱讀 ✕ 4 島 16 關關卡定義與掛載 📅 2026-10-25
-
-1. **國語小三題庫建置 (`data/question-bank-ch-g3.json`)**：16 關 × 8 題 = 128 題，涵蓋修辭基礎（譬喻、擬人、排比、設問）、成語運用（動物寓言、勤學勵志、景物描摹、品德成語）、句型變換（因果轉折、條件遞進、把被互換、照樣造句）與段落閱讀（標點符號、段落主旨、記敘六要素、閱讀理解魔王）。
-2. **小三國語島關卡定義 (`js/levels/island_defs_ch_g3.js`)**：4 座島嶼（修辭魔法殿、成語典故海、句型變換雲、段落閱讀星）共 16 個挑戰關卡，完整配置技能說明、emoji 與中文 intro 提示。
-3. **科目年級字典與全域關卡表雙向掛載**：
-   - `js/grades.js`：`CHINESE_GRADES` 擴充小三 (id: 3) 元資料，指向 `data/question-bank-ch-g3.json`。
-   - `js/levels/index.js`：引入並掛載 `ch_g2_islands` 與 `ch_g3_islands` 至 `SUBJECT_LEVEL_TABLES.chinese`，解鎖小二與小三關卡總表。
-4. **離線快取與版本推進**：`sw.js` 納入小二與小三國語題庫離線快取，快取名稱升級至 `math-island-v2.4.3`；`bump_version.py` 自動建立版本備份快照。
-5. **完整性驗收**：`node --check` 語法檢查 100% 綠燈，ESM 動態載入驗證小三 16 關卡與 128 題庫資料結構無誤。
 
 ---
 
