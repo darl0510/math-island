@@ -435,6 +435,12 @@ body[data-screen="home"] .screen.active {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.stat-chip.is-all-summary {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(255, 140, 0, 0.18));
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  box-shadow: 0 4px 14px rgba(255, 215, 0, 0.2);
+}
+
 .stat-chip strong {
   font-family: var(--font-display);
   font-size: 22px;

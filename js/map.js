@@ -1,6 +1,6 @@
 import { audio } from './audio.js';
 import { startLevel } from './engine.js';
-import { isUnlocked, getState, totalStars, completedCount, unlockedLevel, resetProgress } from './state.js';
+import { isUnlocked, getState, totalStars, completedCount, unlockedLevel, resetProgress, getAllSubjectsSummary } from './state.js';
 import { escapeHtml, setScreen, showToast, starsMarkup } from './ui.js';
 import { islands, getLevelById, syncGradeLevels } from './levels/index.js';
 import { getGradeConfig, getSubjectGrades } from './grades.js';
@@ -24,8 +24,9 @@ export function renderHome() {
   const subjectReady = isSubjectReady(subject);
   const subjectGrades = getSubjectGrades(subject);
   const gradeConfig = getGradeConfig(grade, subject);
-  syncGradeLevels(grade);
+  syncGradeLevels(grade, subject);
   const state = getState();
+  const allSummary = getAllSubjectsSummary();
 
   const gradeCardsMarkup = subjectGrades.map(g => {
     const isActive = g.id === grade;
@@ -90,6 +91,7 @@ export function renderHome() {
           <div class="stat-chip"><span class="stat-emoji">🏝️</span><strong>${subjectReady ? completedCount(grade, subject) : 0}</strong><span>/ 16 關</span></div>
           <div class="stat-chip"><span class="stat-emoji">🎵</span><span>歡樂音樂</span></div>
           <div class="stat-chip"><span class="stat-emoji">🔊</span><span>語音讀題</span></div>
+          ${allSummary.totalStars > 0 ? `<div class="stat-chip is-all-summary" title="全科全年級 144 關累積星星總計"><span class="stat-emoji">🏆</span><strong>${allSummary.totalStars}</strong><span>/ 432 全科星</span></div>` : ''}
         </div>
         <p class="home-note">${escapeHtml(gradeConfig.age)} · 建議使用平板或電腦 · 點擊題目旁的 🔊 可以再聽一次</p>
       </div>
@@ -118,7 +120,7 @@ export function renderHome() {
       }
       audio.playSfx('whoosh', 0.5);
       setCurrentGrade(targetGrade);
-      syncGradeLevels(targetGrade);
+      syncGradeLevels(targetGrade, getCurrentSubject());
       await loadQuestionBankForGrade(targetGrade, getCurrentSubject());
       if (window.__syncGradeUI) window.__syncGradeUI(targetGrade);
       if (window.__syncSubjectUI) window.__syncSubjectUI();
@@ -174,8 +176,9 @@ export function openMap() {
 export function renderMap() {
   const screen = document.getElementById('screen-map');
   const grade = getCurrentGrade();
-  const gradeConfig = getGradeConfig(grade, getCurrentSubject());
-  syncGradeLevels(grade);
+  const subject = getCurrentSubject();
+  const gradeConfig = getGradeConfig(grade, subject);
+  syncGradeLevels(grade, subject);
   const state = getState();
   const unlocked = unlockedLevel();
 
@@ -189,7 +192,7 @@ export function renderMap() {
           <p>完成一關，就能解鎖下一關。慢慢來，每一關都可以再玩一次！</p>
         </div>
         <div class="map-summary">
-          <span class="summary-star">⭐ ${totalStars(grade, getCurrentSubject())} / 48</span>
+          <span class="summary-star">⭐ ${totalStars(grade, subject)} / 48</span>
           <span class="summary-level">已解鎖 ${unlocked} / 16</span>
         </div>
       </div>
@@ -212,13 +215,31 @@ export function renderMap() {
   });
 
   screen.querySelector('#reset-progress').addEventListener('click', () => {
-    const ok = window.confirm('要清除所有星星和關卡進度嗎？這個動作不能復原喔！');
-    if (!ok) return;
-    const reallySure = window.confirm('真的確定要清除嗎？所有星星都會不見喔！');
-    if (!reallySure) return;
-    resetProgress();
+    const choice = window.prompt(
+      '【家長設定：清除遊戲進度】\n請輸入清除範圍：\n1 = 僅重設當前年級進度\n2 = 重設當前科目全年級進度\n3 = 重設全科目全年級 144 關進度\n(按取消放棄)'
+    );
+    if (!choice) return;
+    if (choice === '3') {
+      const ok = window.confirm('確定要清除【全科目全年級 144 關】所有星星與進度嗎？所有紀錄都會歸零！');
+      if (!ok) return;
+      resetProgress({ scope: 'all' });
+      showToast('全科 144 關進度已重新開始！', '🌱');
+    } else if (choice === '2') {
+      const ok = window.confirm(`確定要清除【${getSubjectConfig(getCurrentSubject()).name}】全年級進度嗎？`);
+      if (!ok) return;
+      resetProgress({ scope: 'subject' });
+      showToast(`${getSubjectConfig(getCurrentSubject()).name} 進度已重新開始！`, '🌱');
+    } else if (choice === '1') {
+      const ok = window.confirm('確定要清除【目前年級】進度嗎？');
+      if (!ok) return;
+      resetProgress({ scope: 'current' });
+      showToast('目前年級進度已重新開始！', '🌱');
+    } else {
+      showToast('未輸入有效選項，已取消操作。', 'ℹ️');
+      return;
+    }
+    if (window.__syncSubjectUI) window.__syncSubjectUI();
     renderMap();
-    showToast('已經重新開始囉！', '🌱');
   });
 
   screen.querySelectorAll('.level-card').forEach((card) => {
@@ -294,6 +315,7 @@ function openLevel(level) {
     onExit: () => {
       setScreen('map');
       renderMap();
+      if (window.__syncSubjectUI) window.__syncSubjectUI();
       audio.playMusic('title');
     },
   });

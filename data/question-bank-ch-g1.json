@@ -21,7 +21,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄞ",
+          "symbol": "？",
           "word": "歪"
         }
       },
@@ -40,7 +40,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄚ",
+          "symbol": "？",
           "word": "爸"
         }
       },
@@ -59,7 +59,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄠ",
+          "symbol": "？",
           "word": "毛"
         }
       },
@@ -78,7 +78,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄤ",
+          "symbol": "？",
           "word": "旁"
         }
       },
@@ -97,7 +97,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄩ",
+          "symbol": "？",
           "word": "迂"
         }
       },
@@ -116,7 +116,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄣ",
+          "symbol": "？",
           "word": "溫"
         }
       },
@@ -135,7 +135,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄣ",
+          "symbol": "？",
           "word": "奔"
         }
       },
@@ -154,7 +154,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄠ",
+          "symbol": "？",
           "word": "包"
         }
       }
@@ -175,7 +175,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄢ",
+          "symbol": "？",
           "word": "煙"
         }
       },
@@ -194,7 +194,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄒ",
+          "symbol": "？",
           "word": "西"
         }
       },
@@ -213,7 +213,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄚ",
+          "symbol": "？",
           "word": "發"
         }
       },
@@ -232,7 +232,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄡ",
+          "symbol": "？",
           "word": "某"
         }
       },
@@ -251,7 +251,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄡ",
+          "symbol": "？",
           "word": "否"
         }
       },
@@ -270,7 +270,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄨ",
+          "symbol": "？",
           "word": "不"
         }
       },
@@ -289,7 +289,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄋㄜ",
+          "symbol": "？",
           "word": "呢"
         }
       },
@@ -308,7 +308,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄍ",
+          "symbol": "？",
           "word": "哥"
         }
       }
@@ -329,7 +329,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄣ",
+          "symbol": "？",
           "word": "恩"
         }
       },
@@ -348,7 +348,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄟ",
+          "symbol": "？",
           "word": "陪"
         }
       },
@@ -367,7 +367,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄧ",
+          "symbol": "？",
           "word": "非"
         }
       },
@@ -386,7 +386,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄍㄜ",
+          "symbol": "？",
           "word": "哥"
         }
       },
@@ -405,7 +405,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄥ",
+          "symbol": "？",
           "word": "鞥"
         }
       },
@@ -424,7 +424,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄚ",
+          "symbol": "？",
           "word": "呀"
         }
       },
@@ -443,7 +443,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄟ",
+          "symbol": "？",
           "word": "北"
         }
       },
@@ -462,7 +462,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄢ",
+          "symbol": "？",
           "word": "煙"
         }
       }
@@ -483,7 +483,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄋㄚ",
+          "symbol": "？",
           "word": "那"
         }
       },
@@ -502,7 +502,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄚ",
+          "symbol": "？",
           "word": "蛙"
         }
       },
@@ -521,7 +521,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄚ",
+          "symbol": "？",
           "word": "呀"
         }
       },
@@ -540,7 +540,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄝ",
+          "symbol": "？",
           "word": "撇"
         }
       },
@@ -559,7 +559,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄎ",
+          "symbol": "？",
           "word": "可"
         }
       },
@@ -578,7 +578,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄕ",
+          "symbol": "？",
           "word": "師"
         }
       },
@@ -597,7 +597,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄥ",
+          "symbol": "？",
           "word": "風"
         }
       },
@@ -616,7 +616,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄔ",
+          "symbol": "？",
           "word": "吃"
         }
       }
@@ -637,7 +637,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄛ",
+          "symbol": "？",
           "word": "喔"
         }
       },
@@ -656,7 +656,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄝ",
+          "symbol": "？",
           "word": "別"
         }
       },
@@ -675,7 +675,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄧ",
+          "symbol": "？",
           "word": "批"
         }
       },
@@ -694,7 +694,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄣ",
+          "symbol": "？",
           "word": "噴"
         }
       },
@@ -713,7 +713,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄑ",
+          "symbol": "？",
           "word": "七"
         }
       },
@@ -732,7 +732,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄐ",
+          "symbol": "？",
           "word": "機"
         }
       },
@@ -751,7 +751,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄩ",
+          "symbol": "？",
           "word": "迂"
         }
       },
@@ -770,7 +770,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄙ",
+          "symbol": "？",
           "word": "思"
         }
       }
@@ -791,7 +791,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄠ",
+          "symbol": "？",
           "word": "腰"
         }
       },
@@ -810,7 +810,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄛ",
+          "symbol": "？",
           "word": "波"
         }
       },
@@ -829,7 +829,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄙ",
+          "symbol": "？",
           "word": "思"
         }
       },
@@ -848,7 +848,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄊㄚ",
+          "symbol": "？",
           "word": "他"
         }
       },
@@ -867,7 +867,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄠ",
+          "symbol": "？",
           "word": "凹"
         }
       },
@@ -886,7 +886,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄢ",
+          "symbol": "？",
           "word": "分"
         }
       },
@@ -905,7 +905,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄚ",
+          "symbol": "？",
           "word": "怕"
         }
       },
@@ -924,7 +924,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄒㄧ",
+          "symbol": "？",
           "word": "西"
         }
       }
@@ -945,7 +945,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄡ",
+          "symbol": "？",
           "word": "陪"
         }
       },
@@ -964,7 +964,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄜ",
+          "symbol": "？",
           "word": "呃"
         }
       },
@@ -983,7 +983,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄢ",
+          "symbol": "？",
           "word": "門"
         }
       },
@@ -1002,7 +1002,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄘ",
+          "symbol": "？",
           "word": "次"
         }
       },
@@ -1021,7 +1021,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄜ",
+          "symbol": "？",
           "word": "呃"
         }
       },
@@ -1040,7 +1040,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄏㄜ",
+          "symbol": "？",
           "word": "喝"
         }
       },
@@ -1059,7 +1059,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄎㄜ",
+          "symbol": "？",
           "word": "可"
         }
       },
@@ -1078,7 +1078,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄚ",
+          "symbol": "？",
           "word": "媽"
         }
       }
@@ -1099,7 +1099,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄖ",
+          "symbol": "？",
           "word": "日"
         }
       },
@@ -1118,7 +1118,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄛ",
+          "symbol": "？",
           "word": "窩"
         }
       },
@@ -1137,7 +1137,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄝ",
+          "symbol": "？",
           "word": "耶"
         }
       },
@@ -1156,7 +1156,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄉ",
+          "symbol": "？",
           "word": "打"
         }
       },
@@ -1175,7 +1175,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅ",
+          "symbol": "？",
           "word": "爸"
         }
       },
@@ -1194,7 +1194,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄞ",
+          "symbol": "？",
           "word": "陪"
         }
       },
@@ -1213,7 +1213,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄥ",
+          "symbol": "？",
           "word": "朋"
         }
       },
@@ -1232,7 +1232,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄓ",
+          "symbol": "？",
           "word": "知"
         }
       }
@@ -1253,7 +1253,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄤ",
+          "symbol": "？",
           "word": "帮"
         }
       },
@@ -1272,7 +1272,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄟ",
+          "symbol": "？",
           "word": "沒"
         }
       },
@@ -1291,7 +1291,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄞ",
+          "symbol": "？",
           "word": "沒"
         }
       },
@@ -1310,7 +1310,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄛ",
+          "symbol": "？",
           "word": "摸"
         }
       },
@@ -1329,7 +1329,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄌ",
+          "symbol": "？",
           "word": "拉"
         }
       },
@@ -1348,7 +1348,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄣ",
+          "symbol": "？",
           "word": "民"
         }
       },
@@ -1367,7 +1367,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄥ",
+          "symbol": "？",
           "word": "鞥"
         }
       },
@@ -1386,7 +1386,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄨ",
+          "symbol": "？",
           "word": "木"
         }
       }
@@ -1407,7 +1407,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄢ",
+          "symbol": "？",
           "word": "安"
         }
       },
@@ -1426,7 +1426,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄥ",
+          "symbol": "？",
           "word": "蒙"
         }
       },
@@ -1445,7 +1445,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄞ",
+          "symbol": "？",
           "word": "歪"
         }
       },
@@ -1464,7 +1464,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄋㄚ",
+          "symbol": "？",
           "word": "那"
         }
       },
@@ -1483,7 +1483,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄕ",
+          "symbol": "？",
           "word": "師"
         }
       },
@@ -1502,7 +1502,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨ",
+          "symbol": "？",
           "word": "烏"
         }
       },
@@ -1521,7 +1521,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄟ",
+          "symbol": "？",
           "word": "非"
         }
       },
@@ -1540,7 +1540,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄞ",
+          "symbol": "？",
           "word": "愛"
         }
       }
@@ -1561,7 +1561,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧ",
+          "symbol": "？",
           "word": "衣"
         }
       },
@@ -1580,7 +1580,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄥ",
+          "symbol": "？",
           "word": "英"
         }
       },
@@ -1599,7 +1599,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄠ",
+          "symbol": "？",
           "word": "凹"
         }
       },
@@ -1618,7 +1618,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄨ",
+          "symbol": "？",
           "word": "福"
         }
       },
@@ -1637,7 +1637,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄟ",
+          "symbol": "？",
           "word": "給"
         }
       },
@@ -1656,7 +1656,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄤ",
+          "symbol": "？",
           "word": "央"
         }
       },
@@ -1675,7 +1675,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇ",
+          "symbol": "？",
           "word": "媽"
         }
       },
@@ -1694,7 +1694,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄔ",
+          "symbol": "？",
           "word": "吃"
         }
       }
@@ -1715,7 +1715,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄑㄧ",
+          "symbol": "？",
           "word": "七"
         }
       },
@@ -1734,7 +1734,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄣ",
+          "symbol": "？",
           "word": "芬"
         }
       },
@@ -1753,7 +1753,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄛ",
+          "symbol": "？",
           "word": "佛"
         }
       },
@@ -1772,7 +1772,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄩㄝ",
+          "symbol": "？",
           "word": "月"
         }
       },
@@ -1791,7 +1791,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄥ",
+          "symbol": "？",
           "word": "英"
         }
       },
@@ -1810,7 +1810,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆ",
+          "symbol": "？",
           "word": "怕"
         }
       },
@@ -1829,7 +1829,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄚ",
+          "symbol": "？",
           "word": "蛙"
         }
       },
@@ -1848,7 +1848,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈㄠ",
+          "symbol": "？",
           "word": "風"
         }
       }
@@ -1869,7 +1869,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄢ",
+          "symbol": "？",
           "word": "班"
         }
       },
@@ -1888,7 +1888,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄤ",
+          "symbol": "？",
           "word": "昂"
         }
       },
@@ -1907,7 +1907,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄋ",
+          "symbol": "？",
           "word": "那"
         }
       },
@@ -1926,7 +1926,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄊㄚ",
+          "symbol": "？",
           "word": "他"
         }
       },
@@ -1945,7 +1945,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄓ",
+          "symbol": "？",
           "word": "知"
         }
       },
@@ -1964,7 +1964,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄏ",
+          "symbol": "？",
           "word": "喝"
         }
       },
@@ -1983,7 +1983,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄧ",
+          "symbol": "？",
           "word": "逼"
         }
       },
@@ -2002,7 +2002,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄌㄚ",
+          "symbol": "？",
           "word": "拉"
         }
       }
@@ -2023,7 +2023,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄘ",
+          "symbol": "？",
           "word": "次"
         }
       },
@@ -2042,7 +2042,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄩㄝ",
+          "symbol": "？",
           "word": "月"
         }
       },
@@ -2061,7 +2061,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄣ",
+          "symbol": "？",
           "word": "溫"
         }
       },
@@ -2080,7 +2080,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄞ",
+          "symbol": "？",
           "word": "愛"
         }
       },
@@ -2099,7 +2099,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄢ",
+          "symbol": "？",
           "word": "安"
         }
       },
@@ -2118,7 +2118,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄌㄜ",
+          "symbol": "？",
           "word": "勒"
         }
       },
@@ -2137,7 +2137,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄊ",
+          "symbol": "？",
           "word": "他"
         }
       },
@@ -2156,7 +2156,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄢ",
+          "symbol": "？",
           "word": "潘"
         }
       }
@@ -2177,7 +2177,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄡ",
+          "symbol": "？",
           "word": "北"
         }
       },
@@ -2196,7 +2196,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄤ",
+          "symbol": "？",
           "word": "昂"
         }
       },
@@ -2215,7 +2215,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄐㄧ",
+          "symbol": "？",
           "word": "機"
         }
       },
@@ -2234,7 +2234,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄊㄜ",
+          "symbol": "？",
           "word": "特"
         }
       },
@@ -2253,7 +2253,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄇㄧ",
+          "symbol": "？",
           "word": "迷"
         }
       },
@@ -2272,7 +2272,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄡ",
+          "symbol": "？",
           "word": "歐"
         }
       },
@@ -2291,7 +2291,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄅㄥ",
+          "symbol": "？",
           "word": "崩"
         }
       },
@@ -2310,7 +2310,7 @@
         "category": "韻母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄚ",
+          "symbol": "？",
           "word": "呀"
         }
       }
@@ -2331,7 +2331,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄡ",
+          "symbol": "？",
           "word": "優"
         }
       },
@@ -2350,7 +2350,7 @@
         "category": "拼讀",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄆㄛ",
+          "symbol": "？",
           "word": "坡"
         }
       },
@@ -2369,7 +2369,7 @@
         "category": "聲母",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄈ",
+          "symbol": "？",
           "word": "發"
         }
       },
@@ -2388,7 +2388,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄤ",
+          "symbol": "？",
           "word": "央"
         }
       },
@@ -2407,7 +2407,7 @@
         "category": "看字讀音",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄝ",
+          "symbol": "？",
           "word": "耶"
         }
       },
@@ -2426,7 +2426,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄨㄛ",
+          "symbol": "？",
           "word": "窩"
         }
       },
@@ -2445,7 +2445,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄧㄣ",
+          "symbol": "？",
           "word": "因"
         }
       },
@@ -2464,7 +2464,7 @@
         "category": "結合韻",
         "visual": {
           "type": "phonetic",
-          "symbol": "ㄩㄣ",
+          "symbol": "？",
           "word": "雲"
         }
       }

@@ -58,7 +58,7 @@ function renderSubjectCapsules() {
 
       if (isSubjectReady(targetSubject)) {
         audio.playSfx('whoosh', 0.5);
-        syncGradeLevels(getCurrentGrade());
+        syncGradeLevels(getCurrentGrade(), targetSubject);
         await loadQuestionBankForGrade(getCurrentGrade(), targetSubject);
         showToast(`已切換至 ${config.name}！`, config.icon);
       } else {
@@ -125,9 +125,10 @@ function init() {
 
         audio.playSfx('whoosh', 0.5);
         setCurrentGrade(targetGrade);
-        syncGradeLevels(targetGrade);
+        syncGradeLevels(targetGrade, getCurrentSubject());
         await loadQuestionBankForGrade(targetGrade, getCurrentSubject());
         syncGradeUI(targetGrade);
+        syncSubjectUI();
         showToast(`已切換至 ${getGradeConfig(targetGrade, getCurrentSubject()).name}！`, '🎒');
         if (document.body.dataset.screen === 'home') renderHome();
         else openMap();

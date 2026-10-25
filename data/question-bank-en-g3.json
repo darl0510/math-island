@@ -6,164 +6,3126 @@
   "targetPerLevel": 8,
   "levels": {
     "1": [
-      {"prompt": "哪一個單字的拼字是對的？", "speak": "I like cake.", "hint": "cake 的 a 發長音，結尾有 e", "explanation": "cake 是 a_e 結構，a 發長音 /eɪ/，結尾 e 不發音。", "answer": "cake", "options": ["cake", "cack", "cakee"], "optionEmojis": ["🎂", "🐱", "🎈"], "visual": {"type": "scene", "emojis": ["🎂"], "text": "c a k e"}},
-      {"prompt": "聽一聽：「My name is Lily.」name 的拼字是哪一個？", "speak": "My name is Lily.", "hint": "name 結尾有 e，a 發長音", "explanation": "name 是 a_e 結構，a 發長音 /eɪ/。", "answer": "name", "options": ["name", "naim", "namm"], "optionEmojis": ["📛", "🐜", "🐱"], "visual": {"type": "scene", "emojis": ["📛"], "text": "n a m e"}},
-      {"prompt": "看 emoji 🏊🌊，選出正確的單字。", "speak": "I swim in the lake.", "hint": "lake 是 a_e 結構", "explanation": "lake 表示「湖」，a_e 結構讓 a 發長音。", "answer": "lake", "options": ["lake", "lack", "lark"], "optionEmojis": ["🏊", "🐱", "🐦"], "visual": {"type": "scene", "emojis": ["🏊", "🌊"], "text": "l a k e"}},
-      {"prompt": "哪一個單字的意思是「遊戲」？", "speak": "Let's play a game.", "hint": "game 結尾有 e", "explanation": "game 是 a_e 結構，意思是「遊戲」。", "answer": "game", "options": ["game", "gam", "gaim"], "optionEmojis": ["🎮", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🎮"], "text": "g a m e"}},
-      {"prompt": "哪一個拼字是正確的？", "speak": "Please make a wish.", "hint": "make 是 a_e 結構", "explanation": "make 表示「做、製作」，a_e 結構。", "answer": "make", "options": ["make", "mak", "maik"], "optionEmojis": ["✨", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["✨"], "text": "m a k e"}},
-      {"prompt": "cake 的中文意思是什麼？", "speak": "The cake is sweet.", "hint": "cake 是一種甜點", "explanation": "cake 是「蛋糕」，一種甜甜的點心。", "answer": "蛋糕", "options": ["蛋糕", "餅乾", "麵包"], "optionEmojis": ["🎂", "🍪", "🍞"], "visual": {"type": "scene", "emojis": ["🎂"], "text": "c a k e"}},
-      {"prompt": "下面哪一個拼字是對的？", "speak": "I have a new name.", "hint": "name 結尾有 e", "explanation": "name 是 a_e 結構，結尾 e 讓 a 發長音。", "answer": "name", "options": ["name", "nmae", "naem"], "optionEmojis": ["📛", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📛"], "text": "n a m e"}},
-      {"prompt": "lake 的中文意思是什麼？", "speak": "The lake is big.", "hint": "lake 是水", "explanation": "lake 是「湖」，一片大大的水。", "answer": "湖", "options": ["湖", "河", "海"], "optionEmojis": ["🏞️", "🏞️", "🌊"], "visual": {"type": "scene", "emojis": ["🏞️"], "text": "l a k e"}}
+      {
+        "prompt": "哪一個單字的拼字是對的？",
+        "speak": "哪一個單字的拼字是對的呢？",
+        "hint": "cake 的 a 發長音，結尾有 e",
+        "explanation": "cake 是 a_e 結構，a 發長音 /eɪ/，結尾 e 不發音。",
+        "answer": "cake",
+        "options": [
+          "cake",
+          "cack",
+          "cakee"
+        ],
+        "optionEmojis": [
+          "🎂",
+          "🐱",
+          "🎈"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎂"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "聽一聽：「My name is Lily.」name 的拼字是哪一個？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "name 結尾有 e，a 發長音",
+        "explanation": "name 是 a_e 結構，a 發長音 /eɪ/。",
+        "answer": "name",
+        "options": [
+          "name",
+          "naim",
+          "namm"
+        ],
+        "optionEmojis": [
+          "📛",
+          "🐜",
+          "🐱"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📛"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🏊🌊，選出正確的單字。",
+        "speak": "看 emoji 🏊🌊，選出正確的單字。",
+        "hint": "lake 是 a_e 結構",
+        "explanation": "lake 表示「湖」，a_e 結構讓 a 發長音。",
+        "answer": "lake",
+        "options": [
+          "lake",
+          "lack",
+          "lark"
+        ],
+        "optionEmojis": [
+          "🏊",
+          "🐱",
+          "🐦"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏊",
+            "🌊"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "哪一個單字的意思是「遊戲」？",
+        "speak": "哪一個單字的意思是「遊戲」呢？",
+        "hint": "game 結尾有 e",
+        "explanation": "game 是 a_e 結構，意思是「遊戲」。",
+        "answer": "game",
+        "options": [
+          "game",
+          "gam",
+          "gaim"
+        ],
+        "optionEmojis": [
+          "🎮",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎮"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "哪一個拼字是正確的？",
+        "speak": "哪一個拼字是正確的呢？",
+        "hint": "make 是 a_e 結構",
+        "explanation": "make 表示「做、製作」，a_e 結構。",
+        "answer": "make",
+        "options": [
+          "make",
+          "mak",
+          "maik"
+        ],
+        "optionEmojis": [
+          "✨",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "✨"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "cake 的中文意思是什麼？",
+        "speak": "cake 的中文意思是什麼呢？",
+        "hint": "cake 是一種甜點",
+        "explanation": "cake 是「蛋糕」，一種甜甜的點心。",
+        "answer": "蛋糕",
+        "options": [
+          "蛋糕",
+          "餅乾",
+          "麵包"
+        ],
+        "optionEmojis": [
+          "🎂",
+          "🍪",
+          "🍞"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎂"
+          ],
+          "text": "c a k e"
+        }
+      },
+      {
+        "prompt": "下面哪一個拼字是對的？",
+        "speak": "下面哪一個拼字是對的呢？",
+        "hint": "name 結尾有 e",
+        "explanation": "name 是 a_e 結構，結尾 e 讓 a 發長音。",
+        "answer": "name",
+        "options": [
+          "name",
+          "nmae",
+          "naem"
+        ],
+        "optionEmojis": [
+          "📛",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📛"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "lake 的中文意思是什麼？",
+        "speak": "lake 的中文意思是什麼呢？",
+        "hint": "lake 是水",
+        "explanation": "lake 是「湖」，一片大大的水。",
+        "answer": "湖",
+        "options": [
+          "湖",
+          "河",
+          "海"
+        ],
+        "optionEmojis": [
+          "🏞️",
+          "🏞️",
+          "🌊"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏞️"
+          ],
+          "text": "l a k e"
+        }
+      }
     ],
     "2": [
-      {"prompt": "三個單字中，哪一個拼字是對的？", "speak": "I fly a kite.", "hint": "kite 是 i_e 結構", "explanation": "kite 是 i_e 結構，i 發長音 /aɪ/。", "answer": "kite", "options": ["kite", "kit", "kiet"], "optionEmojis": ["🪁", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🪁"], "text": "k i t e"}},
-      {"prompt": "看 emoji 🚲，選出正確的單字。", "speak": "I ride my bike.", "hint": "bike 是 i_e 結構", "explanation": "bike 表示「腳踏車」，i_e 結構讓 i 發長音。", "answer": "bike", "options": ["bike", "bik", "baik"], "optionEmojis": ["🚲", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚲"], "text": "b i k e"}},
-      {"prompt": "「It is ___ to play.」空格要填哪個字？", "speak": "It is time to play.", "hint": "time 是 i_e 結構", "explanation": "time 表示「時間」，i_e 結構。", "answer": "time", "options": ["time", "tim", "tiem"], "optionEmojis": ["⏰", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["⏰"], "text": "t i m e"}},
-      {"prompt": "five 的中文意思是什麼？", "speak": "I have five fingers.", "hint": "five 是數字", "explanation": "five 是數字「五」，i_e 結構。", "answer": "五", "options": ["五", "四", "六"], "optionEmojis": ["5️⃣", "4️⃣", "6️⃣"], "visual": {"type": "scene", "emojis": ["5️⃣"], "text": "f i v e"}},
-      {"prompt": "哪一個單字的拼字正確無誤？", "speak": "I can ride a bike.", "hint": "ride 是 i_e 結構", "explanation": "ride 表示「騎」，i_e 結構讓 i 發長音。", "answer": "ride", "options": ["ride", "rid", "ried"], "optionEmojis": ["🚲", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚲"], "text": "r i d e"}},
-      {"prompt": "nine 的中文意思是什麼？", "speak": "I am nine years old.", "hint": "nine 是數字", "explanation": "nine 是數字「九」，i_e 結構。", "answer": "九", "options": ["九", "八", "十"], "optionEmojis": ["9️⃣", "8️⃣", "🔟"], "visual": {"type": "scene", "emojis": ["9️⃣"], "text": "n i n e"}},
-      {"prompt": "「I like to ___ my bike.」空格要填哪個字？", "speak": "I like to ride my bike.", "hint": "ride 是 i_e 結構", "explanation": "ride 表示「騎」，i_e 結構。", "answer": "ride", "options": ["ride", "rid", "rite"], "optionEmojis": ["🚲", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚲"], "text": "r i d e"}},
-      {"prompt": "kite 的中文意思是什麼？", "speak": "The kite is in the sky.", "hint": "kite 在天上飛", "explanation": "kite 是「風箏」，在天上飛的玩具。", "answer": "風箏", "options": ["風箏", "氣球", "紙飛機"], "optionEmojis": ["🪁", "🎈", "✈️"], "visual": {"type": "scene", "emojis": ["🪁"], "text": "k i t e"}}
+      {
+        "prompt": "三個單字中，哪一個拼字是對的？",
+        "speak": "三個單字中，哪一個拼字是對的呢？",
+        "hint": "kite 是 i_e 結構",
+        "explanation": "kite 是 i_e 結構，i 發長音 /aɪ/。",
+        "answer": "kite",
+        "options": [
+          "kite",
+          "kit",
+          "kiet"
+        ],
+        "optionEmojis": [
+          "🪁",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪁"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🚲，選出正確的單字。",
+        "speak": "看 emoji 🚲，選出正確的單字。",
+        "hint": "bike 是 i_e 結構",
+        "explanation": "bike 表示「腳踏車」，i_e 結構讓 i 發長音。",
+        "answer": "bike",
+        "options": [
+          "bike",
+          "bik",
+          "baik"
+        ],
+        "optionEmojis": [
+          "🚲",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚲"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「It is ___ to play.」空格要填哪個字？",
+        "speak": "「It is ___ to play.」空格要填哪個字呢？",
+        "hint": "time 是 i_e 結構",
+        "explanation": "time 表示「時間」，i_e 結構。",
+        "answer": "time",
+        "options": [
+          "time",
+          "tim",
+          "tiem"
+        ],
+        "optionEmojis": [
+          "⏰",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⏰"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "five 的中文意思是什麼？",
+        "speak": "five 的中文意思是什麼呢？",
+        "hint": "five 是數字",
+        "explanation": "five 是數字「五」，i_e 結構。",
+        "answer": "五",
+        "options": [
+          "五",
+          "四",
+          "六"
+        ],
+        "optionEmojis": [
+          "5️⃣",
+          "4️⃣",
+          "6️⃣"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "5️⃣"
+          ],
+          "text": "f i v e"
+        }
+      },
+      {
+        "prompt": "哪一個單字的拼字正確無誤？",
+        "speak": "哪一個單字的拼字正確無誤呢？",
+        "hint": "ride 是 i_e 結構",
+        "explanation": "ride 表示「騎」，i_e 結構讓 i 發長音。",
+        "answer": "ride",
+        "options": [
+          "ride",
+          "rid",
+          "ried"
+        ],
+        "optionEmojis": [
+          "🚲",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚲"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "nine 的中文意思是什麼？",
+        "speak": "nine 的中文意思是什麼呢？",
+        "hint": "nine 是數字",
+        "explanation": "nine 是數字「九」，i_e 結構。",
+        "answer": "九",
+        "options": [
+          "九",
+          "八",
+          "十"
+        ],
+        "optionEmojis": [
+          "9️⃣",
+          "8️⃣",
+          "🔟"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "9️⃣"
+          ],
+          "text": "n i n e"
+        }
+      },
+      {
+        "prompt": "「I like to ___ my bike.」空格要填哪個字？",
+        "speak": "「I like to ___ my bike.」空格要填哪個字呢？",
+        "hint": "ride 是 i_e 結構",
+        "explanation": "ride 表示「騎」，i_e 結構。",
+        "answer": "ride",
+        "options": [
+          "ride",
+          "rid",
+          "rite"
+        ],
+        "optionEmojis": [
+          "🚲",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚲"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "kite 的中文意思是什麼？",
+        "speak": "kite 的中文意思是什麼呢？",
+        "hint": "kite 在天上飛",
+        "explanation": "kite 是「風箏」，在天上飛的玩具。",
+        "answer": "風箏",
+        "options": [
+          "風箏",
+          "氣球",
+          "紙飛機"
+        ],
+        "optionEmojis": [
+          "🪁",
+          "🎈",
+          "✈️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪁"
+          ],
+          "text": "k i t e"
+        }
+      }
     ],
     "3": [
-      {"prompt": "哪一個單字拼得正確？", "speak": "I go home.", "hint": "home 是 o_e 結構", "explanation": "home 是 o_e 結構，o 發長音 /oʊ/。", "answer": "home", "options": ["home", "hom", "hoem"], "optionEmojis": ["🏠", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🏠"], "text": "h o m e"}},
-      {"prompt": "看 emoji 👃，選出正確的單字。", "speak": "I have a big nose.", "hint": "nose 是 o_e 結構", "explanation": "nose 表示「鼻子」，o_e 結構讓 o 發長音。", "answer": "nose", "options": ["nose", "nos", "noes"], "optionEmojis": ["👃", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👃"], "text": "n o s e"}},
-      {"prompt": "「I like the red ___.」空格要填哪個字？", "speak": "I like the red rose.", "hint": "rose 是 o_e 結構", "explanation": "rose 表示「玫瑰」，o_e 結構。", "answer": "rose", "options": ["rose", "ros", "roes"], "optionEmojis": ["🌹", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🌹"], "text": "r o s e"}},
-      {"prompt": "note 的中文意思是什麼？", "speak": "I write a note.", "hint": "note 是 o_e 結構", "explanation": "note 是「筆記、便條」，o_e 結構。", "answer": "筆記", "options": ["筆記", "書本", "鉛筆"], "optionEmojis": ["📝", "📚", "✏️"], "visual": {"type": "scene", "emojis": ["📝"], "text": "n o t e"}},
-      {"prompt": "選出拼字完全正確的單字。", "speak": "I throw a stone.", "hint": "stone 是 o_e 結構", "explanation": "stone 表示「石頭」，o_e 結構讓 o 發長音。", "answer": "stone", "options": ["stone", "ston", "stoan"], "optionEmojis": ["🪨", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🪨"], "text": "s t o n e"}},
-      {"prompt": "home 的中文意思是什麼？", "speak": "I go home.", "hint": "home 是你住的地方", "explanation": "home 是「家」，你住的地方。", "answer": "家", "options": ["家", "學校", "公園"], "optionEmojis": ["🏠", "🏫", "🌳"], "visual": {"type": "scene", "emojis": ["🏠"], "text": "h o m e"}},
-      {"prompt": "「My ___ is small.」空格要填哪個字？", "speak": "My nose is small.", "hint": "nose 是 o_e 結構", "explanation": "nose 表示「鼻子」，o_e 結構。", "answer": "nose", "options": ["nose", "nos", "noes"], "optionEmojis": ["👃", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👃"], "text": "n o s e"}},
-      {"prompt": "stone 的中文意思是什麼？", "speak": "The stone is hard.", "hint": "stone 是硬的東西", "explanation": "stone 是「石頭」，硬硬的。", "answer": "石頭", "options": ["石頭", "木頭", "玻璃"], "optionEmojis": ["🪨", "🪵", "🪟"], "visual": {"type": "scene", "emojis": ["🪨"], "text": "s t o n e"}}
+      {
+        "prompt": "哪一個單字拼得正確？",
+        "speak": "哪一個單字拼得正確呢？",
+        "hint": "home 是 o_e 結構",
+        "explanation": "home 是 o_e 結構，o 發長音 /oʊ/。",
+        "answer": "home",
+        "options": [
+          "home",
+          "hom",
+          "hoem"
+        ],
+        "optionEmojis": [
+          "🏠",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏠"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 👃，選出正確的單字。",
+        "speak": "看 emoji 👃，選出正確的單字。",
+        "hint": "nose 是 o_e 結構",
+        "explanation": "nose 表示「鼻子」，o_e 結構讓 o 發長音。",
+        "answer": "nose",
+        "options": [
+          "nose",
+          "nos",
+          "noes"
+        ],
+        "optionEmojis": [
+          "👃",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👃"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I like the red ___.」空格要填哪個字？",
+        "speak": "「I like the red ___.」空格要填哪個字呢？",
+        "hint": "rose 是 o_e 結構",
+        "explanation": "rose 表示「玫瑰」，o_e 結構。",
+        "answer": "rose",
+        "options": [
+          "rose",
+          "ros",
+          "roes"
+        ],
+        "optionEmojis": [
+          "🌹",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌹"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "note 的中文意思是什麼？",
+        "speak": "note 的中文意思是什麼呢？",
+        "hint": "note 是 o_e 結構",
+        "explanation": "note 是「筆記、便條」，o_e 結構。",
+        "answer": "筆記",
+        "options": [
+          "筆記",
+          "書本",
+          "鉛筆"
+        ],
+        "optionEmojis": [
+          "📝",
+          "📚",
+          "✏️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📝"
+          ],
+          "text": "n o t e"
+        }
+      },
+      {
+        "prompt": "選出拼字完全正確的單字。",
+        "speak": "選出拼字完全正確的單字。",
+        "hint": "stone 是 o_e 結構",
+        "explanation": "stone 表示「石頭」，o_e 結構讓 o 發長音。",
+        "answer": "stone",
+        "options": [
+          "stone",
+          "ston",
+          "stoan"
+        ],
+        "optionEmojis": [
+          "🪨",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪨"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "home 的中文意思是什麼？",
+        "speak": "home 的中文意思是什麼呢？",
+        "hint": "home 是你住的地方",
+        "explanation": "home 是「家」，你住的地方。",
+        "answer": "家",
+        "options": [
+          "家",
+          "學校",
+          "公園"
+        ],
+        "optionEmojis": [
+          "🏠",
+          "🏫",
+          "🌳"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏠"
+          ],
+          "text": "h o m e"
+        }
+      },
+      {
+        "prompt": "「My ___ is small.」空格要填哪個字？",
+        "speak": "「My ___ is small.」空格要填哪個字呢？",
+        "hint": "nose 是 o_e 結構",
+        "explanation": "nose 表示「鼻子」，o_e 結構。",
+        "answer": "nose",
+        "options": [
+          "nose",
+          "nos",
+          "noes"
+        ],
+        "optionEmojis": [
+          "👃",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👃"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "stone 的中文意思是什麼？",
+        "speak": "stone 的中文意思是什麼呢？",
+        "hint": "stone 是硬的東西",
+        "explanation": "stone 是「石頭」，硬硬的。",
+        "answer": "石頭",
+        "options": [
+          "石頭",
+          "木頭",
+          "玻璃"
+        ],
+        "optionEmojis": [
+          "🪨",
+          "🪵",
+          "🪟"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪨"
+          ],
+          "text": "s t o n e"
+        }
+      }
     ],
     "4": [
-      {"prompt": "選出拼字正確的那一個單字。", "speak": "I have a blue cube.", "hint": "cube 是 u_e 結構", "explanation": "cube 是 u_e 結構，u 發長音 /juː/。", "answer": "cube", "options": ["cube", "cub", "cupe"], "optionEmojis": ["🧊", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🧊"], "text": "c u b e"}},
-      {"prompt": "看 emoji 🚰，選出正確的單字。", "speak": "I see a tube.", "hint": "tube 是 u_e 結構", "explanation": "tube 表示「管子」，u_e 結構讓 u 發長音。", "answer": "tube", "options": ["tube", "tub", "tupe"], "optionEmojis": ["🚰", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚰"], "text": "t u b e"}},
-      {"prompt": "「The mule is big.」mule 的中文意思是什麼？", "speak": "The mule is big.", "hint": "mule 是 u_e 結構", "explanation": "mule 是「騾子」，u_e 結構。", "answer": "騾子", "options": ["騾子", "馬", "驢"], "optionEmojis": ["🐴", "🐴", "🫏"], "visual": {"type": "scene", "emojis": ["🐴"], "text": "m u l e"}},
-      {"prompt": "哪一個拼字是正確無誤的？", "speak": "The room is huge.", "hint": "huge 是 u_e 結構", "explanation": "huge 表示「巨大的」，u_e 結構讓 u 發長音。", "answer": "huge", "options": ["huge", "hug", "hupe"], "optionEmojis": ["🏰", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🏰"], "text": "h u g e"}},
-      {"prompt": "三個單字裡，哪一個拼對了？", "speak": "Follow the rule.", "hint": "rule 是 u_e 結構", "explanation": "rule 表示「規則」，u_e 結構。", "answer": "rule", "options": ["rule", "rul", "rupe"], "optionEmojis": ["📜", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📜"], "text": "r u l e"}},
-      {"prompt": "cube 的中文意思是什麼？", "speak": "I have a cube.", "hint": "cube 是方方的", "explanation": "cube 是「方塊」，四四方方的。", "answer": "方塊", "options": ["方塊", "圓球", "三角"], "optionEmojis": ["🧊", "⚽", "🔺"], "visual": {"type": "scene", "emojis": ["🧊"], "text": "c u b e"}},
-      {"prompt": "「I have a long ___.」空格要填哪個字？", "speak": "I have a long tube.", "hint": "tube 是 u_e 結構", "explanation": "tube 表示「管子」，u_e 結構。", "answer": "tube", "options": ["tube", "tub", "tupe"], "optionEmojis": ["🚰", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚰"], "text": "t u b e"}},
-      {"prompt": "huge 的中文意思是什麼？", "speak": "The dragon is huge.", "hint": "huge 表示很大很大", "explanation": "huge 是「巨大的」，比 big 還大很多。", "answer": "巨大的", "options": ["巨大的", "小小的", "高高的"], "optionEmojis": ["🐉", "🐜", "🦒"], "visual": {"type": "scene", "emojis": ["🐉"], "text": "h u g e"}}
+      {
+        "prompt": "選出拼字正確的那一個單字。",
+        "speak": "選出拼字正確的那一個單字。",
+        "hint": "cube 是 u_e 結構",
+        "explanation": "cube 是 u_e 結構，u 發長音 /juː/。",
+        "answer": "cube",
+        "options": [
+          "cube",
+          "cub",
+          "cupe"
+        ],
+        "optionEmojis": [
+          "🧊",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧊"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🚰，選出正確的單字。",
+        "speak": "看 emoji 🚰，選出正確的單字。",
+        "hint": "tube 是 u_e 結構",
+        "explanation": "tube 表示「管子」，u_e 結構讓 u 發長音。",
+        "answer": "tube",
+        "options": [
+          "tube",
+          "tub",
+          "tupe"
+        ],
+        "optionEmojis": [
+          "🚰",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚰"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「The mule is big.」mule 的中文意思是什麼？",
+        "speak": "「The mule is big.」mule 的中文意思是什麼呢？",
+        "hint": "mule 是 u_e 結構",
+        "explanation": "mule 是「騾子」，u_e 結構。",
+        "answer": "騾子",
+        "options": [
+          "騾子",
+          "馬",
+          "驢"
+        ],
+        "optionEmojis": [
+          "🐴",
+          "🐴",
+          "🫏"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐴"
+          ],
+          "text": "m u l e"
+        }
+      },
+      {
+        "prompt": "哪一個拼字是正確無誤的？",
+        "speak": "哪一個拼字是正確無誤的呢？",
+        "hint": "huge 是 u_e 結構",
+        "explanation": "huge 表示「巨大的」，u_e 結構讓 u 發長音。",
+        "answer": "huge",
+        "options": [
+          "huge",
+          "hug",
+          "hupe"
+        ],
+        "optionEmojis": [
+          "🏰",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏰"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "三個單字裡，哪一個拼對了？",
+        "speak": "三個單字裡，哪一個拼對了呢？",
+        "hint": "rule 是 u_e 結構",
+        "explanation": "rule 表示「規則」，u_e 結構。",
+        "answer": "rule",
+        "options": [
+          "rule",
+          "rul",
+          "rupe"
+        ],
+        "optionEmojis": [
+          "📜",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📜"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "cube 的中文意思是什麼？",
+        "speak": "cube 的中文意思是什麼呢？",
+        "hint": "cube 是方方的",
+        "explanation": "cube 是「方塊」，四四方方的。",
+        "answer": "方塊",
+        "options": [
+          "方塊",
+          "圓球",
+          "三角"
+        ],
+        "optionEmojis": [
+          "🧊",
+          "⚽",
+          "🔺"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧊"
+          ],
+          "text": "c u b e"
+        }
+      },
+      {
+        "prompt": "「I have a long ___.」空格要填哪個字？",
+        "speak": "「I have a long ___.」空格要填哪個字呢？",
+        "hint": "tube 是 u_e 結構",
+        "explanation": "tube 表示「管子」，u_e 結構。",
+        "answer": "tube",
+        "options": [
+          "tube",
+          "tub",
+          "tupe"
+        ],
+        "optionEmojis": [
+          "🚰",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚰"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "huge 的中文意思是什麼？",
+        "speak": "huge 的中文意思是什麼呢？",
+        "hint": "huge 表示很大很大",
+        "explanation": "huge 是「巨大的」，比 big 還大很多。",
+        "answer": "巨大的",
+        "options": [
+          "巨大的",
+          "小小的",
+          "高高的"
+        ],
+        "optionEmojis": [
+          "🐉",
+          "🐜",
+          "🦒"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐉"
+          ],
+          "text": "h u g e"
+        }
+      }
     ],
     "5": [
-      {"prompt": "哪一個單字的拼字沒有錯？", "speak": "I like the rain.", "hint": "rain 有 ai", "explanation": "rain 是 ai 組合，發長音 /eɪ/。", "answer": "rain", "options": ["rain", "ran", "rein"], "optionEmojis": ["🌧️", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🌧️"], "text": "r a i n"}},
-      {"prompt": "看 emoji 🐦🪶，選出正確的單字。", "speak": "The bird has a long tail.", "hint": "tail 有 ai", "explanation": "tail 表示「尾巴」，ai 組合發長音。", "answer": "tail", "options": ["tail", "tal", "tien"], "optionEmojis": ["🐦", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐦", "🪶"], "text": "t a i l"}},
-      {"prompt": "「I take the ___ to school.」空格要填哪個字？", "speak": "I take the train to school.", "hint": "train 有 ai", "explanation": "train 表示「火車」，ai 組合發長音。", "answer": "train", "options": ["train", "tran", "tren"], "optionEmojis": ["🚂", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚂"], "text": "t r a i n"}},
-      {"prompt": "day 的中文意思是什麼？", "speak": "I have a good day.", "hint": "day 有 ay", "explanation": "day 是「一天、日子」，ay 組合發長音。", "answer": "一天", "options": ["一天", "一年", "一週"], "optionEmojis": ["☀️", "📅", "📆"], "visual": {"type": "scene", "emojis": ["☀️"], "text": "d a y"}},
-      {"prompt": "哪一個才是正確的英文拼字？", "speak": "Let's play outside.", "hint": "play 有 ay", "explanation": "play 表示「玩」，ay 組合發長音。", "answer": "play", "options": ["play", "plai", "pley"], "optionEmojis": ["🎮", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🎮"], "text": "p l a y"}},
-      {"prompt": "rain 的中文意思是什麼？", "speak": "The rain is cold.", "hint": "rain 從天上落下來", "explanation": "rain 是「雨」，從天上落下來的水。", "answer": "雨", "options": ["雨", "雪", "風"], "optionEmojis": ["🌧️", "❄️", "💨"], "visual": {"type": "scene", "emojis": ["🌧️"], "text": "r a i n"}},
-      {"prompt": "「I ___ my name.」空格要填哪個字？", "speak": "I say my name.", "hint": "say 有 ay", "explanation": "say 表示「說」，ay 組合發長音。", "answer": "say", "options": ["say", "sai", "sei"], "optionEmojis": ["💬", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["💬"], "text": "s a y"}},
-      {"prompt": "train 的中文意思是什麼？", "speak": "The train is fast.", "hint": "train 在鐵軌上跑", "explanation": "train 是「火車」，在鐵軌上跑。", "answer": "火車", "options": ["火車", "汽車", "飛機"], "optionEmojis": ["🚂", "🚗", "✈️"], "visual": {"type": "scene", "emojis": ["🚂"], "text": "t r a i n"}}
+      {
+        "prompt": "哪一個單字的拼字沒有錯？",
+        "speak": "哪一個單字的拼字沒有錯呢？",
+        "hint": "rain 有 ai",
+        "explanation": "rain 是 ai 組合，發長音 /eɪ/。",
+        "answer": "rain",
+        "options": [
+          "rain",
+          "ran",
+          "rein"
+        ],
+        "optionEmojis": [
+          "🌧️",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌧️"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🐦🪶，選出正確的單字。",
+        "speak": "看 emoji 🐦🪶，選出正確的單字。",
+        "hint": "tail 有 ai",
+        "explanation": "tail 表示「尾巴」，ai 組合發長音。",
+        "answer": "tail",
+        "options": [
+          "tail",
+          "tal",
+          "tien"
+        ],
+        "optionEmojis": [
+          "🐦",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐦",
+            "🪶"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I take the ___ to school.」空格要填哪個字？",
+        "speak": "「I take the ___ to school.」空格要填哪個字呢？",
+        "hint": "train 有 ai",
+        "explanation": "train 表示「火車」，ai 組合發長音。",
+        "answer": "train",
+        "options": [
+          "train",
+          "tran",
+          "tren"
+        ],
+        "optionEmojis": [
+          "🚂",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚂"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "day 的中文意思是什麼？",
+        "speak": "day 的中文意思是什麼呢？",
+        "hint": "day 有 ay",
+        "explanation": "day 是「一天、日子」，ay 組合發長音。",
+        "answer": "一天",
+        "options": [
+          "一天",
+          "一年",
+          "一週"
+        ],
+        "optionEmojis": [
+          "☀️",
+          "📅",
+          "📆"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "☀️"
+          ],
+          "text": "d a y"
+        }
+      },
+      {
+        "prompt": "哪一個才是正確的英文拼字？",
+        "speak": "哪一個才是正確的英文拼字呢？",
+        "hint": "play 有 ay",
+        "explanation": "play 表示「玩」，ay 組合發長音。",
+        "answer": "play",
+        "options": [
+          "play",
+          "plai",
+          "pley"
+        ],
+        "optionEmojis": [
+          "🎮",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎮"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "rain 的中文意思是什麼？",
+        "speak": "rain 的中文意思是什麼呢？",
+        "hint": "rain 從天上落下來",
+        "explanation": "rain 是「雨」，從天上落下來的水。",
+        "answer": "雨",
+        "options": [
+          "雨",
+          "雪",
+          "風"
+        ],
+        "optionEmojis": [
+          "🌧️",
+          "❄️",
+          "💨"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌧️"
+          ],
+          "text": "r a i n"
+        }
+      },
+      {
+        "prompt": "「I ___ my name.」空格要填哪個字？",
+        "speak": "「I ___ my name.」空格要填哪個字呢？",
+        "hint": "say 有 ay",
+        "explanation": "say 表示「說」，ay 組合發長音。",
+        "answer": "say",
+        "options": [
+          "say",
+          "sai",
+          "sei"
+        ],
+        "optionEmojis": [
+          "💬",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "💬"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "train 的中文意思是什麼？",
+        "speak": "train 的中文意思是什麼呢？",
+        "hint": "train 在鐵軌上跑",
+        "explanation": "train 是「火車」，在鐵軌上跑。",
+        "answer": "火車",
+        "options": [
+          "火車",
+          "汽車",
+          "飛機"
+        ],
+        "optionEmojis": [
+          "🚂",
+          "🚗",
+          "✈️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚂"
+          ],
+          "text": "t r a i n"
+        }
+      }
     ],
     "6": [
-      {"prompt": "下面哪一個才是正確的拼字？", "speak": "I see a big tree.", "hint": "tree 有 ee", "explanation": "tree 是 ee 組合，發長音 /iː/。", "answer": "tree", "options": ["tree", "tre", "trie"], "optionEmojis": ["🌳", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🌳"], "text": "t r e e"}},
-      {"prompt": "看 emoji 🐝，選出正確的單字。", "speak": "I see a bee.", "hint": "bee 有 ee", "explanation": "bee 表示「蜜蜂」，ee 組合發長音。", "answer": "bee", "options": ["bee", "be", "bie"], "optionEmojis": ["🐝", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐝"], "text": "b e e"}},
-      {"prompt": "「I ___ a cat.」空格要填哪個字？", "speak": "I see a cat.", "hint": "see 有 ee", "explanation": "see 表示「看見」，ee 組合發長音。", "answer": "see", "options": ["see", "se", "sie"], "optionEmojis": ["👀", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👀"], "text": "s e e"}},
-      {"prompt": "eat 的中文意思是什麼？", "speak": "I eat an apple.", "hint": "eat 有 ea", "explanation": "eat 是「吃」，ea 組合發長音。", "answer": "吃", "options": ["吃", "喝", "跑"], "optionEmojis": ["🍽️", "🥤", "🏃"], "visual": {"type": "scene", "emojis": ["🍽️"], "text": "e a t"}},
-      {"prompt": "下面三個選項，哪一個拼字對？", "speak": "I read a book.", "hint": "read 有 ea", "explanation": "read 表示「讀」，ea 組合發長音。", "answer": "read", "options": ["read", "red", "reed"], "optionEmojis": ["📖", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📖"], "text": "r e a d"}},
-      {"prompt": "dream 的中文意思是什麼？", "speak": "I have a good dream.", "hint": "dream 有 ea", "explanation": "dream 是「夢」，ea 組合發長音。", "answer": "夢", "options": ["夢", "星星", "月亮"], "optionEmojis": ["💭", "⭐", "🌙"], "visual": {"type": "scene", "emojis": ["💭"], "text": "d r e a m"}},
-      {"prompt": "「I ___ a book every day.」空格要填哪個字？", "speak": "I read a book every day.", "hint": "read 有 ea", "explanation": "read 表示「讀」，ea 組合發長音。", "answer": "read", "options": ["read", "red", "reed"], "optionEmojis": ["📖", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📖"], "text": "r e a d"}},
-      {"prompt": "tree 的中文意思是什麼？", "speak": "The tree is tall.", "hint": "tree 高高的、有葉子", "explanation": "tree 是「樹」，高高的、有葉子。", "answer": "樹", "options": ["樹", "花", "草"], "optionEmojis": ["🌳", "🌸", "🌿"], "visual": {"type": "scene", "emojis": ["🌳"], "text": "t r e e"}}
+      {
+        "prompt": "下面哪一個才是正確的拼字？",
+        "speak": "下面哪一個才是正確的拼字呢？",
+        "hint": "tree 有 ee",
+        "explanation": "tree 是 ee 組合，發長音 /iː/。",
+        "answer": "tree",
+        "options": [
+          "tree",
+          "tre",
+          "trie"
+        ],
+        "optionEmojis": [
+          "🌳",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🐝，選出正確的單字。",
+        "speak": "看 emoji 🐝，選出正確的單字。",
+        "hint": "bee 有 ee",
+        "explanation": "bee 表示「蜜蜂」，ee 組合發長音。",
+        "answer": "bee",
+        "options": [
+          "bee",
+          "be",
+          "bie"
+        ],
+        "optionEmojis": [
+          "🐝",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐝"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I ___ a cat.」空格要填哪個字？",
+        "speak": "「I ___ a cat.」空格要填哪個字呢？",
+        "hint": "see 有 ee",
+        "explanation": "see 表示「看見」，ee 組合發長音。",
+        "answer": "see",
+        "options": [
+          "see",
+          "se",
+          "sie"
+        ],
+        "optionEmojis": [
+          "👀",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👀"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "eat 的中文意思是什麼？",
+        "speak": "eat 的中文意思是什麼呢？",
+        "hint": "eat 有 ea",
+        "explanation": "eat 是「吃」，ea 組合發長音。",
+        "answer": "吃",
+        "options": [
+          "吃",
+          "喝",
+          "跑"
+        ],
+        "optionEmojis": [
+          "🍽️",
+          "🥤",
+          "🏃"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍽️"
+          ],
+          "text": "e a t"
+        }
+      },
+      {
+        "prompt": "下面三個選項，哪一個拼字對？",
+        "speak": "下面三個選項，哪一個拼字對呢？",
+        "hint": "read 有 ea",
+        "explanation": "read 表示「讀」，ea 組合發長音。",
+        "answer": "read",
+        "options": [
+          "read",
+          "red",
+          "reed"
+        ],
+        "optionEmojis": [
+          "📖",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "dream 的中文意思是什麼？",
+        "speak": "dream 的中文意思是什麼呢？",
+        "hint": "dream 有 ea",
+        "explanation": "dream 是「夢」，ea 組合發長音。",
+        "answer": "夢",
+        "options": [
+          "夢",
+          "星星",
+          "月亮"
+        ],
+        "optionEmojis": [
+          "💭",
+          "⭐",
+          "🌙"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "💭"
+          ],
+          "text": "d r e a m"
+        }
+      },
+      {
+        "prompt": "「I ___ a book every day.」空格要填哪個字？",
+        "speak": "「I ___ a book every day.」空格要填哪個字呢？",
+        "hint": "read 有 ea",
+        "explanation": "read 表示「讀」，ea 組合發長音。",
+        "answer": "read",
+        "options": [
+          "read",
+          "red",
+          "reed"
+        ],
+        "optionEmojis": [
+          "📖",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "tree 的中文意思是什麼？",
+        "speak": "tree 的中文意思是什麼呢？",
+        "hint": "tree 高高的、有葉子",
+        "explanation": "tree 是「樹」，高高的、有葉子。",
+        "answer": "樹",
+        "options": [
+          "樹",
+          "花",
+          "草"
+        ],
+        "optionEmojis": [
+          "🌳",
+          "🌸",
+          "🌿"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳"
+          ],
+          "text": "t r e e"
+        }
+      }
     ],
     "7": [
-      {"prompt": "哪一個單字寫法正確？", "speak": "I ride a boat.", "hint": "boat 有 oa", "explanation": "boat 是 oa 組合，發長音 /oʊ/。", "answer": "boat", "options": ["boat", "bot", "bota"], "optionEmojis": ["🚤", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚤"], "text": "b o a t"}},
-      {"prompt": "看 emoji 🧥，選出正確的單字。", "speak": "I wear a coat.", "hint": "coat 有 oa", "explanation": "coat 表示「外套」，oa 組合發長音。", "answer": "coat", "options": ["coat", "cot", "cota"], "optionEmojis": ["🧥", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🧥"], "text": "c o a t"}},
-      {"prompt": "「I walk on the ___.」空格要填哪個字？", "speak": "I walk on the road.", "hint": "road 有 oa", "explanation": "road 表示「路」，oa 組合發長音。", "answer": "road", "options": ["road", "rod", "roda"], "optionEmojis": ["🛣️", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🛣️"], "text": "r o a d"}},
-      {"prompt": "snow 的中文意思是什麼？", "speak": "I like the snow.", "hint": "snow 有 ow", "explanation": "snow 是「雪」，ow 組合發長音。", "answer": "雪", "options": ["雪", "雨", "雲"], "optionEmojis": ["❄️", "🌧️", "☁️"], "visual": {"type": "scene", "emojis": ["❄️"], "text": "s n o w"}},
-      {"prompt": "哪一個單字拼字完全正確？", "speak": "I show my drawing.", "hint": "show 有 ow", "explanation": "show 表示「展示」，ow 組合發長音。", "answer": "show", "options": ["show", "shoe", "shwo"], "optionEmojis": ["👋", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👋"], "text": "s h o w"}},
-      {"prompt": "yellow 的中文意思是什麼？", "speak": "I like yellow.", "hint": "yellow 有 ow", "explanation": "yellow 是「黃色」，ow 組合發長音。", "answer": "黃色", "options": ["黃色", "紅色", "藍色"], "optionEmojis": ["🟡", "🔴", "🔵"], "visual": {"type": "scene", "emojis": ["🟡"], "text": "y e l l o w"}},
-      {"prompt": "「The ___ is white.」空格要填哪個字？", "speak": "The snow is white.", "hint": "snow 有 ow", "explanation": "snow 表示「雪」，ow 組合發長音。", "answer": "snow", "options": ["snow", "show", "slow"], "optionEmojis": ["❄️", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["❄️"], "text": "s n o w"}},
-      {"prompt": "boat 的中文意思是什麼？", "speak": "The boat is on the water.", "hint": "boat 在水上", "explanation": "boat 是「船」，在水上跑。", "answer": "船", "options": ["船", "車", "飛機"], "optionEmojis": ["🚤", "🚗", "✈️"], "visual": {"type": "scene", "emojis": ["🚤"], "text": "b o a t"}}
+      {
+        "prompt": "哪一個單字寫法正確？",
+        "speak": "哪一個單字寫法正確呢？",
+        "hint": "boat 有 oa",
+        "explanation": "boat 是 oa 組合，發長音 /oʊ/。",
+        "answer": "boat",
+        "options": [
+          "boat",
+          "bot",
+          "bota"
+        ],
+        "optionEmojis": [
+          "🚤",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚤"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🧥，選出正確的單字。",
+        "speak": "看 emoji 🧥，選出正確的單字。",
+        "hint": "coat 有 oa",
+        "explanation": "coat 表示「外套」，oa 組合發長音。",
+        "answer": "coat",
+        "options": [
+          "coat",
+          "cot",
+          "cota"
+        ],
+        "optionEmojis": [
+          "🧥",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧥"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I walk on the ___.」空格要填哪個字？",
+        "speak": "「I walk on the ___.」空格要填哪個字呢？",
+        "hint": "road 有 oa",
+        "explanation": "road 表示「路」，oa 組合發長音。",
+        "answer": "road",
+        "options": [
+          "road",
+          "rod",
+          "roda"
+        ],
+        "optionEmojis": [
+          "🛣️",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🛣️"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "snow 的中文意思是什麼？",
+        "speak": "snow 的中文意思是什麼呢？",
+        "hint": "snow 有 ow",
+        "explanation": "snow 是「雪」，ow 組合發長音。",
+        "answer": "雪",
+        "options": [
+          "雪",
+          "雨",
+          "雲"
+        ],
+        "optionEmojis": [
+          "❄️",
+          "🌧️",
+          "☁️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "❄️"
+          ],
+          "text": "s n o w"
+        }
+      },
+      {
+        "prompt": "哪一個單字拼字完全正確？",
+        "speak": "哪一個單字拼字完全正確呢？",
+        "hint": "show 有 ow",
+        "explanation": "show 表示「展示」，ow 組合發長音。",
+        "answer": "show",
+        "options": [
+          "show",
+          "shoe",
+          "shwo"
+        ],
+        "optionEmojis": [
+          "👋",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👋"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "yellow 的中文意思是什麼？",
+        "speak": "yellow 的中文意思是什麼呢？",
+        "hint": "yellow 有 ow",
+        "explanation": "yellow 是「黃色」，ow 組合發長音。",
+        "answer": "黃色",
+        "options": [
+          "黃色",
+          "紅色",
+          "藍色"
+        ],
+        "optionEmojis": [
+          "🟡",
+          "🔴",
+          "🔵"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🟡"
+          ],
+          "text": "y e l l o w"
+        }
+      },
+      {
+        "prompt": "「The ___ is white.」空格要填哪個字？",
+        "speak": "「The ___ is white.」空格要填哪個字呢？",
+        "hint": "snow 有 ow",
+        "explanation": "snow 表示「雪」，ow 組合發長音。",
+        "answer": "snow",
+        "options": [
+          "snow",
+          "show",
+          "slow"
+        ],
+        "optionEmojis": [
+          "❄️",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "❄️"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "boat 的中文意思是什麼？",
+        "speak": "boat 的中文意思是什麼呢？",
+        "hint": "boat 在水上",
+        "explanation": "boat 是「船」，在水上跑。",
+        "answer": "船",
+        "options": [
+          "船",
+          "車",
+          "飛機"
+        ],
+        "optionEmojis": [
+          "🚤",
+          "🚗",
+          "✈️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚤"
+          ],
+          "text": "b o a t"
+        }
+      }
     ],
     "8": [
-      {"prompt": "選出拼字正確的那一個。", "speak": "I drive a car.", "hint": "car 有 ar", "explanation": "car 是 ar 組合，發長音 /ɑːr/。", "answer": "car", "options": ["car", "cor", "cer"], "optionEmojis": ["🚗", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚗"], "text": "c a r"}},
-      {"prompt": "看 emoji ⭐，選出正確的單字。", "speak": "I see a star.", "hint": "star 有 ar", "explanation": "star 表示「星星」，ar 組合發長音。", "answer": "star", "options": ["star", "stor", "ster"], "optionEmojis": ["⭐", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["⭐"], "text": "s t a r"}},
-      {"prompt": "「I play in the ___.」空格要填哪個字？", "speak": "I play in the park.", "hint": "park 有 ar", "explanation": "park 表示「公園」，ar 組合發長音。", "answer": "park", "options": ["park", "porc", "perc"], "optionEmojis": ["🌳", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🌳"], "text": "p a r k"}},
-      {"prompt": "her 的中文意思是什麼？", "speak": "I like her dress.", "hint": "her 有 er", "explanation": "her 是「她的」，er 組合發長音。", "answer": "她的", "options": ["她的", "他的", "你的"], "optionEmojis": ["👧", "👦", "🧒"], "visual": {"type": "scene", "emojis": ["👧"], "text": "h e r"}},
-      {"prompt": "哪一個單字的拼字寫對了？", "speak": "I see a bird.", "hint": "bird 有 ir", "explanation": "bird 表示「鳥」，ir 組合發長音。", "answer": "bird", "options": ["bird", "bord", "berd"], "optionEmojis": ["🐦", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐦"], "text": "b i r d"}},
-      {"prompt": "car 的中文意思是什麼？", "speak": "The car is red.", "hint": "car 在馬路上跑", "explanation": "car 是「車」，在馬路上跑。", "answer": "車", "options": ["車", "船", "火車"], "optionEmojis": ["🚗", "🚤", "🚂"], "visual": {"type": "scene", "emojis": ["🚗"], "text": "c a r"}},
-      {"prompt": "「I like ___ cat.」空格要填哪個字？", "speak": "I like her cat.", "hint": "her 有 er", "explanation": "her 表示「她的」，er 組合發長音。", "answer": "her", "options": ["her", "hir", "hor"], "optionEmojis": ["👧", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👧"], "text": "h e r"}},
-      {"prompt": "park 的中文意思是什麼？", "speak": "I run in the park.", "hint": "park 有樹有草", "explanation": "park 是「公園」，有樹有草可以玩。", "answer": "公園", "options": ["公園", "學校", "家"], "optionEmojis": ["🌳", "🏫", "🏠"], "visual": {"type": "scene", "emojis": ["🌳"], "text": "p a r k"}}
+      {
+        "prompt": "選出拼字正確的那一個。",
+        "speak": "選出拼字正確的那一個。",
+        "hint": "car 有 ar",
+        "explanation": "car 是 ar 組合，發長音 /ɑːr/。",
+        "answer": "car",
+        "options": [
+          "car",
+          "cor",
+          "cer"
+        ],
+        "optionEmojis": [
+          "🚗",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚗"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji ⭐，選出正確的單字。",
+        "speak": "看 emoji ⭐，選出正確的單字。",
+        "hint": "star 有 ar",
+        "explanation": "star 表示「星星」，ar 組合發長音。",
+        "answer": "star",
+        "options": [
+          "star",
+          "stor",
+          "ster"
+        ],
+        "optionEmojis": [
+          "⭐",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⭐"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I play in the ___.」空格要填哪個字？",
+        "speak": "「I play in the ___.」空格要填哪個字呢？",
+        "hint": "park 有 ar",
+        "explanation": "park 表示「公園」，ar 組合發長音。",
+        "answer": "park",
+        "options": [
+          "park",
+          "porc",
+          "perc"
+        ],
+        "optionEmojis": [
+          "🌳",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "her 的中文意思是什麼？",
+        "speak": "her 的中文意思是什麼呢？",
+        "hint": "her 有 er",
+        "explanation": "her 是「她的」，er 組合發長音。",
+        "answer": "她的",
+        "options": [
+          "她的",
+          "他的",
+          "你的"
+        ],
+        "optionEmojis": [
+          "👧",
+          "👦",
+          "🧒"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👧"
+          ],
+          "text": "h e r"
+        }
+      },
+      {
+        "prompt": "哪一個單字的拼字寫對了？",
+        "speak": "哪一個單字的拼字寫對了呢？",
+        "hint": "bird 有 ir",
+        "explanation": "bird 表示「鳥」，ir 組合發長音。",
+        "answer": "bird",
+        "options": [
+          "bird",
+          "bord",
+          "berd"
+        ],
+        "optionEmojis": [
+          "🐦",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐦"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "car 的中文意思是什麼？",
+        "speak": "car 的中文意思是什麼呢？",
+        "hint": "car 在馬路上跑",
+        "explanation": "car 是「車」，在馬路上跑。",
+        "answer": "車",
+        "options": [
+          "車",
+          "船",
+          "火車"
+        ],
+        "optionEmojis": [
+          "🚗",
+          "🚤",
+          "🚂"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚗"
+          ],
+          "text": "c a r"
+        }
+      },
+      {
+        "prompt": "「I like ___ cat.」空格要填哪個字？",
+        "speak": "「I like ___ cat.」空格要填哪個字呢？",
+        "hint": "her 有 er",
+        "explanation": "her 表示「她的」，er 組合發長音。",
+        "answer": "her",
+        "options": [
+          "her",
+          "hir",
+          "hor"
+        ],
+        "optionEmojis": [
+          "👧",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👧"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "park 的中文意思是什麼？",
+        "speak": "park 的中文意思是什麼呢？",
+        "hint": "park 有樹有草",
+        "explanation": "park 是「公園」，有樹有草可以玩。",
+        "answer": "公園",
+        "options": [
+          "公園",
+          "學校",
+          "家"
+        ],
+        "optionEmojis": [
+          "🌳",
+          "🏫",
+          "🏠"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳"
+          ],
+          "text": "p a r k"
+        }
+      }
     ],
     "9": [
-      {"prompt": "三個選項中，哪一個單字拼對了？", "speak": "I look for my cat.", "hint": "for 有 or", "explanation": "for 是 or 組合，發長音 /ɔːr/。", "answer": "for", "options": ["for", "far", "fur"], "optionEmojis": ["🔍", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🔍"], "text": "f o r"}},
-      {"prompt": "看 emoji 🌽，選出正確的單字。", "speak": "I eat corn.", "hint": "corn 有 or", "explanation": "corn 表示「玉米」，or 組合發長音。", "answer": "corn", "options": ["corn", "carn", "cern"], "optionEmojis": ["🌽", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🌽"], "text": "c o r n"}},
-      {"prompt": "「I eat with a ___.」空格要填哪個字？", "speak": "I eat with a fork.", "hint": "fork 有 or", "explanation": "fork 表示「叉子」，or 組合發長音。", "answer": "fork", "options": ["fork", "fark", "furk"], "optionEmojis": ["🍴", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🍴"], "text": "f o r k"}},
-      {"prompt": "more 的中文意思是什麼？", "speak": "I want more cookies.", "hint": "more 有 ore", "explanation": "more 是「更多」，ore 組合發長音。", "answer": "更多", "options": ["更多", "更少", "一樣多"], "optionEmojis": ["➕", "➖", "🟰"], "visual": {"type": "scene", "emojis": ["➕"], "text": "m o r e"}},
-      {"prompt": "三個選項中，哪一個拼字是對的？", "speak": "I go to the store.", "hint": "store 有 ore", "explanation": "store 表示「商店」，ore 組合發長音。", "answer": "store", "options": ["store", "stare", "sture"], "optionEmojis": ["🏪", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🏪"], "text": "s t o r e"}},
-      {"prompt": "door 的中文意思是什麼？", "speak": "Open the door.", "hint": "door 有 oor", "explanation": "door 是「門」，oor 組合發長音。", "answer": "門", "options": ["門", "窗", "牆"], "optionEmojis": ["🚪", "🪟", "🧱"], "visual": {"type": "scene", "emojis": ["🚪"], "text": "d o o r"}},
-      {"prompt": "「I want ___ cookies.」空格要填哪個字？", "speak": "I want more cookies.", "hint": "more 有 ore", "explanation": "more 表示「更多」，ore 組合發長音。", "answer": "more", "options": ["more", "mare", "mure"], "optionEmojis": ["🍪", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🍪"], "text": "m o r e"}},
-      {"prompt": "corn 的中文意思是什麼？", "speak": "I like corn.", "hint": "corn 黃黃的、一粒一粒", "explanation": "corn 是「玉米」，黃黃的、一粒一粒。", "answer": "玉米", "options": ["玉米", "蘋果", "香蕉"], "optionEmojis": ["🌽", "🍎", "🍌"], "visual": {"type": "scene", "emojis": ["🌽"], "text": "c o r n"}}
+      {
+        "prompt": "三個選項中，哪一個單字拼對了？",
+        "speak": "三個選項中，哪一個單字拼對了呢？",
+        "hint": "for 有 or",
+        "explanation": "for 是 or 組合，發長音 /ɔːr/。",
+        "answer": "for",
+        "options": [
+          "for",
+          "far",
+          "fur"
+        ],
+        "optionEmojis": [
+          "🔍",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔍"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🌽，選出正確的單字。",
+        "speak": "看 emoji 🌽，選出正確的單字。",
+        "hint": "corn 有 or",
+        "explanation": "corn 表示「玉米」，or 組合發長音。",
+        "answer": "corn",
+        "options": [
+          "corn",
+          "carn",
+          "cern"
+        ],
+        "optionEmojis": [
+          "🌽",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌽"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I eat with a ___.」空格要填哪個字？",
+        "speak": "「I eat with a ___.」空格要填哪個字呢？",
+        "hint": "fork 有 or",
+        "explanation": "fork 表示「叉子」，or 組合發長音。",
+        "answer": "fork",
+        "options": [
+          "fork",
+          "fark",
+          "furk"
+        ],
+        "optionEmojis": [
+          "🍴",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍴"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "more 的中文意思是什麼？",
+        "speak": "more 的中文意思是什麼呢？",
+        "hint": "more 有 ore",
+        "explanation": "more 是「更多」，ore 組合發長音。",
+        "answer": "更多",
+        "options": [
+          "更多",
+          "更少",
+          "一樣多"
+        ],
+        "optionEmojis": [
+          "➕",
+          "➖",
+          "🟰"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "➕"
+          ],
+          "text": "m o r e"
+        }
+      },
+      {
+        "prompt": "三個選項中，哪一個拼字是對的？",
+        "speak": "三個選項中，哪一個拼字是對的呢？",
+        "hint": "store 有 ore",
+        "explanation": "store 表示「商店」，ore 組合發長音。",
+        "answer": "store",
+        "options": [
+          "store",
+          "stare",
+          "sture"
+        ],
+        "optionEmojis": [
+          "🏪",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏪"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "door 的中文意思是什麼？",
+        "speak": "door 的中文意思是什麼呢？",
+        "hint": "door 有 oor",
+        "explanation": "door 是「門」，oor 組合發長音。",
+        "answer": "門",
+        "options": [
+          "門",
+          "窗",
+          "牆"
+        ],
+        "optionEmojis": [
+          "🚪",
+          "🪟",
+          "🧱"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚪"
+          ],
+          "text": "d o o r"
+        }
+      },
+      {
+        "prompt": "「I want ___ cookies.」空格要填哪個字？",
+        "speak": "「I want ___ cookies.」空格要填哪個字呢？",
+        "hint": "more 有 ore",
+        "explanation": "more 表示「更多」，ore 組合發長音。",
+        "answer": "more",
+        "options": [
+          "more",
+          "mare",
+          "mure"
+        ],
+        "optionEmojis": [
+          "🍪",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍪"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "corn 的中文意思是什麼？",
+        "speak": "corn 的中文意思是什麼呢？",
+        "hint": "corn 黃黃的、一粒一粒",
+        "explanation": "corn 是「玉米」，黃黃的、一粒一粒。",
+        "answer": "玉米",
+        "options": [
+          "玉米",
+          "蘋果",
+          "香蕉"
+        ],
+        "optionEmojis": [
+          "🌽",
+          "🍎",
+          "🍌"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌽"
+          ],
+          "text": "c o r n"
+        }
+      }
     ],
     "10": [
-      {"prompt": "哪一個拼字沒有多餘或漏掉的字母？", "speak": "I watch TV.", "hint": "watch 有 tch", "explanation": "watch 是 tch 組合，發 /tʃ/ 音。", "answer": "watch", "options": ["watch", "wacth", "watc"], "optionEmojis": ["📺", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📺"], "text": "w a t c h"}},
-      {"prompt": "看 emoji 🍳🏠，選出正確的單字。", "speak": "I cook in the kitchen.", "hint": "kitchen 有 tch", "explanation": "kitchen 表示「廚房」，tch 組合發 /tʃ/ 音。", "answer": "kitchen", "options": ["kitchen", "kicthen", "kitcen"], "optionEmojis": ["🍳", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🍳", "🏠"], "text": "k i t c h e n"}},
-      {"prompt": "「I cross the ___.」空格要填哪個字？", "speak": "I cross the bridge.", "hint": "bridge 有 dge", "explanation": "bridge 表示「橋」，dge 組合發 /dʒ/ 音。", "answer": "bridge", "options": ["bridge", "brigde", "brige"], "optionEmojis": ["🌉", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🌉"], "text": "b r i d g e"}},
-      {"prompt": "night 的中文意思是什麼？", "speak": "I sleep at night.", "hint": "night 有 igh", "explanation": "night 是「夜晚」，igh 組合發長音 /aɪ/。", "answer": "夜晚", "options": ["夜晚", "白天", "早上"], "optionEmojis": ["🌙", "☀️", "🌅"], "visual": {"type": "scene", "emojis": ["🌙"], "text": "n i g h t"}},
-      {"prompt": "選出拼字沒有錯誤的那一個。", "speak": "I turn on the light.", "hint": "light 有 igh", "explanation": "light 表示「光、燈」，igh 組合發長音。", "answer": "light", "options": ["light", "ligth", "lght"], "optionEmojis": ["💡", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["💡"], "text": "l i g h t"}},
-      {"prompt": "high 的中文意思是什麼？", "speak": "The bird flies high.", "hint": "high 有 igh", "explanation": "high 是「高的」，igh 組合發長音。", "answer": "高的", "options": ["高的", "低的", "短的"], "optionEmojis": ["🦒", "🐜", "📏"], "visual": {"type": "scene", "emojis": ["🦒"], "text": "h i g h"}},
-      {"prompt": "「I ___ TV every day.」空格要填哪個字？", "speak": "I watch TV every day.", "hint": "watch 有 tch", "explanation": "watch 表示「看」，tch 組合發 /tʃ/ 音。", "answer": "watch", "options": ["watch", "wacth", "watc"], "optionEmojis": ["📺", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📺"], "text": "w a t c h"}},
-      {"prompt": "bridge 的中文意思是什麼？", "speak": "I walk on the bridge.", "hint": "bridge 跨過河", "explanation": "bridge 是「橋」，跨過河或水。", "answer": "橋", "options": ["橋", "路", "門"], "optionEmojis": ["🌉", "🛣️", "🚪"], "visual": {"type": "scene", "emojis": ["🌉"], "text": "b r i d g e"}}
+      {
+        "prompt": "哪一個拼字沒有多餘或漏掉的字母？",
+        "speak": "哪一個拼字沒有多餘或漏掉的字母呢？",
+        "hint": "watch 有 tch",
+        "explanation": "watch 是 tch 組合，發 /tʃ/ 音。",
+        "answer": "watch",
+        "options": [
+          "watch",
+          "wacth",
+          "watc"
+        ],
+        "optionEmojis": [
+          "📺",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📺"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "看 emoji 🍳🏠，選出正確的單字。",
+        "speak": "看 emoji 🍳🏠，選出正確的單字。",
+        "hint": "kitchen 有 tch",
+        "explanation": "kitchen 表示「廚房」，tch 組合發 /tʃ/ 音。",
+        "answer": "kitchen",
+        "options": [
+          "kitchen",
+          "kicthen",
+          "kitcen"
+        ],
+        "optionEmojis": [
+          "🍳",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍳",
+            "🏠"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I cross the ___.」空格要填哪個字？",
+        "speak": "「I cross the ___.」空格要填哪個字呢？",
+        "hint": "bridge 有 dge",
+        "explanation": "bridge 表示「橋」，dge 組合發 /dʒ/ 音。",
+        "answer": "bridge",
+        "options": [
+          "bridge",
+          "brigde",
+          "brige"
+        ],
+        "optionEmojis": [
+          "🌉",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌉"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "night 的中文意思是什麼？",
+        "speak": "night 的中文意思是什麼呢？",
+        "hint": "night 有 igh",
+        "explanation": "night 是「夜晚」，igh 組合發長音 /aɪ/。",
+        "answer": "夜晚",
+        "options": [
+          "夜晚",
+          "白天",
+          "早上"
+        ],
+        "optionEmojis": [
+          "🌙",
+          "☀️",
+          "🌅"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌙"
+          ],
+          "text": "n i g h t"
+        }
+      },
+      {
+        "prompt": "選出拼字沒有錯誤的那一個。",
+        "speak": "選出拼字沒有錯誤的那一個。",
+        "hint": "light 有 igh",
+        "explanation": "light 表示「光、燈」，igh 組合發長音。",
+        "answer": "light",
+        "options": [
+          "light",
+          "ligth",
+          "lght"
+        ],
+        "optionEmojis": [
+          "💡",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "💡"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "high 的中文意思是什麼？",
+        "speak": "high 的中文意思是什麼呢？",
+        "hint": "high 有 igh",
+        "explanation": "high 是「高的」，igh 組合發長音。",
+        "answer": "高的",
+        "options": [
+          "高的",
+          "低的",
+          "短的"
+        ],
+        "optionEmojis": [
+          "🦒",
+          "🐜",
+          "📏"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🦒"
+          ],
+          "text": "h i g h"
+        }
+      },
+      {
+        "prompt": "「I ___ TV every day.」空格要填哪個字？",
+        "speak": "「I ___ TV every day.」空格要填哪個字呢？",
+        "hint": "watch 有 tch",
+        "explanation": "watch 表示「看」，tch 組合發 /tʃ/ 音。",
+        "answer": "watch",
+        "options": [
+          "watch",
+          "wacth",
+          "watc"
+        ],
+        "optionEmojis": [
+          "📺",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📺"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "bridge 的中文意思是什麼？",
+        "speak": "bridge 的中文意思是什麼呢？",
+        "hint": "bridge 跨過河",
+        "explanation": "bridge 是「橋」，跨過河或水。",
+        "answer": "橋",
+        "options": [
+          "橋",
+          "路",
+          "門"
+        ],
+        "optionEmojis": [
+          "🌉",
+          "🛣️",
+          "🚪"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌉"
+          ],
+          "text": "b r i d g e"
+        }
+      }
     ],
     "11": [
-      {"prompt": "「I ___ hello.」空格要填哪個字？", "speak": "I said hello.", "hint": "said 是常見視覺字詞", "explanation": "said 是「說了」，拼字和發音不完全一致，要記住。", "answer": "said", "options": ["said", "sed", "seid"], "optionEmojis": ["💬", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["💬"], "text": "s a i d"}},
-      {"prompt": "「___ happy.」空格要填哪個字？", "speak": "They are happy.", "hint": "they 是常見視覺字詞", "explanation": "they 是「他們」，拼字要記住。", "answer": "They", "options": ["They", "Thay", "Thye"], "optionEmojis": ["👨‍👩‍👧", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👨‍👩‍👧"], "text": "t h e y"}},
-      {"prompt": "「I ___ late for school.」空格要填哪個字？", "speak": "I was late for school.", "hint": "was 是常見視覺字詞", "explanation": "was 表示「（之前）是」，是常見視覺字詞，拼字要記住。", "answer": "was", "options": ["was", "wos", "wus"], "optionEmojis": ["🐱", "🐜", "🐦"], "visual": {"type": "scene", "emojis": ["🐱"], "text": "w a s"}},
-      {"prompt": "「___ upon a time.」空格要填哪個字？", "speak": "Once upon a time.", "hint": "once 是常見視覺字詞", "explanation": "once 是「從前」，拼字要記住。", "answer": "Once", "options": ["Once", "Onse", "Ounce"], "optionEmojis": ["📖", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📖"], "text": "o n c e"}},
-      {"prompt": "「I ___ swim.」空格要填哪個字？", "speak": "I could swim.", "hint": "could 是常見視覺字詞", "explanation": "could 是「可以（過去）」，拼字要記住。", "answer": "could", "options": ["could", "coud", "coul"], "optionEmojis": ["🏊", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🏊"], "text": "c o u l d"}},
-      {"prompt": "「You ___ do homework.」空格要填哪個字？", "speak": "You should do homework.", "hint": "should 是常見視覺字詞", "explanation": "should 是「應該」，拼字要記住。", "answer": "should", "options": ["should", "shoud", "shol"], "optionEmojis": ["📚", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📚"], "text": "s h o u l d"}},
-      {"prompt": "they 的中文意思是什麼？", "speak": "They are my friends.", "hint": "they 指很多人", "explanation": "they 是「他們」，指很多人。", "answer": "他們", "options": ["他們", "他", "她"], "optionEmojis": ["👨‍👩‍👧", "👦", "👧"], "visual": {"type": "scene", "emojis": ["👨‍👩‍👧"], "text": "t h e y"}},
-      {"prompt": "「I ___ help you.」空格要填哪個字？", "speak": "I could help you.", "hint": "could 是常見視覺字詞", "explanation": "could 是「可以」，拼字要記住。", "answer": "could", "options": ["could", "coud", "coul"], "optionEmojis": ["🤝", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🤝"], "text": "c o u l d"}}
+      {
+        "prompt": "「I ___ hello.」空格要填哪個字？",
+        "speak": "「I ___ hello.」空格要填哪個字呢？",
+        "hint": "said 是常見視覺字詞",
+        "explanation": "said 是「說了」，拼字和發音不完全一致，要記住。",
+        "answer": "said",
+        "options": [
+          "said",
+          "sed",
+          "seid"
+        ],
+        "optionEmojis": [
+          "💬",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "💬"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「___ happy.」空格要填哪個字？",
+        "speak": "「___ happy.」空格要填哪個字呢？",
+        "hint": "they 是常見視覺字詞",
+        "explanation": "they 是「他們」，拼字要記住。",
+        "answer": "They",
+        "options": [
+          "They",
+          "Thay",
+          "Thye"
+        ],
+        "optionEmojis": [
+          "👨‍👩‍👧",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👨‍👩‍👧"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I ___ late for school.」空格要填哪個字？",
+        "speak": "「I ___ late for school.」空格要填哪個字呢？",
+        "hint": "was 是常見視覺字詞",
+        "explanation": "was 表示「（之前）是」，是常見視覺字詞，拼字要記住。",
+        "answer": "was",
+        "options": [
+          "was",
+          "wos",
+          "wus"
+        ],
+        "optionEmojis": [
+          "🐱",
+          "🐜",
+          "🐦"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「___ upon a time.」空格要填哪個字？",
+        "speak": "「___ upon a time.」空格要填哪個字呢？",
+        "hint": "once 是常見視覺字詞",
+        "explanation": "once 是「從前」，拼字要記住。",
+        "answer": "Once",
+        "options": [
+          "Once",
+          "Onse",
+          "Ounce"
+        ],
+        "optionEmojis": [
+          "📖",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I ___ swim.」空格要填哪個字？",
+        "speak": "「I ___ swim.」空格要填哪個字呢？",
+        "hint": "could 是常見視覺字詞",
+        "explanation": "could 是「可以（過去）」，拼字要記住。",
+        "answer": "could",
+        "options": [
+          "could",
+          "coud",
+          "coul"
+        ],
+        "optionEmojis": [
+          "🏊",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏊"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「You ___ do homework.」空格要填哪個字？",
+        "speak": "「You ___ do homework.」空格要填哪個字呢？",
+        "hint": "should 是常見視覺字詞",
+        "explanation": "should 是「應該」，拼字要記住。",
+        "answer": "should",
+        "options": [
+          "should",
+          "shoud",
+          "shol"
+        ],
+        "optionEmojis": [
+          "📚",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📚"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "they 的中文意思是什麼？",
+        "speak": "they 的中文意思是什麼呢？",
+        "hint": "they 指很多人",
+        "explanation": "they 是「他們」，指很多人。",
+        "answer": "他們",
+        "options": [
+          "他們",
+          "他",
+          "她"
+        ],
+        "optionEmojis": [
+          "👨‍👩‍👧",
+          "👦",
+          "👧"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👨‍👩‍👧"
+          ],
+          "text": "t h e y"
+        }
+      },
+      {
+        "prompt": "「I ___ help you.」空格要填哪個字？",
+        "speak": "「I ___ help you.」空格要填哪個字呢？",
+        "hint": "could 是常見視覺字詞",
+        "explanation": "could 是「可以」，拼字要記住。",
+        "answer": "could",
+        "options": [
+          "could",
+          "coud",
+          "coul"
+        ],
+        "optionEmojis": [
+          "🤝",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🤝"
+          ],
+          "text": ""
+        }
+      }
     ],
     "12": [
-      {"prompt": "「I have ___ apple.」空格要填哪個字？", "speak": "I have an apple.", "hint": "apple 開頭是母音", "explanation": "apple 開頭是母音 a，所以用 an。", "answer": "an", "options": ["an", "a", "the"], "optionEmojis": ["🍎", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🍎"], "text": "a n a p p l e"}},
-      {"prompt": "「The cats ___ cute.」空格要填哪個字？", "speak": "The cats are cute.", "hint": "cats 是複數", "explanation": "cats 是複數（很多隻），所以用 are。", "answer": "are", "options": ["are", "is", "am"], "optionEmojis": ["🐱", "🐜", "🐦"], "visual": {"type": "scene", "emojis": ["🐱"], "text": "c a t s a r e"}},
-      {"prompt": "「She ___ a dog.」空格要填哪個字？", "speak": "She has a dog.", "hint": "she 是第三人稱", "explanation": "she 是第三人稱單數，所以用 has。", "answer": "has", "options": ["has", "have", "had"], "optionEmojis": ["🐶", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐶"], "text": "s h e h a s"}},
-      {"prompt": "「I have ___ book.」空格要填哪個字？", "speak": "I have a book.", "hint": "book 開頭是子音", "explanation": "book 開頭是子音 b，所以用 a。", "answer": "a", "options": ["a", "an", "the"], "optionEmojis": ["📖", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📖"], "text": "a b o o k"}},
-      {"prompt": "「The dog ___ big.」空格要填哪個字？", "speak": "The dog is big.", "hint": "dog 是單數", "explanation": "dog 是單數（一隻），所以用 is。", "answer": "is", "options": ["is", "are", "am"], "optionEmojis": ["🐶", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐶"], "text": "d o g i s"}},
-      {"prompt": "「We ___ friends.」空格要填哪個字？", "speak": "We have friends.", "hint": "we 是複數", "explanation": "we 是複數（我們），所以用 have。", "answer": "have", "options": ["have", "has", "had"], "optionEmojis": ["👫", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["👫"], "text": "w e h a v e"}},
-      {"prompt": "「I see ___ elephant.」空格要填哪個字？", "speak": "I see an elephant.", "hint": "elephant 開頭是母音", "explanation": "elephant 開頭是母音 e，所以用 an。", "answer": "an", "options": ["an", "a", "the"], "optionEmojis": ["🐘", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐘"], "text": "a n e l e p h a n t"}},
-      {"prompt": "「The birds ___ small.」空格要填哪個字？", "speak": "The birds are small.", "hint": "birds 是複數", "explanation": "birds 是複數（很多隻），所以用 are。", "answer": "are", "options": ["are", "is", "am"], "optionEmojis": ["🐦", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐦"], "text": "b i r d s a r e"}}
+      {
+        "prompt": "「I have ___ apple.」空格要填哪個字？",
+        "speak": "「I have ___ apple.」空格要填哪個字呢？",
+        "hint": "apple 開頭是母音",
+        "explanation": "apple 開頭是母音 a，所以用 an。",
+        "answer": "an",
+        "options": [
+          "an",
+          "a",
+          "the"
+        ],
+        "optionEmojis": [
+          "🍎",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「The cats ___ cute.」空格要填哪個字？",
+        "speak": "「The cats ___ cute.」空格要填哪個字呢？",
+        "hint": "cats 是複數",
+        "explanation": "cats 是複數（很多隻），所以用 are。",
+        "answer": "are",
+        "options": [
+          "are",
+          "is",
+          "am"
+        ],
+        "optionEmojis": [
+          "🐱",
+          "🐜",
+          "🐦"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「She ___ a dog.」空格要填哪個字？",
+        "speak": "「She ___ a dog.」空格要填哪個字呢？",
+        "hint": "she 是第三人稱",
+        "explanation": "she 是第三人稱單數，所以用 has。",
+        "answer": "has",
+        "options": [
+          "has",
+          "have",
+          "had"
+        ],
+        "optionEmojis": [
+          "🐶",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I have ___ book.」空格要填哪個字？",
+        "speak": "「I have ___ book.」空格要填哪個字呢？",
+        "hint": "book 開頭是子音",
+        "explanation": "book 開頭是子音 b，所以用 a。",
+        "answer": "a",
+        "options": [
+          "a",
+          "an",
+          "the"
+        ],
+        "optionEmojis": [
+          "📖",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「The dog ___ big.」空格要填哪個字？",
+        "speak": "「The dog ___ big.」空格要填哪個字呢？",
+        "hint": "dog 是單數",
+        "explanation": "dog 是單數（一隻），所以用 is。",
+        "answer": "is",
+        "options": [
+          "is",
+          "are",
+          "am"
+        ],
+        "optionEmojis": [
+          "🐶",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「We ___ friends.」空格要填哪個字？",
+        "speak": "「We ___ friends.」空格要填哪個字呢？",
+        "hint": "we 是複數",
+        "explanation": "we 是複數（我們），所以用 have。",
+        "answer": "have",
+        "options": [
+          "have",
+          "has",
+          "had"
+        ],
+        "optionEmojis": [
+          "👫",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👫"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I see ___ elephant.」空格要填哪個字？",
+        "speak": "「I see ___ elephant.」空格要填哪個字呢？",
+        "hint": "elephant 開頭是母音",
+        "explanation": "elephant 開頭是母音 e，所以用 an。",
+        "answer": "an",
+        "options": [
+          "an",
+          "a",
+          "the"
+        ],
+        "optionEmojis": [
+          "🐘",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐘"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「The birds ___ small.」空格要填哪個字？",
+        "speak": "「The birds ___ small.」空格要填哪個字呢？",
+        "hint": "birds 是複數",
+        "explanation": "birds 是複數（很多隻），所以用 are。",
+        "answer": "are",
+        "options": [
+          "are",
+          "is",
+          "am"
+        ],
+        "optionEmojis": [
+          "🐦",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐦"
+          ],
+          "text": ""
+        }
+      }
     ],
     "13": [
-      {"prompt": "「___ is my brother.」空格要填哪個字？", "speak": "He is my brother.", "hint": "brother 是男生", "explanation": "brother 是男生，所以用 He。", "answer": "He", "options": ["He", "She", "It"], "optionEmojis": ["👦", "👧", "🐱"], "visual": {"type": "scene", "emojis": ["👦"], "text": "h e i s m y b r o t h e r"}},
-      {"prompt": "「___ is my cat.」空格要填哪個字？", "speak": "It is my cat.", "hint": "cat 是動物", "explanation": "cat 是動物，所以用 It。", "answer": "It", "options": ["It", "He", "She"], "optionEmojis": ["🐱", "👦", "👧"], "visual": {"type": "scene", "emojis": ["🐱"], "text": "i t i s m y c a t"}},
-      {"prompt": "「___ are my friends.」空格要填哪個字？", "speak": "They are my friends.", "hint": "friends 是很多人", "explanation": "friends 是很多人，所以用 They。", "answer": "They", "options": ["They", "He", "She"], "optionEmojis": ["👫", "👦", "👧"], "visual": {"type": "scene", "emojis": ["👫"], "text": "t h e y a r e m y f r i e n d s"}},
-      {"prompt": "「This is ___ book.」空格要填哪個字？", "speak": "This is my book.", "hint": "my 表示「我的」", "explanation": "my 是「我的」，表示東西是你的。", "answer": "my", "options": ["my", "me", "ma"], "optionEmojis": ["📖", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📖"], "text": "m y b o o k"}},
-      {"prompt": "「___ is my sister.」空格要填哪個字？", "speak": "She is my sister.", "hint": "sister 是女生", "explanation": "sister 是女生，所以用 She。", "answer": "She", "options": ["She", "He", "It"], "optionEmojis": ["👧", "👦", "🐱"], "visual": {"type": "scene", "emojis": ["👧"], "text": "s h e i s m y s i s t e r"}},
-      {"prompt": "「This is ___ cat.」空格要填哪個字？", "speak": "This is her cat.", "hint": "her 表示「她的」", "explanation": "her 是「她的」，表示東西是她的。", "answer": "her", "options": ["her", "his", "my"], "optionEmojis": ["🐱", "🐜", "🐦"], "visual": {"type": "scene", "emojis": ["🐱"], "text": "h e r c a t"}},
-      {"prompt": "「___ is my dog.」空格要填哪個字？", "speak": "It is my dog.", "hint": "dog 是動物", "explanation": "dog 是動物，所以用 It。", "answer": "It", "options": ["It", "He", "She"], "optionEmojis": ["🐶", "👦", "👧"], "visual": {"type": "scene", "emojis": ["🐶"], "text": "i t i s m y d o g"}},
-      {"prompt": "「This is ___ ball.」空格要填哪個字？", "speak": "This is your ball.", "hint": "your 表示「你的」", "explanation": "your 是「你的」，表示東西是你的。", "answer": "your", "options": ["your", "you", "yours"], "optionEmojis": ["⚽", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["⚽"], "text": "y o u r b a l l"}}
+      {
+        "prompt": "「___ is my brother.」空格要填哪個字？",
+        "speak": "「___ is my brother.」空格要填哪個字呢？",
+        "hint": "brother 是男生",
+        "explanation": "brother 是男生，所以用 He。",
+        "answer": "He",
+        "options": [
+          "He",
+          "She",
+          "It"
+        ],
+        "optionEmojis": [
+          "👦",
+          "👧",
+          "🐱"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👦"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「___ is my cat.」空格要填哪個字？",
+        "speak": "「___ is my cat.」空格要填哪個字呢？",
+        "hint": "cat 是動物",
+        "explanation": "cat 是動物，所以用 It。",
+        "answer": "It",
+        "options": [
+          "It",
+          "He",
+          "She"
+        ],
+        "optionEmojis": [
+          "🐱",
+          "👦",
+          "👧"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「___ are my friends.」空格要填哪個字？",
+        "speak": "「___ are my friends.」空格要填哪個字呢？",
+        "hint": "friends 是很多人",
+        "explanation": "friends 是很多人，所以用 They。",
+        "answer": "They",
+        "options": [
+          "They",
+          "He",
+          "She"
+        ],
+        "optionEmojis": [
+          "👫",
+          "👦",
+          "👧"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👫"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「This is ___ book.」空格要填哪個字？",
+        "speak": "「This is ___ book.」空格要填哪個字呢？",
+        "hint": "my 表示「我的」",
+        "explanation": "my 是「我的」，表示東西是你的。",
+        "answer": "my",
+        "options": [
+          "my",
+          "me",
+          "ma"
+        ],
+        "optionEmojis": [
+          "📖",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「___ is my sister.」空格要填哪個字？",
+        "speak": "「___ is my sister.」空格要填哪個字呢？",
+        "hint": "sister 是女生",
+        "explanation": "sister 是女生，所以用 She。",
+        "answer": "She",
+        "options": [
+          "She",
+          "He",
+          "It"
+        ],
+        "optionEmojis": [
+          "👧",
+          "👦",
+          "🐱"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👧"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「This is ___ cat.」空格要填哪個字？",
+        "speak": "「This is ___ cat.」空格要填哪個字呢？",
+        "hint": "her 表示「她的」",
+        "explanation": "her 是「她的」，表示東西是她的。",
+        "answer": "her",
+        "options": [
+          "her",
+          "his",
+          "my"
+        ],
+        "optionEmojis": [
+          "🐱",
+          "🐜",
+          "🐦"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「___ is my dog.」空格要填哪個字？",
+        "speak": "「___ is my dog.」空格要填哪個字呢？",
+        "hint": "dog 是動物",
+        "explanation": "dog 是動物，所以用 It。",
+        "answer": "It",
+        "options": [
+          "It",
+          "He",
+          "She"
+        ],
+        "optionEmojis": [
+          "🐶",
+          "👦",
+          "👧"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「This is ___ ball.」空格要填哪個字？",
+        "speak": "「This is ___ ball.」空格要填哪個字呢？",
+        "hint": "your 表示「你的」",
+        "explanation": "your 是「你的」，表示東西是你的。",
+        "answer": "your",
+        "options": [
+          "your",
+          "you",
+          "yours"
+        ],
+        "optionEmojis": [
+          "⚽",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⚽"
+          ],
+          "text": ""
+        }
+      }
     ],
     "14": [
-      {"prompt": "「He ___ apples.」空格要填哪個字？", "speak": "He likes apples.", "hint": "he 是第三人稱，動詞要加 s", "explanation": "he 是第三人稱單數，like 要加 s 變成 likes。", "answer": "likes", "options": ["likes", "like", "liking"], "optionEmojis": ["🍎", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🍎"], "text": "h e l i k e s"}},
-      {"prompt": "「She ___ every morning.」空格要填哪個字？", "speak": "She runs every morning.", "hint": "she 是第三人稱，動詞要加 s", "explanation": "she 是第三人稱單數，run 要加 s 變成 runs。", "answer": "runs", "options": ["runs", "run", "running"], "optionEmojis": ["🏃", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🏃"], "text": "s h e r u n s"}},
-      {"prompt": "「I ___ play with my cat.」空格要填哪個字？", "speak": "I always play with my cat.", "hint": "always 表示「總是」", "explanation": "always 是「總是」，表示常常做。", "answer": "always", "options": ["always", "never", "sometimes"], "optionEmojis": ["🐱", "🐜", "🐦"], "visual": {"type": "scene", "emojis": ["🐱"], "text": "i a l w a y s p l a y"}},
-      {"prompt": "「He ___ to school.」空格要填哪個字？", "speak": "He walks to school.", "hint": "he 是第三人稱，動詞要加 s", "explanation": "he 是第三人稱單數，walk 要加 s 變成 walks。", "answer": "walks", "options": ["walks", "walk", "walking"], "optionEmojis": ["🚶", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🚶"], "text": "h e w a l k s"}},
-      {"prompt": "「She ___ books every day.」空格要填哪個字？", "speak": "She reads books every day.", "hint": "she 是第三人稱，動詞要加 s", "explanation": "she 是第三人稱單數，read 要加 s 變成 reads。", "answer": "reads", "options": ["reads", "read", "reading"], "optionEmojis": ["📖", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📖"], "text": "s h e r e a d s"}},
-      {"prompt": "「I ___ eat candy.」空格要填哪個字？", "speak": "I sometimes eat candy.", "hint": "sometimes 表示「有時候」", "explanation": "sometimes 是「有時候」，表示不是每次都做。", "answer": "sometimes", "options": ["sometimes", "always", "never"], "optionEmojis": ["🍬", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🍬"], "text": "i s o m e t i m e s"}},
-      {"prompt": "「He ___ his dog.」空格要填哪個字？", "speak": "He loves his dog.", "hint": "he 是第三人稱，動詞要加 s", "explanation": "he 是第三人稱單數，love 要加 s 變成 loves。", "answer": "loves", "options": ["loves", "love", "loving"], "optionEmojis": ["🐶", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["🐶"], "text": "h e l o v e s"}},
-      {"prompt": "「She ___ TV at night.」空格要填哪個字？", "speak": "She watches TV at night.", "hint": "she 是第三人稱，動詞要加 s", "explanation": "she 是第三人稱單數，watch 要加 es 變成 watches。", "answer": "watches", "options": ["watches", "watch", "watching"], "optionEmojis": ["📺", "🐱", "🐜"], "visual": {"type": "scene", "emojis": ["📺"], "text": "s h e w a t c h e s"}}
+      {
+        "prompt": "「He ___ apples.」空格要填哪個字？",
+        "speak": "「He ___ apples.」空格要填哪個字呢？",
+        "hint": "he 是第三人稱，動詞要加 s",
+        "explanation": "he 是第三人稱單數，like 要加 s 變成 likes。",
+        "answer": "likes",
+        "options": [
+          "likes",
+          "like",
+          "liking"
+        ],
+        "optionEmojis": [
+          "🍎",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「She ___ every morning.」空格要填哪個字？",
+        "speak": "「She ___ every morning.」空格要填哪個字呢？",
+        "hint": "she 是第三人稱，動詞要加 s",
+        "explanation": "she 是第三人稱單數，run 要加 s 變成 runs。",
+        "answer": "runs",
+        "options": [
+          "runs",
+          "run",
+          "running"
+        ],
+        "optionEmojis": [
+          "🏃",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏃"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I ___ play with my cat.」空格要填哪個字？",
+        "speak": "「I ___ play with my cat.」空格要填哪個字呢？",
+        "hint": "always 表示「總是」",
+        "explanation": "always 是「總是」，表示常常做。",
+        "answer": "always",
+        "options": [
+          "always",
+          "never",
+          "sometimes"
+        ],
+        "optionEmojis": [
+          "🐱",
+          "🐜",
+          "🐦"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「He ___ to school.」空格要填哪個字？",
+        "speak": "「He ___ to school.」空格要填哪個字呢？",
+        "hint": "he 是第三人稱，動詞要加 s",
+        "explanation": "he 是第三人稱單數，walk 要加 s 變成 walks。",
+        "answer": "walks",
+        "options": [
+          "walks",
+          "walk",
+          "walking"
+        ],
+        "optionEmojis": [
+          "🚶",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚶"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「She ___ books every day.」空格要填哪個字？",
+        "speak": "「She ___ books every day.」空格要填哪個字呢？",
+        "hint": "she 是第三人稱，動詞要加 s",
+        "explanation": "she 是第三人稱單數，read 要加 s 變成 reads。",
+        "answer": "reads",
+        "options": [
+          "reads",
+          "read",
+          "reading"
+        ],
+        "optionEmojis": [
+          "📖",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I ___ eat candy.」空格要填哪個字？",
+        "speak": "「I ___ eat candy.」空格要填哪個字呢？",
+        "hint": "sometimes 表示「有時候」",
+        "explanation": "sometimes 是「有時候」，表示不是每次都做。",
+        "answer": "sometimes",
+        "options": [
+          "sometimes",
+          "always",
+          "never"
+        ],
+        "optionEmojis": [
+          "🍬",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍬"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「He ___ his dog.」空格要填哪個字？",
+        "speak": "「He ___ his dog.」空格要填哪個字呢？",
+        "hint": "he 是第三人稱，動詞要加 s",
+        "explanation": "he 是第三人稱單數，love 要加 s 變成 loves。",
+        "answer": "loves",
+        "options": [
+          "loves",
+          "love",
+          "loving"
+        ],
+        "optionEmojis": [
+          "🐶",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「She ___ TV at night.」空格要填哪個字？",
+        "speak": "「She ___ TV at night.」空格要填哪個字呢？",
+        "hint": "she 是第三人稱，動詞要加 s",
+        "explanation": "she 是第三人稱單數，watch 要加 es 變成 watches。",
+        "answer": "watches",
+        "options": [
+          "watches",
+          "watch",
+          "watching"
+        ],
+        "optionEmojis": [
+          "📺",
+          "🐱",
+          "🐜"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📺"
+          ],
+          "text": ""
+        }
+      }
     ],
     "15": [
-      {"prompt": "「I have a red cat. The cat is small. I like my cat.」問：What color is the cat?", "speak": "I have a red cat. The cat is small. I like my cat.", "hint": "短文裡有顏色", "explanation": "短文說「red cat」，所以貓是紅色的。", "answer": "red", "options": ["red", "blue", "green"], "optionEmojis": ["🔴", "🔵", "🟢"], "visual": {"type": "scene", "emojis": ["🐱", "🔴"], "text": "r e d c a t"}},
-      {"prompt": "「Tom has a big dog. The dog runs fast. Tom likes his dog.」問：What does the dog do?", "speak": "Tom has a big dog. The dog runs fast. Tom likes his dog.", "hint": "短文裡有動作", "explanation": "短文說「runs fast」，所以狗跑得快。", "answer": "runs fast", "options": ["runs fast", "sleeps", "eats"], "optionEmojis": ["🏃", "😴", "🍽️"], "visual": {"type": "scene", "emojis": ["🐶", "🏃"], "text": "d o g r u n s f a s t"}},
-      {"prompt": "「I see a yellow bird. The bird sings. I like the bird.」問：What does the bird do?", "speak": "I see a yellow bird. The bird sings. I like the bird.", "hint": "短文裡有動作", "explanation": "短文說「sings」，所以鳥在唱歌。", "answer": "sings", "options": ["sings", "flies", "sleeps"], "optionEmojis": ["🎵", "🐦", "😴"], "visual": {"type": "scene", "emojis": ["🐦", "🎵"], "text": "b i r d s i n g s"}},
-      {"prompt": "「Lily has a small cat. The cat is white. Lily plays with the cat.」問：What color is the cat?", "speak": "Lily has a small cat. The cat is white. Lily plays with the cat.", "hint": "短文裡有顏色", "explanation": "短文說「white」，所以貓是白色的。", "answer": "white", "options": ["white", "black", "brown"], "optionEmojis": ["⚪", "⚫", "🟤"], "visual": {"type": "scene", "emojis": ["🐱", "⚪"], "text": "c a t i s w h i t e"}},
-      {"prompt": "「I have a blue boat. The boat is on the lake. I ride the boat.」問：Where is the boat?", "speak": "I have a blue boat. The boat is on the lake. I ride the boat.", "hint": "短文裡有地點", "explanation": "短文說「on the lake」，所以船在湖上。", "answer": "on the lake", "options": ["on the lake", "in the sky", "in the park"], "optionEmojis": ["🏞️", "☁️", "🌳"], "visual": {"type": "scene", "emojis": ["🚤", "🏞️"], "text": "b o a t o n l a k e"}},
-      {"prompt": "「Sam has a big dog. The dog is brown. Sam walks the dog.」問：What color is the dog?", "speak": "Sam has a big dog. The dog is brown. Sam walks the dog.", "hint": "短文裡有顏色", "explanation": "短文說「brown」，所以狗是棕色的。", "answer": "brown", "options": ["brown", "white", "black"], "optionEmojis": ["🟤", "⚪", "⚫"], "visual": {"type": "scene", "emojis": ["🐶", "🟤"], "text": "d o g i s b r o w n"}},
-      {"prompt": "「I see a green tree. The tree is tall. I sit under the tree.」問：Where does the child sit?", "speak": "I see a green tree. The tree is tall. I sit under the tree.", "hint": "短文裡有地點", "explanation": "短文說「under the tree」，所以坐在樹下。", "answer": "under the tree", "options": ["under the tree", "on the tree", "in the tree"], "optionEmojis": ["🌳", "🐦", "🐿️"], "visual": {"type": "scene", "emojis": ["🌳", "🧒"], "text": "s i t u n d e r t r e e"}},
-      {"prompt": "「Anna has a pink dress. The dress is new. Anna likes the dress.」問：What does Anna have?", "speak": "Anna has a pink dress. The dress is new. Anna likes the dress.", "hint": "短文裡有物品", "explanation": "短文說「pink dress」，所以 Anna 有粉紅色的裙子。", "answer": "a pink dress", "options": ["a pink dress", "a red hat", "a blue bag"], "optionEmojis": ["👗", "🎩", "🎒"], "visual": {"type": "scene", "emojis": ["👗", "🩷"], "text": "p i n k d r e s s"}}
+      {
+        "prompt": "「I have a red cat. The cat is small. I like my cat.」問：What color is the cat?",
+        "speak": "「I have a red cat. The cat is small. I like my cat.」問：What color is the cat?",
+        "hint": "短文裡有顏色",
+        "explanation": "短文說「red cat」，所以貓是紅色的。",
+        "answer": "red",
+        "options": [
+          "red",
+          "blue",
+          "green"
+        ],
+        "optionEmojis": [
+          "🔴",
+          "🔵",
+          "🟢"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "🔴"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「Tom has a big dog. The dog runs fast. Tom likes his dog.」問：What does the dog do?",
+        "speak": "「Tom has a big dog. The dog runs fast. Tom likes his dog.」問：What does the dog do?",
+        "hint": "短文裡有動作",
+        "explanation": "短文說「runs fast」，所以狗跑得快。",
+        "answer": "runs fast",
+        "options": [
+          "runs fast",
+          "sleeps",
+          "eats"
+        ],
+        "optionEmojis": [
+          "🏃",
+          "😴",
+          "🍽️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶",
+            "🏃"
+          ],
+          "text": "d o g r u n s f a s t"
+        }
+      },
+      {
+        "prompt": "「I see a yellow bird. The bird sings. I like the bird.」問：What does the bird do?",
+        "speak": "「I see a yellow bird. The bird sings. I like the bird.」問：What does the bird do?",
+        "hint": "短文裡有動作",
+        "explanation": "短文說「sings」，所以鳥在唱歌。",
+        "answer": "sings",
+        "options": [
+          "sings",
+          "flies",
+          "sleeps"
+        ],
+        "optionEmojis": [
+          "🎵",
+          "🐦",
+          "😴"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐦",
+            "🎵"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「Lily has a small cat. The cat is white. Lily plays with the cat.」問：What color is the cat?",
+        "speak": "「Lily has a small cat. The cat is white. Lily plays with the cat.」問：What color is the cat?",
+        "hint": "短文裡有顏色",
+        "explanation": "短文說「white」，所以貓是白色的。",
+        "answer": "white",
+        "options": [
+          "white",
+          "black",
+          "brown"
+        ],
+        "optionEmojis": [
+          "⚪",
+          "⚫",
+          "🟤"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "⚪"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I have a blue boat. The boat is on the lake. I ride the boat.」問：Where is the boat?",
+        "speak": "「I have a blue boat. The boat is on the lake. I ride the boat.」問：Where is the boat?",
+        "hint": "短文裡有地點",
+        "explanation": "短文說「on the lake」，所以船在湖上。",
+        "answer": "on the lake",
+        "options": [
+          "on the lake",
+          "in the sky",
+          "in the park"
+        ],
+        "optionEmojis": [
+          "🏞️",
+          "☁️",
+          "🌳"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚤",
+            "🏞️"
+          ],
+          "text": "b o a t o n l a k e"
+        }
+      },
+      {
+        "prompt": "「Sam has a big dog. The dog is brown. Sam walks the dog.」問：What color is the dog?",
+        "speak": "「Sam has a big dog. The dog is brown. Sam walks the dog.」問：What color is the dog?",
+        "hint": "短文裡有顏色",
+        "explanation": "短文說「brown」，所以狗是棕色的。",
+        "answer": "brown",
+        "options": [
+          "brown",
+          "white",
+          "black"
+        ],
+        "optionEmojis": [
+          "🟤",
+          "⚪",
+          "⚫"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶",
+            "🟤"
+          ],
+          "text": ""
+        }
+      },
+      {
+        "prompt": "「I see a green tree. The tree is tall. I sit under the tree.」問：Where does the child sit?",
+        "speak": "「I see a green tree. The tree is tall. I sit under the tree.」問：Where does the child sit?",
+        "hint": "短文裡有地點",
+        "explanation": "短文說「under the tree」，所以坐在樹下。",
+        "answer": "under the tree",
+        "options": [
+          "under the tree",
+          "on the tree",
+          "in the tree"
+        ],
+        "optionEmojis": [
+          "🌳",
+          "🐦",
+          "🐿️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳",
+            "🧒"
+          ],
+          "text": "s i t u n d e r t r e e"
+        }
+      },
+      {
+        "prompt": "「Anna has a pink dress. The dress is new. Anna likes the dress.」問：What does Anna have?",
+        "speak": "「Anna has a pink dress. The dress is new. Anna likes the dress.」問：What does Anna have?",
+        "hint": "短文裡有物品",
+        "explanation": "短文說「pink dress」，所以 Anna 有粉紅色的裙子。",
+        "answer": "a pink dress",
+        "options": [
+          "a pink dress",
+          "a red hat",
+          "a blue bag"
+        ],
+        "optionEmojis": [
+          "👗",
+          "🎩",
+          "🎒"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👗",
+            "🩷"
+          ],
+          "text": "p i n k d r e s s"
+        }
+      }
     ],
     "16": [
-      {"prompt": "「How many cats do you have?」你回答：", "speak": "How many cats do you have?", "hint": "問數量", "explanation": "問「有多少隻貓」，回答數量。", "answer": "I have two cats.", "options": ["I have two cats.", "I like cats.", "The cat is big."], "optionEmojis": ["🐱", "🐱", "🐱"], "visual": {"type": "scene", "emojis": ["🐱", "🐱"], "text": "t w o c a t s"}},
-      {"prompt": "「Where is the dog?」你回答：", "speak": "Where is the dog?", "hint": "問地點", "explanation": "問「狗在哪裡」，回答地點。", "answer": "The dog is in the park.", "options": ["The dog is in the park.", "The dog is big.", "I like the dog."], "optionEmojis": ["🐶", "🐶", "🐶"], "visual": {"type": "scene", "emojis": ["🐶", "🌳"], "text": "d o g i n p a r k"}},
-      {"prompt": "「What do you like?」你回答：", "speak": "What do you like?", "hint": "問喜好", "explanation": "問「你喜歡什麼」，回答喜歡的東西。", "answer": "I like apples.", "options": ["I like apples.", "I have an apple.", "The apple is red."], "optionEmojis": ["🍎", "🍎", "🍎"], "visual": {"type": "scene", "emojis": ["🍎"], "text": "i l i k e a p p l e s"}},
-      {"prompt": "「Why do you like the cat?」你回答：", "speak": "Why do you like the cat?", "hint": "問原因，用 Because", "explanation": "問「為什麼喜歡」，用 Because 回答原因。", "answer": "Because the cat is cute.", "options": ["Because the cat is cute.", "I have a cat.", "The cat is here."], "optionEmojis": ["🐱", "🐱", "🐱"], "visual": {"type": "scene", "emojis": ["🐱", "💕"], "text": "c a t i s c u t e"}},
-      {"prompt": "「How many books do you have?」你回答：", "speak": "How many books do you have?", "hint": "問數量", "explanation": "問「有多少本書」，回答數量。", "answer": "I have three books.", "options": ["I have three books.", "I read books.", "The book is good."], "optionEmojis": ["📖", "📖", "📖"], "visual": {"type": "scene", "emojis": ["📖", "📖", "📖"], "text": "t h r e e b o o k s"}},
-      {"prompt": "「Where is the ball?」你回答：", "speak": "Where is the ball?", "hint": "問地點", "explanation": "問「球在哪裡」，回答地點。", "answer": "The ball is under the table.", "options": ["The ball is under the table.", "The ball is round.", "I like the ball."], "optionEmojis": ["⚽", "⚽", "⚽"], "visual": {"type": "scene", "emojis": ["⚽", "🪑"], "text": "b a l l u n d e r t a b l e"}},
-      {"prompt": "「What do you like to do?」你回答：", "speak": "What do you like to do?", "hint": "問喜歡做什麼", "explanation": "問「你喜歡做什麼」，回答活動。", "answer": "I like to play.", "options": ["I like to play.", "I have a toy.", "The toy is fun."], "optionEmojis": ["🎮", "🎮", "🎮"], "visual": {"type": "scene", "emojis": ["🎮"], "text": "i l i k e t o p l a y"}},
-      {"prompt": "「Why do you like the rain?」你回答：", "speak": "Why do you like the rain?", "hint": "問原因，用 Because", "explanation": "問「為什麼喜歡雨」，用 Because 回答原因。", "answer": "Because the rain is fun.", "options": ["Because the rain is fun.", "I see the rain.", "The rain is here."], "optionEmojis": ["🌧️", "🌧️", "🌧️"], "visual": {"type": "scene", "emojis": ["🌧️", "🎉"], "text": "r a i n i s f u n"}}
+      {
+        "prompt": "「How many cats do you have?」你回答：",
+        "speak": "「How many cats do you have?」你回答：",
+        "hint": "問數量",
+        "explanation": "問「有多少隻貓」，回答數量。",
+        "answer": "I have two cats.",
+        "options": [
+          "I have two cats.",
+          "I like cats.",
+          "The cat is big."
+        ],
+        "optionEmojis": [
+          "🐱",
+          "🐱",
+          "🐱"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "🐱"
+          ],
+          "text": "t w o c a t s"
+        }
+      },
+      {
+        "prompt": "「Where is the dog?」你回答：",
+        "speak": "「Where is the dog?」你回答：",
+        "hint": "問地點",
+        "explanation": "問「狗在哪裡」，回答地點。",
+        "answer": "The dog is in the park.",
+        "options": [
+          "The dog is in the park.",
+          "The dog is big.",
+          "I like the dog."
+        ],
+        "optionEmojis": [
+          "🐶",
+          "🐶",
+          "🐶"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶",
+            "🌳"
+          ],
+          "text": "d o g i n p a r k"
+        }
+      },
+      {
+        "prompt": "「What do you like?」你回答：",
+        "speak": "「What do you like?」你回答：",
+        "hint": "問喜好",
+        "explanation": "問「你喜歡什麼」，回答喜歡的東西。",
+        "answer": "I like apples.",
+        "options": [
+          "I like apples.",
+          "I have an apple.",
+          "The apple is red."
+        ],
+        "optionEmojis": [
+          "🍎",
+          "🍎",
+          "🍎"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": "i l i k e a p p l e s"
+        }
+      },
+      {
+        "prompt": "「Why do you like the cat?」你回答：",
+        "speak": "「Why do you like the cat?」你回答：",
+        "hint": "問原因，用 Because",
+        "explanation": "問「為什麼喜歡」，用 Because 回答原因。",
+        "answer": "Because the cat is cute.",
+        "options": [
+          "Because the cat is cute.",
+          "I have a cat.",
+          "The cat is here."
+        ],
+        "optionEmojis": [
+          "🐱",
+          "🐱",
+          "🐱"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "💕"
+          ],
+          "text": "c a t i s c u t e"
+        }
+      },
+      {
+        "prompt": "「How many books do you have?」你回答：",
+        "speak": "「How many books do you have?」你回答：",
+        "hint": "問數量",
+        "explanation": "問「有多少本書」，回答數量。",
+        "answer": "I have three books.",
+        "options": [
+          "I have three books.",
+          "I read books.",
+          "The book is good."
+        ],
+        "optionEmojis": [
+          "📖",
+          "📖",
+          "📖"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📖",
+            "📖",
+            "📖"
+          ],
+          "text": "t h r e e b o o k s"
+        }
+      },
+      {
+        "prompt": "「Where is the ball?」你回答：",
+        "speak": "「Where is the ball?」你回答：",
+        "hint": "問地點",
+        "explanation": "問「球在哪裡」，回答地點。",
+        "answer": "The ball is under the table.",
+        "options": [
+          "The ball is under the table.",
+          "The ball is round.",
+          "I like the ball."
+        ],
+        "optionEmojis": [
+          "⚽",
+          "⚽",
+          "⚽"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⚽",
+            "🪑"
+          ],
+          "text": "b a l l u n d e r t a b l e"
+        }
+      },
+      {
+        "prompt": "「What do you like to do?」你回答：",
+        "speak": "「What do you like to do?」你回答：",
+        "hint": "問喜歡做什麼",
+        "explanation": "問「你喜歡做什麼」，回答活動。",
+        "answer": "I like to play.",
+        "options": [
+          "I like to play.",
+          "I have a toy.",
+          "The toy is fun."
+        ],
+        "optionEmojis": [
+          "🎮",
+          "🎮",
+          "🎮"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎮"
+          ],
+          "text": "i l i k e t o p l a y"
+        }
+      },
+      {
+        "prompt": "「Why do you like the rain?」你回答：",
+        "speak": "「Why do you like the rain?」你回答：",
+        "hint": "問原因，用 Because",
+        "explanation": "問「為什麼喜歡雨」，用 Because 回答原因。",
+        "answer": "Because the rain is fun.",
+        "options": [
+          "Because the rain is fun.",
+          "I see the rain.",
+          "The rain is here."
+        ],
+        "optionEmojis": [
+          "🌧️",
+          "🌧️",
+          "🌧️"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌧️",
+            "🎉"
+          ],
+          "text": "r a i n i s f u n"
+        }
+      }
     ]
   }
 }

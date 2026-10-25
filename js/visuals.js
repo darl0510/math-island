@@ -34,7 +34,7 @@ function svg(tag, attrs = {}) {
   return element;
 }
 
-export function renderVisual(visual) {
+export function renderVisual(visual, question = null) {
   if (!visual) return null;
   const renderers = {
     tenFrame,
@@ -65,7 +65,7 @@ export function renderVisual(visual) {
   if (!renderer) {
     return node('div', 'visual visual-missing', `（未知教具：${String(visual.type)}）`);
   }
-  const element = renderer(visual);
+  const element = renderer(visual, question);
   element.classList.add('visual', `visual-${visual.type}`);
   return element;
 }
@@ -530,12 +530,28 @@ export function table({ title = '', columns = [], rows = [] }) {
   return wrap;
 }
 
-export function scene({ emojis = [], text = '' }) {
+export function scene({ emojis = [], text = '' }, question = null) {
   const wrap = node('div', 'scene-wrap');
   const stage = node('div', 'scene-stage');
   for (const emoji of emojis) stage.appendChild(node('span', 'scene-emoji', emoji));
   wrap.appendChild(stage);
-  if (text) wrap.appendChild(node('div', 'scene-text', text));
+
+  let displayText = text;
+  // 防洩題防禦：如果 text 洩漏了答案（例如看圖選單字題中 text 直接印出 answer），進行遮蔽
+  if (question && question.answer && displayText) {
+    const cleanAns = String(question.answer).trim().toLowerCase();
+    const cleanText = String(displayText).replace(/\s+/g, '').toLowerCase();
+    if (cleanText === cleanAns || cleanText.includes(cleanAns)) {
+      if (emojis && emojis.length > 0) {
+        // 看圖題：有可愛圖時不顯示文字答案，讓學童純看圖思考
+        displayText = '';
+      } else {
+        displayText = cleanAns.length > 1 ? `${cleanAns[0]} _ _` : '？';
+      }
+    }
+  }
+
+  if (displayText) wrap.appendChild(node('div', 'scene-text', displayText));
   return wrap;
 }
 
@@ -905,15 +921,28 @@ const BOPOMOFO_MAP = {
   '草': 'ㄘㄠˇ', '說': 'ㄕㄨㄛ', '閃': 'ㄕㄢˇ', '隻': 'ㄓ', '頭': 'ㄊㄡˊ', '風': 'ㄈㄥ', '馬': 'ㄇㄚˇ'
 };
 
-export function chinese({ character = '', word = '', pinyin = '', gridType = '米', hint = '', foxHint = '', strokes = [] }) {
-  const displayChar = character || word || '學';
-  const displayPinyin = pinyin || BOPOMOFO_MAP[displayChar] || '';
-  const defaultFox = foxHint || (
+export function chinese({ character = '', word = '', pinyin = '', gridType = '米', hint = '', foxHint = '', strokes = [] }, question = null) {
+  let displayChar = character || word || '學';
+  let displayPinyin = pinyin || BOPOMOFO_MAP[displayChar] || '';
+
+  let defaultFox = foxHint || (
     displayChar === '十' || displayChar === '干' || displayChar === '土' ? '小狐狸提醒：先橫後豎，筆畫要站穩喔！' :
     displayChar === '八' || displayChar === '人' || displayChar === '入' ? '小狐狸提醒：先撇後捺，像展開小翅膀！' :
     displayChar === '回' || displayChar === '國' || displayChar === '同' ? '小狐狸提醒：進門先進去，最後再關門喔！' :
     '小狐狸提醒：看清楚字形，筆順寫得漂亮又整齊！'
   );
+
+  // 防洩題防禦
+  if (question && question.answer) {
+    const ans = String(question.answer).trim();
+    if (ans === displayPinyin) {
+      displayPinyin = '？';
+      defaultFox = '小狐狸提醒：仔細看國字，選出正確的注音喔！';
+    } else if (ans === displayChar) {
+      displayChar = '？';
+      defaultFox = '小狐狸提醒：仔細看注音與筆順，選出正確的國字喔！';
+    }
+  }
 
   const wrap = node('div', 'chinese-wrap');
   const styleEl = node('style');
@@ -969,7 +998,7 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
   return wrap;
 }
 
-export function phonetic({ symbol = 'ㄅ', word = '', example = '' }) {
+export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question = null) {
   const wrap = node('div', 'phonetic-visual-wrap');
   wrap.style.display = 'flex';
   wrap.style.flexDirection = 'column';
@@ -987,15 +1016,36 @@ export function phonetic({ symbol = 'ㄅ', word = '', example = '' }) {
   card.style.padding = '12px 24px';
   card.style.boxShadow = '0 6px 16px rgba(255,165,2,0.2)';
 
-  const sym = node('div', 'phonetic-symbol', symbol);
+  let displaySymbol = symbol;
+  let displayWord = word;
+  let foxMsg = `聽聽看，動動腦選出正確答案喔！`;
+
+  // 防洩題防禦：如果問的是注音/結合韻，而 symbol 正好是答案
+  if (question && question.answer) {
+    const ans = String(question.answer).trim();
+    if (ans === symbol) {
+      // 答案是注音符號，把 symbol 遮蔽為 ？，展示題目生字
+      displaySymbol = '？';
+      foxMsg = displayWord ? `「${displayWord}」要怎麼拼音呢？動動腦選選看！` : '聽聽看，要選哪一個注音呢？';
+    } else if (ans === word) {
+      // 答案是生字，把 word 遮蔽為 ？，展示注音
+      displayWord = '？';
+      foxMsg = `讀作「${displaySymbol}」的是哪一個字呢？`;
+    } else {
+      foxMsg = `看清楚字形與讀音，選出正確的答案！`;
+    }
+  }
+
+  const sym = node('div', 'phonetic-symbol', displaySymbol);
   sym.style.fontSize = '48px';
   sym.style.fontWeight = '900';
   sym.style.color = '#ff4757';
   sym.style.fontFamily = '"BiauKai", "標楷體", sans-serif';
   card.appendChild(sym);
 
-  if (word) {
-    const w = node('div', 'phonetic-word', `➔ ${word}`);
+  if (displayWord) {
+    const wordLabel = displaySymbol === '？' ? `生字：${displayWord}` : `➔ ${displayWord}`;
+    const w = node('div', 'phonetic-word', wordLabel);
     w.style.fontSize = '32px';
     w.style.fontWeight = '800';
     w.style.color = '#2f3542';
@@ -1005,7 +1055,7 @@ export function phonetic({ symbol = 'ㄅ', word = '', example = '' }) {
 
   const tip = node('div', 'chinese-fox-card');
   tip.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
-  tip.appendChild(node('div', 'chinese-fox-msg', `大聲念出來：${symbol}！聽聽看是什麼聲音喔！`));
+  tip.appendChild(node('div', 'chinese-fox-msg', foxMsg));
   wrap.appendChild(tip);
 
   return wrap;

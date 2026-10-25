@@ -215,7 +215,7 @@ function renderQuestion(session) {
   buddy.textContent = pickBuddy(session.index);
 
   visualZone.innerHTML = '';
-  const visual = renderVisual(question.visual) || renderStoryVisual(question, session.level);
+  const visual = renderVisual(question.visual, question) || renderStoryVisual(question, session.level);
   if (visual) visualZone.appendChild(visual);
 
   answerGrid.innerHTML = '';
