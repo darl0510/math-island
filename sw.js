@@ -1,5 +1,5 @@
 // 奇幻數學島 Service Worker (PWA 離線快取與安裝支援)
-const CACHE_NAME = 'math-island-v2.5.5';
+const CACHE_NAME = 'math-island-v2.5.6';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -15,6 +15,8 @@ const STATIC_ASSETS = [
   './js/visuals.js',
   './js/audio.js',
   './js/question-bank.js',
+  './js/zhuyin.js',
+  './js/zhuyin-data.js',
   './data/question-bank-g1.json',
   './data/question-bank-g2.json',
   './data/question-bank-g3.json',

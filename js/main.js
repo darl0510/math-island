@@ -9,9 +9,11 @@ import { hasActiveSession, teardownSession, exitLevel } from './engine.js';
 import { setScreen, showToast } from './ui.js';
 import { loadQuestionBank } from './question-bank.js';
 import { showBadgesModal, getUnlockedBadgeCount } from './badges.js';
+import { isZhuyinEnabled, toggleZhuyin } from './zhuyin.js';
 
 const musicButton = document.getElementById('music-btn');
 const ttsButton = document.getElementById('tts-btn');
+const zhuyinButton = document.getElementById('zhuyin-btn');
 const homeButton = document.getElementById('home-btn');
 const badgesButton = document.getElementById('badges-btn');
 
@@ -172,9 +174,17 @@ function init() {
   setScreen('home');
   renderHome();
   syncAudioButtons();
+  syncZhuyinButton();
 
   badgesButton?.addEventListener('click', () => {
     showBadgesModal();
+  });
+
+  zhuyinButton?.addEventListener('click', () => {
+    const on = toggleZhuyin();
+    audio.playSfx('click', 0.4);
+    syncZhuyinButton();
+    showToast(on ? '注音標示已開啟！' : '注音標示已關閉', 'ㄅ', 1400);
   });
 
   musicButton.addEventListener('click', () => {
@@ -233,6 +243,15 @@ function syncAudioButtons() {
   ttsButton.setAttribute('aria-pressed', String(audio.ttsOn));
   ttsButton.innerHTML = audio.ttsOn ? '<span>🔊</span>' : '<span>🔈</span>';
   ttsButton.title = audio.ttsOn ? '關閉語音讀題' : '開啟語音讀題';
+}
+
+function syncZhuyinButton() {
+  if (!zhuyinButton) return;
+  const on = isZhuyinEnabled();
+  document.body.classList.toggle('zhuyin-off', !on);
+  zhuyinButton.classList.toggle('is-off', !on);
+  zhuyinButton.setAttribute('aria-pressed', String(on));
+  zhuyinButton.title = on ? '關關注音標示 (目前開啟)' : '開啟注音標示 (目前關閉)';
 }
 
 window.addEventListener('resize', () => {

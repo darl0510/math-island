@@ -8,6 +8,7 @@ import { getBankQuestions } from './question-bank.js';
 import { shuffle as shuffleArray } from './utils.js';
 import { escapeHtml } from './ui.js';
 import { showTrophyModal } from './trophy.js';
+import { toZhuyinRuby } from './zhuyin.js';
 
 import { PRAISE, ENCOURAGE } from './texts.js';
 
@@ -209,12 +210,12 @@ function renderQuestion(session) {
   const hintText = document.getElementById('hint-text');
   const buddy = document.getElementById('buddy-bubble');
 
-  prompt.textContent = question.prompt;
+  prompt.innerHTML = toZhuyinRuby(question.prompt, question);
   feedback.className = 'feedback';
   feedback.innerHTML = '';
   hintBox.hidden = true;
-  hintText.textContent = question.hint || '仔細看一看題目。';
-  buddy.textContent = pickBuddy(session.index);
+  hintText.innerHTML = toZhuyinRuby(question.hint || '仔細看一看題目。', question);
+  buddy.innerHTML = toZhuyinRuby(pickBuddy(session.index));
 
   visualZone.innerHTML = '';
   const visual = renderVisual(question.visual, question) || renderStoryVisual(question, session.level);
@@ -232,7 +233,7 @@ function renderQuestion(session) {
     button.innerHTML = `
       <span class="answer-index">${index + 1}</span>
       ${emoji ? `<span class="answer-emoji">${escapeHtml(emoji)}</span>` : ''}
-      <span class="answer-label">${escapeHtml(option)}</span>
+      <span class="answer-label">${toZhuyinRuby(option, question)}</span>
     `;
     button.addEventListener('click', () => chooseAnswer(session, option, button));
     answerGrid.appendChild(button);
@@ -367,13 +368,13 @@ function showFeedback(kind, text, session) {
   const feedback = document.getElementById('feedback');
   if (!feedback) return;
   feedback.className = `feedback ${kind}`;
-  feedback.innerHTML = `<span>${escapeHtml(text)}</span>`;
+  feedback.innerHTML = `<span>${toZhuyinRuby(text)}</span>`;
   void session;
 }
 
 function setBuddy(text) {
   const buddy = document.getElementById('buddy-bubble');
-  if (buddy) buddy.textContent = text;
+  if (buddy) buddy.innerHTML = toZhuyinRuby(text);
 }
 
 function updateProgress(session) {
