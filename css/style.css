@@ -3354,6 +3354,46 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
   border: 1px solid #ffd8a8;
 }
 
+/* 國語島規則引導卡 */
+.chinese-rule-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px clamp(16px, 4vw, 32px);
+  background: linear-gradient(145deg, #fff9f0 0%, #fff2e0 100%);
+  border: 3px solid #ff9f43;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(255, 159, 67, 0.16);
+  text-align: center;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+.chinese-rule-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: #d35400;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3px 12px;
+  border-radius: 12px;
+  border: 1px solid #ffd8a8;
+}
+
+.chinese-rule-title {
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 900;
+  color: #2c3e50;
+  font-family: "KaiTi", "標楷體", "BiauKai", "TW-Kai", sans-serif;
+}
+
+.chinese-rule-desc {
+  margin: 0;
+  font-size: clamp(13px, 3.5vw, 15px);
+  font-weight: 700;
+  color: #576574;
+}
+
 /* 響應式優化：螢幕窄於 560px */
 @media (max-width: 560px) {
   .chinese-stage {
@@ -4058,55 +4098,73 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
   box-shadow: 0 4px 0 #008f72;
 }
 
-/* 國語島注音卡教具 */
+/* 國語島注音拼讀與發音教具 */
 .phonetic-visual-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
 }
 
-.phonetic-card {
+/* 拼讀算式卡 (例如：ㄈ + ㄡ = ？) */
+.phonetic-blend-board {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 160px;
-  height: 170px;
+  flex-wrap: wrap;
+  gap: clamp(8px, 2vw, 16px);
+  padding: 16px clamp(16px, 4vw, 28px);
+  background: linear-gradient(145deg, #fffdf8 0%, #fff7e6 100%);
+  border: 3px solid #ffa502;
   border-radius: 24px;
-  background: linear-gradient(135deg, #a8ff78, #78ffd6);
-  border: 4px solid #fff;
-  box-shadow: 0 8px 24px rgba(46, 204, 113, 0.25);
-  cursor: pointer;
-  transition: transform 0.25s ease;
+  box-shadow: 0 8px 24px rgba(255, 165, 2, 0.18);
+  user-select: none;
 }
 
-.phonetic-card:hover {
-  transform: scale(1.05);
+.phonetic-blend-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(54px, 12vw, 68px);
+  min-height: clamp(54px, 12vw, 68px);
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 2.5px solid #ffd8a8;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-.phonetic-symbol-display {
-  font-size: 64px;
+.phonetic-blend-char {
+  font-size: clamp(32px, 7vw, 44px);
   font-weight: 900;
-  color: #2c3e50;
+  color: #ff4757;
+  font-family: "KaiTi", "標楷體", "BiauKai", "TW-Kai", sans-serif;
   line-height: 1;
 }
 
-.phonetic-tone-badge {
-  font-size: 13px;
-  font-weight: 800;
-  color: #27ae60;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 3px 10px;
-  border-radius: 12px;
+.phonetic-blend-target {
+  background: linear-gradient(135deg, #fff3bf, #ffe066);
+  border-color: #f59f00;
+  animation: pulseTarget 1.8s infinite ease-in-out;
 }
 
-.phonetic-example {
-  font-size: 13px;
-  font-weight: 700;
-  color: #34495e;
+.phonetic-blend-target .phonetic-blend-char {
+  color: #d9480f;
+}
+
+.phonetic-blend-op {
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 900;
+  color: #ffa502;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulseTarget {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 
 /* ==========================================================================

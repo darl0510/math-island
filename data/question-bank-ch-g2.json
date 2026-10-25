@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T16:08:26.104409Z",
+  "generatedAt": "2026-10-25T16:44:33.234531Z",
   "targetPerLevel": 8,
   "totalQuestions": 128,
   "subject": "chinese",
@@ -21,7 +21,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "十",
+          "character": "？",
           "word": "先橫後豎"
         }
       },
@@ -59,7 +59,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "土",
+          "character": "？",
           "word": "先橫後豎"
         }
       },
@@ -97,7 +97,7 @@
         "category": "筆順例外",
         "visual": {
           "type": "chinese",
-          "character": "八",
+          "character": "？",
           "word": "先橫後豎"
         }
       },
@@ -116,7 +116,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "王",
+          "character": "？",
           "word": "先橫後豎"
         }
       },
@@ -175,7 +175,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "八",
+          "character": "？",
           "word": "先撇後捺"
         }
       },
@@ -213,7 +213,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "人",
+          "character": "？",
           "word": "先撇後捺"
         }
       },
@@ -251,7 +251,7 @@
         "category": "筆順例外",
         "visual": {
           "type": "chinese",
-          "character": "干",
+          "character": "？",
           "word": "先撇後捺"
         }
       },
@@ -270,7 +270,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "大",
+          "character": "？",
           "word": "先撇後捺"
         }
       },
@@ -329,7 +329,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "月",
+          "character": "？",
           "word": "先外後內"
         }
       },
@@ -367,7 +367,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "同",
+          "character": "？",
           "word": "先外後內"
         }
       },
@@ -405,7 +405,7 @@
         "category": "筆順例外",
         "visual": {
           "type": "chinese",
-          "character": "土",
+          "character": "？",
           "word": "先外後內"
         }
       },
@@ -424,7 +424,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "問",
+          "character": "？",
           "word": "先外後內"
         }
       },
@@ -462,7 +462,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "田",
+          "character": "？",
           "word": "先外後內"
         }
       }
@@ -483,7 +483,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "回",
+          "character": "？",
           "word": "先中間後封口"
         }
       },
@@ -521,7 +521,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "國",
+          "character": "？",
           "word": "先中間後封口"
         }
       },
@@ -559,7 +559,7 @@
         "category": "筆順例外",
         "visual": {
           "type": "chinese",
-          "character": "木",
+          "character": "？",
           "word": "先中間後封口"
         }
       },
@@ -578,7 +578,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "園",
+          "character": "？",
           "word": "先中間後封口"
         }
       },
@@ -616,7 +616,7 @@
         "category": "筆順選字",
         "visual": {
           "type": "chinese",
-          "character": "圓",
+          "character": "？",
           "word": "先中間後封口"
         }
       }
@@ -637,8 +637,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "河",
-          "word": "河"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -656,8 +656,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "海",
-          "word": "海"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -675,8 +675,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "洗",
-          "word": "洗"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -694,8 +694,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "湖",
-          "word": "湖"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -713,8 +713,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "泳",
-          "word": "泳"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -732,8 +732,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "汗",
-          "word": "汗"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -751,8 +751,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "游",
-          "word": "游"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       },
       {
@@ -770,8 +770,8 @@
         "category": "部首水部",
         "visual": {
           "type": "chinese",
-          "character": "沒",
-          "word": "沒"
+          "character": "氵",
+          "word": "水部，跟水有關"
         }
       }
     ],
@@ -791,8 +791,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "熱",
-          "word": "熱"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -810,8 +810,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "煮",
-          "word": "煮"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -829,8 +829,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "燒",
-          "word": "燒"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -848,8 +848,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "燈",
-          "word": "燈"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -867,8 +867,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "照",
-          "word": "照"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -886,8 +886,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "烈",
-          "word": "烈"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -905,8 +905,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "災",
-          "word": "災"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       },
       {
@@ -924,8 +924,8 @@
         "category": "部首火部",
         "visual": {
           "type": "chinese",
-          "character": "烤",
-          "word": "烤"
+          "character": "灬",
+          "word": "火部，跟火有關"
         }
       }
     ],
@@ -945,8 +945,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "林",
-          "word": "林"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -964,8 +964,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "森",
-          "word": "森"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -983,8 +983,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "桌",
-          "word": "桌"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -1002,8 +1002,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "椅",
-          "word": "椅"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -1021,8 +1021,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "樹",
-          "word": "樹"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -1040,8 +1040,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "橋",
-          "word": "橋"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -1059,8 +1059,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "村",
-          "word": "村"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       },
       {
@@ -1078,8 +1078,8 @@
         "category": "部首木部",
         "visual": {
           "type": "chinese",
-          "character": "松",
-          "word": "松"
+          "character": "木",
+          "word": "木部，跟木頭有關"
         }
       }
     ],
@@ -1099,8 +1099,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "吃",
-          "word": "吃"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1118,8 +1118,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "喝",
-          "word": "喝"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1137,8 +1137,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "叫",
-          "word": "叫"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1156,8 +1156,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "唱",
-          "word": "唱"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1175,8 +1175,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "問",
-          "word": "問"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1194,8 +1194,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "吹",
-          "word": "吹"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1213,8 +1213,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "味",
-          "word": "味"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       },
       {
@@ -1232,8 +1232,8 @@
         "category": "部首口部",
         "visual": {
           "type": "chinese",
-          "character": "和",
-          "word": "和"
+          "character": "口",
+          "word": "口部，跟嘴巴有關"
         }
       }
     ],
@@ -1253,8 +1253,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "明",
-          "word": "明"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1272,8 +1272,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "好",
-          "word": "好"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1291,8 +1291,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "你",
-          "word": "你"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1310,8 +1310,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "他",
-          "word": "他"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1329,8 +1329,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "住",
-          "word": "住"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1348,8 +1348,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "位",
-          "word": "位"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1367,8 +1367,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "打",
-          "word": "打"
+          "character": "？",
+          "word": "左右結構"
         }
       },
       {
@@ -1386,8 +1386,8 @@
         "category": "結構左右",
         "visual": {
           "type": "chinese",
-          "character": "說",
-          "word": "說"
+          "character": "？",
+          "word": "左右結構"
         }
       }
     ],
@@ -1407,8 +1407,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "尖",
-          "word": "尖"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1426,8 +1426,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "炎",
-          "word": "炎"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1445,8 +1445,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "花",
-          "word": "花"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1464,8 +1464,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "想",
-          "word": "想"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1483,8 +1483,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "早",
-          "word": "早"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1502,8 +1502,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "星",
-          "word": "星"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1521,8 +1521,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "草",
-          "word": "草"
+          "character": "？",
+          "word": "上下結構"
         }
       },
       {
@@ -1540,8 +1540,8 @@
         "category": "結構上下",
         "visual": {
           "type": "chinese",
-          "character": "冒",
-          "word": "冒"
+          "character": "？",
+          "word": "上下結構"
         }
       }
     ],
@@ -1561,8 +1561,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "回",
-          "word": "回"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1580,8 +1580,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "國",
-          "word": "國"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1599,8 +1599,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "圈",
-          "word": "圈"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1618,8 +1618,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "團",
-          "word": "團"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1637,8 +1637,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "圖",
-          "word": "圖"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1656,8 +1656,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "圍",
-          "word": "圍"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1675,8 +1675,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "四",
-          "word": "四"
+          "character": "？",
+          "word": "包圍結構"
         }
       },
       {
@@ -1694,8 +1694,8 @@
         "category": "結構包圍",
         "visual": {
           "type": "chinese",
-          "character": "圓",
-          "word": "圓"
+          "character": "？",
+          "word": "包圍結構"
         }
       }
     ],
@@ -1926,7 +1926,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "己",
+          "character": "？",
           "word": "自＿"
         }
       },
@@ -1945,7 +1945,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "已",
+          "character": "？",
           "word": "＿經"
         }
       },
@@ -1964,7 +1964,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "已",
+          "character": "？",
           "word": "早＿"
         }
       },
@@ -1983,7 +1983,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "己",
+          "character": "？",
           "word": "自＿介紹"
         }
       },
@@ -2002,7 +2002,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "巳",
+          "character": "？",
           "word": "＿時"
         }
       }
@@ -2099,7 +2099,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "未",
+          "character": "？",
           "word": "＿來"
         }
       },
@@ -2118,7 +2118,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "末",
+          "character": "？",
           "word": "期＿"
         }
       },
@@ -2137,7 +2137,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "土",
+          "character": "？",
           "word": "＿地"
         }
       },
@@ -2156,7 +2156,7 @@
         "category": "選字填空",
         "visual": {
           "type": "chinese",
-          "character": "士",
+          "character": "？",
           "word": "戰＿"
         }
       }
@@ -2177,7 +2177,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "個",
+          "character": "",
           "word": "蘋果"
         }
       },
@@ -2196,7 +2196,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "隻",
+          "character": "",
           "word": "小貓"
         }
       },
@@ -2253,7 +2253,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "隻",
+          "character": "",
           "word": "小狗"
         }
       },
@@ -2272,7 +2272,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "個",
+          "character": "",
           "word": "橘子"
         }
       },
@@ -2291,7 +2291,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "棵",
+          "character": "",
           "word": "大樹"
         }
       },
@@ -2310,7 +2310,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "本",
+          "character": "",
           "word": "故事書"
         }
       }
@@ -2407,7 +2407,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "張",
+          "character": "",
           "word": "桌子"
         }
       },
@@ -2426,7 +2426,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "頭",
+          "character": "",
           "word": "大象"
         }
       },
@@ -2464,7 +2464,7 @@
         "category": "量詞",
         "visual": {
           "type": "chinese",
-          "character": "朵",
+          "character": "",
           "word": "白雲"
         }
       }

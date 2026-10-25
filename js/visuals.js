@@ -966,6 +966,7 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
   );
 
   // 防洩題防禦
+  const prompt = question?.prompt || '';
   if (question && question.answer) {
     const ans = String(question.answer).trim();
     if (ans === displayPinyin) {
@@ -973,8 +974,36 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
       defaultFox = '小狐狸提醒：仔細看國字，選出正確的注音喔！';
     } else if (ans === displayChar) {
       displayChar = '？';
-      defaultFox = '小狐狸提醒：仔細看注音與筆順，選出正確的國字喔！';
+      displayPinyin = ''; // 必須清空正解注音，絕不能洩題！
+      defaultFox = '小狐狸提醒：仔細看選項筆順與字形，選出正確的國字喔！';
     }
+  }
+
+  // 若 displayChar 已經是 ？，側邊絕對不能洩漏正解注音或生詞
+  if (displayChar === '？') {
+    displayPinyin = '';
+    if (word === question?.answer) word = '';
+  }
+
+  const isRuleChoiceQuestion = (/筆順規則|不是先|是先|哪一個字/.test(prompt) && question?.category && /筆順|部首|結構/.test(question.category)) || displayChar === '？';
+
+  if (isRuleChoiceQuestion && displayChar === '？') {
+    const wrap = node('div', 'chinese-wrap');
+    const ruleTitle = word || (question?.category ? String(question.category) : '筆順規則');
+    const ruleCard = node('div', 'chinese-rule-card');
+    ruleCard.innerHTML = `
+      <div class="chinese-rule-badge">📝 觀察筆順規則</div>
+      <div class="chinese-rule-title">「${ruleTitle}」</div>
+      <p class="chinese-rule-desc">仔細看下方的四個國字選項，動動腦找出答案喔！</p>
+    `;
+    wrap.appendChild(ruleCard);
+
+    // 小狐狸引導卡片
+    const foxCard = node('div', 'chinese-fox-card');
+    foxCard.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
+    foxCard.appendChild(node('div', 'chinese-fox-msg', '小狐狸提醒：在心中默寫每個字的筆畫順序，仔細觀察喔！'));
+    wrap.appendChild(foxCard);
+    return wrap;
   }
 
   const wrap = node('div', 'chinese-wrap');
@@ -1014,7 +1043,8 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
     box.addEventListener('click', () => {
       box.classList.add('is-speaking');
       setTimeout(() => box.classList.remove('is-speaking'), 450);
-      speakText(char === '？' ? '問號' : (word || displayChar));
+      const textToSpeak = char === '？' ? '想一想，這是哪一個字呢？' : (word || displayChar);
+      speakText(textToSpeak);
     });
 
     return box;
@@ -1039,7 +1069,7 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
     side.appendChild(pinyinBadge);
   }
 
-  if (displayChar.length > 1 || (word && word !== displayChar)) {
+  if (displayChar !== '？' && (displayChar.length > 1 || (word && word !== displayChar))) {
     side.appendChild(node('div', 'chinese-word-caption', `生詞：${word || displayChar}`));
   }
 
@@ -1047,7 +1077,8 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
   speakChip.type = 'button';
   speakChip.innerHTML = `<span>🔊</span> <span>聽讀音</span>`;
   speakChip.addEventListener('click', () => {
-    speakText(word || displayChar);
+    const textToSpeak = displayChar === '？' ? '想一想，選出正確的國字喔！' : (word || displayChar);
+    speakText(textToSpeak);
   });
   side.appendChild(speakChip);
 
@@ -1065,6 +1096,55 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
 
 export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question = null) {
   const wrap = node('div', 'phonetic-visual-wrap');
+  const prompt = question?.prompt || '';
+
+  // 1. 拼讀題專屬算式卡 (ㄈ + ㄡ = ❓)：杜絕生字洩題與跑版
+  const isBlending = question?.category === '拼讀' || /[＋\+]/.test(prompt) || /拼起來/.test(prompt);
+  if (isBlending) {
+    const blendMatch = prompt.match(/[「『]([ㄅ-ㄩˊˇˋ˙]+)[」』]\s*[＋\+加]?\s*[「『]([ㄅ-ㄩˊˇˋ˙]+)[」』]/);
+    const p1 = blendMatch ? blendMatch[1] : (symbol !== '？' ? symbol : 'ㄅ');
+    const p2 = blendMatch ? blendMatch[2] : '';
+
+    const board = node('div', 'phonetic-blend-board');
+    // 第一個注音
+    const cell1 = node('div', 'phonetic-blend-cell');
+    cell1.appendChild(node('span', 'phonetic-blend-char', p1));
+    board.appendChild(cell1);
+
+    // 加號
+    board.appendChild(node('div', 'phonetic-blend-op', '＋'));
+
+    // 第二個注音
+    if (p2) {
+      const cell2 = node('div', 'phonetic-blend-cell');
+      cell2.appendChild(node('span', 'phonetic-blend-char', p2));
+      board.appendChild(cell2);
+      board.appendChild(node('div', 'phonetic-blend-op', '＝'));
+    }
+
+    // 目標問號卡
+    const targetCell = node('div', 'phonetic-blend-cell phonetic-blend-target');
+    targetCell.appendChild(node('span', 'phonetic-blend-char', '❓'));
+    board.appendChild(targetCell);
+    wrap.appendChild(board);
+
+    // 朗讀按鈕
+    const speakChip = node('button', 'chinese-speak-chip');
+    speakChip.type = 'button';
+    speakChip.innerHTML = `<span>🔊</span> <span>聽拼讀音</span>`;
+    speakChip.addEventListener('click', () => {
+      speakText(`${p1}，${p2}`);
+    });
+    wrap.appendChild(speakChip);
+
+    // 小狐狸引導卡片
+    const foxCard = node('div', 'chinese-fox-card');
+    foxCard.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
+    foxCard.appendChild(node('div', 'chinese-fox-msg', '小狐狸提醒：把聲母和韻母合在一起讀，選出正確的答案！'));
+    wrap.appendChild(foxCard);
+
+    return wrap;
+  }
 
   let displaySymbol = symbol;
   let displayWord = word;
@@ -1074,11 +1154,9 @@ export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question =
   if (question && question.answer) {
     const ans = String(question.answer).trim();
     if (ans === symbol) {
-      // 答案是注音符號，把 symbol 遮蔽為 ？，展示題目生字
       displaySymbol = '？';
       foxMsg = displayWord ? `「${displayWord}」要怎麼拼音呢？動動腦選選看！` : '聽聽看，要選哪一個注音呢？';
     } else if (ans === word) {
-      // 答案是生字，把 word 遮蔽為 ？，展示注音
       displayWord = '？';
       foxMsg = `讀作「${displaySymbol}」的是哪一個字呢？`;
     } else {
@@ -1097,13 +1175,11 @@ export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question =
   symBox.appendChild(symEl);
   card.appendChild(symBox);
 
-  // 若有生字或詞彙
-  if (displayWord) {
+  // 若有生字或詞彙（displaySymbol 為 ？ 時不印出以免洩漏正解）
+  if (displayWord && displaySymbol !== '？') {
     card.appendChild(node('div', 'phonetic-divider'));
     const wordWrap = node('div', 'phonetic-word-wrap');
-    const wordLabel = displaySymbol === '？'
-      ? `生字：${displayWord}`
-      : `<span class="phonetic-word-arrow">➔</span> <span>${displayWord}</span>`;
+    const wordLabel = `<span class="phonetic-word-arrow">➔</span> <span>${displayWord}</span>`;
     wordWrap.appendChild(node('div', 'phonetic-word', wordLabel));
     wordWrap.appendChild(node('span', 'phonetic-audio-hint', '🔊 點擊聽發音'));
     card.appendChild(wordWrap);
@@ -1117,7 +1193,7 @@ export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question =
   card.addEventListener('click', () => {
     card.classList.add('is-speaking');
     setTimeout(() => card.classList.remove('is-speaking'), 450);
-    const textToSpeak = (displayWord && displayWord !== '？') ? displayWord : (displaySymbol === '？' ? '問號' : displaySymbol);
+    const textToSpeak = displaySymbol === '？' ? '想一想，選出正確的注音符號！' : (displayWord || displaySymbol);
     speakText(textToSpeak);
   });
 
@@ -2095,7 +2171,28 @@ export function englishVisual(visual = {}, question = null) {
 
   // 3. 圖片單字學習卡 (Vocabulary Picture Card)
   const wrap = node('div', 'english-visual-wrap english-vocab-wrap');
-  const emojis = visual.emojis || (visual.emoji ? [visual.emoji] : ['🌟']);
+  let rawEmojis = visual.emojis || (visual.emoji ? [visual.emoji] : ['🌟']);
+  const cleanAns = String(question?.answer || '').trim();
+  const cleanAnsLower = cleanAns.toLowerCase();
+  const isMeaningQuestion = /是什麼意思|中文意思/.test(prompt);
+  const isRhymeQuestion = /押韻/.test(prompt);
+
+  // 題幹提及之英文關鍵字（例如：和 hug 押韻中的 hug，mug 是什麼意思中的 mug）
+  const promptWords = prompt.match(/[a-zA-Z]{2,}/g) || [];
+  const promptKeyWord = promptWords.find(w => w.toLowerCase() !== cleanAnsLower) || '';
+
+  // 圖示防洩題過濾：
+  let displayEmojis = [...rawEmojis];
+  if (isMeaningQuestion) {
+    // 詢問「xxx 是什麼意思？」，若在畫面上展示答案圖示（如 mug 題目顯示 🥤），學童不必識字直接看圖破梗
+    displayEmojis = ['📖', '🔤'];
+  } else if (isRhymeQuestion && displayEmojis.length > 1) {
+    // 押韻題（如「哪個單字和 hug 押韻？」）：只保留題目單字的圖示，剔除正解單字的圖示（如剔除 🐛）
+    displayEmojis = displayEmojis.slice(-1); // 保留代表 hug 的 🤗
+  } else if (/開頭|結尾/.test(prompt) && question?.options?.includes(cleanAns)) {
+    // 詢問開頭音或結尾音的選擇題，若正解為 bug，不展示毛毛蟲 🐛 圖示
+    displayEmojis = ['🎧', '🔤'];
+  }
 
   const metaRow = node('div', 'english-meta-row');
   metaRow.innerHTML = `
@@ -2106,15 +2203,16 @@ export function englishVisual(visual = {}, question = null) {
 
   const stage = node('div', 'english-spelling-stage');
   const emojiBox = node('div', 'english-spelling-emojis');
-  emojis.forEach(emo => emojiBox.appendChild(node('span', 'english-stage-emoji', emo)));
+  displayEmojis.forEach(emo => emojiBox.appendChild(node('span', 'english-stage-emoji', emo)));
   stage.appendChild(emojiBox);
 
-  // 標題或提示（防洩題：若題目在問此單字中文意思，不在卡片上重複顯示答案；若答案為純英文且與 text 相同則遮蔽）
+  // 標題或提示（防洩題：單字釋義題展示題目單字卡，例如 mug = ❓；若為一般題則隱藏正解字串）
   let displayText = text;
-  if (question && question.answer && displayText) {
-    const cleanAns = String(question.answer).trim().toLowerCase();
+  if (isMeaningQuestion && promptKeyWord) {
+    displayText = `${promptKeyWord} = ❓`;
+  } else if (cleanAns && displayText) {
     const cleanTxt = String(displayText).trim().toLowerCase().replace(/\s+/g, '');
-    if (cleanTxt === cleanAns || cleanTxt.includes(cleanAns) || cleanAns.includes(cleanTxt)) {
+    if (cleanTxt === cleanAnsLower || cleanTxt.includes(cleanAnsLower) || cleanAnsLower.includes(cleanTxt)) {
       displayText = '';
     }
   }
@@ -2123,21 +2221,19 @@ export function englishVisual(visual = {}, question = null) {
   }
   wrap.appendChild(stage);
 
-  // 尋找目標朗讀英文單字（防讀中文答案錯誤）
+  // 尋找目標朗讀英文單字（防洩題鐵律：絕對嚴禁將正解當作朗讀目標印在按鈕上！）
   let targetEnglishWord = '';
-  if (typeof question?.answer === 'string' && /^[a-zA-Z]+$/.test(question.answer.trim())) {
-    targetEnglishWord = question.answer.trim();
-  } else if (text && /[a-zA-Z]/.test(text)) {
+  if (promptKeyWord) {
+    // 優先朗讀題幹單字（例如播放 hug、mug 讓學童聽發音思考）
+    targetEnglishWord = promptKeyWord;
+  } else if (text && /[a-zA-Z]/.test(text) && !text.toLowerCase().includes(cleanAnsLower)) {
     targetEnglishWord = text.replace(/[^a-zA-Z]/g, '');
-  } else {
-    const matched = prompt.match(/[a-zA-Z]{2,}/);
-    if (matched) targetEnglishWord = matched[0];
   }
 
-  // 朗讀按鈕
-  if (targetEnglishWord) {
-    const actionsRow = node('div', 'english-actions-row');
-    const speakBtn = node('button', 'english-listen-btn', `🔊 聽聽看 (${targetEnglishWord})`);
+  // 朗讀按鈕：若有題幹單字，清楚標示為題幹發音；否則一律使用題目朗讀，絕不透露正解！
+  const actionsRow = node('div', 'english-actions-row');
+  if (targetEnglishWord && targetEnglishWord.toLowerCase() !== cleanAnsLower) {
+    const speakBtn = node('button', 'english-listen-btn', `🔊 聽題目單字 (${targetEnglishWord})`);
     speakBtn.type = 'button';
     speakBtn.addEventListener('click', () => {
       speakBtn.classList.add('is-speaking');
@@ -2145,8 +2241,17 @@ export function englishVisual(visual = {}, question = null) {
       setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
     });
     actionsRow.appendChild(speakBtn);
-    wrap.appendChild(actionsRow);
+  } else {
+    const speakBtn = node('button', 'english-listen-btn', `🔊 聽題目朗讀`);
+    speakBtn.type = 'button';
+    speakBtn.addEventListener('click', () => {
+      speakBtn.classList.add('is-speaking');
+      speakText(question?.speak || prompt);
+      setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
+    });
+    actionsRow.appendChild(speakBtn);
   }
+  wrap.appendChild(actionsRow);
 
   // 狐狸老師錦囊（防洩題：不常態印出 hint，引導小朋友點擊右上角）
   const foxCard = node('div', 'english-fox-card');

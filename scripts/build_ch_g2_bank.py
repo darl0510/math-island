@@ -89,6 +89,23 @@ def main():
                 raise AssertionError(f"第 {lv} 關「{target}」選項重複：{opts}")
             rng.shuffle(opts)
             prompt, hint, explanation = build_item(target, ans, opts, category)
+            if category in ("筆順選字", "筆順例外"):
+                v_char = "？"
+                v_word = target
+            elif category in RADICAL:
+                mark, note = RADICAL[category]
+                v_char = mark.split("／")[0] if "／" in mark else mark
+                v_word = note
+            elif category in STRUCT:
+                v_char = "？"
+                v_word = STRUCT[category]
+            elif category == "選字填空":
+                v_char = "？"
+                v_word = target
+            else:
+                v_char = target if len(target) == 1 else ""
+                v_word = target
+
             qs.append({
                 "prompt": prompt,
                 "speak": prompt.replace("＿", "空格").replace("、", "，"),
@@ -99,8 +116,8 @@ def main():
                 "category": category,
                 "visual": {
                     "type": "chinese",
-                    "character": target if len(target) == 1 else ans,
-                    "word": target,
+                    "character": v_char,
+                    "word": v_word,
                 },
             })
         levels[str(lv)] = qs

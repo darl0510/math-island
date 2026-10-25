@@ -1,7 +1,20 @@
 {
-  "totalTokens": 524019,
-  "totalSavedUsdEst": 1.033,
+  "totalTokens": 531019,
+  "totalSavedUsdEst": 1.047,
   "sessions": [
+    {
+      "id": "sess_1792946964928",
+      "task": "國語注音跑版修復 ✕ 筆順部首零洩題 ✕ 英文聽聽看防暴雷與題幹本地化",
+      "version": "v2.5.8",
+      "executor": "cloud-first (local-offline fallback)",
+      "promptTokens": 4800,
+      "completionTokens": 2200,
+      "totalTokens": 7000,
+      "savedUsdEst": 0.014,
+      "status": "passed",
+      "note": "CSS duplicate .phonetic-card 移除並重構拼讀算式卡；修復小二國語筆順/部首 character 洩題與注音暴雷；重構英文朗讀按鈕防洩題與中間圖示防洩題，20 題英文題幹本地化。144 關測試全數 PASS。",
+      "timestamp": "2026-10-25T16:49:24.928381+00:00"
+    },
     {
       "id": "sess_1792912712671",
       "task": "方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳)",

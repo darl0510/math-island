@@ -20,7 +20,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐛"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -96,7 +97,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🥤"
+            "📖"
           ],
           "text": ""
         }
@@ -115,15 +116,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐛",
             "🤗"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "What is this? 🥤",
-        "speak": "What is this? 🥤",
+        "prompt": "看圖選單字：這是什麼？ 🥤",
+        "speak": "看圖選單字：這是什麼？ 🥤",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🥤 是 mug（杯子），不是 bug 或 hug。",
         "answer": "mug",
@@ -145,10 +145,10 @@
         "speak": "drum 以哪個音開頭呢？",
         "hint": "打鼓 drum 開頭是 d 喔！",
         "explanation": "drum 以 d 音 開頭，不是 b 音 或 /c/。",
-        "answer": "d 結尾音",
+        "answer": "d 開頭音",
         "options": [
-          "d 結尾音",
-          "b 結尾音",
+          "d 開頭音",
+          "b 開頭音",
           "/c/"
         ],
         "visual": {
@@ -175,7 +175,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🕸️"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -251,7 +252,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🔟"
+            "📖"
           ],
           "text": ""
         }
@@ -270,15 +271,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐔",
             "🖊️"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "How many fingers? ✋✋",
-        "speak": "How many fingers? ✋✋",
+        "prompt": "數一數：有幾根手指？ ✋✋",
+        "speak": "數一數：有幾根手指？ ✋✋",
         "hint": "兩隻手十根手指就是 這個單字 喔！",
         "explanation": "兩隻手共十根手指，答案是 ten。",
         "answer": "ten",
@@ -304,8 +304,8 @@
         "answer": "/r/",
         "options": [
           "/r/",
-          "b 結尾音",
-          "d 結尾音"
+          "b 開頭音",
+          "d 開頭音"
         ],
         "visual": {
           "type": "scene",
@@ -331,7 +331,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐱"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -407,7 +408,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🗺️"
+            "📖"
           ],
           "text": ""
         }
@@ -426,15 +427,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐱",
             "🐀"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "What is this? 🐀",
-        "speak": "What is this? 🐀",
+        "prompt": "看圖選單字：這是什麼？ 🐀",
+        "speak": "看圖選單字：這是什麼？ 🐀",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🐀 是 rat（老鼠），不是 cat 或 hat。",
         "answer": "rat",
@@ -486,7 +486,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐷"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -562,7 +563,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🏆"
+            "📖"
           ],
           "text": ""
         }
@@ -581,15 +582,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐷",
             "⛏️"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "What is this? 🦈",
-        "speak": "What is this? 🦈",
+        "prompt": "看圖選單字：這是什麼？ 🦈",
+        "speak": "看圖選單字：這是什麼？ 🦈",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🦈 的鰭是 fin，不是 pin 或 win。",
         "answer": "fin",
@@ -611,11 +611,11 @@
         "speak": "big 以哪個音開頭呢？",
         "hint": "大大的 big 開頭是 b 喔！",
         "explanation": "big 以 b 音 開頭，不是 /p/ 或 d 音。",
-        "answer": "b 結尾音",
+        "answer": "b 開頭音",
         "options": [
-          "b 結尾音",
+          "b 開頭音",
           "/p/",
-          "d 結尾音"
+          "d 開頭音"
         ],
         "visual": {
           "type": "scene",
@@ -641,7 +641,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🧹"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -717,7 +718,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🚫"
+            "📖"
           ],
           "text": ""
         }
@@ -736,15 +737,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🔝",
             "🐰"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "What is this? 🔥",
-        "speak": "What is this? 🔥",
+        "prompt": "看圖選單字：這是什麼？ 🔥",
+        "speak": "看圖選單字：這是什麼？ 🔥",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🔥 是 hot（熱），不是 mop 或 top。",
         "answer": "hot",
@@ -796,7 +796,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🟫"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -872,7 +873,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🎉"
+            "📖"
           ],
           "text": ""
         }
@@ -891,15 +892,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐛",
             "🥤"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "What is this? 🏃",
-        "speak": "What is this? 🏃",
+        "prompt": "看圖選單字：這是什麼？ 🏃",
+        "speak": "看圖選單字：這是什麼？ 🏃",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🏃 是 run（跑），不是 sun 或 fun。",
         "answer": "run",
@@ -951,7 +951,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🚢"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -1027,7 +1028,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "👟"
+            "📖"
           ],
           "text": ""
         }
@@ -1052,8 +1053,8 @@
         }
       },
       {
-        "prompt": "What is this? 🐟",
-        "speak": "What is this? 🐟",
+        "prompt": "看圖選單字：這是什麼？ 🐟",
+        "speak": "看圖選單字：這是什麼？ 🐟",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🐟 是 fish（魚），不是 dish 或 shell。",
         "answer": "fish",
@@ -1105,7 +1106,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🍟"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -1181,7 +1183,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🍱"
+            "📖"
           ],
           "text": ""
         }
@@ -1206,8 +1208,8 @@
         }
       },
       {
-        "prompt": "What is this? ⌚",
-        "speak": "What is this? ⌚",
+        "prompt": "看圖選單字：這是什麼？ ⌚",
+        "speak": "看圖選單字：這是什麼？ ⌚",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "⌚ 是 watch（手錶），不是 chair 或 lunch。",
         "answer": "watch",
@@ -1259,7 +1261,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "📏"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -1335,7 +1338,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "3️⃣"
+            "📖"
           ],
           "text": ""
         }
@@ -1360,8 +1363,8 @@
         }
       },
       {
-        "prompt": "How many fingers? ✌️☝️",
-        "speak": "How many fingers? ✌️☝️",
+        "prompt": "數一數：有幾根手指？ ✌️☝️",
+        "speak": "數一數：有幾根手指？ ✌️☝️",
         "hint": "三根手指就是 這個單字 喔！",
         "explanation": "三根手指答案是 three，不是 two 或 ten。",
         "answer": "three",
@@ -1414,7 +1417,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "⚫"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -1490,7 +1494,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "✨"
+            "📖"
           ],
           "text": ""
         }
@@ -1515,8 +1519,8 @@
         }
       },
       {
-        "prompt": "What color is this? ⚫",
-        "speak": "What color is this? ⚫",
+        "prompt": "看圖選顏色：這是什麼顏色？ ⚫",
+        "speak": "看圖選顏色：這是什麼顏色？ ⚫",
         "hint": "黑色就是 這個單字 喔！",
         "explanation": "⚫ 是 black（黑色），不是 blue 或 clean。",
         "answer": "black",
@@ -1568,7 +1572,8 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🛑"
+            "🎧",
+            "🔤"
           ],
           "text": ""
         }
@@ -1644,7 +1649,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🌀"
+            "📖"
           ],
           "text": ""
         }
@@ -1669,8 +1674,8 @@
         }
       },
       {
-        "prompt": "What is this? 🥄",
-        "speak": "What is this? 🥄",
+        "prompt": "看圖選單字：這是什麼？ 🥄",
+        "speak": "看圖選單字：這是什麼？ 🥄",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🥄 是 spoon（湯匙），不是 spin 或 spot。",
         "answer": "spoon",
@@ -1798,7 +1803,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🌲"
+            "📖"
           ],
           "text": ""
         }
@@ -1823,8 +1828,8 @@
         }
       },
       {
-        "prompt": "What is this? 🩹",
-        "speak": "What is this? 🩹",
+        "prompt": "看圖選單字：這是什麼？ 🩹",
+        "speak": "看圖選單字：這是什麼？ 🩹",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🩹 是 tape（膠帶），不是 tap（水龍頭）或 cape（披風）。",
         "answer": "tape",
@@ -1952,7 +1957,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "2️⃣0️⃣"
+            "📖"
           ],
           "text": ""
         }
@@ -1980,8 +1985,8 @@
         }
       },
       {
-        "prompt": "What number is this? 11",
-        "speak": "What number is this? 11",
+        "prompt": "看數字選英文：這是幾？ 11",
+        "speak": "看數字選英文：這是幾？ 11",
         "hint": "11 就是 這個單字 喔！",
         "explanation": "11 是 eleven，12 是 twelve，20 是 twenty。",
         "answer": "eleven",
@@ -2090,7 +2095,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🐜"
+            "📖"
           ],
           "text": ""
         }
@@ -2134,8 +2139,8 @@
         }
       },
       {
-        "prompt": "What color is the sky? ☁️",
-        "speak": "What color is the sky? ☁️",
+        "prompt": "看常識選顏色：天空是什麼顏色？ ☁️",
+        "speak": "看常識選顏色：天空是什麼顏色？ ☁️",
         "hint": "天空是藍色的喔！",
         "explanation": "天空是 blue（藍色），不是 red 或 green。",
         "answer": "blue",
@@ -2207,7 +2212,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "👨"
+            "📖"
           ],
           "text": ""
         }
@@ -2245,7 +2250,7 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🦶"
+            "📖"
           ],
           "text": ""
         }
@@ -2283,14 +2288,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "🤸"
+            "📖"
           ],
           "text": ""
         }
       },
       {
-        "prompt": "What is this action? 🏊",
-        "speak": "What is this action? 🏊",
+        "prompt": "看圖選動作：這是什麼動作？ 🏊",
+        "speak": "看圖選動作：這是什麼動作？ 🏊",
         "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🏊 是 swim（游泳），不是 run 或 jump。",
         "answer": "swim",
@@ -2329,8 +2334,8 @@
     ],
     "16": [
       {
-        "prompt": "What's this? 🍎",
-        "speak": "What's this? 🍎",
+        "prompt": "看圖選單字：這是什麼？ 🍎",
+        "speak": "看圖選單字：這是什麼？ 🍎",
         "hint": "蘋果在英文叫 這個單字 喔！",
         "explanation": "🍎 是 apple（蘋果），不是 cat 或 dog。",
         "answer": "apple",
@@ -2348,8 +2353,8 @@
         }
       },
       {
-        "prompt": "Who is she? 👩",
-        "speak": "Who is she? 👩",
+        "prompt": "看圖選單字：她是誰？ 👩",
+        "speak": "看圖選單字：她是誰？ 👩",
         "hint": "她是媽媽就是 這個單字 喔！",
         "explanation": "👩 是 mom（媽媽），不是 dad 或 hand。",
         "answer": "mom",
@@ -2367,8 +2372,8 @@
         }
       },
       {
-        "prompt": "I like 🍕. 我喜歡什麼？",
-        "speak": "I like 🍕. 我喜歡什麼呢？",
+        "prompt": "看句子選單字：I like 🍕. 我喜歡什麼？",
+        "speak": "看句子選單字：I like 🍕. 我喜歡什麼？",
         "hint": "pizza 是這個單字喔！",
         "explanation": "🍕 是 pizza（披薩），不是 apple 或 cat。",
         "answer": "披薩",
@@ -2386,8 +2391,8 @@
         }
       },
       {
-        "prompt": "How are you? 你怎麼了？",
-        "speak": "How are you? 你怎麼了呢？",
+        "prompt": "生活問候語：How are you? 是什麼意思？",
+        "speak": "生活問候語：How are you? 是什麼意思？",
         "hint": "回答 I am fine 就是「這個單字」喔！",
         "explanation": "How are you? 是問你好不好，回答 I am fine 是我很好。",
         "answer": "我很好",
@@ -2399,14 +2404,14 @@
         "visual": {
           "type": "scene",
           "emojis": [
-            "😊"
+            "📖"
           ],
-          "text": "I am fine"
+          "text": ""
         }
       },
       {
-        "prompt": "What's this? 🐶",
-        "speak": "What's this? 🐶",
+        "prompt": "看圖選單字：這是什麼？ 🐶",
+        "speak": "看圖選單字：這是什麼？ 🐶",
         "hint": "小狗在英文叫 這個單字 喔！",
         "explanation": "🐶 是 dog（狗），不是 cat 或 apple。",
         "answer": "dog",
@@ -2424,8 +2429,8 @@
         }
       },
       {
-        "prompt": "I like 🐱. 我喜歡什麼？",
-        "speak": "I like 🐱. 我喜歡什麼呢？",
+        "prompt": "看句子選單字：I like 🐱. 我喜歡什麼？",
+        "speak": "看句子選單字：I like 🐱. 我喜歡什麼？",
         "hint": "cat 是小貓喔！",
         "explanation": "🐱 是 cat（貓），不是 dog 或 pizza。",
         "answer": "貓",
@@ -2443,8 +2448,8 @@
         }
       },
       {
-        "prompt": "How are you? 怎麼回答？",
-        "speak": "How are you? 怎麼回答呢？",
+        "prompt": "生活問候語：How are you? 該怎麼回答？",
+        "speak": "生活問候語：How are you? 該怎麼回答？",
         "hint": "I am happy 就是「這個單字」喔！",
         "explanation": "I am happy 是我很開心，不是「我餓了」或「我累了」。",
         "answer": "我很開心",
@@ -2462,8 +2467,8 @@
         }
       },
       {
-        "prompt": "Who is he? 👨",
-        "speak": "Who is he? 👨",
+        "prompt": "看圖選單字：他是誰？ 👨",
+        "speak": "看圖選單字：他是誰？ 👨",
         "hint": "他是爸爸就是 這個單字 喔！",
         "explanation": "👨 是 dad（爸爸），不是 mom 或 foot。",
         "answer": "dad",

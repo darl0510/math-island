@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-26 (v2.5.7 版)  
+> **最後更新時間**：2026-10-26 (v2.5.8 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,7 +10,7 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.5.7】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.5.8】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
 python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "實裝跨領域綜合素養成果分享海報與家長成績單報表功能，完成後 node --check 自檢"
@@ -56,6 +56,7 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
+- [x] **國語注音跑版根治 ✕ 筆順部首零洩題 ✕ 英文聽聽看防暴雷與題幹本地化修復** (移除 CSS 衝突 `.phonetic-card` 窄盒覆寫、實裝專屬注音拼讀算式卡 `ㄈ + ㄡ = ❓` 杜絕生字擠壓垂直換行；修復小二國語筆順/部首題 `visual.character` 洩漏正解與 `注音：ㄅㄚ` 側邊暴雷問題，改為規則引導卡與正解注音徹底遮蔽；根除英文島 `🔊 聽聽看 (bug)` 按鈕標籤與發音直接送分問題，改為朗讀題幹單字；全面修正英文島中間答案圖示 `🥤` 洩露中文選項問題，並將 `What is this?` 等 20 題英文題幹本地化為親切雙語引導，100% 通過 144 關測試) (v2.5.8)
 - [x] **英文國語防洩題全面修復 ✕ 語音裝置智慧中英雙軌升級 ✕ 國語筆順多元題型重構** (修復英文教具常態洩題與發音朗讀錯誤、清洗 172 題英文題庫直接給答案的提示、重構小二筆順島出題消除每題答案相同問題、升級 `js/audio.js` 智慧雙軌語音與 voices 預載、重構 `js/texts.js` 分科讚美詞庫消除跨科稱讚數學小達人問題) (v2.5.7)
 - [x] **全域注音標示系統實裝** (建立 5,324 字注音辭典 `js/zhuyin-data.js` 與 `js/zhuyin.js`、題目/提示/選項預設 `<ruby><rt>` 注音標註、防洩題防禦、頂部導覽列 `ㄅ` 開關按鈕與 localStorage 偏好記憶、`node --check` 與瀏覽器實測 100% 綠燈) (v2.5.6)
 - [x] **奇幻自然科學島小三 16 關自然探索關卡題庫建置與整合** (完成 `data/question-bank-science-g3.json` 128 題小三自然科學題庫、建立 `js/levels/island_defs_science_g3.js` 4 島 16 關定義、在 `js/levels/index.js` 與 `js/grades.js` 註冊小三自然領域，`node --check` 自檢全綠燈) (v2.5.5)
@@ -126,22 +127,6 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
    - 補齊 `.english-visual-wrap`、`.english-letter-tile`、`.english-spelling-stage` 等微動效與手機直向斷點。
 3. **版本同步與安全備份**：
    - `python scripts/bump_version.py 2.4.9` 一鍵同步版本標籤，建立 `backup_v2.4.9_2026-10-25_221422.zip` 還原節點。
-
-### 【v2.4.6 版】🏮 國語島動態注音卡與生字米字格教具響應式優化 ✕ 多字自適應群組 ✕ 點擊雙軌語音互動 📅 2026-10-25
-
-1. **生字米字格教具全面升級 (`js/visuals.js`)**：
-   - 支援多字（生詞）自適應米字格群組 (`.chinese-grid-group`)，單字大格 (136px)、雙字並排 (96px)、多字 (78px)，徹底根除多字重疊破版問題。
-   - 小學練習本格規範 SVG 繪製：標準十字紅虛線、米字對角虛線、中心定位錨點，搭配教育部標準標楷體字體鏈。
-   - 米字格與注音徽章均支援點擊朗讀互動，具備雙軌語音合成（優先調用專案語音，平滑降級 Web Speech API）與 `.is-speaking` 彈跳動態反饋。
-2. **動態注式卡升級 (`js/visuals.js`)**：
-   - 重構為結構化語意類別（`.phonetic-card`、`.phonetic-symbol`、`.phonetic-word`、`.phonetic-audio-hint`）。
-   - 魔法字卡金黃柔光立體漸層質感、觸控彈跳反饋，點擊即朗讀注音或生字。
-3. **響應式佈局全面適配 (`css/style.css`)**：
-   - 新增 `@media (max-width: 560px)` 與 `@media (max-width: 380px)` 斷點適配，在平板、直向手機與極窄螢幕上均自適應流體置中，0 水平溢出。
-   - 小狐狸提醒氣泡卡片支援自適應滿寬與可讀性字體行高。
-4. **版本同步與安全備份**：
-   - `python scripts/bump_version.py 2.4.6` 一鍵同步 `PROJECT_HANDOVER.md`、`index.html`、`sw.js`。
-   - 自動調用 `auto_backup` 產出 `backup_v2.4.6_2026-10-25_214351.zip` 還原節點。
 
 ---
 
