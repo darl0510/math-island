@@ -118,3 +118,18 @@
 
 ---
 
+
+### 【v2.4.0 版】📖 奇幻國語島小一 MVP 上線 ✕ 128 題注音題庫 ✕ 4 島 16 關關卡定義 ✕ 科目啟用綠燈 📅 2026-10-25
+
+1. **國語小一題庫建置 (`data/question-bank-ch-g1.json`)**：16 關 × 8 題 = 128 題注音題庫，涵蓋聲母（ㄅㄆㄇㄈ…）、單/複韻母（ㄚㄛㄜㄝ…）、結合韻（ㄧㄢㄧㄣㄨㄥ…）、聲調分辨與看字讀音。
+2. **國語島關卡定義 (`js/levels/island_defs_ch_g1.js`)**：4 座島嶼（注音符號島、國字初識島、詞語積累島、句子表達島）共 16 關卡，包含中文關卡標題、emoji、技能說明與 intro 提示語音。
+3. **科目化與年級表掛載**：
+   - `js/grades.js`：建立並匯出 `CHINESE_GRADES`，掛載至 `SUBJECT_GRADES.chinese`。
+   - `js/levels/index.js`：引入 `ch_g1_islands`，掛載至 `SUBJECT_LEVEL_TABLES.chinese: { 1: ch_g1_islands }`。
+   - `js/subjects.js`：將 `chinese` 國語島之 `ready` 旗標設為 `true`，大廳正式解鎖國語島。
+4. **離線快取與版本推進**：`sw.js` 快取納入 `question-bank-ch-g1.json`，升級至 `math-island-v2.4.0`；完整通過 `auto_backup` 建立 `backup_v2.4.0` 快照。
+5. **語法自檢**：`node --check` 驗證所有修改之 JS 模組，100% 通過。
+
+---
+
+

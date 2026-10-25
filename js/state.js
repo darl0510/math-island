@@ -271,7 +271,8 @@ export function getAllSubjectsSummary() {
     subjects: {},
   };
 
-  for (const sub of SUBJECTS) {
+  const coreSubjects = SUBJECTS.filter((sub) => !sub.isChallenge);
+  for (const sub of coreSubjects) {
     const sId = sub.id;
     const subSummary = {
       name: sub.name,
@@ -321,7 +322,8 @@ export function exportAllProgress() {
     progress: {},
   };
 
-  for (const sub of SUBJECTS) {
+  const coreSubjects = SUBJECTS.filter((sub) => !sub.isChallenge);
+  for (const sub of coreSubjects) {
     for (const g of grades) {
       const key = getStorageKey(g, sub.id);
       const snap = snapshot(g, sub.id);
@@ -341,7 +343,8 @@ export function importAllProgress(data) {
   const grades = [1, 2, 3];
   let importedCount = 0;
 
-  for (const sub of SUBJECTS) {
+  const coreSubjects = SUBJECTS.filter((sub) => !sub.isChallenge);
+  for (const sub of coreSubjects) {
     for (const g of grades) {
       const key = getStorageKey(g, sub.id);
       if (data.progress[key]) {
@@ -398,4 +401,48 @@ export function resetProgress(options = { scope: 'current' }) {
   }
 
   state = load(getCurrentGrade(), getCurrentSubject());
+}
+
+/* ===== 跨科目期末綜合挑戰島解鎖規則 (SSOT) ===== */
+export const CHALLENGE_UNLOCK_CONFIG = {
+  minGradeStars: 18, // 該年級三大主科累計需達到 18 顆星
+  minPerSubjectLevels: 2, // 該年級三大主科各至少完成 2 關
+};
+
+export function getChallengeUnlockStatus(grade = getCurrentGrade()) {
+  const g = Number(grade) || 1;
+  const coreSubs = ['math', 'english', 'chinese'];
+  let totalGradeStars = 0;
+  const perSubject = {};
+  let allSubjectsReady = true;
+
+  for (const sId of coreSubs) {
+    const snap = snapshot(g, sId);
+    const stars = Object.values(snap.stars || {}).reduce((sum, v) => sum + Number(v || 0), 0);
+    const levels = Object.keys(snap.stars || {}).length;
+    perSubject[sId] = { stars, levels };
+    totalGradeStars += stars;
+    if (levels < CHALLENGE_UNLOCK_CONFIG.minPerSubjectLevels) {
+      allSubjectsReady = false;
+    }
+  }
+
+  const hasEnoughStars = totalGradeStars >= CHALLENGE_UNLOCK_CONFIG.minGradeStars;
+  const unlocked = hasEnoughStars && allSubjectsReady;
+
+  return {
+    grade: g,
+    unlocked,
+    totalGradeStars,
+    requiredStars: CHALLENGE_UNLOCK_CONFIG.minGradeStars,
+    starsNeeded: Math.max(0, CHALLENGE_UNLOCK_CONFIG.minGradeStars - totalGradeStars),
+    perSubject,
+    message: unlocked
+      ? '🎉 恭喜！三大主科基礎扎實，期末綜合挑戰島已解鎖！'
+      : `期末綜合挑戰需要該年級三大主科各完成 2 關且累計滿 ${CHALLENGE_UNLOCK_CONFIG.minGradeStars} 顆星解鎖（目前: ${totalGradeStars} 星）。先去各島嶼探險拿星星吧！🏆`,
+  };
+}
+
+export function isChallengeUnlocked(grade = getCurrentGrade()) {
+  return getChallengeUnlockStatus(grade).unlocked;
 }

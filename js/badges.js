@@ -169,6 +169,26 @@ export const BADGE_DEFINITIONS = [
       unlocked: summary.totalStars >= 60,
     }),
   },
+  {
+    id: 'challenge_master',
+    name: '全科全能王',
+    category: '榮耀',
+    icon: '👑',
+    description: '在跨科目期末綜合挑戰島成功通關任何關卡',
+    check: (summary, rawStates) => {
+      let challengeWins = 0;
+      for (const st of rawStates) {
+        if (st.subject === 'challenge' || st._isChallenge) {
+          challengeWins += Object.keys(st.stars || {}).length;
+        }
+      }
+      return {
+        current: Math.min(1, challengeWins),
+        target: 1,
+        unlocked: challengeWins >= 1,
+      };
+    },
+  },
 ];
 
 const STORAGE_KEY_SEEN_BADGES = 'fantasy-math-seen-badges-v1';
@@ -190,7 +210,7 @@ function saveSeenBadges(badgeIds) {
 
 function loadAllRawStates() {
   const states = [];
-  const subjects = ['math', 'english', 'chinese'];
+  const subjects = ['math', 'english', 'chinese', 'challenge'];
   const grades = [1, 2, 3];
   for (const sub of subjects) {
     for (const g of grades) {
@@ -200,7 +220,11 @@ function loadAllRawStates() {
       }
       try {
         const raw = localStorage.getItem(key);
-        if (raw) states.push(JSON.parse(raw));
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          parsed.subject = sub;
+          states.push(parsed);
+        }
       } catch {}
     }
   }

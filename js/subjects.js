@@ -38,6 +38,19 @@ export const SUBJECTS = [
     ready: true,
     symbols: ['ㄅ', 'ㄆ', 'ㄇ', '口', '★', '水', '火', '木', '☁'],
   },
+  {
+    id: 'challenge',
+    name: '綜合挑戰島',
+    shortName: '挑戰',
+    icon: '🏆',
+    color: '#e67e22',
+    brandTitle: '跨科目期末綜合挑戰島',
+    tagline: '數英中國小期末跨學科素養大會考',
+    speechLang: 'zh-TW',
+    ready: true,
+    isChallenge: true,
+    symbols: ['🏆', '📐', '🔤', '📖', '🌟', '🎯', '💯', '✨', '👑'],
+  },
 ];
 
 export function getSubjectConfig(subjectId = DEFAULT_SUBJECT) {

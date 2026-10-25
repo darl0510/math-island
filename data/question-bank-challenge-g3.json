@@ -1,0 +1,1935 @@
+{
+  "generatedAt": "2026-10-25T22:30:00Z",
+  "subject": "challenge",
+  "grade": 3,
+  "gradeName": "三年級",
+  "targetPerLevel": 6,
+  "levels": {
+    "1": [
+      {
+        "prompt": "[數學] 📐 數字「4825」中的百位數字是多少？",
+        "speak": "數字四千八百二十五中的百位數字是多少？",
+        "hint": "從右往左數依序是：個位、十位、百位、千位。",
+        "explanation": "4825 中，4 是千位，8 是百位，2 是十位，5 是個位。",
+        "answer": "8",
+        "options": [
+          "8",
+          "4",
+          "2",
+          "5"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 「六千零五十」寫成阿拉伯數字是多少？",
+        "speak": "六千零五十寫成阿拉伯數字是多少？",
+        "hint": "千位是 6，百位沒有寫 0，十位是 5，個位是 0。",
+        "explanation": "六千零五十對應的數字是 6050。",
+        "answer": "6050",
+        "options": [
+          "6050",
+          "6500",
+          "6005",
+          "6505"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字的拼字是對的？",
+        "speak": "哪一個單字的拼字是對的呢？",
+        "hint": "cake 的 a 發長音，結尾有 e",
+        "explanation": "cake 是 a_e 結構，a 發長音 /eɪ/，結尾 e 不發音。",
+        "answer": "cake",
+        "options": [
+          "cake",
+          "cack",
+          "cakee"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎂"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：「My name is Lily.」name 的拼字是哪一個？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "name 結尾有 e，a 發長音",
+        "explanation": "name 是 a_e 結構，a 發長音 /eɪ/。",
+        "answer": "name",
+        "options": [
+          "name",
+          "naim",
+          "namm"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📛"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下列哪一個句子使用了「譬喻」修辭？",
+        "speak": "下列哪一個句子使用了「譬喻」修辭？",
+        "hint": "譬喻句常用「像」、「彷彿」、「如同」來比方事物。",
+        "explanation": "「彎彎的月兒像一艘小小的金色小船」把月兒比作小船，是譬喻修辭。",
+        "answer": "彎彎的月兒像一艘金色小船",
+        "options": [
+          "彎彎的月兒像一艘金色小船",
+          "弟弟今天跑得非常快",
+          "小狗在院子裡汪汪叫",
+          "今天天氣很晴朗"
+        ],
+        "category": "譬喻修辭",
+        "visual": {
+          "type": "chinese",
+          "character": "喻",
+          "word": "譬喻",
+          "pinyin": "ㄆㄧˋ ㄩˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 句子「老師的愛心好比春天的陽光」把「老師的愛心」比喻成什麼？",
+        "speak": "句子「老師的愛心好比春天的陽光」把「老師的愛心」比喻成什麼？",
+        "hint": "尋找「好比」後面連接的事物。",
+        "explanation": "「好比」後面的事物是「春天的陽光」，喻指溫暖照拂。",
+        "answer": "春天的陽光",
+        "options": [
+          "春天的陽光",
+          "夏天的涼風",
+          "秋天的落葉",
+          "冬天的雪花"
+        ],
+        "category": "譬喻修辭",
+        "visual": {
+          "type": "chinese",
+          "character": "光",
+          "word": "陽光",
+          "pinyin": "ㄧㄤˊ ㄍㄨㄤ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "2": [
+      {
+        "prompt": "[數學] 📐 看直式算算看：1450 + 2320 = ？",
+        "speak": "看直式算算看：一千四百五十加兩千三百二十等於多少？",
+        "hint": "個位 0+0=0，十位 5+2=7，百位 4+3=7，千位 1+2=3。",
+        "explanation": "1450 + 2320 = 3770。",
+        "answer": "3770",
+        "options": [
+          "3770",
+          "3670",
+          "3870",
+          "2770"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 1450,
+          "b": 2320,
+          "op": "+"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 看直式算算看：3680 + 1540 = ？",
+        "speak": "看直式算算看：三千六百八十加一千五百四十等於多少？",
+        "hint": "十位 8+4=12 進 1，百位 6+5+1=12 進 1，千位 3+1+1=5。",
+        "explanation": "3680 + 1540 = 5220。",
+        "answer": "5220",
+        "options": [
+          "5220",
+          "5120",
+          "5210",
+          "4220"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 3680,
+          "b": 1540,
+          "op": "+"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 三個單字中，哪一個拼字是對的？",
+        "speak": "三個單字中，哪一個拼字是對的呢？",
+        "hint": "kite 是 i_e 結構",
+        "explanation": "kite 是 i_e 結構，i 發長音 /aɪ/。",
+        "answer": "kite",
+        "options": [
+          "kite",
+          "kit",
+          "kiet"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪁"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🚲，選出正確的單字。",
+        "speak": "看 emoji 🚲，選出正確的單字。",
+        "hint": "bike 是 i_e 結構",
+        "explanation": "bike 表示「腳踏車」，i_e 結構讓 i 發長音。",
+        "answer": "bike",
+        "options": [
+          "bike",
+          "bik",
+          "baik"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚲"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下列哪一個句子使用了「擬人」修辭？",
+        "speak": "下列哪一個句子使用了「擬人」修辭？",
+        "hint": "擬人是把無生命事物或動植物寫得像人一樣有動作或感情。",
+        "explanation": "「向日葵在陽光下對著我們微笑」把向日葵擬人化，賦予「微笑」的人類表情。",
+        "answer": "向日葵在陽光下對著我們微笑",
+        "options": [
+          "向日葵在陽光下對著我們微笑",
+          "向日葵長得很高大",
+          "向日葵的花瓣是黃色的",
+          "蜜蜂飛到向日葵上採蜜"
+        ],
+        "category": "擬人修辭",
+        "visual": {
+          "type": "chinese",
+          "character": "笑",
+          "word": "微笑",
+          "pinyin": "ㄨㄟˊ ㄒㄧㄠˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「微風在樹林裡輕輕地唱著動聽的歌。」這句話是把什麼擬人化了？",
+        "speak": "「微風在樹林裡輕輕地唱著動聽的歌。」這句話是把什麼擬人化了？",
+        "hint": "是誰在「唱歌」呢？",
+        "explanation": "句子中把「微風」當成人一樣會唱歌。",
+        "answer": "微風",
+        "options": [
+          "微風",
+          "樹林",
+          "歌聲",
+          "鳥兒"
+        ],
+        "category": "擬人修辭",
+        "visual": {
+          "type": "chinese",
+          "character": "風",
+          "word": "微風",
+          "pinyin": "ㄨㄟˊ ㄈㄥ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "3": [
+      {
+        "prompt": "[數學] 📐 看直式算算看：214 × 2 = ？",
+        "speak": "看直式算算看：兩百一十四乘以二等於多少？",
+        "hint": "個位 4×2=8，十位 1×2=2，百位 2×2=4。",
+        "explanation": "214 × 2 = 428。",
+        "answer": "428",
+        "options": [
+          "428",
+          "418",
+          "438",
+          "228"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 214,
+          "b": 2,
+          "op": "×"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 看直式算算看：136 × 3 = ？",
+        "speak": "看直式算算看：一百三十六乘以三等於多少？",
+        "hint": "6×3=18 寫 8 進 1，3×3+1=10 寫 0 進 1，1×3+1=4。",
+        "explanation": "136 × 3 = 408。",
+        "answer": "408",
+        "options": [
+          "408",
+          "398",
+          "418",
+          "308"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 136,
+          "b": 3,
+          "op": "×"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字拼得正確？",
+        "speak": "哪一個單字拼得正確呢？",
+        "hint": "home 是 o_e 結構",
+        "explanation": "home 是 o_e 結構，o 發長音 /oʊ/。",
+        "answer": "home",
+        "options": [
+          "home",
+          "hom",
+          "hoem"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏠"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 👃，選出正確的單字。",
+        "speak": "看 emoji 👃，選出正確的單字。",
+        "hint": "nose 是 o_e 結構",
+        "explanation": "nose 表示「鼻子」，o_e 結構讓 o 發長音。",
+        "answer": "nose",
+        "options": [
+          "nose",
+          "nos",
+          "noes"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👃"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 排比修辭通常需要幾個以上結構相同或相似的短句排列在一起？",
+        "speak": "排比修辭通常需要幾個以上結構相同或相似的短句排列在一起？",
+        "hint": "排比通常至少要有三個分句喔！",
+        "explanation": "排比修辭要求三個或三個以上結構相同或相似、語氣一致的短語或句子排列。",
+        "answer": "三個或三個以上",
+        "options": [
+          "三個或三個以上",
+          "剛好一個",
+          "剛好兩個",
+          "至少十個"
+        ],
+        "category": "排比修辭",
+        "visual": {
+          "type": "chinese",
+          "character": "排",
+          "word": "排比",
+          "pinyin": "ㄆㄞˊ ㄅㄧˇ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下列哪一個句子使用了「排比」修辭？",
+        "speak": "下列哪一個句子使用了「排比」修辭？",
+        "hint": "尋找結構重複、節奏鮮明的三個連續短句。",
+        "explanation": "「書是春天的花朵，書是夏天的涼風，書是冬天的暖陽」由三個「書是…」句型組成，是標準排比。",
+        "answer": "書是春天的花朵，書是夏天的涼風，書是冬天的暖陽",
+        "options": [
+          "書是春天的花朵，書是夏天的涼風，書是冬天的暖陽",
+          "小明今天去了圖書館借書",
+          "雖然外面下雨，但他還是堅持出門",
+          "小鳥在樹上快樂地唱著歌"
+        ],
+        "category": "排比修辭",
+        "visual": {
+          "type": "chinese",
+          "character": "書",
+          "word": "書籍",
+          "pinyin": "ㄕㄨ ㄐㄧˊ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "4": [
+      {
+        "prompt": "[數學] 📐 把 24 顆糖果平分給 4 位小朋友，每人分得幾顆？",
+        "speak": "把二十四顆糖果平分給四位小朋友，每人分得幾顆？",
+        "hint": "想九九乘法：四幾二十四？4 × 6 = 24。",
+        "explanation": "24 ÷ 4 = 6 顆，剛好分完。",
+        "answer": "6顆",
+        "options": [
+          "6顆",
+          "5顆",
+          "7顆",
+          "8顆"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 算算看：35 ÷ 5 = ？",
+        "speak": "算算看：三十五除以五等於多少？",
+        "hint": "五七三十五。",
+        "explanation": "35 ÷ 5 = 7。",
+        "answer": "7",
+        "options": [
+          "7",
+          "6",
+          "8",
+          "5"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 選出拼字正確的那一個單字。",
+        "speak": "選出拼字正確的那一個單字。",
+        "hint": "cube 是 u_e 結構",
+        "explanation": "cube 是 u_e 結構，u 發長音 /juː/。",
+        "answer": "cube",
+        "options": [
+          "cube",
+          "cub",
+          "cupe"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧊"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🚰，選出正確的單字。",
+        "speak": "看 emoji 🚰，選出正確的單字。",
+        "hint": "tube 是 u_e 結構",
+        "explanation": "tube 表示「管子」，u_e 結構讓 u 發長音。",
+        "answer": "tube",
+        "options": [
+          "tube",
+          "tub",
+          "tupe"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚰"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「是誰每天最早來到學校打掃落葉？是辛勤的工友伯伯。」這句話屬於設問中的哪一種？",
+        "speak": "「是誰每天最早來到學校打掃落葉？是辛勤的工友伯伯。」這句話屬於設問中的哪一種？",
+        "hint": "提出問題後，自己緊接著回答出答案。",
+        "explanation": "自問自答的設問方式稱為「提問（提問設問）」。",
+        "answer": "提問（自問自答）",
+        "options": [
+          "提問（自問自答）",
+          "激問（反問，答案在問題反面）",
+          "懸問（無答案，引起思考）",
+          "純粹感嘆"
+        ],
+        "category": "設問與感嘆",
+        "visual": {
+          "type": "chinese",
+          "character": "問",
+          "word": "設問",
+          "pinyin": "ㄕㄜˋ ㄨㄣˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「難道我們不應該孝順辛苦照顧我們的父母嗎？」這句話想要表達的核心意思是？",
+        "speak": "「難道我們不應該孝順辛苦照顧我們的父母嗎？」這句話想要表達的核心意思是？",
+        "hint": "反問句的答案其實就在問題的對立面。",
+        "explanation": "這是一句激問（反問句），表面問不應該嗎，實際上強烈肯定「我們應該孝順父母」。",
+        "answer": "我們一定要孝順父母",
+        "options": [
+          "我們一定要孝順父母",
+          "我們不應該孝順父母",
+          "父母不需要我們孝順",
+          "這件事很難決定"
+        ],
+        "category": "設問與感嘆",
+        "visual": {
+          "type": "chinese",
+          "character": "孝",
+          "word": "孝順",
+          "pinyin": "ㄒㄧㄠˋ ㄕㄨㄣˋ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "5": [
+      {
+        "prompt": "[數學] 📐 一個角是由幾個頂點和幾條邊組成的？",
+        "speak": "一個角是由幾個頂點和幾條邊組成的？",
+        "hint": "從同一個頂點畫出兩條射線。",
+        "explanation": "角是由 1 個頂點和 2 條邊組成的。",
+        "answer": "1個頂點和2條邊",
+        "options": [
+          "1個頂點和2條邊",
+          "2個頂點和1條邊",
+          "1個頂點和3條邊",
+          "2個頂點和2條邊"
+        ],
+        "visual": {
+          "type": "angle",
+          "degree": 90,
+          "label": "角的結構：1個頂點與2條邊"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 看圖中的角，這是一個什麼角？",
+        "speak": "看圖中的角，這是一個什麼角？",
+        "hint": "剛好是 90 度，像正方形的角落。",
+        "explanation": "90 度的角是「直角」。",
+        "answer": "直角",
+        "options": [
+          "直角",
+          "銳角",
+          "鈍角",
+          "平角"
+        ],
+        "visual": {
+          "type": "angle",
+          "degree": 90
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字的拼字沒有錯？",
+        "speak": "哪一個單字的拼字沒有錯呢？",
+        "hint": "rain 有 ai",
+        "explanation": "rain 是 ai 組合，發長音 /eɪ/。",
+        "answer": "rain",
+        "options": [
+          "rain",
+          "ran",
+          "rein"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌧️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🐦🪶，選出正確的單字。",
+        "speak": "看 emoji 🐦🪶，選出正確的單字。",
+        "hint": "tail 有 ai",
+        "explanation": "tail 表示「尾巴」，ai 組合發長音。",
+        "answer": "tail",
+        "options": [
+          "tail",
+          "tal",
+          "tien"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐦",
+            "🪶"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 成語「守株待兔」告訴我們什麼道理？",
+        "speak": "成語「守株待兔」告訴我們什麼道理？",
+        "hint": "那個農夫守著樹樁，不肯再辛勤耕作。",
+        "explanation": "「守株待兔」比喻妄想不勞而獲，或死守狹隘經驗不知變通。",
+        "answer": "不可妄想不勞而獲，要靠自己腳踏實地努力",
+        "options": [
+          "不可妄想不勞而獲，要靠自己腳踏實地努力",
+          "兔子喜歡吃胡蘿蔔和青草",
+          "在樹樁旁邊等候一定能等到野兔",
+          "農夫應該砍掉所有樹木"
+        ],
+        "category": "動物寓言成語",
+        "visual": {
+          "type": "chinese",
+          "character": "兔",
+          "word": "待兔",
+          "pinyin": "ㄉㄞˋ ㄊㄨˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「井底之蛙」比喻的是什麼樣的人？",
+        "speak": "「井底之蛙」比喻的是什麼樣的人？",
+        "hint": "坐在枯井裡的青蛙只看得見井口那一小片天空。",
+        "explanation": "比喻見識狹窄、眼界短淺卻又自以為了不起的人。",
+        "answer": "眼光狹隘、見識淺薄又自大的人",
+        "options": [
+          "眼光狹隘、見識淺薄又自大的人",
+          "游泳技巧非常高超的人",
+          "喜歡生活在潮濕井底的人",
+          "能夠預報天氣變化的動物"
+        ],
+        "category": "動物寓言成語",
+        "visual": {
+          "type": "chinese",
+          "character": "蛙",
+          "word": "青蛙",
+          "pinyin": "ㄑㄧㄥ ㄨㄚ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "6": [
+      {
+        "prompt": "[數學] 📐 圓最中心的點稱作什麼？",
+        "speak": "圓最中心的點稱作什麼？",
+        "hint": "用圓規畫圓時，鐵針固定的那個點。",
+        "explanation": "圓最中心的點叫做「圓心」。",
+        "answer": "圓心",
+        "options": [
+          "圓心",
+          "半徑",
+          "直徑",
+          "圓周"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 從圓心到圓周上任意一點的連線長度稱作什麼？",
+        "speak": "從圓心到圓周上任意一點的連線長度稱作什麼？",
+        "hint": "是直徑的一半長。",
+        "explanation": "從圓心到圓周的線段叫做「半徑」。",
+        "answer": "半徑",
+        "options": [
+          "半徑",
+          "直徑",
+          "圓心",
+          "弧長"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 下面哪一個才是正確的拼字？",
+        "speak": "下面哪一個才是正確的拼字呢？",
+        "hint": "tree 有 ee",
+        "explanation": "tree 是 ee 組合，發長音 /iː/。",
+        "answer": "tree",
+        "options": [
+          "tree",
+          "tre",
+          "trie"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🐝，選出正確的單字。",
+        "speak": "看 emoji 🐝，選出正確的單字。",
+        "hint": "bee 有 ee",
+        "explanation": "bee 表示「蜜蜂」，ee 組合發長音。",
+        "answer": "bee",
+        "options": [
+          "bee",
+          "be",
+          "bie"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐝"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 形容學習或做事精神極其專一、不受外界打擾的成語是？",
+        "speak": "形容學習或做事精神極其專一、不受外界打擾的成語是？",
+        "hint": "心思完全集中在目標上。",
+        "explanation": "「專心致志」形容一心一意、集中精神認真投入。",
+        "answer": "專心致志",
+        "options": [
+          "專心致志",
+          "三心二意",
+          "東張西望",
+          "走馬看花"
+        ],
+        "category": "勤學成語",
+        "visual": {
+          "type": "chinese",
+          "character": "志",
+          "word": "致志",
+          "pinyin": "ㄓˋ ㄓˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「只要每天背三個單字，＿＿＿＿＿＿，一年後詞彙量就很驚人了。」空格應填？",
+        "speak": "請選出適合填入空格的勤學成語。",
+        "hint": "一點一滴慢慢累積成龐大收穫。",
+        "explanation": "「積少成多」指一點一滴累積，就能變成很大的數量。",
+        "answer": "積少成多",
+        "options": [
+          "積少成多",
+          "半途而廢",
+          "拔苗助長",
+          "走馬觀花"
+        ],
+        "category": "勤學成語",
+        "visual": {
+          "type": "chinese",
+          "character": "積",
+          "word": "累積",
+          "pinyin": "ㄌㄟˇ ㄐㄧ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "7": [
+      {
+        "prompt": "[數學] 📐 一個邊長 6 公分正方形，它的周長是多少公分？",
+        "speak": "一個邊長六公分正方形，它的周長是多少公分？",
+        "hint": "正方形有 4 條一樣長的邊：邊長 × 4。",
+        "explanation": "6 × 4 = 24 公分。",
+        "answer": "24公分",
+        "options": [
+          "24公分",
+          "12公分",
+          "36公分",
+          "18公分"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 一個長方形長 8 公分、寬 5 公分，它的周長是多少公分？",
+        "speak": "一個長方形長八公分、寬五公分，它的周長是多少公分？",
+        "hint": "周長 = (長 + 寬) × 2。",
+        "explanation": "(8 + 5) × 2 = 13 × 2 = 26 公分。",
+        "answer": "26公分",
+        "options": [
+          "26公分",
+          "13公分",
+          "40公分",
+          "28公分"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字寫法正確？",
+        "speak": "哪一個單字寫法正確呢？",
+        "hint": "boat 有 oa",
+        "explanation": "boat 是 oa 組合，發長音 /oʊ/。",
+        "answer": "boat",
+        "options": [
+          "boat",
+          "bot",
+          "bota"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚤"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🧥，選出正確的單字。",
+        "speak": "看 emoji 🧥，選出正確的單字。",
+        "hint": "coat 有 oa",
+        "explanation": "coat 表示「外套」，oa 組合發長音。",
+        "answer": "coat",
+        "options": [
+          "coat",
+          "cot",
+          "cota"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧥"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 形容春天景色美好、鳥兒啼叫、花朵芳香的成語是？",
+        "speak": "形容春天風景美好鳥叫花香的成語是？",
+        "hint": "聽到鳥語、聞到花香。",
+        "explanation": "「鳥語花香」形容春天景物秀麗、生機勃勃的景象。",
+        "answer": "鳥語花香",
+        "options": [
+          "鳥語花香",
+          "風雨交加",
+          "寸草不生",
+          "天昏地暗"
+        ],
+        "category": "景物成語",
+        "visual": {
+          "type": "chinese",
+          "character": "香",
+          "word": "花香",
+          "pinyin": "ㄏㄨㄚ ㄒㄧㄤ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「今天天氣＿＿＿＿＿＿，微風徐徐，非常適合全家人出門踏青。」空格應填？",
+        "speak": "請選出形容微風和煦陽光燦爛天氣的成語。",
+        "hint": "風很柔和、陽光明朗。",
+        "explanation": "「風和日麗」形容氣候晴暖、微風和煦的美好天氣。",
+        "answer": "風和日麗",
+        "options": [
+          "風和日麗",
+          "傾盆大雨",
+          "電閃雷鳴",
+          "冰天雪地"
+        ],
+        "category": "景物成語",
+        "visual": {
+          "type": "chinese",
+          "character": "麗",
+          "word": "日麗",
+          "pinyin": "ㄖˋ ㄌㄧˋ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "8": [
+      {
+        "prompt": "[數學] 📐 1 公分等於多少毫米（mm）？",
+        "speak": "一公分等於多少毫米？",
+        "hint": "直尺上 0 到 1 之間有 10 個小格，每個小格是 1 毫米。",
+        "explanation": "1 公分（cm）= 10 毫米（mm）。",
+        "answer": "10毫米",
+        "options": [
+          "10毫米",
+          "100毫米",
+          "1000毫米",
+          "1毫米"
+        ],
+        "visual": {
+          "type": "ruler",
+          "units": 1,
+          "maxUnits": 10,
+          "emoji": "✏️"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 1 公里等於多少公尺（m）？",
+        "speak": "一公里等於多少公尺？",
+        "hint": "公里是很長的路程單位，1 km = 1000 m。",
+        "explanation": "1 公里（km）= 1000 公尺（m）。",
+        "answer": "1000公尺",
+        "options": [
+          "1000公尺",
+          "100公尺",
+          "10公尺",
+          "10000公尺"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 選出拼字正確的那一個。",
+        "speak": "選出拼字正確的那一個。",
+        "hint": "car 有 ar",
+        "explanation": "car 是 ar 組合，發長音 /ɑːr/。",
+        "answer": "car",
+        "options": [
+          "car",
+          "cor",
+          "cer"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚗"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji ⭐，選出正確的單字。",
+        "speak": "看 emoji ⭐，選出正確的單字。",
+        "hint": "star 有 ar",
+        "explanation": "star 表示「星星」，ar 組合發長音。",
+        "answer": "star",
+        "options": [
+          "star",
+          "stor",
+          "ster"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⭐"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 看到正義的事就勇敢挺身而出、不顧個人安危的成語是？",
+        "speak": "看到正義的事勇敢挺身而出的成語是？",
+        "hint": "看見義勇就行動去實踐。",
+        "explanation": "「見義勇為」指看到符合正義公理的事，便勇敢去做，毫不猶豫退縮。",
+        "answer": "見義勇為",
+        "options": [
+          "見義勇為",
+          "見死不救",
+          "袖手旁觀",
+          "膽小如鼠"
+        ],
+        "category": "品德成語",
+        "visual": {
+          "type": "chinese",
+          "character": "勇",
+          "word": "勇敢",
+          "pinyin": "ㄩㄥˇ ㄍㄢˇ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 形容處理事情非常公正公平、完全沒有私心的成語是？",
+        "speak": "形容公正無私的大度成語是？",
+        "hint": "天下為公、毫無私心偏袒。",
+        "explanation": "「大公無私」形容處事秉持公正公道，毫無偏私情面。",
+        "answer": "大公無私",
+        "options": [
+          "大公無私",
+          "自私自利",
+          "假公濟私",
+          "偏聽偏信"
+        ],
+        "category": "品德成語",
+        "visual": {
+          "type": "chinese",
+          "character": "公",
+          "word": "公正",
+          "pinyin": "ㄍㄨㄥ ㄓㄥˋ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "9": [
+      {
+        "prompt": "[數學] 📐 看圖中的披薩，平分成 4 份，其中 1 份是多少個披薩？",
+        "speak": "看圖中的披薩，平分成四份，其中一份是多少個披薩？",
+        "hint": "平分成 4 份的一份是四分之一（1/4）。",
+        "explanation": "平分成 4 份，取其中的 1 份就是 1/4 個披薩。",
+        "answer": "1/4",
+        "options": [
+          "1/4",
+          "1/2",
+          "1/3",
+          "4/1"
+        ],
+        "visual": {
+          "type": "fraction",
+          "numerator": 1,
+          "denominator": 4,
+          "shape": "circle"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 在分數 3/5 中，數字「5」稱作什麼？",
+        "speak": "在分數五分之三中，數字五稱作什麼？",
+        "hint": "分數線下面的數字代表總共平分成幾份。",
+        "explanation": "分數線下面的數是「分母」，上面的數是「分子」。",
+        "answer": "分母",
+        "options": [
+          "分母",
+          "分子",
+          "分數線",
+          "除數"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 三個選項中，哪一個單字拼對了？",
+        "speak": "三個選項中，哪一個單字拼對了呢？",
+        "hint": "for 有 or",
+        "explanation": "for 是 or 組合，發長音 /ɔːr/。",
+        "answer": "for",
+        "options": [
+          "for",
+          "far",
+          "fur"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔍"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🌽，選出正確的單字。",
+        "speak": "看 emoji 🌽，選出正確的單字。",
+        "hint": "corn 有 or",
+        "explanation": "corn 表示「玉米」，or 組合發長音。",
+        "answer": "corn",
+        "options": [
+          "corn",
+          "carn",
+          "cern"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌽"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「＿＿＿＿今天下起傾盆大雨，＿＿＿＿運動會延期舉行。」空格依序填入？",
+        "speak": "請選擇適當的因果關聯詞填入句子。",
+        "hint": "下雨是原因，延期是結果。",
+        "explanation": "「因為…所以…」表示因果關係，下雨是延期的原因。",
+        "answer": "因為……所以……",
+        "options": [
+          "因為……所以……",
+          "雖然……但是……",
+          "不僅……而且……",
+          "如果……就……"
+        ],
+        "category": "因果與轉折",
+        "visual": {
+          "type": "chinese",
+          "character": "因",
+          "word": "原因",
+          "pinyin": "ㄩㄢˊ ㄧㄣ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「＿＿＿＿這道數學題很難，＿＿＿＿小華還是動腦筋把它解出來了。」空格依序填入？",
+        "speak": "請選擇適當的轉折關聯詞填入句子。",
+        "hint": "題難和解出來之間產生了意志克服的轉折。",
+        "explanation": "「雖然…但是…」表示轉折關係，承認困難但後句出現轉變與突破。",
+        "answer": "雖然……但是……",
+        "options": [
+          "雖然……但是……",
+          "因為……所以……",
+          "只要……就……",
+          "與其……不如……"
+        ],
+        "category": "因果與轉折",
+        "visual": {
+          "type": "chinese",
+          "character": "轉",
+          "word": "轉折",
+          "pinyin": "ㄓㄨㄢˇ ㄓㄜˊ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "10": [
+      {
+        "prompt": "[數學] 📐 比大小：3/7 和 5/7，哪一個比較大？",
+        "speak": "比大小：七分之三和七分之五，哪一個比較大？",
+        "hint": "分母相同時，分子越大，分數就越大！5 > 3。",
+        "explanation": "因為 5 > 3，所以 5/7 > 3/7。",
+        "answer": "5/7",
+        "options": [
+          "5/7",
+          "3/7",
+          "一樣大",
+          "無法比較"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 算算看：2/8 + 3/8 = ？",
+        "speak": "算算看：八分之二加八分之三等於多少？",
+        "hint": "分母不變，分子相加：2 + 3 = 5。",
+        "explanation": "2/8 + 3/8 = 5/8。",
+        "answer": "5/8",
+        "options": [
+          "5/8",
+          "5/16",
+          "6/8",
+          "1/8"
+        ],
+        "visual": {
+          "type": "fraction",
+          "numerator": 5,
+          "denominator": 8,
+          "shape": "circle"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個拼字沒有多餘或漏掉的字母？",
+        "speak": "哪一個拼字沒有多餘或漏掉的字母呢？",
+        "hint": "watch 有 tch",
+        "explanation": "watch 是 tch 組合，發 /tʃ/ 音。",
+        "answer": "watch",
+        "options": [
+          "watch",
+          "wacth",
+          "watc"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📺"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 看 emoji 🍳🏠，選出正確的單字。",
+        "speak": "看 emoji 🍳🏠，選出正確的單字。",
+        "hint": "kitchen 有 tch",
+        "explanation": "kitchen 表示「廚房」，tch 組合發 /tʃ/ 音。",
+        "answer": "kitchen",
+        "options": [
+          "kitchen",
+          "kicthen",
+          "kitcen"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍳",
+            "🏠"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「＿＿＿＿我們每天堅持閱讀半小時，語文能力＿＿＿＿會逐步提升。」空格應填？",
+        "speak": "請選擇適當的條件關聯詞填入句子。",
+        "hint": "滿足了堅持閱讀這個條件，就能產生進步的結果。",
+        "explanation": "「只要…就…」表示充分條件關係，只要具備某條件就會產生相應結果。",
+        "answer": "只要……就……",
+        "options": [
+          "只要……就……",
+          "雖然……但是……",
+          "因為……所以……",
+          "寧可……也不……"
+        ],
+        "category": "條件與遞進",
+        "visual": {
+          "type": "chinese",
+          "character": "條",
+          "word": "條件",
+          "pinyin": "ㄊㄧㄠˊ ㄐㄧㄢˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「這本故事書＿＿＿＿插圖精美，＿＿＿＿內容寓意深遠。」空格依序填入？",
+        "speak": "請選擇適當的遞進關聯詞填入句子。",
+        "hint": "不僅好看，更進一步思想深刻。",
+        "explanation": "「不僅…而且…」表示遞進關係，後分句的意思比前分句更進一層。",
+        "answer": "不僅……而且……",
+        "options": [
+          "不僅……而且……",
+          "雖然……但是……",
+          "如果……就……",
+          "與其……不如……"
+        ],
+        "category": "條件與遞進",
+        "visual": {
+          "type": "chinese",
+          "character": "進",
+          "word": "遞進",
+          "pinyin": "ㄉㄧˋ ㄐㄧㄣˋ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "11": [
+      {
+        "prompt": "[數學] 📐 十分之一（1/10）寫成小數是多少？",
+        "speak": "十分之一寫成小數是多少？",
+        "hint": "0 個整數加上 1 個十分位。",
+        "explanation": "1/10 寫成小數是 0.1。",
+        "answer": "0.1",
+        "options": [
+          "0.1",
+          "0.01",
+          "1.0",
+          "0.10"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 在數字「3.8」中，點「.」稱作什麼？",
+        "speak": "在數字三點八中，點稱作什麼？",
+        "hint": "分開整數部分和小數部分的圓點。",
+        "explanation": "這個點稱作「小數點」。",
+        "answer": "小數點",
+        "options": [
+          "小數點",
+          "句點",
+          "分號",
+          "乘號"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「I ___ hello.」空格要填哪個字？",
+        "speak": "「I ___ hello.」空格要填哪個字呢？",
+        "hint": "said 是常見視覺字詞",
+        "explanation": "said 是「說了」，拼字和發音不完全一致，要記住。",
+        "answer": "said",
+        "options": [
+          "said",
+          "sed",
+          "seid"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "💬"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「___ happy.」空格要填哪個字？",
+        "speak": "「___ happy.」空格要填哪個字呢？",
+        "hint": "they 是常見視覺字詞",
+        "explanation": "they 是「他們」，拼字要記住。",
+        "answer": "They",
+        "options": [
+          "They",
+          "Thay",
+          "Thye"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👨‍👩‍👧"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 把「淘氣的貓咪打翻了桌上的水杯」改成【把字句】，正確的是？",
+        "speak": "請將句子改寫為把字句。",
+        "hint": "主語＋把＋受詞＋動詞結果。",
+        "explanation": "主語是貓咪，受詞是水杯，改成「淘氣的貓咪把桌上的水杯打翻了」。",
+        "answer": "淘氣的貓咪把桌上的水杯打翻了",
+        "options": [
+          "淘氣的貓咪把桌上的水杯打翻了",
+          "桌上的水杯被淘氣的貓咪打翻了",
+          "水杯把淘氣的貓咪打翻了",
+          "淘氣的貓咪是桌上的水杯打翻了"
+        ],
+        "category": "句型轉換",
+        "visual": {
+          "type": "chinese",
+          "character": "把",
+          "word": "把字句",
+          "pinyin": "ㄅㄚˇ ㄗˋ ㄐㄩˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 把「大雨淋濕了行人的衣服」改成【被字句】，正確的是？",
+        "speak": "請將句子改寫為被字句。",
+        "hint": "承受動作的受詞移到前面＋被＋施事者＋動詞。",
+        "explanation": "受詞「行人的衣服」移至句首，改為「行人的衣服被大雨淋濕了」。",
+        "answer": "行人的衣服被大雨淋濕了",
+        "options": [
+          "行人的衣服被大雨淋濕了",
+          "大雨把行人的衣服淋濕了",
+          "行人的衣服大雨淋濕了",
+          "衣服被大雨是淋濕了行人"
+        ],
+        "category": "句型轉換",
+        "visual": {
+          "type": "chinese",
+          "character": "被",
+          "word": "被字句",
+          "pinyin": "ㄅㄟˋ ㄗˋ ㄐㄩˋ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "12": [
+      {
+        "prompt": "[數學] 📐 比大小：0.8 和 0.6，哪一個比較大？",
+        "speak": "比大小：零點八和零點六，哪一個比較大？",
+        "hint": "整數部分都是 0，十分位 8 大於 6。",
+        "explanation": "因為 8 > 6，所以 0.8 > 0.6。",
+        "answer": "0.8",
+        "options": [
+          "0.8",
+          "0.6",
+          "一樣大",
+          "無法比較"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 比大小：2.1 和 1.9，哪一個比較大？",
+        "speak": "比大小：二點一和一點九，哪一個比較大？",
+        "hint": "先比整數部分！整數 2 大於 1。",
+        "explanation": "整數部分 2 > 1，所以 2.1 > 1.9。",
+        "answer": "2.1",
+        "options": [
+          "2.1",
+          "1.9",
+          "一樣大",
+          "無法比較"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「I have ___ apple.」空格要填哪個字？",
+        "speak": "「I have ___ apple.」空格要填哪個字呢？",
+        "hint": "apple 開頭是母音",
+        "explanation": "apple 開頭是母音 a，所以用 an。",
+        "answer": "an",
+        "options": [
+          "an",
+          "a",
+          "the"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「The cats ___ cute.」空格要填哪個字？",
+        "speak": "「The cats ___ cute.」空格要填哪個字呢？",
+        "hint": "cats 是複數",
+        "explanation": "cats 是複數（很多隻），所以用 are。",
+        "answer": "are",
+        "options": [
+          "are",
+          "is",
+          "am"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 例句「（聽）著（動聽）的（歌聲）」，下列哪一個選項結構完全符合？",
+        "speak": "請選出符合動詞加形容詞加名詞結構的照樣造句。",
+        "hint": "（動詞）著＋（形容詞）的＋（名詞）。",
+        "explanation": "「（看）著（美麗）的（風景）」：看是動詞、美麗是形容詞、風景是名詞，結構完全相同。",
+        "answer": "（看）著（美麗）的（風景）",
+        "options": [
+          "（看）著（美麗）的（風景）",
+          "（走）得（非常）的（快速）",
+          "（書本）在（桌子）的（上面）",
+          "（蘋果）是（紅紅）的（果實）"
+        ],
+        "category": "照樣造句",
+        "visual": {
+          "type": "chinese",
+          "character": "樣",
+          "word": "照樣",
+          "pinyin": "ㄓㄠˋ ㄧㄤˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 詞語「高高低低」屬於下列哪一種疊字詞結構？",
+        "speak": "「高高低低」屬於哪一種疊字結構？",
+        "hint": "高（A）高（A）低（B）低（B）。",
+        "explanation": "「高高低低」第一、二字相同，第三、四字相同，是 AABB 型疊字詞。",
+        "answer": "AABB 型",
+        "options": [
+          "AABB 型",
+          "ABB 型",
+          "ABAB 型",
+          "ABAC 型"
+        ],
+        "category": "照樣造句",
+        "visual": {
+          "type": "chinese",
+          "character": "高",
+          "word": "高低",
+          "pinyin": "ㄍㄠ ㄉㄧ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "13": [
+      {
+        "prompt": "[數學] 📐 1 分鐘等於多少秒？",
+        "speak": "一分鐘等於多少秒？",
+        "hint": "時鐘上的細長秒針走一圈是 60 格。",
+        "explanation": "1 分鐘 = 60 秒。",
+        "answer": "60秒",
+        "options": [
+          "60秒",
+          "100秒",
+          "10秒",
+          "360秒"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 1 天等於多少小時？",
+        "speak": "一天等於多少小時？",
+        "hint": "時針一天要在鐘面上走兩整圈。",
+        "explanation": "1 天 = 24 小時。",
+        "answer": "24小時",
+        "options": [
+          "24小時",
+          "12小時",
+          "60小時",
+          "10小時"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「___ is my brother.」空格要填哪個字？",
+        "speak": "「___ is my brother.」空格要填哪個字呢？",
+        "hint": "brother 是男生",
+        "explanation": "brother 是男生，所以用 He。",
+        "answer": "He",
+        "options": [
+          "He",
+          "She",
+          "It"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👦"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「___ is my cat.」空格要填哪個字？",
+        "speak": "「___ is my cat.」空格要填哪個字呢？",
+        "hint": "cat 是動物",
+        "explanation": "cat 是動物，所以用 It。",
+        "answer": "It",
+        "options": [
+          "It",
+          "He",
+          "She"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 在引用人物說話的台詞時，說話人後面通常使用哪兩種標點符號？",
+        "speak": "在引述人物說話時，應該使用哪兩種標點符號？",
+        "hint": "提示說話引出內容的點與包圍台詞的框。",
+        "explanation": "中文引述說話時，先用「冒號（：）」提示，再用「引號（「」）」框住台詞內容。",
+        "answer": "冒號與引號",
+        "options": [
+          "冒號與引號",
+          "逗號與句號",
+          "分號與問號",
+          "破折號與頓號"
+        ],
+        "category": "標點符號",
+        "visual": {
+          "type": "chinese",
+          "character": "號",
+          "word": "符號",
+          "pinyin": "ㄈㄨˊ ㄏㄠˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 表示語意的轉折、聲音的延長或對前文進一步解釋補充時，應使用什麼標點？",
+        "speak": "表示聲音延長或補充說明的標點符號是什麼？",
+        "hint": "一條長長的橫線——佔兩個中文字寬度。",
+        "explanation": "破折號（——）主要用於聲音延長、語意轉折或注釋說明。",
+        "answer": "破折號（——）",
+        "options": [
+          "破折號（——）",
+          "省略號（……）",
+          "書名號（《》）",
+          "分號（；）"
+        ],
+        "category": "標點符號",
+        "visual": {
+          "type": "chinese",
+          "character": "折",
+          "word": "破折號",
+          "pinyin": "ㄆㄛˋ ㄓㄜˊ ㄏㄠˋ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "14": [
+      {
+        "prompt": "[數學] 📐 1 公斤等於多少公克（g）？",
+        "speak": "一公斤等於多少公克？",
+        "hint": "「千克」就是公斤，1 kg = 1000 g。",
+        "explanation": "1 公斤（kg）= 1000 公克（g）。",
+        "answer": "1000公克",
+        "options": [
+          "1000公克",
+          "100公克",
+          "10公克",
+          "10000公克"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 稱一顆小草莓的重量，適合使用哪一個單位？",
+        "speak": "稱一顆小草莓的重量，適合使用哪一個單位？",
+        "hint": "很輕的小水果。",
+        "explanation": "較輕的物品適合用「公克（g）」。",
+        "answer": "公克",
+        "options": [
+          "公克",
+          "公斤",
+          "公尺",
+          "公升"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「He ___ apples.」空格要填哪個字？",
+        "speak": "「He ___ apples.」空格要填哪個字呢？",
+        "hint": "he 是第三人稱，動詞要加 s",
+        "explanation": "he 是第三人稱單數，like 要加 s 變成 likes。",
+        "answer": "likes",
+        "options": [
+          "likes",
+          "like",
+          "liking"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「She ___ every morning.」空格要填哪個字？",
+        "speak": "「She ___ every morning.」空格要填哪個字呢？",
+        "hint": "she 是第三人稱，動詞要加 s",
+        "explanation": "she 是第三人稱單數，run 要加 s 變成 runs。",
+        "answer": "runs",
+        "options": [
+          "runs",
+          "run",
+          "running"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🏃"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 閱讀短文：「蜜蜂每天天剛亮就出門採蜜，在花叢中來回穿梭，哪怕翅膀沾滿花粉也從不停歇，直到天黑才回巢。」這段話主要在讚美蜜蜂的什麼品質？",
+        "speak": "這段話主要在讚美蜜蜂的什麼品質？",
+        "hint": "天剛亮就出門、不停歇、天黑才回巢。",
+        "explanation": "整段話描寫蜜蜂一整天不停工作，讚美其「辛勤勞動、不怕辛苦」的品質。",
+        "answer": "勤勞努力、不怕辛苦",
+        "options": [
+          "勤勞努力、不怕辛苦",
+          "飛行速度天下第一",
+          "蜂蜜味道非常甜美",
+          "蜂巢建築特別堅固"
+        ],
+        "category": "段落主旨",
+        "visual": {
+          "type": "chinese",
+          "character": "蜂",
+          "word": "蜜蜂",
+          "pinyin": "ㄇㄧˋ ㄈㄥ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 尋找一個段落的「中心句（主旨句）」時，它最常出現在段落的什麼位置？",
+        "speak": "段落的中心句最常出現在哪裡？",
+        "hint": "開頭提出觀點，或是結尾做總結。",
+        "explanation": "段落主旨句最常出現在段落的「開頭第一句（總起句）」或「結尾最後一句（總結句）」。",
+        "answer": "段落的開頭第一句或結尾最後一句",
+        "options": [
+          "段落的開頭第一句或結尾最後一句",
+          "絕對只在段落的正中間",
+          "只在標題的第一個字",
+          "隨機隱藏在任何標點符號裡"
+        ],
+        "category": "段落主旨",
+        "visual": {
+          "type": "chinese",
+          "character": "旨",
+          "word": "主旨",
+          "pinyin": "ㄓㄨˇ ㄓˇ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "15": [
+      {
+        "prompt": "[數學] 📐 1 公升等於多少毫升（ml）？",
+        "speak": "一公升等於多少毫升？",
+        "hint": "1 L = 1000 ml。",
+        "explanation": "1 公升（l）= 1000 毫升（ml）。",
+        "answer": "1000毫升",
+        "options": [
+          "1000毫升",
+          "100毫升",
+          "10毫升",
+          "10000毫升"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 喝一瓶易開罐汽水，容量大約是多少？",
+        "speak": "喝一瓶易開罐汽水，容量大約是多少？",
+        "hint": "大約是 330 左右的單位。",
+        "explanation": "易開罐飲料約為 330 毫升（ml）。",
+        "answer": "330毫升",
+        "options": [
+          "330毫升",
+          "330公升",
+          "33公升",
+          "3毫升"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「I have a red cat. The cat is small. I like my cat.」問：What color is the cat?",
+        "speak": "「I have a red cat. The cat is small. I like my cat.」問：What color is the cat?",
+        "hint": "短文裡有顏色",
+        "explanation": "短文說「red cat」，所以貓是紅色的。",
+        "answer": "red",
+        "options": [
+          "red",
+          "blue",
+          "green"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "🔴"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「Tom has a big dog. The dog runs fast. Tom likes his dog.」問：What does the dog do?",
+        "speak": "「Tom has a big dog. The dog runs fast. Tom likes his dog.」問：What does the dog do?",
+        "hint": "短文裡有動作",
+        "explanation": "短文說「runs fast」，所以狗跑得快。",
+        "answer": "runs fast",
+        "options": [
+          "runs fast",
+          "sleeps",
+          "eats"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶",
+            "🏃"
+          ],
+          "text": "d o g r u n s f a s t"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 記敘文的「六要素」通常包含哪六項基本條件？",
+        "speak": "記敘文的六要素包含哪六項基本條件？",
+        "hint": "時間、地點、人物，加上事情的三部曲。",
+        "explanation": "記敘文六要素：時間、地點、人物，以及事情的起因、經過、結果。",
+        "answer": "時間、地點、人物、起因、經過、結果",
+        "options": [
+          "時間、地點、人物、起因、經過、結果",
+          "年齡、星座、血型、生肖、體重、身高",
+          "名詞、動詞、形容詞、副詞、介詞、代詞",
+          "書名、作者、出版社、頁數、定價、版次"
+        ],
+        "category": "記敘六要素",
+        "visual": {
+          "type": "chinese",
+          "character": "素",
+          "word": "要素",
+          "pinyin": "ㄧㄠˋ ㄙㄨˋ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 閱讀句子：「昨天下午，我和小明在學校操場踢足球。」句中的【地點】是？",
+        "speak": "請找出句子中的地點要素。",
+        "hint": "踢足球的具體場所在哪裡？",
+        "explanation": "「學校操場」是事情發生的具體地點場所。",
+        "answer": "學校操場",
+        "options": [
+          "學校操場",
+          "昨天下午",
+          "我和小明",
+          "踢足球"
+        ],
+        "category": "記敘六要素",
+        "visual": {
+          "type": "chinese",
+          "character": "場",
+          "word": "操場",
+          "pinyin": "ㄘㄠ ㄔㄤˇ"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "16": [
+      {
+        "prompt": "[數學] 📐 看長條圖：哪一種水果最受小朋友歡迎？",
+        "speak": "看長條圖：哪一種水果最受小朋友歡迎？",
+        "hint": "看哪一根長條的高度最高！",
+        "explanation": "蘋果的長條最高（8人），最受歡迎。",
+        "answer": "蘋果",
+        "options": [
+          "蘋果",
+          "香蕉",
+          "橘子",
+          "葡萄"
+        ],
+        "visual": {
+          "type": "barChart",
+          "title": "最喜歡的水果統計",
+          "items": [
+            {
+              "label": "蘋果",
+              "value": 8,
+              "color": "#ff7675"
+            },
+            {
+              "label": "香蕉",
+              "value": 5,
+              "color": "#ffeaa7"
+            },
+            {
+              "label": "橘子",
+              "value": 6,
+              "color": "#fdcb6e"
+            },
+            {
+              "label": "葡萄",
+              "value": 3,
+              "color": "#a29bfe"
+            }
+          ],
+          "max": 10,
+          "unit": "人"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 看長條圖：喜歡香蕉的小朋友有幾個人？",
+        "speak": "看長條圖：喜歡香蕉的小朋友有幾個人？",
+        "hint": "找到香蕉那一長條，對齊左邊刻度看數字。",
+        "explanation": "香蕉長條對應的高度是 5 人。",
+        "answer": "5人",
+        "options": [
+          "5人",
+          "8人",
+          "6人",
+          "3人"
+        ],
+        "visual": {
+          "type": "barChart",
+          "title": "最喜歡的水果統計",
+          "items": [
+            {
+              "label": "蘋果",
+              "value": 8,
+              "color": "#ff7675"
+            },
+            {
+              "label": "香蕉",
+              "value": 5,
+              "color": "#ffeaa7"
+            },
+            {
+              "label": "橘子",
+              "value": 6,
+              "color": "#fdcb6e"
+            },
+            {
+              "label": "葡萄",
+              "value": 3,
+              "color": "#a29bfe"
+            }
+          ],
+          "max": 10,
+          "unit": "人"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「How many cats do you have?」你回答：",
+        "speak": "「How many cats do you have?」你回答：",
+        "hint": "問數量",
+        "explanation": "問「有多少隻貓」，回答數量。",
+        "answer": "I have two cats.",
+        "options": [
+          "I have two cats.",
+          "I like cats.",
+          "The cat is big."
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "🐱"
+          ],
+          "text": "t w o c a t s"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「Where is the dog?」你回答：",
+        "speak": "「Where is the dog?」你回答：",
+        "hint": "問地點",
+        "explanation": "問「狗在哪裡」，回答地點。",
+        "answer": "The dog is in the park.",
+        "options": [
+          "The dog is in the park.",
+          "The dog is big.",
+          "I like the dog."
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶",
+            "🌳"
+          ],
+          "text": "d o g i n p a r k"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 閱讀寓言：「烏鴉想喝瓶子裡的水，但瓶口太窄、水位太低喝不到。烏鴉沒有灰心，銜來一顆顆小石子投進瓶中，水面漸漸升高，烏鴉終於喝到了水。」這個故事告訴我們什麼智慧？",
+        "speak": "烏鴉喝水的故事告訴我們什麼道理？",
+        "hint": "遇到困難不放棄，運用智慧解決難題。",
+        "explanation": "烏鴉遇到困難冷靜思考、動腦筋想辦法並堅持行動，告訴我們「遇到困難要善於動腦筋想辦法解決」。",
+        "answer": "遇到困難不要輕易放棄，動腦筋想辦法就能解決",
+        "options": [
+          "遇到困難不要輕易放棄，動腦筋想辦法就能解決",
+          "瓶子裡的水不能隨便喝",
+          "小石子可以用來當成點心吃",
+          "烏鴉是世界上體型最大的鳥類"
+        ],
+        "category": "閱讀理解",
+        "visual": {
+          "type": "chinese",
+          "character": "烏",
+          "word": "烏鴉",
+          "pinyin": "ㄨ ㄧㄚ"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 接續上題「烏鴉喝水」的故事，烏鴉能夠喝到水的【關鍵物理原理】是？",
+        "speak": "烏鴉能喝到水的物理原理是什麼？",
+        "hint": "石子沉入水底排開了水的體積。",
+        "explanation": "石子投入瓶底佔據了水的空間（排水集積），使得水面逐漸上升。",
+        "answer": "石子沉入水底佔據空間，將水面向上抬升",
+        "options": [
+          "石子沉入水底佔據空間，將水面向上抬升",
+          "石子本身具有神奇的魔法能量",
+          "瓶子因為石子重量變重而縮小了",
+          "烏鴉的翅膀搧動風力把水吹了上來"
+        ],
+        "category": "閱讀理解",
+        "visual": {
+          "type": "chinese",
+          "character": "石",
+          "word": "石子",
+          "pinyin": "ㄕˊ ㄗˇ"
+        },
+        "subject": "chinese"
+      }
+    ]
+  }
+}

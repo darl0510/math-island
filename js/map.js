@@ -9,6 +9,7 @@ import { getSubjectConfig, isSubjectReady } from './subjects.js';
 import { getCurrentGrade, setCurrentGrade } from './state.js';
 import { loadQuestionBankForGrade } from './question-bank.js';
 import { showBadgesModal } from './badges.js';
+import { showTrophyModal, isTrophyUnlocked } from './trophy.js';
 
 const ISLAND_IMAGES = {
   1: 'assets/images/island-forest.jpg',
@@ -183,26 +184,54 @@ export function renderMap() {
   const screen = document.getElementById('screen-map');
   const grade = getCurrentGrade();
   const subject = getCurrentSubject();
+  const isChallenge = subject === 'challenge';
   const gradeConfig = getGradeConfig(grade, subject);
   syncGradeLevels(grade, subject);
   const state = getState();
   const unlocked = unlockedLevel();
+  const doneCount = completedCount(grade, subject);
+  const trophyUnlocked = isTrophyUnlocked(grade, subject);
+
+  const challengeBannerMarkup = isChallenge ? `
+    <div class="challenge-map-banner">
+      <div class="challenge-banner-left">
+        <span class="challenge-banner-badge">👑 期末素養大會考</span>
+        <h2 class="challenge-banner-title">數英中跨學科綜合會考地圖</h2>
+        <div class="challenge-banner-tags">
+          <span class="challenge-tag tag-math">🧮 數學邏輯</span>
+          <span class="challenge-tag tag-eng">🔤 英文發音單字</span>
+          <span class="challenge-tag tag-chi">📖 國語筆順注音</span>
+        </div>
+      </div>
+      <div class="challenge-banner-right">
+        <button class="challenge-trophy-btn ${trophyUnlocked ? 'is-unlocked glow' : 'is-locked'}" type="button" id="map-trophy-btn" title="${trophyUnlocked ? '點擊重溫期末榮譽金盃頒獎盛典！' : `完成全部 16 關可解鎖金盃（還差 ${16 - doneCount} 關）`}">
+          <span class="trophy-btn-icon" aria-hidden="true">🏆</span>
+          <div class="trophy-btn-info">
+            <span class="trophy-btn-title">${trophyUnlocked ? '榮譽金盃已達成！' : '期末最高金盃'}</span>
+            <span class="trophy-btn-sub">${trophyUnlocked ? '點擊觀看頒獎動畫 🌟' : `通關進度 ${doneCount} / 16`}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  ` : '';
 
   screen.innerHTML = `
-    <div class="map-view">
+    <div class="map-view ${isChallenge ? 'is-challenge-map' : ''}">
       <div class="map-header">
         <button class="text-btn map-back" type="button" id="map-home">← 回首頁</button>
         <div class="map-heading">
           <span class="eyebrow">${escapeHtml(gradeConfig.badge)} 冒險地圖</span>
-          <h1>選擇一座島嶼</h1>
-          <p>完成一關，就能解鎖下一關。慢慢來，每一關都可以再玩一次！</p>
+          <h1>${isChallenge ? '跨科目期末綜合挑戰' : '選擇一座島嶼'}</h1>
+          <p>${isChallenge ? '融合三大主科素養評量，勇闖 4 大島嶼 16 道關卡，奪得期末榮譽金盃！' : '完成一關，就能解鎖下一關。慢慢來，每一關都可以再玩一次！'}</p>
         </div>
         <div class="map-summary">
           <span class="summary-star">⭐ ${totalStars(grade, subject)} / 48</span>
           <span class="summary-level">已解鎖 ${unlocked} / 16</span>
+          ${isChallenge ? `<button class="challenge-mini-trophy-btn ${trophyUnlocked ? 'is-won' : ''}" type="button" id="map-quick-trophy-btn" title="查看期末金盃">🏆 ${trophyUnlocked ? '金盃已得' : `${doneCount}/16`}</button>` : ''}
           <button class="badges-map-btn" type="button" id="map-badges-btn" title="查看榮譽學習徽章">🏅 學習徽章</button>
         </div>
       </div>
+      ${challengeBannerMarkup}
       <div class="island-list">
         ${islands.map((island) => islandMarkup(island, state)).join('')}
       </div>
@@ -213,6 +242,19 @@ export function renderMap() {
       </footer>
     </div>
   `;
+
+  const handleTrophyClick = () => {
+    if (trophyUnlocked || doneCount >= 16) {
+      showTrophyModal({ grade, subject, isReplay: true });
+    } else {
+      audio.playSfx('wrong', 0.35);
+      showToast(`期末榮譽金盃需要通關本年級全部 16 關！目前進度: ${doneCount} / 16 關，加油！🏆`, '🏆', 3000);
+      if (audio.ttsOn) audio.speak(`期末榮譽金盃需要通關全部 16 關，目前已經完成 ${doneCount} 關，繼續加油！`);
+    }
+  };
+
+  screen.querySelector('#map-trophy-btn')?.addEventListener('click', handleTrophyClick);
+  screen.querySelector('#map-quick-trophy-btn')?.addEventListener('click', handleTrophyClick);
 
   screen.querySelector('#map-badges-btn')?.addEventListener('click', () => {
     showBadgesModal();
@@ -280,8 +322,9 @@ function islandMarkup(island, state) {
   const currentTotalStars = totalStars(getCurrentGrade(), getCurrentSubject());
   const isIslandLocked = currentTotalStars < reqStars;
 
+  const isChallenge = getCurrentSubject() === 'challenge';
   return `
-    <section class="island-card island-${island.theme} ${isIslandLocked ? 'is-island-locked' : ''}" data-island="${island.id}">
+    <section class="island-card island-${island.theme} ${isIslandLocked ? 'is-island-locked' : ''} ${isChallenge ? 'is-challenge-island' : ''}" data-island="${island.id}">
       <div class="island-bg" style="background-image:url('${ISLAND_IMAGES[island.id]}')"></div>
       <div class="island-shade"></div>
       <div class="island-header">
@@ -291,6 +334,7 @@ function islandMarkup(island, state) {
             <div class="island-kicker-row">
               <span class="island-kicker">第 ${island.id} 座島嶼</span>
               ${reqStars > 0 ? `<span class="island-lock-badge ${isIslandLocked ? 'locked' : 'unlocked'}">${isIslandLocked ? `🔒 需累積滿 ${reqStars} ⭐ 解鎖（還差 ${reqStars - currentTotalStars} ⭐）` : `✨ 門檻 ${reqStars} ⭐ 已達成`}</span>` : ''}
+              ${isChallenge ? '<span class="island-challenge-badge">跨領域評量</span>' : ''}
             </div>
             <h2>${escapeHtml(island.name)}</h2>
             <p>${escapeHtml(island.blurb)}</p>
@@ -313,17 +357,19 @@ function levelCardMarkup(level, state) {
   const unlocked = lockInfo.unlocked;
   const stars = Number(state.stars[level.id] || 0);
   const lockLabel = lockInfo.reason === 'stars' ? `需要 ${lockInfo.requiredStars} 顆星解鎖` : '尚未解鎖';
+  const isChallenge = getCurrentSubject() === 'challenge';
+  const isBoss = level.id === 16;
   return `
     <button
-      class="level-card ${unlocked ? 'unlocked' : 'locked'} ${stars === 3 ? 'perfect' : ''} ${lockInfo.reason === 'stars' ? 'lock-by-stars' : ''}"
+      class="level-card ${unlocked ? 'unlocked' : 'locked'} ${stars === 3 ? 'perfect' : ''} ${lockInfo.reason === 'stars' ? 'lock-by-stars' : ''} ${isChallenge ? 'is-challenge-card' : ''} ${isBoss ? 'is-boss-card' : ''}"
       type="button"
       data-level="${level.id}"
       data-lock-reason="${lockInfo.reason || ''}"
       aria-label="第 ${level.id} 關 ${escapeHtml(level.title)}${unlocked ? '' : `，${lockLabel}`}">
-      <span class="level-number">${unlocked ? String(level.id).padStart(2, '0') : (lockInfo.reason === 'stars' ? '⭐🔒' : '🔒')}</span>
+      <span class="level-number">${unlocked ? (isBoss ? '👑' : String(level.id).padStart(2, '0')) : (lockInfo.reason === 'stars' ? '⭐🔒' : '🔒')}</span>
       <span class="level-emoji" aria-hidden="true">${level.emoji}</span>
       <span class="level-title">${escapeHtml(level.title)}</span>
-      <span class="level-skill">${escapeHtml(level.skill)}</span>
+      <span class="level-skill">${isChallenge ? '🎯 ' : ''}${escapeHtml(level.skill)}</span>
       <span class="level-stars">${starsMarkup(stars)}</span>
     </button>
   `;

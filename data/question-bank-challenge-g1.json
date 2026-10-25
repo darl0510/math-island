@@ -1,0 +1,2265 @@
+{
+  "generatedAt": "2026-10-25T22:30:00Z",
+  "subject": "challenge",
+  "grade": 1,
+  "gradeName": "一年級",
+  "targetPerLevel": 6,
+  "levels": {
+    "1": [
+      {
+        "prompt": "[數學] 📐 數一數，盤子裡有幾個蘑菇？",
+        "speak": "數一數，盤子裡有幾個蘑菇？",
+        "hint": "先數滿一排五個，再往下數。",
+        "explanation": "十格裡有四個蘑菇，所以答案是四。",
+        "answer": "4",
+        "options": [
+          "4",
+          "1",
+          "2",
+          "0"
+        ],
+        "visual": {
+          "type": "tenFrame",
+          "count": 4,
+          "emoji": "🍄"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 十格裡有 8 個櫻桃，數一數還有幾個空格？",
+        "speak": "十格裡有八個櫻桃，數一數還有幾個空格？",
+        "hint": "十格一共有十個位置，扣掉果子就是空位。",
+        "explanation": "十格一共有十個位置，放了八個櫻桃，還空二個。",
+        "answer": "2",
+        "options": [
+          "4",
+          "1",
+          "2",
+          "0"
+        ],
+        "visual": {
+          "type": "tenFrame",
+          "count": 8,
+          "emoji": "🍒"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「apple」的開頭音是哪一個字母？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "把 apple 慢慢唸出來，聽聽第一個音。",
+        "explanation": "apple 的開頭音是 /a/，字母 A。Aa 可以組成 apple、ant、ax。",
+        "answer": "A",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 apple 的開頭音一樣？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "apple 開頭是 a，找一個同樣以 a 開頭的單字。",
+        "explanation": "ant 以 a 開頭；cat 開頭是 c，ball 開頭是 b。",
+        "answer": "ant",
+        "options": [
+          "ant",
+          "cat",
+          "ball"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎",
+            "🐜",
+            "🐱",
+            "⚽"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「歪」的結合韻是什麼？",
+        "speak": "「歪」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「歪」的結合韻是「ㄨㄞ」。",
+        "answer": "ㄨㄞ",
+        "options": [
+          "ㄨㄞ",
+          "ㄩㄝ",
+          "ㄧㄚ",
+          "ㄧㄡ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "歪"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「爸」的注音是什麼？",
+        "speak": "「爸」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「爸」的注音是「ㄅㄚ」。",
+        "answer": "ㄅㄚ",
+        "options": [
+          "ㄧㄤ",
+          "ㄏㄜ",
+          "ㄅㄚ",
+          "ㄐㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "爸"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "2": [
+      {
+        "prompt": "[數學] 📐 哪一邊比較多？左邊梨子，右邊蘑菇。",
+        "speak": "哪一邊比較多？左邊梨子，右邊蘑菇。",
+        "hint": "一對一連連看，多出來的那一邊就是比較多。",
+        "explanation": "左邊有八個梨子，右邊有四個蘑菇，所以左邊比較多。",
+        "answer": "左邊",
+        "options": [
+          "左邊",
+          "右邊",
+          "一樣多"
+        ],
+        "visual": {
+          "type": "compareGroups",
+          "left": 8,
+          "right": 4,
+          "leftEmoji": "🍐",
+          "rightEmoji": "🍄",
+          "paired": true
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 左邊紅蘿蔔比右邊梨子多幾個？",
+        "speak": "左邊紅蘿蔔比右邊梨子多幾個？",
+        "hint": "把兩邊一個一個配對，剩下來的就比較多。",
+        "explanation": "左邊有二個，右邊有一個，二減一等於一，所以多一個。",
+        "answer": "1",
+        "options": [
+          "1",
+          "4",
+          "2",
+          "5"
+        ],
+        "visual": {
+          "type": "compareGroups",
+          "left": 2,
+          "right": 1,
+          "leftEmoji": "🥕",
+          "rightEmoji": "🍐",
+          "paired": true
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「ball」的開頭音是哪一個字母？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "把 ball 唸慢一點，第一個音就是 b。",
+        "explanation": "ball 的開頭音是 /b/，字母 B。Bb 可以組成 ball、bear、bus。",
+        "answer": "B",
+        "options": [
+          "B",
+          "A",
+          "D"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⚽"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 bee 的開頭音一樣？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "bee 開頭是 b，找同樣以 b 開頭的單字。",
+        "explanation": "book 以 b 開頭；cat 是 c，dog 是 d。",
+        "answer": "book",
+        "options": [
+          "book",
+          "cat",
+          "dog"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐝",
+            "📖",
+            "🐱",
+            "🐶"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「煙」的注音是什麼？",
+        "speak": "「煙」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「煙」的注音是「ㄧㄢ」。",
+        "answer": "ㄧㄢ",
+        "options": [
+          "ㄖ",
+          "ㄨㄣ",
+          "ㄊㄚ",
+          "ㄧㄢ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "煙"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「西」的聲母是什麼？",
+        "speak": "「西」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「西」的聲母是「ㄒ」。",
+        "answer": "ㄒ",
+        "options": [
+          "ㄐ",
+          "ㄙ",
+          "ㄋ",
+          "ㄒ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "西"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "3": [
+      {
+        "prompt": "[數學] 📐 🦊 是從左邊數第幾個？",
+        "speak": "狐狸是從左邊數第幾個？",
+        "hint": "從左邊數，數到狐狸就停下來。",
+        "explanation": "從左邊數，狐狸是第五個。",
+        "answer": "五",
+        "options": [
+          "四",
+          "七",
+          "六",
+          "五"
+        ],
+        "visual": {
+          "type": "ordinalLine",
+          "items": [
+            "🐻",
+            "🐱",
+            "🐸",
+            "🐰",
+            "🦊",
+            "🐶"
+          ],
+          "direction": "left",
+          "showNumbers": false,
+          "label": "森林動物排排站"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 從右邊數，第 5 個是什麼動物？",
+        "speak": "從右邊數，第五個是什麼動物？",
+        "hint": "從右邊開始，一個一個點著數。",
+        "explanation": "從右邊數，第五個是熊。",
+        "answer": "熊",
+        "options": [
+          "貓",
+          "企鵝",
+          "青蛙",
+          "熊"
+        ],
+        "visual": {
+          "type": "ordinalLine",
+          "items": [
+            "🐻",
+            "🦊",
+            "🐶",
+            "🐱",
+            "🐧"
+          ],
+          "direction": "right",
+          "showNumbers": false,
+          "label": "森林動物排排站"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「cat」的開頭音是哪一個字母？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "把 cat 唸慢一點，第一個音就是 c。",
+        "explanation": "cat 的開頭音是 /k/，字母 C。Cc 可以組成 cat、cup、car。",
+        "answer": "C",
+        "options": [
+          "C",
+          "B",
+          "D"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 cup 的開頭音一樣？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "cup 開頭是 c，找同樣以 c 開頭的單字。",
+        "explanation": "cake 以 c 開頭；dog 是 d，bed 是 b。",
+        "answer": "cake",
+        "options": [
+          "cake",
+          "dog",
+          "bed"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🥤",
+            "🍰",
+            "🐶",
+            "🛏️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「恩」的韻母是什麼？",
+        "speak": "「恩」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「恩」的韻母是「ㄣ」。",
+        "answer": "ㄣ",
+        "options": [
+          "ㄤ",
+          "ㄢ",
+          "ㄝ",
+          "ㄣ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "恩"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄆ」+「ㄟ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄟ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄟ」=「ㄆㄟ」，就是「陪」。",
+        "answer": "ㄆㄟ",
+        "options": [
+          "ㄆㄟ",
+          "ㄅㄚ",
+          "ㄅㄞ",
+          "ㄆㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "陪"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "4": [
+      {
+        "prompt": "[數學] 📐 10 可以分成幾和 8？",
+        "speak": "十可以分成幾和八？",
+        "hint": "用兩隻手比一比，還少幾個就是答案。",
+        "explanation": "十可以分成八和二，因為八加二等於十。",
+        "answer": "2",
+        "options": [
+          "4",
+          "3",
+          "5",
+          "2"
+        ],
+        "visual": {
+          "type": "numberBond",
+          "whole": 10,
+          "left": null,
+          "right": 8,
+          "missing": "left"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 10 可以分成幾和 3？",
+        "speak": "十可以分成幾和三？",
+        "hint": "先把十個手指頭伸出來，再藏起這個數。",
+        "explanation": "十可以分成三和七，因為三加七等於十。",
+        "answer": "7",
+        "options": [
+          "3",
+          "7",
+          "10",
+          "5"
+        ],
+        "visual": {
+          "type": "numberBond",
+          "whole": 10,
+          "left": null,
+          "right": 3,
+          "missing": "left"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 「dog」的開頭音是哪一個字母？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "把 dog 唸慢一點，第一個音就是 d。",
+        "explanation": "dog 的開頭音是 /d/，字母 D。Dd 可以組成 dog、duck、door。",
+        "answer": "D",
+        "options": [
+          "D",
+          "B",
+          "C"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 drum 的開頭音一樣？",
+        "speak": "看圖選出正確的開頭發音喔！",
+        "hint": "drum 開頭是 d，找同樣以 d 開頭的單字。",
+        "explanation": "duck 以 d 開頭；cake 是 c，bed 是 b。",
+        "answer": "duck",
+        "options": [
+          "duck",
+          "cake",
+          "bed"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🥁",
+            "🦆",
+            "🍰",
+            "🛏️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「那」的注音是什麼？",
+        "speak": "「那」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「那」的注音是「ㄋㄚ」。",
+        "answer": "ㄋㄚ",
+        "options": [
+          "ㄇㄚ",
+          "ㄋㄚ",
+          "ㄥ",
+          "ㄗ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "那"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「蛙」的注音是什麼？",
+        "speak": "「蛙」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「蛙」的注音是「ㄨㄚ」。",
+        "answer": "ㄨㄚ",
+        "options": [
+          "ㄑㄧ",
+          "ㄨㄚ",
+          "ㄒㄧ",
+          "ㄨㄣ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "蛙"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "5": [
+      {
+        "prompt": "[數學] 📐 1 加 5 等於多少？",
+        "speak": "一 加 五 等於多少？",
+        "hint": "先數第一個數，再往後數第二個數。",
+        "explanation": "1 和 5 合起來是 6。",
+        "answer": "6",
+        "options": [
+          "4",
+          "6",
+          "5",
+          "9"
+        ],
+        "visual": {
+          "type": "addSubScene",
+          "a": 1,
+          "b": 5,
+          "op": "+",
+          "emoji": "🐡"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 蝦子 1 隻，章魚 3 隻，合起來有幾隻？",
+        "speak": "蝦子一隻，章魚三隻，合起來有幾隻？",
+        "hint": "兩組朋友合起來，就用加法。",
+        "explanation": "1 隻和 3 隻合起來是 4 隻。",
+        "answer": "4",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "1"
+        ],
+        "visual": {
+          "type": "addSubScene",
+          "a": 1,
+          "b": 3,
+          "op": "+",
+          "emoji": "🦐"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 cat、hat、mat 這三個單字的結尾音相同嗎？",
+        "speak": "cat、hat、mat 這三個單字的結尾音相同嗎呢？",
+        "hint": "三個單字的最後都一樣。",
+        "explanation": "cat、hat、mat 都以 at 結尾，所以結尾音相同。",
+        "answer": "相同",
+        "options": [
+          "相同",
+          "不同",
+          "只有兩個相同"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱",
+            "🎩",
+            "🧶"
+          ],
+          "text": "- at 家族：c at · h at · m at"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 hat 押韻（結尾相同）？",
+        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "hint": "找一個也是 -at 結尾的單字。",
+        "explanation": "bat 和 hat 都以 -at 結尾，所以押韻；cup、dog 結尾不同。",
+        "answer": "bat",
+        "options": [
+          "bat",
+          "cup",
+          "dog"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🎩",
+            "🦇",
+            "🥤",
+            "🐶"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「喔」的注音是什麼？",
+        "speak": "「喔」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「喔」的注音是「ㄛ」。",
+        "answer": "ㄛ",
+        "options": [
+          "ㄛ",
+          "ㄧㄤ",
+          "ㄑㄧ",
+          "ㄒㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "喔"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄅ」+「ㄝ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄝ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄝ」=「ㄅㄝ」，就是「別」。",
+        "answer": "ㄅㄝ",
+        "options": [
+          "ㄅㄝ",
+          "ㄊㄚ",
+          "ㄇㄨ",
+          "ㄉㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "別"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "6": [
+      {
+        "prompt": "[數學] 📐 有 5 個泡泡，破了 5 個，還剩幾個？",
+        "speak": "有五個泡泡，破了五個，還剩幾個？",
+        "hint": "破掉的泡泡要扣掉喔。",
+        "explanation": "5 個泡泡破了 5 個，還剩 0 個。",
+        "answer": "0",
+        "options": [
+          "1",
+          "4",
+          "0",
+          "3"
+        ],
+        "visual": {
+          "type": "addSubScene",
+          "a": 5,
+          "b": 5,
+          "op": "-",
+          "emoji": "🎈"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 有 4 個泡泡，破了 1 個，還剩幾個？",
+        "speak": "有四個泡泡，破了一個，還剩幾個？",
+        "hint": "破掉的泡泡要扣掉喔。",
+        "explanation": "4 個泡泡破了 1 個，還剩 3 個。",
+        "answer": "3",
+        "options": [
+          "3",
+          "5",
+          "0",
+          "6"
+        ],
+        "visual": {
+          "type": "addSubScene",
+          "a": 4,
+          "b": 1,
+          "op": "-",
+          "emoji": "🎈"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 pen、hen、ten 這三個單字的結尾音是？",
+        "speak": "pen、hen、ten 這三個單字的結尾音是呢？",
+        "hint": "三個單字的最後兩個字母都一樣。",
+        "explanation": "pen、hen、ten 都以 -en 結尾。",
+        "answer": "en",
+        "options": [
+          "en",
+          "an",
+          "et"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "✏️",
+            "🐔",
+            "🔟"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 bed 押韻？",
+        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "hint": "找一個也是 -ed 結尾的單字。",
+        "explanation": "red 和 bed 都以 -ed 結尾，所以押韻；pen 是 -en，big 是 -ig。",
+        "answer": "red",
+        "options": [
+          "red",
+          "pen",
+          "big"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🛏️",
+            "🔴",
+            "✏️",
+            "🐘"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「腰」的結合韻是什麼？",
+        "speak": "「腰」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「腰」的結合韻是「ㄧㄠ」。",
+        "answer": "ㄧㄠ",
+        "options": [
+          "ㄨㄛ",
+          "ㄧㄠ",
+          "ㄧㄣ",
+          "ㄧㄢ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "腰"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄅ」+「ㄛ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄛ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄛ」=「ㄅㄛ」，就是「波」。",
+        "answer": "ㄅㄛ",
+        "options": [
+          "ㄆㄧ",
+          "ㄅㄛ",
+          "ㄈㄤ",
+          "ㄇㄥ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "波"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "7": [
+      {
+        "prompt": "[數學] 📐 有 4 個角，四條邊一樣長的是什麼形狀？",
+        "speak": "有四個角，四條邊一樣長的是什麼形狀？",
+        "hint": "四條邊都一樣長，四個角都方方的。",
+        "explanation": "正方形有 4 條一樣長的邊。",
+        "answer": "正方形",
+        "options": [
+          "三角形",
+          "長方形",
+          "正方形",
+          "圓形"
+        ],
+        "visual": {
+          "type": "shapeScene",
+          "width": 520,
+          "height": 280,
+          "shapes": [
+            {
+              "type": "rectangle",
+              "x": 264,
+              "y": 196,
+              "color": "#7bdff2",
+              "w": 82,
+              "h": 47
+            },
+            {
+              "type": "circle",
+              "x": 264,
+              "y": 110,
+              "color": "#ffd166",
+              "size": 68
+            },
+            {
+              "type": "circle",
+              "x": 28,
+              "y": 110,
+              "color": "#8ce99a",
+              "size": 63
+            },
+            {
+              "type": "circle",
+              "x": 382,
+              "y": 24,
+              "color": "#4fb8e8",
+              "size": 58
+            },
+            {
+              "type": "circle",
+              "x": 146,
+              "y": 196,
+              "color": "#f78fb3",
+              "size": 54
+            },
+            {
+              "type": "triangle",
+              "x": 264,
+              "y": 24,
+              "color": "#ff8a5c",
+              "size": 56
+            },
+            {
+              "type": "circle",
+              "x": 146,
+              "y": 110,
+              "color": "#9b8cff",
+              "size": 67
+            },
+            {
+              "type": "rectangle",
+              "x": 28,
+              "y": 196,
+              "color": "#7bdff2",
+              "w": 88,
+              "h": 55
+            },
+            {
+              "type": "square",
+              "x": 28,
+              "y": 24,
+              "color": "#ffd166",
+              "size": 54
+            }
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 數一數，圖中有幾個星星？",
+        "speak": "數一數，圖中有幾個星星？",
+        "hint": "一個一個慢慢數，別漏掉。",
+        "explanation": "圖裡有 2 個星星。",
+        "answer": "2",
+        "options": [
+          "2",
+          "5",
+          "0",
+          "6"
+        ],
+        "visual": {
+          "type": "shapeScene",
+          "width": 520,
+          "height": 280,
+          "shapes": [
+            {
+              "type": "rectangle",
+              "x": 382,
+              "y": 196,
+              "color": "#ffd166",
+              "w": 82,
+              "h": 55
+            },
+            {
+              "type": "star",
+              "x": 146,
+              "y": 24,
+              "color": "#8ce99a",
+              "size": 68
+            },
+            {
+              "type": "rectangle",
+              "x": 382,
+              "y": 110,
+              "color": "#4fb8e8",
+              "w": 84,
+              "h": 54
+            },
+            {
+              "type": "circle",
+              "x": 264,
+              "y": 196,
+              "color": "#9b8cff",
+              "size": 61
+            },
+            {
+              "type": "rectangle",
+              "x": 382,
+              "y": 24,
+              "color": "#7bdff2",
+              "w": 86,
+              "h": 52
+            },
+            {
+              "type": "square",
+              "x": 264,
+              "y": 24,
+              "color": "#f78fb3",
+              "size": 56
+            },
+            {
+              "type": "star",
+              "x": 264,
+              "y": 110,
+              "color": "#ff8a5c",
+              "size": 65
+            },
+            {
+              "type": "triangle",
+              "x": 28,
+              "y": 196,
+              "color": "#ffd166",
+              "size": 56
+            },
+            {
+              "type": "square",
+              "x": 28,
+              "y": 24,
+              "color": "#8ce99a",
+              "size": 61
+            },
+            {
+              "type": "square",
+              "x": 146,
+              "y": 110,
+              "color": "#4fb8e8",
+              "size": 57
+            }
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 pig、big、sit 這三個單字中間的母音是？",
+        "speak": "pig、big、sit 這三個單字中間的母音是呢？",
+        "hint": "三個單字中間都有一個相同的小母音。",
+        "explanation": "pig、big、sit 中間都是短母音 i（/ɪ/）。",
+        "answer": "i",
+        "options": [
+          "i",
+          "a",
+          "o"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐷",
+            "🐘",
+            "🪑"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 pig 押韻？",
+        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "hint": "找一個也是 -ig 結尾的單字。",
+        "explanation": "big 和 pig 都以 -ig 結尾，所以押韻；pin 是 -in，pen 是 -en。",
+        "answer": "big",
+        "options": [
+          "big",
+          "pin",
+          "pen"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐷",
+            "🐘",
+            "📌",
+            "✏️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄆ」+「ㄡ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄡ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄡ」=「ㄆㄡ」，就是「陪」。",
+        "answer": "ㄆㄡ",
+        "options": [
+          "ㄆㄡ",
+          "ㄈㄤ",
+          "ㄇㄟ",
+          "ㄈㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "陪"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「呃」的注音是什麼？",
+        "speak": "「呃」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「呃」的注音是「ㄜ」。",
+        "answer": "ㄜ",
+        "options": [
+          "ㄡ",
+          "ㄜ",
+          "ㄨㄣ",
+          "ㄥ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "呃"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "8": [
+      {
+        "prompt": "[數學] 📐 短針在 3 和 4 中間，長針指著 6，是幾點？",
+        "speak": "短針在三和四中間，長針指著六，是幾點？",
+        "hint": "長針指著 6，就是半點。",
+        "explanation": "長針指著 6，短針在 3 和 4 中間，所以是 3 點半。",
+        "answer": "3點半",
+        "options": [
+          "4點半",
+          "3點半",
+          "3點",
+          "4點"
+        ],
+        "visual": {
+          "type": "clock",
+          "hour": 3,
+          "minute": 30
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 時鐘上是幾點？",
+        "speak": "時鐘上是幾點？",
+        "hint": "長針指著 12，就是整點。",
+        "explanation": "短針指著 2，長針指著 12，所以是 2 點。",
+        "answer": "2點",
+        "options": [
+          "2點",
+          "3點半",
+          "3點",
+          "2點半"
+        ],
+        "visual": {
+          "type": "clock",
+          "hour": 2,
+          "minute": 0
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 dog、log、fog 這三個單字的結尾音是？",
+        "speak": "dog、log、fog 這三個單字的結尾音是呢？",
+        "hint": "三個單字的最後兩個字母都一樣。",
+        "explanation": "dog、log、fog 都以 -og 結尾。",
+        "answer": "og",
+        "options": [
+          "og",
+          "op",
+          "ot"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶",
+            "🪵",
+            "🌫️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字和 hot 押韻？",
+        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "hint": "找一個也是 -ot 結尾的單字。",
+        "explanation": "pot 和 hot 都以 -ot 結尾，所以押韻；pen 是 -en，bed 是 -ed。",
+        "answer": "pot",
+        "options": [
+          "pot",
+          "pen",
+          "bed"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔥",
+            "🍲",
+            "✏️",
+            "🛏️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「日」的聲母是什麼？",
+        "speak": "「日」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「日」的聲母是「ㄖ」。",
+        "answer": "ㄖ",
+        "options": [
+          "ㄋ",
+          "ㄏ",
+          "ㄖ",
+          "ㄉ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "日"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「窩」的注音是什麼？",
+        "speak": "「窩」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「窩」的注音是「ㄨㄛ」。",
+        "answer": "ㄨㄛ",
+        "options": [
+          "ㄨㄛ",
+          "ㄇㄚ",
+          "ㄑㄧ",
+          "ㄧㄤ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "窩"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "9": [
+      {
+        "prompt": "[數學] 📐 小丑魚有 8 隻，海龜有 9 隻，一共有幾隻？",
+        "speak": "小丑魚有八隻，海龜有九隻，一共有幾隻？",
+        "hint": "從 9 拿出 2 個，和 8 湊成 10。",
+        "explanation": "8 加 2 湊成 10，10 再加 7 等於 17。",
+        "answer": "17",
+        "options": [
+          "15",
+          "19",
+          "17",
+          "16"
+        ],
+        "visual": {
+          "type": "makeTenBoard",
+          "a": 8,
+          "b": 9,
+          "emoji": "🐠"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 8 加 5 等於多少？",
+        "speak": "八加五等於多少？",
+        "hint": "從 5 拿出 2 個，和 8 湊成 10。",
+        "explanation": "8 加 2 湊成 10，10 再加 3 等於 13。",
+        "answer": "13",
+        "options": [
+          "10",
+          "13",
+          "11",
+          "15"
+        ],
+        "visual": {
+          "type": "makeTenBoard",
+          "a": 8,
+          "b": 5,
+          "emoji": "🐠"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 fish 和 shoe 都含有哪個音？",
+        "speak": "fish 和 shoe 都含有哪個音呢？",
+        "hint": "兩個單字裡都有同樣的兩個字母。",
+        "explanation": "fish 和 shoe 都含有 sh 音：f-i-sh、sh-o-e。",
+        "answer": "sh",
+        "options": [
+          "sh",
+          "ch",
+          "th"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐟",
+            "👟"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字以 sh 開頭？",
+        "speak": "哪一個單字以 sh 開頭呢？",
+        "hint": "sh 在單字最前面的那一個。",
+        "explanation": "ship 以 sh 開頭；fish 的 sh 在結尾，brush 的 sh 也在結尾。",
+        "answer": "ship",
+        "options": [
+          "ship",
+          "fish",
+          "brush"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚢",
+            "🐟",
+            "🖌️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄅ」+「ㄤ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄤ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄤ」=「ㄅㄤ」，就是「帮」。",
+        "answer": "ㄅㄤ",
+        "options": [
+          "ㄆㄥ",
+          "ㄅㄤ",
+          "ㄋㄜ",
+          "ㄈㄟ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "帮"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄇ」+「ㄟ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄟ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄟ」=「ㄇㄟ」，就是「沒」。",
+        "answer": "ㄇㄟ",
+        "options": [
+          "ㄅㄡ",
+          "ㄇㄟ",
+          "ㄉㄜ",
+          "ㄋㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "沒"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "10": [
+      {
+        "prompt": "[數學] 📐 樹上有 14 隻小鳥，飛走了 8 隻，還剩幾隻？",
+        "speak": "樹上有十四隻小鳥，飛走了八隻，還剩幾隻？",
+        "hint": "把 14 分成 10 和 4，先算 10 減 8。",
+        "explanation": "把 14 分成 10 和 4，10 減 8 等於 2，2 加 4 等於 6。",
+        "answer": "6",
+        "options": [
+          "4",
+          "7",
+          "6",
+          "5"
+        ],
+        "visual": {
+          "type": "breakTenBoard",
+          "a": 14,
+          "b": 8,
+          "emoji": "🐦"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 14 減 8 等於多少？用破十法想一想。",
+        "speak": "十四減八等於多少？用破十法想一想。",
+        "hint": "把 14 分成 10 和 4，先算 10 減 8。",
+        "explanation": "把 14 分成 10 和 4，10 減 8 等於 2，2 加 4 等於 6。",
+        "answer": "6",
+        "options": [
+          "5",
+          "9",
+          "8",
+          "6"
+        ],
+        "visual": {
+          "type": "breakTenBoard",
+          "a": 14,
+          "b": 8,
+          "emoji": "🌰"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 chair 和 cheese 都含有哪個音？",
+        "speak": "chair 和 cheese 都含有哪個音呢？",
+        "hint": "兩個單字裡都有同樣的兩個字母。",
+        "explanation": "chair 和 cheese 都含有 ch 音：c-h-air、c-h-eese。",
+        "answer": "ch",
+        "options": [
+          "ch",
+          "sh",
+          "th"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪑",
+            "🧀"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字以 ch 開頭？",
+        "speak": "哪一個單字以 ch 開頭呢？",
+        "hint": "ch 在單字最前面的那一個。",
+        "explanation": "chair 以 ch 開頭；peach 和 lunch 的 ch 都在結尾。",
+        "answer": "chair",
+        "options": [
+          "chair",
+          "peach",
+          "lunch"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪑",
+            "🍑",
+            "🍱"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「安」的注音是什麼？",
+        "speak": "「安」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「安」的注音是「ㄢ」。",
+        "answer": "ㄢ",
+        "options": [
+          "ㄢ",
+          "ㄗ",
+          "ㄤ",
+          "ㄅㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "安"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄇ」+「ㄥ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄥ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄥ」=「ㄇㄥ」，就是「蒙」。",
+        "answer": "ㄇㄥ",
+        "options": [
+          "ㄈㄣ",
+          "ㄇㄥ",
+          "ㄅㄨ",
+          "ㄇㄧ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "蒙"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "11": [
+      {
+        "prompt": "[數學] 📐 92 是幾個十和幾個一？",
+        "speak": "九十二，是幾個十和幾個一？",
+        "hint": "十位是左邊的長條，個位是小方塊。",
+        "explanation": "9 個十是 90，2 個一是 2，合起來是 92。",
+        "answer": "9 個十和 2 個一",
+        "options": [
+          "10 個十和 3 個一",
+          "10 個十和 1 個一",
+          "9 個十和 2 個一",
+          "8 個十和 2 個一"
+        ],
+        "visual": {
+          "type": "baseTen",
+          "tens": 9,
+          "ones": 2
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 這裡有幾個一？",
+        "speak": "這裡有幾個一？",
+        "hint": "一個小方塊代表一個一。",
+        "explanation": "個位是 2，所以有 2 個一。",
+        "answer": "2",
+        "options": [
+          "1",
+          "5",
+          "4",
+          "2"
+        ],
+        "visual": {
+          "type": "baseTen",
+          "tens": 3,
+          "ones": 2
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 three 和 thumb 都含有哪個音？",
+        "speak": "three 和 thumb 都含有哪個音呢？",
+        "hint": "兩個單字裡都有同樣的兩個字母。",
+        "explanation": "three 和 thumb 都含有 th 音：t-h-ree、t-h-umb。",
+        "answer": "th",
+        "options": [
+          "th",
+          "sh",
+          "ch"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "3️⃣",
+            "👍"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字以 th 開頭？",
+        "speak": "哪一個單字以 th 開頭呢？",
+        "hint": "th 在單字最前面的那一個。",
+        "explanation": "three 以 th 開頭；bath 和 mouth 的 th 都在結尾。",
+        "answer": "three",
+        "options": [
+          "three",
+          "bath",
+          "mouth"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "3️⃣",
+            "🛁",
+            "👄"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「衣」的注音是什麼？",
+        "speak": "「衣」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「衣」的注音是「ㄧ」。",
+        "answer": "ㄧ",
+        "options": [
+          "ㄧㄣ",
+          "ㄧ",
+          "ㄠ",
+          "ㄋㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "衣"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「英」的注音是什麼？",
+        "speak": "「英」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「英」的注音是「ㄧㄥ」。",
+        "answer": "ㄧㄥ",
+        "options": [
+          "ㄏㄜ",
+          "ㄓ",
+          "ㄧㄥ",
+          "ㄑㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "英"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "12": [
+      {
+        "prompt": "[數學] 📐 從 0 開始量，量到 5 是幾格？",
+        "speak": "從零開始量，量到五是幾格？",
+        "hint": "從 0 數到 5，中間有幾格呢？",
+        "explanation": "從 0 量到 5，走了 5 格。",
+        "answer": "5",
+        "options": [
+          "3",
+          "7",
+          "5",
+          "1"
+        ],
+        "visual": {
+          "type": "ruler",
+          "units": 5,
+          "emoji": "🎀",
+          "maxUnits": 10
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 這條緞帶有幾格長？",
+        "speak": "這條緞帶有幾格長？",
+        "hint": "起點對準 0，數到緞帶的尾巴。",
+        "explanation": "從 0 開始一格一格數，數到 9，就是 9 格長。",
+        "answer": "9",
+        "options": [
+          "10",
+          "5",
+          "9",
+          "6"
+        ],
+        "visual": {
+          "type": "ruler",
+          "units": 9,
+          "emoji": "🎀",
+          "maxUnits": 10
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 king、ring、sing 這三個單字的結尾音是？",
+        "speak": "king、ring、sing 這三個單字的結尾音是呢？",
+        "hint": "三個單字的最後兩個字母都一樣。",
+        "explanation": "king、ring、sing 都以 -ng 結尾。",
+        "answer": "ng",
+        "options": [
+          "ng",
+          "nk",
+          "ns"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🤴",
+            "💍",
+            "🎤"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 哪一個單字以 ck 結尾？",
+        "speak": "哪一個單字以 ck 結尾呢？",
+        "hint": "ck 在單字最後面的那一個。",
+        "explanation": "duck 以 ck 結尾；king 和 ring 的結尾是 ng。",
+        "answer": "duck",
+        "options": [
+          "duck",
+          "king",
+          "ring"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🦆",
+            "🤴",
+            "💍"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「七」的注音是什麼？",
+        "speak": "「七」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「七」的注音是「ㄑㄧ」。",
+        "answer": "ㄑㄧ",
+        "options": [
+          "ㄖ",
+          "ㄑㄧ",
+          "ㄅㄚ",
+          "ㄔ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "七"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄈ」+「ㄣ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄣ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄣ」=「ㄈㄣ」，就是「芬」。",
+        "answer": "ㄈㄣ",
+        "options": [
+          "ㄆㄛ",
+          "ㄇㄣ",
+          "ㄈㄠ",
+          "ㄈㄣ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "芬"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "13": [
+      {
+        "prompt": "[數學] 📐 小美有 80 元，買了 12 元的飲料，還剩幾元？",
+        "speak": "小美有八十元，買了十二元的飲料，還剩幾元？",
+        "hint": "用全部的錢減掉花掉的錢。",
+        "explanation": "80 − 12 = 68（元）。",
+        "answer": "68",
+        "options": [
+          "67",
+          "66",
+          "72",
+          "68"
+        ],
+        "visual": {
+          "type": "coins",
+          "coins": [
+            50,
+            10,
+            10,
+            5,
+            5
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 有 3 個 10 元硬幣，一共是多少元？",
+        "speak": "有三個十元硬幣，一共是多少元？",
+        "hint": "一個十元，兩個十元……",
+        "explanation": "10 + 10 + 10 = 30（元）。",
+        "answer": "30",
+        "options": [
+          "30",
+          "27",
+          "29",
+          "31"
+        ],
+        "visual": {
+          "type": "coins",
+          "coins": [
+            10,
+            10,
+            10
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 🔴 的英文單字是？",
+        "speak": "🔴 的英文單字是呢？",
+        "hint": "蘋果、紅燈的顏色。",
+        "explanation": "🔴 是 red 紅色。",
+        "answer": "red",
+        "options": [
+          "red",
+          "blue",
+          "green"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔴"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「blue」是什麼顏色？",
+        "speak": "「blue」是什麼顏色呢？",
+        "hint": "天空和大海的顏色。",
+        "explanation": "blue 就是藍色。",
+        "answer": "藍色",
+        "options": [
+          "藍色",
+          "紅色",
+          "綠色"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔵"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄅ」+「ㄢ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄢ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄢ」=「ㄅㄢ」，就是「班」。",
+        "answer": "ㄅㄢ",
+        "options": [
+          "ㄅㄠ",
+          "ㄇㄛ",
+          "ㄊㄜ",
+          "ㄅㄢ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "班"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「昂」的韻母是什麼？",
+        "speak": "「昂」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「昂」的韻母是「ㄤ」。",
+        "answer": "ㄤ",
+        "options": [
+          "ㄨ",
+          "ㄤ",
+          "ㄥ",
+          "ㄢ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "昂"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "14": [
+      {
+        "prompt": "[數學] 📐 太空人小光收集了 61 張貼紙，太空人小宇收集了 32 張，兩人一共有幾張？",
+        "speak": "太空人小光收集了六十一張貼紙，太空人小宇收集了三十二張，兩人一共有幾張？",
+        "hint": "把兩人的貼紙合起來。",
+        "explanation": "61 + 32 = 93（張）。",
+        "answer": "93",
+        "options": [
+          "94",
+          "92",
+          "97",
+          "93"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 61,
+          "b": 32,
+          "op": "+",
+          "showAnswer": false
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 火箭上有 32 個電池，又送來 57 個電池，一共有多少個？",
+        "speak": "火箭上有三十二個電池，又送來五十七個電池，一共有多少個？",
+        "hint": "原來的數量加上送來的數量。",
+        "explanation": "32 + 57 = 89（個）。",
+        "answer": "89",
+        "options": [
+          "89",
+          "86",
+          "90",
+          "87"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 32,
+          "b": 57,
+          "op": "+",
+          "showAnswer": false
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 👩 的英文單字是？",
+        "speak": "👩 的英文單字是呢？",
+        "hint": "家里最疼愛你的那位女性家人。",
+        "explanation": "👩 是 mom 媽媽。",
+        "answer": "mom",
+        "options": [
+          "mom",
+          "dad",
+          "sister"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👩"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「sister」的中文是什麼？",
+        "speak": "「sister」的中文是什麼呢？",
+        "hint": "和你同一位爸爸媽媽的女孩。",
+        "explanation": "sister 就是姐妹（姊姊或妹妹）。",
+        "answer": "姐妹",
+        "options": [
+          "姐妹",
+          "兄弟",
+          "爸爸"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👧"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「次」的聲母是什麼？",
+        "speak": "「次」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「次」的聲母是「ㄘ」。",
+        "answer": "ㄘ",
+        "options": [
+          "ㄙ",
+          "ㄔ",
+          "ㄘ",
+          "ㄆ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "次"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「月」的結合韻是什麼？",
+        "speak": "「月」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「月」的結合韻是「ㄩㄝ」。",
+        "answer": "ㄩㄝ",
+        "options": [
+          "ㄧㄤ",
+          "ㄨㄞ",
+          "ㄩㄝ",
+          "ㄧㄥ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "月"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "15": [
+      {
+        "prompt": "[數學] 📐 哪一種水果最多？",
+        "speak": "哪一種水果最多？",
+        "hint": "比較每一種水果的數量。",
+        "explanation": "葡萄有 9 個，是四種水果裡最多的。",
+        "answer": "葡萄",
+        "options": [
+          "芒果",
+          "香蕉",
+          "蘋果",
+          "葡萄"
+        ],
+        "visual": {
+          "type": "table",
+          "title": "水果數量統計表",
+          "columns": [
+            {
+              "label": "數量",
+              "emoji": "🔢"
+            }
+          ],
+          "rows": [
+            {
+              "label": "香蕉",
+              "emoji": "🍌",
+              "values": [
+                8
+              ]
+            },
+            {
+              "label": "芒果",
+              "emoji": "🥭",
+              "values": [
+                4
+              ]
+            },
+            {
+              "label": "葡萄",
+              "emoji": "🍇",
+              "values": [
+                9
+              ]
+            },
+            {
+              "label": "蘋果",
+              "emoji": "🍎",
+              "values": [
+                7
+              ]
+            }
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 芒果比葡萄多幾個？",
+        "speak": "芒果比葡萄多幾個？",
+        "hint": "用多的數量減掉少的數量。",
+        "explanation": "芒果有 7 個，葡萄有 2 個：7 − 2 = 5（個）。",
+        "answer": "5",
+        "options": [
+          "5",
+          "2",
+          "4",
+          "7"
+        ],
+        "visual": {
+          "type": "table",
+          "title": "水果數量統計表",
+          "columns": [
+            {
+              "label": "數量",
+              "emoji": "🔢"
+            }
+          ],
+          "rows": [
+            {
+              "label": "芒果",
+              "emoji": "🥭",
+              "values": [
+                7
+              ]
+            },
+            {
+              "label": "草莓",
+              "emoji": "🍓",
+              "values": [
+                9
+              ]
+            },
+            {
+              "label": "葡萄",
+              "emoji": "🍇",
+              "values": [
+                2
+              ]
+            },
+            {
+              "label": "香蕉",
+              "emoji": "🍌",
+              "values": [
+                4
+              ]
+            }
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 🥛 的英文單字是？",
+        "speak": "🥛 的英文單字是呢？",
+        "hint": "早餐會喝、白白的飲料。",
+        "explanation": "🥛 是 milk 牛奶。",
+        "answer": "milk",
+        "options": [
+          "milk",
+          "juice",
+          "water"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🥛"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「bread」的中文是什麼？",
+        "speak": "「bread」的中文是什麼呢？",
+        "hint": "可以涂果酱、做三明治的主食。",
+        "explanation": "bread 就是麵包。",
+        "answer": "麵包",
+        "options": [
+          "麵包",
+          "米饭",
+          "蛋"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍞"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄅ」+「ㄡ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄡ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄡ」=「ㄅㄡ」，就是「北」。",
+        "answer": "ㄅㄡ",
+        "options": [
+          "ㄆㄥ",
+          "ㄆㄛ",
+          "ㄅㄡ",
+          "ㄆㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "北"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「昂」的注音是什麼？",
+        "speak": "「昂」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「昂」的注音是「ㄤ」。",
+        "answer": "ㄤ",
+        "options": [
+          "ㄛ",
+          "ㄩ",
+          "ㄨㄣ",
+          "ㄤ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "昂"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "16": [
+      {
+        "prompt": "[數學] 📐 排隊買冰淇淋，小安前面有 2 個人，後面有 8 個人，這一排一共有幾個人？",
+        "speak": "排隊買冰淇淋，小安前面有二個人，後面有八個人，這一排一共有幾個人？",
+        "hint": "別忘了把排隊的自己也算進去！",
+        "explanation": "前面 2 人，加上小安 1 人，後面 8 人：2 + 1 + 8 = 11（人）。",
+        "answer": "11",
+        "options": [
+          "8",
+          "11",
+          "13",
+          "10"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒",
+            "🧒"
+          ],
+          "text": ""
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 樹上有 12 顆星星，飛走了 2 顆，還剩幾顆？",
+        "speak": "樹上有十二顆星星，飛走了二顆，還剩幾顆？",
+        "hint": "飛走的星星要扣掉。",
+        "explanation": "12 − 2 = 10（顆）。",
+        "answer": "10",
+        "options": [
+          "11",
+          "10",
+          "8",
+          "13"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🌳",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨",
+            "✨"
+          ],
+          "text": ""
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 🐶 的英文單字是？",
+        "speak": "🐶 的英文單字是呢？",
+        "hint": "會汪汪叫、最忠誠的小動物。",
+        "explanation": "🐶 是 dog 小狗。",
+        "answer": "dog",
+        "options": [
+          "dog",
+          "cat",
+          "pig"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐶"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 「frog」的中文是什麼？",
+        "speak": "「frog」的中文是什麼呢？",
+        "hint": "會呱呱叫、會跳得很高。",
+        "explanation": "frog 就是青蛙。",
+        "answer": "青蛙",
+        "options": [
+          "青蛙",
+          "小鳥",
+          "魚"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐸"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「優」的結合韻是什麼？",
+        "speak": "「優」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「優」的結合韻是「ㄧㄡ」。",
+        "answer": "ㄧㄡ",
+        "options": [
+          "ㄧㄡ",
+          "ㄧㄤ",
+          "ㄧㄥ",
+          "ㄨㄛ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "優"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「ㄆ」+「ㄛ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄛ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄛ」=「ㄆㄛ」，就是「坡」。",
+        "answer": "ㄆㄛ",
+        "options": [
+          "ㄆㄛ",
+          "ㄋㄚ",
+          "ㄅㄨ",
+          "ㄇㄛ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "？",
+          "word": "坡"
+        },
+        "subject": "chinese"
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.4.9 版)  
+> **最後更新時間**：2026-10-25 (v2.5.1 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,10 +10,10 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.4.9】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.5.1】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
-python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "跨科目期末綜合挑戰島關卡規劃與規則串接，完成後 node --check 自檢"
+python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "跨領域綜合素養成果分享海報與家長成績單報表功能實裝，完成後 node --check 自檢"
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -26,67 +26,74 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 | :--- | :--- | :--- |
 | **`PROJECT_HANDOVER.md`** | 跨對話進度與交接手冊 | 記錄當前版號與待辦 (SSOT) |
 | **`AGENTS.md`** | AI 開發守則與架構規範 | 常駐規則守護與架構紅線 |
-| **`index.html`** | 遊戲前端主頁面 | 含頂部全域導覽、科目切換膠囊、年級切換膠囊與版號標籤 (v2.3.4) |
+| **`index.html`** | 遊戲前端主頁面 | 含頂部全域導覽、科目切換膠囊、年級切換膠囊與版號標籤 (v2.5.1) |
 | **`manifest.webmanifest`** | PWA 漸進式應用清單 | 定義獨立桌面視窗、全螢幕與吉祥物圖示 |
-| **`sw.js`** | Service Worker 離線快取 | 支援離線秒開與 Android/iOS/Chrome 安裝條件 (v2.3.4) |
+| **`sw.js`** | Service Worker 離線快取 | 支援離線秒開與 Android/iOS/Chrome 安裝條件 (v2.5.1) |
 | **`assets/icons/`** | PWA 桌面圖示集合 | 192x192 與 512x512 高畫質 PNG 圖示 |
 | **`server.py`** | 輕量本機 HTTP 伺服器 | 預設監聽 8085，支援 MIME 與 CORS 標頭 |
 | **`js/main.js`** | 主程式入口調度 | 畫面切換、事件監聽與年級狀態聯動 |
 | **`js/grades.js`** | 年級設定字典 | 定義小一至小三島嶼、關卡數與題庫對應；`SUBJECT_GRADES` 科目掛表 |
-| **`js/subjects.js`** | 科目註冊表 (SSOT) | 數學/英文/國語島定義、語音語系 (en-US / zh-TW) 與就緒旗標 |
-| **`js/levels/island_defs_g3.js`** | 小三 4 大島嶼與 16 關卡定義 | 算術神殿、幾何迷宮、分數花園、時空星盤 |
-| **`js/visuals.js`** | 豐富數學動態教具與繪本情境渲染 | 支援直式、分數、幾何、SVG 數線與 `renderStoryVisual` 情境卡 |
-| **`assets/images/story-*.jpg`** | 智慧繪本插圖庫 | 花園冒險、思考筆記、海島尋寶高品質萌系插圖 |
-| **`data/question-bank-g1.json`** | 小一專屬題庫 | 16 關 x 12 題 = 192 題 |
-| **`data/question-bank-g2.json`** | 小二專屬題庫 | 16 關 x 12 題 = 192 題 |
-| **`data/question-bank-g3.json`** | 小三專屬題庫 (108 課綱) | 16 關 x 12 題 = 192 題 |
-| **`data/question-bank-en-g1.json`** | 奇幻英文島小一題庫 | 16 關 x 8 題 = 128 題自然發音與生活單字 |
-| **`data/question-bank-en-g2.json`** | 奇幻英文島小二題庫 | 16 關 x 8 題 = 128 題長母音與詞族生活單字 |
-| **`data/question-bank-en-g3.json`** | 奇幻英文島小三題庫 | 16 關 x 8 題 = 128 題母音組合與句子冒險 |
+| **`js/subjects.js`** | 科目註冊表 (SSOT) | 數學/英文/國語/期末挑戰島定義、語音語系與就緒旗標 |
+| **`js/trophy.js`** | 期末綜合挑戰金盃頒發盛典模組 | 旋轉光芒、浮動金盃、三科PASS認證與頒獎祝賀語音 |
+| **`js/levels/island_defs_challenge.js`** | 跨科目期末綜合挑戰島 48 關卡定義 | 數英中跨學科融合評量 (小一至小三各 4 島 16 關) |
+| **`data/question-bank-challenge-g{1,2,3}.json`** | 期末綜合挑戰題庫 | 小一至小三各 16 關 x 6 題 = 96 題跨領域素養會考題 |
+| **`js/visuals.js`** | 豐富數學動態教具與繪本情境渲染 | 支援直式、分數、幾何、SVG 數線與情境教具 |
 | **`auto_backup.py`** | 三層智慧備份與自動封存 | 支援日常備份與 Handover 防膨脹修剪 |
 | **`一鍵推送GitHub版本.bat`** | GitHub 一鍵推送自動化腳本 | 自動 commit 與 push 至 main 分支 |
-| **`.gitignore`** | Git 排除設定 | 排除 backups 快照、敏感 Token 與大型暫存檔 |
-| **`token_dashboard.html`** | 即時 Token 視覺化儀表板 | 5h 滑動窗口與多帳號記帳池 |
-| **`backup_config.json`** | 專案備份與排除客製化設定 | 自訂副檔名、排除目錄與靜態檔 |
 
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
-- [ ] **跨科目期末綜合挑戰島關卡規劃**
+- [ ] **跨領域綜合素養成果分享海報與家長成績單報表功能實裝**
 
 ### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
-- [ ] 跨科目期末綜合挑戰島關卡規劃
+- [ ] 跨領域綜合素養成果分享海報與家長成績單報表功能實裝
 
 ---
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
-- [x] **奇幻英文島自然發音卡與單字拼讀積木教具實裝** (`js/visuals.js` 實裝 `englishPhonics` 字母自然發音卡、`englishSpelling` 單字拼讀積木與 `englishVisual` 分流器，修復 `chinese` 重複宣告語法錯誤；支援母音/子音/未知格色彩區隔與美語 en-US 點擊發音互動，`css/style.css` 補齊全響應式流體排版) (v2.4.9)
+- [x] **跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝** (建立 `js/trophy.js` 通關金盃頒發盛典模組、整合旋轉射線與浮動金盃動畫、在 `map.js` 實裝挑戰會考 Banner 與獎盃快捷、在 `engine.js` 完賽聯動金盃慶祝與語音賀詞，全年級 192 關自檢全綠燈) (v2.5.1)
+- [x] **英文島答案洩漏全面修復 ✕ 跨科目期末綜合挑戰島關卡規劃與規則串接** (`js/engine.js` 實裝選項 Emoji 防洩題安全機制、清除英文題庫 `optionEmojis` 避免作答前洩題；建立 `js/levels/island_defs_challenge.js` 48 關跨領域評量島嶼、生成小一至小三 288 題跨科題庫 `question-bank-challenge-g{1,2,3}.json`，在 `state.js` 串接 18 星門檻解鎖規則與 `challenge_master` 成就徽章，144+48 關測試全綠燈) (v2.5.0)
+- [x] **奇幻英文島自然發音卡與單字拼讀積木教具實裝** (v2.4.9)
 - [x] **國語島生字筆順動態繪製與筆畫指引教具擴展** (v2.4.8)
 <details><summary>過往已完成歷史任務</summary>
-- [x] **多科目關卡前置星數解鎖與學習徽章系統實裝** (`js/state.js` 實裝 4 島前置星數門檻門檻值 0/6/16/28 ⭐ 與雙軌鎖定檢驗、新增 `js/badges.js` 10 大榮譽成就系統與動態進度檢驗、首頁/地圖/頂部全域列全面掛載徽章館 Modal 與即時徽章通知、`engine.js` 通關結算動態慶祝新徽章、`sw.js` 快取同步) (v2.4.7)
-- [x] **國語島動態注音卡與生字米字格教具響應式優化** (`js/visuals.js` 升級多字米字格自適應群組、小學標準米字格 SVG 網格線、教育部標準標楷體字體鏈、點擊卡片與米字格雙軌語音發音反饋與微動效、`style.css` 響應式斷點全面適配行動裝置與極窄手機) (v2.4.6)
-- [x] **英文與國語島語音讀題中文化與教具防洩題全面修復** (英文島語音切換 zh-TW 台灣雙語混讀、英文島看圖選字教具隱藏答案文字、國語島注音卡隱藏答案符號改為「？」並展示生字引導拼音、渲染層防洩題機制與題庫全面清洗) (v2.4.5)
-- [x] **全科全年級 144 關卡聯動驗收與跨科目進度持久化優化** (數/英/國 × 小一~小三 144 關整合測試、跨科目存儲隔離與單元測試全通、全景聚合匯總與導出導入 API、首頁與膠囊即時聯動) (v2.4.4)
-- [x] **奇幻國語島小三題庫與關卡建置** (`data/question-bank-ch-g3.json` 128 題修辭成語閱讀、`js/levels/island_defs_ch_g3.js` 4 島 16 關、`js/levels/index.js` 與 `js/grades.js` 全面掛載) (v2.4.3)
-</details>
-- [x] **奇幻英文島關卡科目化** (`js/levels/index.js` 科目→年級 SSOT 取表、新增 `js/levels/island_defs_en_g1.js` 4 島 16 關英文標題與 intro) (v2.3.1)
-- [x] **奇幻英文島小一 MVP 上線** (16 關 × 8 題 = 128 題自然發音與生活單字、`SUBJECT_GRADES.english` 掛表、英文島綠燈) (v2.3.0)
-- [x] **方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳) (v2.2.0)**
-- [x] **納入 Token & Backup Toolkit 核心機制** (SSOT 工具鏈同步、登記清單、雲端同步管家)
-- [x] **前端介面版本標籤 (v2.0.0 / v2.1.0 / v2.1.1 / v2.1.2) 與樣式配置**
-- [x] **建立基準重大版本備份快照 (`backup_MAJOR_v2.0.0`)**
-- [x] **擴充國小三年級 (Grade 3) 題庫與關卡** (16 關 x 12 題 = 192 題完整上線)
-- [x] **題目下方視覺輔助框框美化與繪本插圖/情境數量卡片整合 (v2.1.1)**
-- [x] **數線 (numberLine) 教具重構升級為響應式向量 SVG 與題庫防洩題標籤修正 (v2.1.2)**
-- [x] **啟動 GitHub Pages 免費即時上線準備與 Git 倉庫初始化 (含一鍵推送腳本)**
-- [x] **全面升級 PWA 桌面/平板 App 安裝支援 (Manifest + Service Worker 離線快取) (v2.1.3)**
-- [x] **確立「小一～小三橫向主科奠基」戰略方針與方案 A Roadmap (`docs/ROADMAP.md`)**
+- [x] **多科目關卡前置星數解鎖與學習徽章系統實裝** (v2.4.7)
+- [x] **國語島動態注音卡與生字米字格教具響應式優化** (v2.4.6)
+- [x] **英文與國語島語音讀題中文化與教具防洩題全面修復** (v2.4.5)
+- [x] **全科全年級 144 關卡聯動驗收與跨科目進度持久化優化** (v2.4.4)
+- [x] **奇幻國語島小三題庫與關卡建置** (v2.4.3)
 </details>
 
 ## 🌟 近期重大功能更新歷程 (Version Changelog)
 
-### 【v2.4.9 版】🔤 奇幻英文島自然發音卡與單字拼讀積木教具實裝 ✕ 雙軌美語發音互動 📅 2026-10-25
+### 【v2.5.1 版】🏆 跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝 📅 2026-10-25
+
+1. **通關獎盃頒發盛典模組 (`js/trophy.js`)**：
+   - 建立高質感全螢幕頒獎盛典 Modal，支援 360 度旋轉金色光芒射線 (`trophy-rays`)、浮動金盃 (`trophy-gold-cup`) 與皇冠星星彈跳動效。
+   - 整合台灣國小年級榮譽頭銜（全能大師/乘風破浪領主/至尊大成學士）、答題通關數據統計與數英中三科 PASS 認證標籤。
+   - 雙軌語音祝賀朗讀與多重煙火彩帶慶祝 (`fireworks` + `launchConfetti`)，無縫聯動榮譽徽章系統。
+2. **期末綜合挑戰島專屬 UI 地圖 (`js/map.js` & `css/style.css`)**：
+   - 地圖頂部實裝 `challenge-map-banner` 玻璃擬態卡片，標註三大領域整合評量與金盃進度快捷按鈕。
+   - 島嶼卡片新增 `is-challenge-island` 專屬邊框微光，關卡卡片加入「數✕英✕中」融合標記，第 16 關特製 `👑 總魔王會考` 皇冠金牌。
+3. **通關聯動與導覽列狀態 (`js/engine.js` & `js/main.js`)**：
+   - 在第 16 關或期末挑戰島通關時，自動觸發金盃頒發盛典；頂部科目膠囊精準呈現 18⭐ 解鎖門檻與星星計數。
+   - 全年級 144 + 48 = 192 關卡自動化測試與 `node --check` 自檢全數通過。
+
+### 【v2.5.0 版】🛡️ 英文島答案防洩漏全面修復 ✕ 跨科目期末綜合挑戰島關卡規劃與規則串接 📅 2026-10-25
+
+1. **英文島答案防洩漏機制 (`js/engine.js` & `question-bank-en-*.json`)**：
+   - 核心防洩題：在 `optionEmojis()` 加入題幹與視覺教具圖示比對過濾，凡與題幹或教具相同的 Emoji 在作答前嚴禁渲染在按鈕上。
+   - 題庫清洗：全數清除 `question-bank-en-g1.json`、`g2.json`、`g3.json` 共 306 處干擾性 `optionEmojis`，修正 `ax` 斧頭教具洩題，回歸真實英文單字與發音測驗。
+2. **跨科目期末綜合挑戰島關卡規劃 (`js/levels/island_defs_challenge.js`)**：
+   - 橫跨國小一至三年級，每學年規劃 4 大期末素養島嶼（4 島 × 4 關 = 16 關，共 48 關）。
+   - 小一（素養起步、生活探索、思維進階、期末總魔王）、小二（乘風啟航、度量冰川、乘法烈焰、星河大魔王）、小三（算術神殿、幾何修辭、分數閱讀、時空終極星盤）。
+3. **跨學科題庫生成 (`data/question-bank-challenge-g{1,2,3}.json`)**：
+   - 透過 `scripts/generate_challenge_banks.py` 精選數學 (2題)、英文 (2題)、國語 (2題) 融合成 6 題跨學科考卷，共 288 題，標註學科徽章。
+4. **規則串接與成就系統 (`js/state.js` & `js/badges.js` & `js/main.js`)**：
+   - 解鎖規則：三大核心科目（數英中）需各完成 2 關且累計達 18 顆星方可解鎖該年級期末挑戰島；未達標點擊膠囊彈出友善引導。
+   - 新增 `challenge_master`「全科全能王」成就徽章。
+   - 驗證通過：`test_144_levels.mjs` (144關)、`test_state_cross_subject.mjs` (持久化5測試)、`test_challenge_levels.mjs` (48挑戰關) 100% PASS。
 
 1. **英語島專屬教具 (`js/visuals.js`)**：
    - 實裝 `englishPhonics` 字母自然發音卡：支援大小寫字母跳動卡、標準音標/自然發音標籤、範例單字與美語發音互動。
@@ -123,17 +130,6 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
    - `js/levels/index.js`：引入並掛載 `ch_g2_islands` 與 `ch_g3_islands` 至 `SUBJECT_LEVEL_TABLES.chinese`，解鎖小二與小三關卡總表。
 4. **離線快取與版本推進**：`sw.js` 納入小二與小三國語題庫離線快取，快取名稱升級至 `math-island-v2.4.3`；`bump_version.py` 自動建立版本備份快照。
 5. **完整性驗收**：`node --check` 語法檢查 100% 綠燈，ESM 動態載入驗證小三 16 關卡與 128 題庫資料結構無誤。
-
-### 【v2.4.0 版】📖 奇幻國語島小一 MVP 上線 ✕ 128 題注音題庫 ✕ 4 島 16 關關卡定義 ✕ 科目啟用綠燈 📅 2026-10-25
-
-1. **國語小一題庫建置 (`data/question-bank-ch-g1.json`)**：16 關 × 8 題 = 128 題注音題庫，涵蓋聲母（ㄅㄆㄇㄈ…）、單/複韻母（ㄚㄛㄜㄝ…）、結合韻（ㄧㄢㄧㄣㄨㄥ…）、聲調分辨與看字讀音。
-2. **國語島關卡定義 (`js/levels/island_defs_ch_g1.js`)**：4 座島嶼（注音符號島、國字初識島、詞語積累島、句子表達島）共 16 關卡，包含中文關卡標題、emoji、技能說明與 intro 提示語音。
-3. **科目化與年級表掛載**：
-   - `js/grades.js`：建立並匯出 `CHINESE_GRADES`，掛載至 `SUBJECT_GRADES.chinese`。
-   - `js/levels/index.js`：引入 `ch_g1_islands`，掛載至 `SUBJECT_LEVEL_TABLES.chinese: { 1: ch_g1_islands }`。
-   - `js/subjects.js`：將 `chinese` 國語島之 `ready` 旗標設為 `true`，大廳正式解鎖國語島。
-4. **離線快取與版本推進**：`sw.js` 快取納入 `question-bank-ch-g1.json`，升級至 `math-island-v2.4.0`；完整通過 `auto_backup` 建立 `backup_v2.4.0` 快照。
-5. **語法自檢**：`node --check` 驗證所有修改之 JS 模組，100% 通過。
 
 ---
 

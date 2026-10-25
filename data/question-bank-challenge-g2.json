@@ -1,0 +1,1868 @@
+{
+  "generatedAt": "2026-10-25T22:30:00Z",
+  "subject": "challenge",
+  "grade": 2,
+  "gradeName": "二年級",
+  "targetPerLevel": 6,
+  "levels": {
+    "1": [
+      {
+        "prompt": "[數學] 📐 看一看積木，這裡代表多少？（1條是10，小方塊是1）",
+        "speak": "看一看積木，這裡代表多少？一條是十，小方塊是一。",
+        "hint": "先數有幾條十，再數有幾個一。",
+        "explanation": "有 12 條十和 4 個一，12個十是120，加4個一是124。",
+        "answer": "124",
+        "options": [
+          "124",
+          "114",
+          "142",
+          "104"
+        ],
+        "visual": {
+          "type": "baseTen",
+          "tens": 12,
+          "ones": 4
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 1 個百、3 個十和 5 個一合起來是多少？",
+        "speak": "一個百、三個十和五個一合起來是多少？",
+        "hint": "1個百是100，3個十是30，5個一是5。",
+        "explanation": "100 + 30 + 5 = 135。",
+        "answer": "135",
+        "options": [
+          "135",
+          "153",
+          "130",
+          "150"
+        ],
+        "visual": {
+          "type": "baseTen",
+          "tens": 13,
+          "ones": 5
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 b 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "小蟲蟲 bug 開頭是 b 喔！",
+        "explanation": "bug 以 b 音 開頭，hug 以 h 音 開頭，mug 以 m 音 開頭。",
+        "answer": "bug",
+        "options": [
+          "bug",
+          "hug",
+          "mug"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐛"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 hug 的結尾音是什麼？",
+        "speak": "hug 的結尾音是什麼呢？",
+        "hint": "hug 最後一個字母是 g 喔！",
+        "explanation": "hug 結尾是 g 音 音，不是 b 音 或 d 音。",
+        "answer": "g 結尾音",
+        "options": [
+          "g 結尾音",
+          "b 結尾音",
+          "d 結尾音"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🤗"
+          ],
+          "text": "h u g"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「十」的筆順要遵守哪一條規則？",
+        "speak": "「十」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「十」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "十",
+          "word": "十"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「干」的筆順要遵守哪一條規則？",
+        "speak": "「干」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「干」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先橫後豎",
+          "先中間後封口",
+          "先撇後捺",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "干",
+          "word": "干"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "2": [
+      {
+        "prompt": "[數學] 📐 直式算算看：34 + 25 = ？",
+        "speak": "直式算算看：三十四加二十五等於多少？",
+        "hint": "個位加個位：4+5=9，十位加十位：3+2=5。",
+        "explanation": "個位 4+5=9，十位 3+2=5，答案是 59。",
+        "answer": "59",
+        "options": [
+          "59",
+          "58",
+          "69",
+          "51"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 34,
+          "b": 25,
+          "op": "+",
+          "showAnswer": false
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 直式算算看：47 + 28 = ？（個位滿十要進位）",
+        "speak": "直式算算看：四十七加二十八等於多少？個位滿十要進位喔。",
+        "hint": "個位 7+8=15，寫 5 進 1 到十位；十位 1+4+2=7。",
+        "explanation": "7+8=15，個位寫 5 進 1；十位 1+4+2=7，答案是 75。",
+        "answer": "75",
+        "options": [
+          "75",
+          "65",
+          "85",
+          "73"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 47,
+          "b": 28,
+          "op": "+",
+          "showAnswer": false
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /n/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "捕蟲網 net 開頭是 n 喔！",
+        "explanation": "net 以 /n/ 開頭，pen 以 /p/ 開頭，hen 以 h 音 開頭。",
+        "answer": "net",
+        "options": [
+          "net",
+          "pen",
+          "hen"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🕸️"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 bed 的結尾音是什麼？",
+        "speak": "bed 的結尾音是什麼呢？",
+        "hint": "小床 bed 最後一個字母是 d 喔！",
+        "explanation": "bed 結尾是 d 音 音，不是 /t/ 或 /n/。",
+        "answer": "d 結尾音",
+        "options": [
+          "d 結尾音",
+          "/t/",
+          "/n/"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🛏️"
+          ],
+          "text": "b e d"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「八」的筆順要遵守哪一條規則？",
+        "speak": "「八」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「八」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先橫後豎",
+          "先外後內",
+          "先中間後封口",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "八",
+          "word": "八"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「人」的筆順要遵守哪一條規則？",
+        "speak": "「人」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「人」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "人",
+          "word": "人"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "3": [
+      {
+        "prompt": "[數學] 📐 直式算算看：58 - 24 = ？（不退位減法）",
+        "speak": "直式算算看：五十八減二十四等於多少？",
+        "hint": "個位 8-4=4，十位 5-2=3。",
+        "explanation": "個位 8-4=4，十位 5-2=3，答案是 34。",
+        "answer": "34",
+        "options": [
+          "34",
+          "32",
+          "44",
+          "24"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 58,
+          "b": 24,
+          "op": "-",
+          "showAnswer": false
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 直式算算看：63 - 27 = ？（個位不夠減，向十位借1）",
+        "speak": "直式算算看：六十三減二十七等於多少？個位三不夠減七，向十位借一變十三喔。",
+        "hint": "十位借 1 變 5，個位 13-7=6；十位 5-2=3。",
+        "explanation": "13 - 7 = 6，5 - 2 = 3，答案是 36。",
+        "answer": "36",
+        "options": [
+          "36",
+          "46",
+          "34",
+          "38"
+        ],
+        "visual": {
+          "type": "verticalMath",
+          "a": 63,
+          "b": 27,
+          "op": "-",
+          "showAnswer": false
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /k/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "小貓咪 cat 開頭是 c 發 /k/ 音喔！",
+        "explanation": "cat 以 /k/ 開頭，hat 以 h 音 開頭，mat 以 m 音 開頭。",
+        "answer": "cat",
+        "options": [
+          "cat",
+          "hat",
+          "mat"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐱"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 cap 的結尾音是什麼？",
+        "speak": "cap 的結尾音是什麼呢？",
+        "hint": "棒球帽 cap 最後一個字母是 p 喔！",
+        "explanation": "cap 結尾是 /p/ 音，不是 /t/ 或 b 音。",
+        "answer": "/p/",
+        "options": [
+          "/p/",
+          "/t/",
+          "b 結尾音"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧢"
+          ],
+          "text": "c a p"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「月」的筆順要遵守哪一條規則？",
+        "speak": "「月」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「月」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "月",
+          "word": "月"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「同」的筆順要遵守哪一條規則？",
+        "speak": "「同」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「同」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先中間後封口",
+          "先橫後豎",
+          "先撇後捺",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "同",
+          "word": "同"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "4": [
+      {
+        "prompt": "[數學] 📐 用直尺量一量，這隻可愛的小毛毛蟲長幾公分？",
+        "speak": "用直尺量一量，這隻可愛的小毛毛蟲長幾公分？",
+        "hint": "毛毛蟲從 0 開始，尾端停在刻度 6。",
+        "explanation": "毛毛蟲從 0 到 6，長度是 6 公分。",
+        "answer": "6 公分",
+        "options": [
+          "6 公分",
+          "5 公分",
+          "7 公分",
+          "4 公分"
+        ],
+        "visual": {
+          "type": "ruler",
+          "units": 6,
+          "emoji": "🐛",
+          "maxUnits": 10
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 用直尺量鉛筆，前端對齊 0，筆尖在刻度 8，鉛筆長幾公分？",
+        "speak": "用直尺量鉛筆，前端對齊零，筆尖在刻度八，鉛筆長幾公分？",
+        "hint": "對齊 0 時，末端停在哪個刻度就是幾公分。",
+        "explanation": "8 - 0 = 8 公分。",
+        "answer": "8 公分",
+        "options": [
+          "8 公分",
+          "7 公分",
+          "9 公分",
+          "10 公分"
+        ],
+        "visual": {
+          "type": "ruler",
+          "units": 8,
+          "emoji": "✏️",
+          "maxUnits": 10
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /p/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "小豬 pig 開頭是 p 喔！",
+        "explanation": "pig 以 /p/ 開頭，big 以 b 音 開頭，dig 以 d 音 開頭。",
+        "answer": "pig",
+        "options": [
+          "pig",
+          "big",
+          "dig"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐷"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 pin 的結尾音是什麼？",
+        "speak": "pin 的結尾音是什麼呢？",
+        "hint": "別針 pin 最後一個字母是 n 喔！",
+        "explanation": "pin 結尾是 /n/ 音，不是 g 音 或 d 音。",
+        "answer": "/n/",
+        "options": [
+          "/n/",
+          "g 結尾音",
+          "d 結尾音"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📌"
+          ],
+          "text": "p i n"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「回」的筆順要遵守哪一條規則？",
+        "speak": "「回」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「回」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先橫後豎",
+          "先撇後捺",
+          "先中間後封口",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "回",
+          "word": "回"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「國」的筆順要遵守哪一條規則？",
+        "speak": "「國」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「國」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先中間後封口",
+          "先撇後捺",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "國",
+          "word": "國"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "5": [
+      {
+        "prompt": "[數學] 📐 小明有 50 元，買鉛筆花了 15 元，買橡皮擦花了 10 元，他還剩下幾元？",
+        "speak": "小明有五十元，買鉛筆花了十五元，買橡皮擦花了十元，他還剩下幾元？",
+        "hint": "先算一共花了多少元：15+10=25，再用50減去25。",
+        "explanation": "一共花了 15 + 10 = 25 元，50 - 25 = 25 元。",
+        "answer": "25 元",
+        "options": [
+          "25 元",
+          "35 元",
+          "20 元",
+          "30 元"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 公車上原本有 28 人，到了第一站下去 9 人，又上來 15 人，現在車上有幾人？",
+        "speak": "公車上原本有二十八人，到了第一站下去九人，又上來十五人，現在車上有幾人？",
+        "hint": "先算 28 - 9 = 19，再算 19 + 15。",
+        "explanation": "28 - 9 = 19，19 + 15 = 34 人。",
+        "answer": "34 人",
+        "options": [
+          "34 人",
+          "24 人",
+          "32 人",
+          "38 人"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 m 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "拖把 mop 開頭是 m 喔！",
+        "explanation": "mop 以 m 音 開頭，top 以 /t/ 開頭，hop 以 h 音 開頭。",
+        "answer": "mop",
+        "options": [
+          "mop",
+          "top",
+          "hop"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🧹"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 hot 的結尾音是什麼？",
+        "speak": "hot 的結尾音是什麼呢？",
+        "hint": "熱熱的 hot 最後一個字母是 t 喔！",
+        "explanation": "hot 結尾是 /t/ 音，不是 /p/ 或 b 音。",
+        "answer": "/t/",
+        "options": [
+          "/t/",
+          "/p/",
+          "b 結尾音"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔥"
+          ],
+          "text": "h o t"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「河」的部首是「氵」（水部，跟水有關）。",
+        "answer": "河",
+        "options": [
+          "熱",
+          "河",
+          "林",
+          "吃"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "河",
+          "word": "河"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「海」的部首是「氵」（水部，跟水有關）。",
+        "answer": "海",
+        "options": [
+          "森",
+          "海",
+          "燈",
+          "吃"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "海",
+          "word": "海"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "6": [
+      {
+        "prompt": "[數學] 📐 看時鐘，現在是幾點幾分？（時針指在 8 和 9 之間，分針指在 3）",
+        "speak": "看時鐘，現在是幾點幾分？時針指在八和九之間，分針指在三。",
+        "hint": "時針過 8 是 8 點；分針指在 3，3 個 5 分是 15 分。",
+        "explanation": "8 點 15 分。",
+        "answer": "8 點 15 分",
+        "options": [
+          "8 點 15 分",
+          "8 點 3 分",
+          "9 點 15 分",
+          "8 點 30 分"
+        ],
+        "visual": {
+          "type": "clock",
+          "hour": 8,
+          "minute": 15
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 看時鐘，現在是幾點幾分？",
+        "speak": "看時鐘，現在是幾點幾分？",
+        "hint": "時針指在 2 和 3 之間，分針指在 6 是半點（30分）。",
+        "explanation": "2 點 30 分（也就是 2 點半）。",
+        "answer": "2 點 30 分",
+        "options": [
+          "2 點 30 分",
+          "3 點 30 分",
+          "2 點 6 分",
+          "3 點整"
+        ],
+        "visual": {
+          "type": "clock",
+          "hour": 2,
+          "minute": 30
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /r/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "地毯 rug 開頭是 r 喔！",
+        "explanation": "rug 以 /r/ 開頭，mug 以 m 音 開頭，bug 以 b 音 開頭。",
+        "answer": "rug",
+        "options": [
+          "rug",
+          "mug",
+          "bug"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🟫"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 sun 的結尾音是什麼？",
+        "speak": "sun 的結尾音是什麼呢？",
+        "hint": "太陽 sun 最後一個字母是 n 喔！",
+        "explanation": "sun 結尾是 /n/ 音，不是 g 音 或 b 音。",
+        "answer": "/n/",
+        "options": [
+          "/n/",
+          "g 結尾音",
+          "b 結尾音"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "☀️"
+          ],
+          "text": "s u n"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「熱」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "熱",
+        "options": [
+          "河",
+          "林",
+          "熱",
+          "吃"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "熱",
+          "word": "熱"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「煮」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "煮",
+        "options": [
+          "喝",
+          "森",
+          "煮",
+          "海"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "煮",
+          "word": "煮"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "7": [
+      {
+        "prompt": "[數學] 📐 天平哪一邊比較重？左邊有西瓜，右邊有一顆蘋果。",
+        "speak": "天平哪一邊比較重？左邊有西瓜，右邊有一顆蘋果。",
+        "hint": "天平往下沉的那一邊比較重。",
+        "explanation": "西瓜比蘋果重很多，天平左邊會往下沉。",
+        "answer": "左邊西瓜比較重",
+        "options": [
+          "左邊西瓜比較重",
+          "右邊蘋果比較重",
+          "兩邊一樣重"
+        ],
+        "visual": {
+          "type": "compareGroups",
+          "left": 1,
+          "right": 1,
+          "leftEmoji": "🍉",
+          "rightEmoji": "🍎"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 量水瓶裡能裝多少水，我們測量的是水瓶的什麼？",
+        "speak": "量水瓶裡能裝多少水，我們測量的是水瓶的什麼？",
+        "hint": "容器能裝多少液體的量。",
+        "explanation": "容器能裝多少液體，叫做「容量」。",
+        "answer": "容量",
+        "options": [
+          "容量",
+          "重量",
+          "長度",
+          "面積"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /sh/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "大船 ship 開頭是 sh 喔！",
+        "explanation": "ship 以 /sh/ 開頭，fish 以 /f/ 開頭，dish 以 d 音 開頭。",
+        "answer": "ship",
+        "options": [
+          "ship",
+          "fish",
+          "dish"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🚢"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 fish 的結尾音是什麼？",
+        "speak": "fish 的結尾音是什麼呢？",
+        "hint": "小魚 fish 最後兩個字母是 sh 喔！",
+        "explanation": "fish 結尾是 /sh/ 音，不是 /ch/ 或 /th/。",
+        "answer": "/sh/",
+        "options": [
+          "/sh/",
+          "/ch/",
+          "/th/"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🐟"
+          ],
+          "text": "f i s h"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「林」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "林",
+        "options": [
+          "吃",
+          "河",
+          "林",
+          "熱"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "林",
+          "word": "林"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「森」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "森",
+        "options": [
+          "森",
+          "燈",
+          "海",
+          "叫"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "森",
+          "word": "森"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "8": [
+      {
+        "prompt": "[數學] 📐 正方體一共有幾個平平的面？",
+        "speak": "正方體一共有幾個平平的面？就像一顆骰子一樣。",
+        "hint": "想想看骰子有 1 到 6 點，共有幾個面？",
+        "explanation": "正方體有 6 個面，而且每個面都是一樣大的正方形。",
+        "answer": "6 個面",
+        "options": [
+          "6 個面",
+          "4 個面",
+          "8 個面",
+          "12 個面"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 正方體一共有幾個尖尖的頂點？",
+        "speak": "正方體一共有幾個尖尖的頂點？",
+        "hint": "上面有 4 個角，下面也有 4 個角。",
+        "explanation": "正方體上面 4 個頂點，下面 4 個頂點，共 8 個頂點。",
+        "answer": "8 個頂點",
+        "options": [
+          "8 個頂點",
+          "6 個頂點",
+          "12 個頂點",
+          "4 個頂點"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /ch/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "薯條 chip 開頭是 ch 喔！",
+        "explanation": "chip 以 /ch/ 開頭，ship 以 /sh/ 開頭，thin 以 /th/ 開頭。",
+        "answer": "chip",
+        "options": [
+          "chip",
+          "ship",
+          "thin"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍟"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 watch 的結尾音是什麼？",
+        "speak": "watch 的結尾音是什麼呢？",
+        "hint": "手錶 watch 最後兩個字母是 ch 喔！",
+        "explanation": "watch 結尾是 /ch/ 音，不是 /sh/ 或 /th/。",
+        "answer": "/ch/",
+        "options": [
+          "/ch/",
+          "/sh/",
+          "/th/"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⌚"
+          ],
+          "text": "w a t c h"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「吃」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "吃",
+        "options": [
+          "河",
+          "林",
+          "熱",
+          "吃"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "吃",
+          "word": "吃"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「喝」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "喝",
+        "options": [
+          "森",
+          "燈",
+          "喝",
+          "洗"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "喝",
+          "word": "喝"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "9": [
+      {
+        "prompt": "[數學] 📐 盤子裡有 3 堆草莓，每堆有 4 顆，一共有幾顆？寫成乘法算式是？",
+        "speak": "盤子裡有三堆草莓，每堆有四顆，一共有幾顆？寫成乘法算式是什麼？",
+        "hint": "每堆 4 顆有 3 堆，算式是 4 × 3。",
+        "explanation": "4 + 4 + 4 = 12，乘法算式寫作 4 × 3 = 12。",
+        "answer": "4 × 3 = 12",
+        "options": [
+          "4 × 3 = 12",
+          "3 × 3 = 9",
+          "4 + 3 = 7",
+          "3 × 4 = 7"
+        ],
+        "visual": {
+          "type": "compareGroups",
+          "left": 6,
+          "right": 6,
+          "leftEmoji": "🍓",
+          "rightEmoji": "🍓"
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 5 + 5 + 5 + 5 是 4 個 5 相加，寫成乘法算式是多少？",
+        "speak": "五加五加五加五是四個五相加，寫成乘法算式是多少？",
+        "hint": "被乘數是 5，乘數是 4。",
+        "explanation": "4 個 5 相加，寫成 5 × 4 = 20。",
+        "answer": "5 × 4 = 20",
+        "options": [
+          "5 × 4 = 20",
+          "4 × 5 = 9",
+          "5 + 4 = 9",
+          "5 × 5 = 25"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /th/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "瘦瘦的 thin 開頭是 th 喔！",
+        "explanation": "thin 以 /th/ 開頭，chip 以 /ch/ 開頭，ship 以 /sh/ 開頭。",
+        "answer": "thin",
+        "options": [
+          "thin",
+          "chip",
+          "ship"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "📏"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 mouth 的結尾音是什麼？",
+        "speak": "mouth 的結尾音是什麼呢？",
+        "hint": "嘴巴 mouth 最後兩個字母是 th 喔！",
+        "explanation": "mouth 結尾是 /th/ 音，不是 /ch/ 或 /sh/。",
+        "answer": "/th/",
+        "options": [
+          "/th/",
+          "/ch/",
+          "/sh/"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👄"
+          ],
+          "text": "m o u t h"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「明」是左右結構。",
+        "answer": "明",
+        "options": [
+          "花",
+          "明",
+          "回",
+          "尖"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "明",
+          "word": "明"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「好」是左右結構。",
+        "answer": "好",
+        "options": [
+          "國",
+          "好",
+          "炎",
+          "想"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "好",
+          "word": "好"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "10": [
+      {
+        "prompt": "[數學] 📐 背背看九九乘法：二五一十，二六是多少？",
+        "speak": "背背看九九乘法：二五一十，二六是多少？",
+        "hint": "每次多 2：10 + 2 = 12。",
+        "explanation": "二六十二，2 × 6 = 12。",
+        "answer": "12",
+        "options": [
+          "12",
+          "10",
+          "14",
+          "16"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 五的乘法表：5 × 7 = ？",
+        "speak": "五的乘法表：五七是多少？",
+        "hint": "五七三十五。",
+        "explanation": "5 × 7 = 35。",
+        "answer": "35",
+        "options": [
+          "35",
+          "30",
+          "40",
+          "25"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /bl/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "黑色 black 開頭是 bl 喔！",
+        "explanation": "black 以 /bl/ 開頭，clock 以 /cl/ 開頭，class 以 /cl/ 開頭。",
+        "answer": "black",
+        "options": [
+          "black",
+          "clock",
+          "class"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "⚫"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 clock 的結尾音是什麼？",
+        "speak": "clock 的結尾音是什麼呢？",
+        "hint": "時鐘 clock 最後一個字母是 k 喔！",
+        "explanation": "clock 結尾是 /k/ 音，不是 /s/ 或 /t/。",
+        "answer": "/k/",
+        "options": [
+          "/k/",
+          "/s/",
+          "/t/"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🕐"
+          ],
+          "text": "c l o c k"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「尖」是上下結構。",
+        "answer": "尖",
+        "options": [
+          "尖",
+          "回",
+          "明",
+          "好"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "尖",
+          "word": "尖"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「炎」是上下結構。",
+        "answer": "炎",
+        "options": [
+          "炎",
+          "明",
+          "你",
+          "國"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "炎",
+          "word": "炎"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "11": [
+      {
+        "prompt": "[數學] 📐 三的乘法表：3 × 7 = ？",
+        "speak": "三的乘法表：三七是多少？",
+        "hint": "三七二十一。",
+        "explanation": "3 × 7 = 21。",
+        "answer": "21",
+        "options": [
+          "21",
+          "24",
+          "18",
+          "27"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 六的乘法表：6 × 6 = ？（六六……）",
+        "speak": "六六是多少？",
+        "hint": "六六三十六。",
+        "explanation": "6 × 6 = 36。",
+        "answer": "36",
+        "options": [
+          "36",
+          "30",
+          "42",
+          "48"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 聽一聽：哪個單字以 /st/ 開頭？",
+        "speak": "仔細聽，選出正確的選項喔！",
+        "hint": "停止 stop 開頭是 st 喔！",
+        "explanation": "stop 以 /st/ 開頭，spin 以 /sp/ 開頭，spot 以 /sp/ 開頭。",
+        "answer": "stop",
+        "options": [
+          "stop",
+          "spin",
+          "spot"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🛑"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 spoon 的結尾音是什麼？",
+        "speak": "spoon 的結尾音是什麼呢？",
+        "hint": "湯匙 spoon 最後一個字母是 n 喔！",
+        "explanation": "spoon 結尾是 /n/ 音，不是 /p/ 或 /t/。",
+        "answer": "/n/",
+        "options": [
+          "/n/",
+          "/p/",
+          "/t/"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🥄"
+          ],
+          "text": "s p o o n"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「回」是包圍結構。",
+        "answer": "回",
+        "options": [
+          "尖",
+          "回",
+          "花",
+          "明"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "回",
+          "word": "回"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「國」是包圍結構。",
+        "answer": "國",
+        "options": [
+          "國",
+          "炎",
+          "想",
+          "好"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "國",
+          "word": "國"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "12": [
+      {
+        "prompt": "[數學] 📐 一盒雞蛋有 10 顆，媽媽買了 4 盒，一共有幾顆雞蛋？",
+        "speak": "一盒雞蛋有十顆，媽媽買了四盒，一共有幾顆雞蛋？",
+        "hint": "10 × 4 = 40。",
+        "explanation": "10 × 4 = 40 顆雞蛋。",
+        "answer": "40 顆",
+        "options": [
+          "40 顆",
+          "14 顆",
+          "30 顆",
+          "50 顆"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 一排椅子有 6 個座位，排了 5 排，一共可以坐多少人？",
+        "speak": "一排椅子有六個座位，排了五排，一共可以坐多少人？",
+        "hint": "6 × 5 = 30。",
+        "explanation": "6 × 5 = 30 人。",
+        "answer": "30 人",
+        "options": [
+          "30 人",
+          "25 人",
+          "35 人",
+          "11 人"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 cap 和 cape 哪個有長母音？",
+        "speak": "cap 和 cape 哪個有長母音呢？",
+        "hint": "cape 最後有 e，所以 a 發長音喔！",
+        "explanation": "cape 有長母音 /eɪ/，cap 是短母音 /æ/。",
+        "answer": "cape",
+        "options": [
+          "cape",
+          "cap",
+          "tap"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🦸"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 kit 和 kite 哪個有長母音？",
+        "speak": "kit 和 kite 哪個有長母音呢？",
+        "hint": "kite 最後有 e，所以 i 發長音喔！",
+        "explanation": "kite 有長母音 /aɪ/，kit 是短母音 /ɪ/。",
+        "answer": "kite",
+        "options": [
+          "kite",
+          "kit",
+          "pin"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🪁"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「想」是由部件拼成的哪一種結構？",
+        "speak": "「想」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「想」是「上下結構」。",
+        "answer": "上下結構",
+        "options": [
+          "左右結構",
+          "包圍結構",
+          "上下結構",
+          "獨體結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "想",
+          "word": "想"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「花」是由部件拼成的哪一種結構？",
+        "speak": "「花」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「花」是「上下結構」。",
+        "answer": "上下結構",
+        "options": [
+          "包圍結構",
+          "左右結構",
+          "獨體結構",
+          "上下結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "花",
+          "word": "花"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "13": [
+      {
+        "prompt": "[數學] 📐 10 個百合起來剛好是多少？",
+        "speak": "十個百合起來剛好是多少？",
+        "hint": "100, 200, 300... 數到 10 個百。",
+        "explanation": "10 個 100 是 1000（一千）。",
+        "answer": "1000",
+        "options": [
+          "1000",
+          "100",
+          "10000",
+          "500"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 5 個百、8 個十和 3 個一合起來是多少？",
+        "speak": "五個百、八個十和三個一合起來是多少？",
+        "hint": "百位 5，十位 8，個位 3。",
+        "explanation": "500 + 80 + 3 = 583。",
+        "answer": "583",
+        "options": [
+          "583",
+          "853",
+          "538",
+          "385"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 twelve 是幾？",
+        "speak": "twelve 是幾呢？",
+        "hint": "twelve 是十二喔！",
+        "explanation": "twelve 是 12，two 是 2，twenty 是 20。",
+        "answer": "12",
+        "options": [
+          "12",
+          "2",
+          "20"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "1️⃣2️⃣"
+          ],
+          "text": "t w e l v e"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 sixteen 是幾？",
+        "speak": "sixteen 是幾呢？",
+        "hint": "sixteen 是十六喔！",
+        "explanation": "sixteen 是 16，six 是 6，sixty 是 60。",
+        "answer": "16",
+        "options": [
+          "16",
+          "6",
+          "60"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "1️⃣6️⃣"
+          ],
+          "text": "s i x t e e n"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「己」的封口狀況是哪一個？",
+        "speak": "「己」的封口狀況是哪一個？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「己」是「全開」。",
+        "answer": "全開",
+        "options": [
+          "半開",
+          "多一點",
+          "全閉",
+          "全開"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "己",
+          "word": "己"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「已」的封口狀況是哪一個？",
+        "speak": "「已」的封口狀況是哪一個？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「已」是「半開」。",
+        "answer": "半開",
+        "options": [
+          "全閉",
+          "全開",
+          "半開",
+          "多一點"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "已",
+          "word": "已"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "14": [
+      {
+        "prompt": "[數學] 📐 心算看看：300 + 400 = ？",
+        "speak": "心算看看：三百加四百等於多少？",
+        "hint": "3 個百加 4 個百是 7 個百。",
+        "explanation": "300 + 400 = 700。",
+        "answer": "700",
+        "options": [
+          "700",
+          "600",
+          "800",
+          "500"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 心算看看：800 - 500 = ？",
+        "speak": "心算看看：八百減五百等於多少？",
+        "hint": "8 個百減去 5 個百是 3 個百。",
+        "explanation": "800 - 500 = 300。",
+        "answer": "300",
+        "options": [
+          "300",
+          "400",
+          "200",
+          "1300"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 看圖選顏色：🔴 是什麼顏色？",
+        "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
+        "hint": "紅色就是 red 喔！",
+        "explanation": "🔴 是 red（紅色），不是 blue 或 green。",
+        "answer": "red",
+        "options": [
+          "red",
+          "blue",
+          "green"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔴"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 blue 是什麼顏色？",
+        "speak": "blue 是什麼顏色呢？",
+        "hint": "blue 是天空的顏色喔！",
+        "explanation": "blue 是藍色，red 是紅色，green 是綠色。",
+        "answer": "藍色",
+        "options": [
+          "藍色",
+          "紅色",
+          "綠色"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🔵"
+          ],
+          "text": "b l u e"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 「未」的橫畫怎麼分？",
+        "speak": "「未」的橫畫怎麼分？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「未」是「上短下長」。",
+        "answer": "上短下長",
+        "options": [
+          "兩橫一樣長",
+          "上長下短",
+          "有三橫",
+          "上短下長"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "未",
+          "word": "未"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 「末」的橫畫怎麼分？",
+        "speak": "「末」的橫畫怎麼分？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「末」是「上長下短」。",
+        "answer": "上長下短",
+        "options": [
+          "上短下長",
+          "兩橫一樣長",
+          "有三橫",
+          "上長下短"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "末",
+          "word": "末"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "15": [
+      {
+        "prompt": "[數學] 📐 一張 100 元鈔票可以換成幾個 10 元硬幣？",
+        "speak": "一張一百元鈔票可以換成幾個十元硬幣？",
+        "hint": "10 個 10 元是一百元。",
+        "explanation": "100 ÷ 10 = 10，可以換 10 個 10 元硬幣。",
+        "answer": "10 個",
+        "options": [
+          "10 個",
+          "5 個",
+          "20 個",
+          "100 個"
+        ],
+        "visual": {
+          "type": "coins",
+          "coins": [
+            50,
+            50
+          ]
+        },
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 一張 500 元鈔票可以換成幾張 100 元鈔票？",
+        "speak": "一張五百元鈔票可以換成幾張一百元鈔票？",
+        "hint": "5 個 100 元就是五百元。",
+        "explanation": "500 元可以換 5 張 100 元。",
+        "answer": "5 張",
+        "options": [
+          "5 張",
+          "10 張",
+          "2 張",
+          "50 張"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 看圖選單字：👩 是誰？",
+        "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
+        "hint": "媽媽在英文叫 mom 喔！",
+        "explanation": "👩 是 mom（媽媽），不是 dad（爸爸）或 hand（手）。",
+        "answer": "mom",
+        "options": [
+          "mom",
+          "dad",
+          "hand"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👩"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 dad 是什麼意思？",
+        "speak": "請問 dad 是什麼意思呢？",
+        "hint": "dad 是爸爸喔！",
+        "explanation": "dad 是爸爸，mom 是媽媽，foot 是腳。",
+        "answer": "爸爸",
+        "options": [
+          "爸爸",
+          "媽媽",
+          "腳"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👨"
+          ],
+          "text": "d a d"
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 一（＿）蘋果，應該用哪個量詞？",
+        "speak": "一（空格）蘋果，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一個蘋果」。",
+        "answer": "個",
+        "options": [
+          "本",
+          "隻",
+          "個",
+          "棵"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "個",
+          "word": "蘋果"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 一（＿）小貓，應該用哪個量詞？",
+        "speak": "一（空格）小貓，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一隻小貓」。",
+        "answer": "隻",
+        "options": [
+          "個",
+          "棵",
+          "隻",
+          "本"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "隻",
+          "word": "小貓"
+        },
+        "subject": "chinese"
+      }
+    ],
+    "16": [
+      {
+        "prompt": "[數學] 📐 把一個圓形披薩平分成 2 份，其中的 1 份是幾分之幾？",
+        "speak": "把一個圓形披薩平分成兩份，其中的一份是幾分之幾？",
+        "hint": "平分成 2 份，每份是二分之一。",
+        "explanation": "平分成 2 份，其中的 1 份叫做二分之一，寫成 1/2。",
+        "answer": "二分之一 (1/2)",
+        "options": [
+          "二分之一 (1/2)",
+          "四分之一 (1/4)",
+          "一分之一 (1/1)",
+          "三分之一 (1/3)"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[數學] 📐 把一條緞帶平分成 4 段，每一段是這條緞帶的幾分之幾？",
+        "speak": "把一條緞帶平分成四段，每一段是這條緞帶的幾分之幾？",
+        "hint": "平分成 4 份，每份是四分之一。",
+        "explanation": "平分成 4 份，每段是全部的四分之一 (1/4)。",
+        "answer": "四分之一 (1/4)",
+        "options": [
+          "四分之一 (1/4)",
+          "二分之一 (1/2)",
+          "四分之四 (4/4)",
+          "八分之一 (1/8)"
+        ],
+        "visual": null,
+        "subject": "math"
+      },
+      {
+        "prompt": "[英文] 🔤 What's this? 🍎",
+        "speak": "What's this? 🍎",
+        "hint": "蘋果在英文叫 apple 喔！",
+        "explanation": "🍎 是 apple（蘋果），不是 cat 或 dog。",
+        "answer": "apple",
+        "options": [
+          "apple",
+          "cat",
+          "dog"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "🍎"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[英文] 🔤 Who is she? 👩",
+        "speak": "Who is she? 👩",
+        "hint": "她是媽媽就是 mom 喔！",
+        "explanation": "👩 是 mom（媽媽），不是 dad 或 hand。",
+        "answer": "mom",
+        "options": [
+          "mom",
+          "dad",
+          "hand"
+        ],
+        "visual": {
+          "type": "scene",
+          "emojis": [
+            "👩"
+          ],
+          "text": ""
+        },
+        "subject": "english"
+      },
+      {
+        "prompt": "[國語] 📖 一（＿）紙，應該用哪個量詞？",
+        "speak": "一（空格）紙，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一張紙」。",
+        "answer": "張",
+        "options": [
+          "匹",
+          "頭",
+          "張",
+          "朵"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "紙",
+          "word": "紙"
+        },
+        "subject": "chinese"
+      },
+      {
+        "prompt": "[國語] 📖 一（＿）馬，應該用哪個量詞？",
+        "speak": "一（空格）馬，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一匹馬」。",
+        "answer": "匹",
+        "options": [
+          "朵",
+          "張",
+          "頭",
+          "匹"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "馬",
+          "word": "馬"
+        },
+        "subject": "chinese"
+      }
+    ]
+  }
+}

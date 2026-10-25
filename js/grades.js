@@ -164,11 +164,67 @@ export const CHINESE_GRADES = [
   }
 ];
 
-/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島」時在此掛上該科年級表即可 */
+/* 跨科目期末綜合挑戰島年級表：小一至小三 16 關跨領域綜合素養會考（4 島 × 4 關） */
+export const CHALLENGE_GRADES = [
+  {
+    id: 1,
+    name: '一年級',
+    shortName: '小一',
+    icon: '🏆',
+    badge: '台灣小一 · 跨科目期末綜合素養會考',
+    title: '跨科目期末綜合挑戰島',
+    subtitle: '4 座期末素養島嶼 · 16 個跨學科綜合冒險關卡 · 迎戰期末榮譽',
+    age: '適合 6–7 歲',
+    questionBankUrl: 'data/question-bank-challenge-g1.json',
+    islands: [
+      { id: 1, name: '素養起步島', theme: 'forest', color: '#3fae6a', emoji: '🌱', blurb: '十以內數感、自然發音開頭音與ㄅㄆㄇ聲母辨析，跨學科基礎大集合！' },
+      { id: 2, name: '生活探索島', theme: 'ocean', color: '#2aa7c9', emoji: '🌊', blurb: '生活加減、短母音押韻與日常生活筆順部件，生活素養一把罩！' },
+      { id: 3, name: '思維進階島', theme: 'cloud', color: '#7c8cf8', emoji: '☁️', blurb: '湊十破十、雙字母發音與句型結構，挑戰深度邏輯思考！' },
+      { id: 4, name: '期末總魔王殿', theme: 'space', color: '#8b5cf6', emoji: '👑', blurb: '台灣錢幣、二位數加減、高頻詞彙與閱讀統整，小一全方位終極試煉！' },
+    ],
+  },
+  {
+    id: 2,
+    name: '二年級',
+    shortName: '小二',
+    icon: '🏆',
+    badge: '台灣小二 · 跨科目期末綜合素養會考',
+    title: '跨科目期末綜合挑戰島：乘風破浪大冒險',
+    subtitle: '4 座進階素養島嶼 · 16 個二位數、長母音與部件量詞關卡 · 榮譽啟航',
+    age: '適合 7–8 歲',
+    questionBankUrl: 'data/question-bank-challenge-g2.json',
+    islands: [
+      { id: 1, name: '乘風啟航島', theme: 'forest', color: '#3fae6a', emoji: '🌲', blurb: '200以內數、Magic e 長母音與進階筆順規範，二年級跨領域起跑！' },
+      { id: 2, name: '度量冰川島', theme: 'ocean', color: '#2b9cdb', emoji: '🧊', blurb: '連加連減、時鐘幾分、子音混合與量詞搭配，生活度量一把罩！' },
+      { id: 3, name: '乘法烈焰島', theme: 'cloud', color: '#ff7675', emoji: '🔥', blurb: '乘法初步、九九乘法表、日常會話與造句積木，熱血解題！' },
+      { id: 4, name: '星河大魔王殿', theme: 'space', color: '#443f9a', emoji: '🌌', blurb: '1000以內數、簡單分數二分之一、生活閱讀理解，二年級總魔王！' },
+    ],
+  },
+  {
+    id: 3,
+    name: '三年級',
+    shortName: '小三',
+    icon: '🏆',
+    badge: '台灣小三 · 跨科目期末綜合素養會考',
+    title: '跨科目期末綜合挑戰島：大成素養金盃',
+    subtitle: '4 座挑戰素養島嶼 · 16 個大數、四則成語、幾何文法與分數閱讀關卡 · 登頂王座',
+    age: '適合 8–9 歲',
+    questionBankUrl: 'data/question-bank-challenge-g3.json',
+    islands: [
+      { id: 1, name: '算術神殿島', theme: 'forest', color: '#3fae6a', emoji: '🏛️', blurb: '四位數、三位數乘除法、ai/ee 母音組合與成語典故，三年級跨領域揚帆！' },
+      { id: 2, name: '幾何修辭海', theme: 'ocean', color: '#2b9cdb', emoji: '📐', blurb: '認識直角角、圓與周長、主詞動詞文法與擬人譬喻修辭，文理並進！' },
+      { id: 3, name: '分數閱讀花園', theme: 'cloud', color: '#8d7bf0', emoji: '🌷', blurb: '分數分子分母、一位小數、段落閱讀主旨與複句轉折，思維深度昇華！' },
+      { id: 4, name: '時空終極星盤', theme: 'space', color: '#443f9a', emoji: '🪐', blurb: '時間換算、容量重量、報讀長條圖與跨學科素養，三年級最高殿堂！' },
+    ],
+  },
+];
+
+/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島 / 期末綜合挑戰島」時在此掛上該科年級表即可 */
 export const SUBJECT_GRADES = {
   math: GRADES,
   english: ENGLISH_GRADES,
   chinese: CHINESE_GRADES,
+  challenge: CHALLENGE_GRADES,
 };
 
 export function getSubjectGrades(subjectId = DEFAULT_SUBJECT) {

@@ -1,4 +1,4 @@
-import { getCurrentGrade, setCurrentGrade, getCurrentSubject, setCurrentSubject, subjectProgress } from './state.js';
+import { getCurrentGrade, setCurrentGrade, getCurrentSubject, setCurrentSubject, subjectProgress, isChallengeUnlocked, getChallengeUnlockStatus } from './state.js';
 import { getGradeConfig } from './grades.js';
 import { SUBJECTS, getSubjectConfig, isSubjectReady, getSubjectSpeechLang } from './subjects.js';
 import { syncGradeLevels } from './levels/index.js';
@@ -24,13 +24,21 @@ function syncSubjectUI(subjectId = getCurrentSubject()) {
   audio.setSpeechLang(getSubjectSpeechLang(config.id));
 
   document.querySelectorAll('.subject-capsule').forEach((capsule) => {
-    const isActive = capsule.dataset.subject === String(config.id);
+    const sId = capsule.dataset.subject;
+    const isActive = sId === String(config.id);
     capsule.classList.toggle('is-selected', isActive);
     capsule.setAttribute('aria-pressed', String(isActive));
+    const isChallenge = sId === 'challenge';
+    const unlocked = !isChallenge || isChallengeUnlocked(getCurrentGrade());
+    capsule.classList.toggle('is-locked-challenge', isChallenge && !unlocked);
     const badge = capsule.querySelector('.subject-capsule-stars');
     if (badge) {
-      const stars = subjectProgress(capsule.dataset.subject, getCurrentGrade()).stars;
-      badge.textContent = stars > 0 ? `⭐${stars}` : '';
+      if (isChallenge && !unlocked) {
+        badge.textContent = '🔒18⭐';
+      } else {
+        const stars = subjectProgress(sId, getCurrentGrade()).stars;
+        badge.textContent = stars > 0 ? `⭐${stars}` : '';
+      }
     }
   });
 }
@@ -52,6 +60,12 @@ function renderSubjectCapsules() {
       audio.playSfx('click', 0.4);
       if (targetSubject === getCurrentSubject()) {
         showToast(`目前在 ${config.name}：${config.tagline}`, config.icon);
+        return;
+      }
+
+      if (targetSubject === 'challenge' && !isChallengeUnlocked(getCurrentGrade())) {
+        const status = getChallengeUnlockStatus(getCurrentGrade());
+        showToast(status.message, '🔒');
         return;
       }
 

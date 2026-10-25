@@ -1,5 +1,5 @@
 import { audio } from './audio.js';
-import { completeLevel, isUnlocked, getLevelLockInfo } from './state.js';
+import { completeLevel, isUnlocked, getLevelLockInfo, getCurrentSubject, getCurrentGrade } from './state.js';
 import { renderVisual, renderStoryVisual } from './visuals.js';
 import { clearConfetti, launchConfetti, fireworks, showToast, starsMarkup } from './ui.js';
 import { getLevelById } from './levels/index.js';
@@ -7,6 +7,7 @@ import { checkNewlyUnlockedBadges } from './badges.js';
 import { getBankQuestions } from './question-bank.js';
 import { shuffle as shuffleArray } from './utils.js';
 import { escapeHtml } from './ui.js';
+import { showTrophyModal } from './trophy.js';
 
 import { PRAISE, ENCOURAGE } from './texts.js';
 
@@ -271,7 +272,17 @@ function shuffleOptions(question) {
 function optionEmojis(question, value) {
   if (!Array.isArray(question.optionEmojis)) return '';
   const index = question.options.findIndex((option) => String(option) === String(value));
-  return index >= 0 ? question.optionEmojis[index] || '' : '';
+  const emoji = index >= 0 ? question.optionEmojis[index] || '' : '';
+  if (!emoji) return '';
+
+  // 答案防洩漏機制：若選項 emoji 與題目題幹文字或視覺教具中的圖示衝突，作答前一律不渲染圖示避免破梗
+  const prompt = String(question.prompt || '');
+  const visualEmojis = Array.isArray(question.visual?.emojis) ? question.visual.emojis.map(String) : [];
+  if (prompt.includes(emoji) || visualEmojis.includes(emoji)) {
+    return '';
+  }
+
+  return emoji;
 }
 
 function chooseAnswer(session, value, button) {
@@ -414,6 +425,9 @@ function finishLevel(session) {
     </div>
   ` : '';
 
+  const isChallenge = getCurrentSubject() === 'challenge';
+  const isChallengeFinale = isChallenge && level.id === 16;
+
   overlay.innerHTML = `
     <div class="result-card">
       <div class="result-emoji" aria-hidden="true">${stars === 3 ? '🏆' : stars === 2 ? '🌟' : '🎖️'}</div>
@@ -424,6 +438,7 @@ function finishLevel(session) {
       ${newBadgesMarkup}
       <p class="result-skill">${escapeHtml(level.skill)} ✓</p>
       <div class="result-actions">
+        ${isChallengeFinale ? '<button class="big-btn trophy-trigger-btn" type="button" data-action="trophy" style="background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 20px rgba(245,158,11,0.45);font-size:18px;">🏆 榮獲期末通關金盃 <span>▶</span></button>' : ''}
         ${nextLevel ? `<button class="big-btn" type="button" data-action="next">下一關：${escapeHtml(nextLevel.title)} <span>▶</span></button>` : ''}
         <button class="secondary-btn" type="button" data-action="replay">再玩一次</button>
         <button class="text-btn" type="button" data-action="map">回地圖</button>
@@ -432,11 +447,20 @@ function finishLevel(session) {
   `;
   screen.querySelector('.level-view').appendChild(overlay);
 
+  if (isChallengeFinale) {
+    later(session, () => {
+      showTrophyModal({ grade: getCurrentGrade(), subject: getCurrentSubject() });
+    }, 1100);
+  }
+
   const message = stars === 3
     ? '太厲害了！你得到三顆星！'
     : stars === 2 ? '很棒喔！你得到兩顆星！再挑戰一次可以拿三顆星。' : '恭喜過關！你得到一顆星，我們再練習一次好嗎？';
   later(session, () => audio.speak(message), 700);
 
+  overlay.querySelector('[data-action="trophy"]')?.addEventListener('click', () => {
+    showTrophyModal({ grade: getCurrentGrade(), subject: getCurrentSubject() });
+  });
   overlay.querySelector('[data-action="map"]')?.addEventListener('click', exitLevel);
   overlay.querySelector('[data-action="replay"]')?.addEventListener('click', () => {
     audio.playSfx('click', 0.5);
