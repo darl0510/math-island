@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.2.0 版)  
+> **最後更新時間**：2026-10-25 (v2.3.0 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,11 +10,12 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.2.0】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
+【v2.3.0】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
 
 【🚨 五大紅線】已由 AGENTS.md 自動注入（本節由 sync_all_projects_rules.py 維護），本 Prompt 拒絕重複貼上。
 
-【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】：python scripts/claude_delegator.py -w "C:\Users\達爾\projects\math-island" -t "奇幻英文島小一 MVP：16 關自然發音與生活單字題庫 (data/question-bank-en-g1.json) + js/grades.js SUBJECT_GRADES.english 掛表 + js/subjects.js ready 翻綠燈"，完成後自檢驗證
+【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
+python scripts/claude_delegator.py -w "C:\Users\達爾\projects\math-island" -t "奇幻英文島關卡科目化：js/levels/index.js 依科目取關卡表 + 新增 js/levels/island_defs_en_g1.js (4 島 16 關英文標題與 intro)，完成後自檢驗證"
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -41,6 +42,7 @@
 | **`data/question-bank-g1.json`** | 小一專屬題庫 | 16 關 x 12 題 = 192 題 |
 | **`data/question-bank-g2.json`** | 小二專屬題庫 | 16 關 x 12 題 = 192 題 |
 | **`data/question-bank-g3.json`** | 小三專屬題庫 (108 課綱) | 16 關 x 12 題 = 192 題 |
+| **`data/question-bank-en-g1.json`** | 奇幻英文島小一題庫 | 16 關 x 8 題 = 128 題自然發音與生活單字 |
 | **`auto_backup.py`** | 三層智慧備份與自動封存 | 支援日常備份與 Handover 防膨脹修剪 |
 | **`一鍵推送GitHub版本.bat`** | GitHub 一鍵推送自動化腳本 | 自動 commit 與 push 至 main 分支 |
 | **`.gitignore`** | Git 排除設定 | 排除 backups 快照、敏感 Token 與大型暫存檔 |
@@ -50,7 +52,8 @@
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
-- [ ] **啟動「奇幻英文島」小一～小三 16 關自然發音與生活單字冒險建置** (方案 A 架構已就緒：只需掛 `SUBJECT_GRADES.english` 題庫表並翻 `ready` 綠燈)
+- [ ] **奇幻英文島關卡科目化**：`js/levels/index.js` 目前只依「年級」取關卡表，英文島地圖與關卡 intro 仍顯示數學關卡標題 → 需新增 `js/levels/island_defs_en_g1.js` 讓關卡定義依科目分流
+- [ ] **奇幻英文島小二／小三 16 關題庫擴充** (小一 128 題已上線 v2.3.0)
 - [ ] **啟動「奇幻國語島」小一～小三 16 關注音、筆順與部首部件冒險建置**
 
 ### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
@@ -68,6 +71,7 @@
 </details>
 
 <details><summary>過往已完成歷史任務</summary>
+- [x] **奇幻英文島小一 MVP 上線** (16 關 × 8 題 = 128 題自然發音與生活單字、`SUBJECT_GRADES.english` 掛表、英文島綠燈) (v2.3.0)
 - [x] **方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳) (v2.2.0)**
 - [x] **納入 Token & Backup Toolkit 核心機制** (SSOT 工具鏈同步、登記清單、雲端同步管家)
 - [x] **前端介面版本標籤 (v2.0.0 / v2.1.0 / v2.1.1 / v2.1.2) 與樣式配置**
@@ -79,6 +83,16 @@
 - [x] **全面升級 PWA 桌面/平板 App 安裝支援 (Manifest + Service Worker 離線快取) (v2.1.3)**
 - [x] **確立「小一～小三橫向主科奠基」戰略方針與方案 A Roadmap (`docs/ROADMAP.md`)**
 </details>## 🌟 近期重大功能更新歷程 (Version Changelog)
+
+### 【v2.3.0 版】🔤 奇幻英文島小一上線 ✕ 16 關自然發音與生活單字 128 題 ✕ 英文島綠燈 📅 2026-10-25
+
+1. **英文島小一題庫 (`data/question-bank-en-g1.json` 新檔)**：16 關 × 8 題 = 128 題；島 1 字母開頭音 Aa/Bb/Cc/Dd、島 2 短母音 a/e/i/o 與 `-at/-en/-ig/-og` 押韻家族、島 3 雙字母音 `sh/ch/th/ng/ck`、島 4 生活單字 (顏色、數字、家人、食物、動物) 與 `Good morning` 問候語。
+2. **教具全面沿用既有 `scene` 情境卡** (`visual: {type:'scene', emojis, text}`)，零新增渲染器；部分題目附 `optionEmojis` 圖示選項。
+3. **語音設計**：`prompt` 中文指令 + `speak` 全 ASCII 英文句，配合英文島 `speechLang: 'en-US'` 美語引擎，避免中文被 en-US 語音誤讀。
+4. **科目掛表 (`js/grades.js`)**：新增 `ENGLISH_GRADES`（小一 4 島 16 關、`questionBankUrl` 指向新題庫）並掛入 `SUBJECT_GRADES.english`。
+5. **綠燈翻牌 (`js/subjects.js`)**：英文島 `ready: true`，大廳「進入一年級冒險」解鎖、`openMap()` 放行；國語島維持 `ready: false`。
+6. **版號熱同步**：`#brand-version-badge` → `v2.3.0`，`sw.js` `CACHE_NAME` → `math-island-v2.3.0` 並納入 `./data/question-bank-en-g1.json` 離線快取。
+7. **自檢結果**：JSON 解析通過、16 關 × 8 題共 128 題、`answer ∈ options` 且選項無重複 (每題 ≥3 選項)、`optionEmojis` 長度比對一致、`visual.type` 全數命中 `js/visuals.js` 渲染器白名單、`speak` 128/128 全 ASCII；ESM import 測試 `SUBJECT_GRADES.english=1 年級 / islands=4 / isSubjectGradePrepared=true / isSubjectReady(english)=true / math 綠燈不變 / chinese=false`。
 
 ### 【v2.2.0 版】🧭 多科目切換大廳架構 (方案 A) ✕ 頂部科目膠囊 ✕ en-US 美語語音引擎 ✕ 多科進度獨立記帳 📅 2026-10-25
 

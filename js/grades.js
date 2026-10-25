@@ -54,9 +54,31 @@ export const GRADES = [
   }
 ];
 
+/* 奇幻英文島年級表：小一 16 關自然發音與生活單字（4 島 × 4 關） */
+export const ENGLISH_GRADES = [
+  {
+    id: 1,
+    name: '一年級',
+    shortName: '小一',
+    icon: '🔤',
+    badge: '台灣小一 · 自然發音 Phonics',
+    title: '奇幻英文島',
+    subtitle: '4 座字母島嶼 · 16 個發音與生活單字關卡 · 邊玩邊學英文',
+    age: '適合 6–7 歲',
+    questionBankUrl: 'data/question-bank-en-g1.json',
+    islands: [
+      { id: 1, name: '字母起步島', theme: 'forest', color: '#3fae6a', emoji: '🌳', blurb: '認識 Aa Bb Cc Dd 的開頭音，聽一聽、找一找字母起手式。' },
+      { id: 2, name: '短母音海島', theme: 'ocean', color: '#2b9cdb', emoji: '🌊', blurb: '短母音 a e i o 與 -at、-en、-ig、-og 押韻家族。' },
+      { id: 3, name: '雙字母雲島', theme: 'cloud', color: '#8d7bf0', emoji: '☁️', blurb: 'sh、ch、th、ng、ck 雙字母音，聽音辨字大挑戰。' },
+      { id: 4, name: '生活單字星島', theme: 'space', color: '#443f9a', emoji: '✨', blurb: '顏色、數字、家人、食物與動物生活單字，還有英文問候語。' }
+    ]
+  }
+];
+
 /* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島」時在此掛上該科年級表即可 */
 export const SUBJECT_GRADES = {
   math: GRADES,
+  english: ENGLISH_GRADES,
 };
 
 export function getSubjectGrades(subjectId = DEFAULT_SUBJECT) {

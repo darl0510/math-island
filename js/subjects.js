@@ -23,7 +23,7 @@ export const SUBJECTS = [
     brandTitle: '奇幻英文島',
     tagline: '自然發音與生活單字',
     speechLang: 'en-US',
-    ready: false,
+    ready: true,
     symbols: ['A', 'b', 'C', '🔤', 'e', '★', 'Hi', '1', '?'],
   },
   {
