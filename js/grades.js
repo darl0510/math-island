@@ -219,7 +219,7 @@ export const CHALLENGE_GRADES = [
   },
 ];
 
-/* 奇幻自然科學島年級表：小一 16 關自然探索（4 島 × 4 關） */
+/* 奇幻自然科學島年級表：小一與小二 16 關自然探索（4 島 × 4 關） */
 export const SCIENCE_GRADES = [
   {
     id: 1,
@@ -236,6 +236,23 @@ export const SCIENCE_GRADES = [
       { id: 2, name: '奇趣動物島', theme: 'ocean', color: '#06b6d4', emoji: '🦋', blurb: '校園小動物的特徵、運動方式、動物的家與用五官探索大自然。' },
       { id: 3, name: '光影與氣象島', theme: 'cloud', color: '#f59e0b', emoji: '☀️', blurb: '太陽與影子的捉迷藏、雨滴與彩虹、風的吹動與四季天氣感受。' },
       { id: 4, name: '科學探索魔王殿', theme: 'space', color: '#8b5cf6', emoji: '🧲', blurb: '神奇磁鐵吸一吸、水中的浮與沉、聲音敲一敲與自然科學素養大挑戰！' },
+    ],
+  },
+  {
+    id: 2,
+    name: '二年級',
+    shortName: '小二',
+    icon: '🔭',
+    badge: '台灣小二 · 108 課綱生活領域進階',
+    title: '奇幻自然科學島 · 二年級',
+    subtitle: '4 座自然探索島嶼 · 16 個生活科技與科學實作關卡 · 邊玩邊探索科學奧秘',
+    age: '適合 7–8 歲',
+    questionBankUrl: 'data/question-bank-science-g2.json',
+    islands: [
+      { id: 1, name: '氣象與水變化島', theme: 'cloud', color: '#0ea5e9', emoji: '🌦️', blurb: '認識天氣與雲朵、水的三態奇幻旅程、風吹草動的秘密與四季輪轉的節奏。' },
+      { id: 2, name: '小小生態探險島', theme: 'forest', color: '#10b981', emoji: '🦋', blurb: '昆蟲身體構造、毛毛蟲完全變態變蝴蝶、植物花果種子與動物隱身偽裝。' },
+      { id: 3, name: '生活物理實驗島', theme: 'ocean', color: '#3b82f6', emoji: '🔍', blurb: '太陽與影子的方位、聲音的高低大小、推拉力與摩擦力、磁鐵同異極。' },
+      { id: 4, name: '地球守護科學殿', theme: 'space', color: '#8b5cf6', emoji: '🌍', blurb: '生活材料特性比一比、沉浮實驗中空原理、節能減碳綠生活與榮譽總試煉。' },
     ],
   },
 ];
