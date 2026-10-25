@@ -1,6 +1,6 @@
 {
-  "totalTokens": 19412,
-  "totalSavedUsdEst": 0.0388,
+  "totalTokens": 26893,
+  "totalSavedUsdEst": 0.0537,
   "sessions": [
     {
       "id": "sess_1792912712671",
@@ -35,17 +35,91 @@
       "savedUsd": 0.001314,
       "modelName": "claude-code-local-8080",
       "delegator": "Claude-Code-Autonomous-Worker"
+    },
+    {
+      "timestamp": "2026-10-25T08:31:08.279024+00:00",
+      "date": "2026-10-25",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 616,
+      "savedUsd": 0.001232,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker"
+    },
+    {
+      "timestamp": "2026-10-25T08:34:12.655131+00:00",
+      "date": "2026-10-25",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 491,
+      "savedUsd": 0.000982,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker"
+    },
+    {
+      "id": "sess_1792917881094",
+      "task": "同步 js/levels/island2.js~island4.js 島名/blurb/color/emoji 至 grades.js 一年級設定",
+      "version": "v2.3.2",
+      "executor": "claude-code (local session)",
+      "promptTokens": 2600,
+      "completionTokens": 1450,
+      "totalTokens": 4050,
+      "savedUsdEst": 0.0081,
+      "tokenSource": "estimated: git diff changed lines x avg line width + handover added lines; chars/4",
+      "status": "passed",
+      "note": "v2.3.2 island2-4 島名/emoji/color/blurb 已對齊 grades.js 小一；node --check 3/3 綠燈、欄位比對 4/4 MATCH",
+      "timestamp": "2026-10-25T16:44:41.094810"
+    },
+    {
+      "timestamp": "2026-10-25T08:45:22.798201+00:00",
+      "date": "2026-10-25",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 662,
+      "savedUsd": 0.001324,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker"
+    },
+    {
+      "timestamp": "2026-10-25T08:50:29.224821+00:00",
+      "date": "2026-10-25",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 207,
+      "savedUsd": 0.000414,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker",
+      "status": "passed",
+      "note": "v2.3.2 重送交付通過：js/grades.js:16-18 一年級 islands id2/id3/id4 的 name/emoji/color/blurb 已原樣同步自 island2/3/4.js（24 欄 MATCH），node --check OK，島檔與其餘年級零改動"
+    },
+    {
+      "timestamp": "2026-10-25T08:52:54.706952+00:00",
+      "date": "2026-10-25",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 719,
+      "savedUsd": 0.001438,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker"
+    },
+    {
+      "timestamp": "2026-10-25T08:55:33.572513+00:00",
+      "date": "2026-10-25",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 736,
+      "savedUsd": 0.001472,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker"
     }
   ],
-  "updatedAt": "2026-10-25T15:18:32.671475",
+  "updatedAt": "2026-10-25T16:51:42.073915",
   "lastStatus": "passed",
-  "lastNote": "自檢：node --check 7/7 綠燈；架構煙霧測試 14/14 pass；19 模組 import/export 對照全解析；本機 HTTP 4 資產全 200。新增 js/subjects.js，修改 state/grades/audio/question-bank/main/map/index.html/style.css/sw.js。",
-  "lastPassedAt": "2026-10-25T15:18:32.671457",
+  "lastNote": "v2.3.2 重送交付通過：js/grades.js:16-18 一年級 islands id2/id3/id4 的 name/emoji/color/blurb 已原樣同步自 island2/3/4.js（24 欄 MATCH），node --check OK，島檔與其餘年級零改動",
+  "lastPassedAt": "2026-10-25T16:51:42.073892",
   "hermes_status": {
-    "endpoint": "http://127.0.0.1:8080/v1/models",
     "online": true,
-    "model": "qwen3.8-flash-next-iq3_xxs",
-    "n_ctx": 131072,
-    "probedAt": "2026-10-25T15:18:32.628419"
+    "checkedAt": "2026-10-25T16:44:41.294694",
+    "mode": "local-first"
   }
 }

@@ -13,9 +13,9 @@ export const GRADES = [
     questionBankUrl: 'data/question-bank-g1.json',
     islands: [
       { id: 1, name: '森林起步篇', theme: 'forest', color: '#3fae6a', emoji: '🌳', blurb: '用十格陣列數一數，認識比多少、序數和 10 的分與合。' },
-      { id: 2, name: '海洋探索篇', theme: 'ocean', color: '#2b9cdb', emoji: '🌊', blurb: '潛入 10 以內加減法，認識形狀與時鐘整點半點。' },
-      { id: 3, name: '雲朵挑戰篇', theme: 'cloud', color: '#8d7bf0', emoji: '☁️', blurb: '乘著雲朵認識 20 以內的數，挑戰進位加法、退位減法與長度比較。' },
-      { id: 4, name: '星空大師篇', theme: 'space', color: '#443f9a', emoji: '✨', blurb: '登陸星空島，解鎖 100 以內的數、兩位數加減、認識錢幣與日曆統計。' }
+      { id: 2, name: '海洋加減篇', theme: 'ocean', color: '#2aa7c9', emoji: '🐬', blurb: '在海底學加減、認識形狀，還要看懂時鐘。' },
+      { id: 3, name: '雲端進階篇', theme: 'cloud', color: '#7c8cf8', emoji: '☁️', blurb: '學會湊十與破十，認識十位個位，再用方格尺量一量。' },
+      { id: 4, name: '星空魔王篇', theme: 'space', color: '#8b5cf6', emoji: '🚀', blurb: '認識台灣錢幣、二位數加減、日曆統計，挑戰生活應用題大魔王！' }
     ]
   },
   {
