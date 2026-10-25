@@ -8,42 +8,42 @@ export const en_g2_islands = [
     emoji: '🌲',
     theme: 'forest',
     color: '#3fae6a',
-    blurb: 'Magic e 長母音 a_e、i_e、o_e、u_e，聽一聽母音變長了！',
+    blurb: '認識 Magic e 魔法：a_e、i_e、o_e、u_e，聽一聽母音變長了！',
     levels: [
       {
         id: 1,
         island: 1,
-        title: 'Magic e: a_e Sound',
-        emoji: '🍎',
-        skill: '長母音 a_e · /eɪ/',
-        intro: 'Magic e makes a say its name! cake, lake, make. Listen for the long a sound!',
+        title: 'a_e 蛋糕長母音',
+        emoji: '🍰',
+        skill: '長母音 a_e · cake, lake',
+        intro: 'Magic e 魔法來囉！像 cake 和 lake，後面的 e 讓 a 念出自己的名字喔！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 2,
         island: 1,
-        title: 'Magic e: i_e Sound',
-        emoji: '🪜',
-        skill: '長母音 i_e · /aɪ/',
-        intro: 'Magic e makes i say its name! bike, time, ride. Say /aɪ/ nice and long!',
+        title: 'i_e 腳踏車長母音',
+        emoji: '🚲',
+        skill: '長母音 i_e · bike, time',
+        intro: 'Magic e 讓 i 變長囉！像 bike 和 ride，聽聽看像「愛」的長音！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 3,
         island: 1,
-        title: 'Magic e: o_e Sound',
-        emoji: '🎯',
-        skill: '長母音 o_e · /oʊ/',
-        intro: 'Magic e makes o say its name! home, nose, rope. Round your lips for /oʊ/.',
+        title: 'o_e 甜蜜的家長母音',
+        emoji: '🏠',
+        skill: '長母音 o_e · home, nose',
+        intro: '圓圓的嘴巴念 o_e！像 home 和 rope，嘴唇嘟圓圓念出長音 O！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 4,
         island: 1,
-        title: 'Magic e: u_e Sound',
-        emoji: '📏',
-        skill: '長母音 u_e · /juː/',
-        intro: 'Magic e makes u say its name! cute, tube, use. Say /juː/ like the letter U!',
+        title: 'u_e 可愛長母音',
+        emoji: '🦄',
+        skill: '長母音 u_e · cute, tube',
+        intro: '好可愛的 cute！Magic e 讓 u 發出像字母 U 的長音喔！',
         makeQuestions(count = 6) { return []; }
       }
     ]
@@ -59,37 +59,37 @@ export const en_g2_islands = [
       {
         id: 5,
         island: 2,
-        title: 'The bl Blend Wave',
-        emoji: '🐧',
-        skill: '子音混合 bl',
-        intro: 'bl! blend, blue, black. Say b and l together fast, like one sound!',
+        title: 'bl 藍色泡泡海',
+        emoji: '🌊',
+        skill: '子音混合 bl · blue, blend',
+        intro: 'b 和 l 手拉手變成 bl！像 blue 和 black，念得又快又順！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 6,
         island: 2,
-        title: 'The cl Blend Shell',
-        emoji: '⏰',
-        skill: '子音混合 cl',
-        intro: 'cl! clap, clock, clean. Say c and l together, nice and clean!',
+        title: 'cl 拍拍手鐘樓',
+        emoji: '👏',
+        skill: '子音混合 cl · clap, clock',
+        intro: 'c 和 l 在一起！像 clap 拍拍手、clock 滴答鐘，一起清楚念出來！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 7,
         island: 2,
-        title: 'The st Blend Fish',
-        emoji: '⚖️',
-        skill: '子音混合 st',
-        intro: 'st! star, stop, story. Say s and t together, smooth like the sea!',
+        title: 'st 小星星海灣',
+        emoji: '⭐',
+        skill: '子音混合 st · star, stop',
+        intro: 'st 來囉！像天空中的 star、紅綠燈的 stop，像小蛇吐氣一樣溜過去！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 8,
         island: 2,
-        title: 'The tr Blend Dice',
-        emoji: '🎲',
-        skill: '子音混合 tr',
-        intro: 'tr! tree, truck, try. Say t and r together, roll the r sound!',
+        title: 'tr 大樹小火車',
+        emoji: '🚂',
+        skill: '子音混合 tr · tree, train',
+        intro: '嘟嘟！tr 火車開動囉！像 tree 和 truck，舌頭輕輕捲一下！',
         makeQuestions(count = 6) { return []; }
       }
     ]
@@ -100,42 +100,42 @@ export const en_g2_islands = [
     emoji: '🔥',
     theme: 'cloud',
     color: '#ff7675',
-    blurb: '-ight、-ound、-ain、-own 詞族，認識長詞尾的拼寫模式。',
+    blurb: '-ight、-ound、-ain、-own 押韻家族，認識常見的英文結尾。',
     levels: [
       {
         id: 9,
         island: 3,
-        title: 'The -ight Family Spark',
+        title: 'ight 晚安星星家族',
         emoji: '✨',
-        skill: '詞族 -ight · /aɪt/',
-        intro: 'light, night, right, fight. They all end in -ight. Say /aɪt/ bright and clear!',
+        skill: '押韻家族 -ight · light, night',
+        intro: '閃閃發光的 -ight 家族！像 light 和 night，結尾都有 ight 的聲音！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 10,
         island: 3,
-        title: 'The -ound Family Racer',
-        emoji: '🏎️',
-        skill: '詞族 -ound · /aʊnd/',
-        intro: 'round, sound, found, ground. They all end in -ound. Say /aʊnd/ fast!',
+        title: 'ound 圓滾滾家族',
+        emoji: '⚽',
+        skill: '押韻家族 -ound · round, sound',
+        intro: '圓圓的皮球 round！像 sound 和 ground，結尾都是 ound 喔！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 11,
         island: 3,
-        title: 'The -ain Family Lightning',
-        emoji: '⚡',
-        skill: '詞族 -ain · /eɪn/',
-        intro: 'rain, train, main, chain. They all end in -ain. Say /eɪn/ like the letter A!',
+        title: 'ain 下雨天家族',
+        emoji: '🌧️',
+        skill: '押韻家族 -ain · rain, train',
+        intro: '下雨天的 rain！像 train 和 rain，結尾都有 ain 的好聽聲音！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 12,
         island: 3,
-        title: 'The -own Family Cart',
-        emoji: '🛒',
-        skill: '詞族 -own · /oʊn/',
-        intro: 'down, town, clown, brown. They all end in -own. Say /oʊn/ round and warm!',
+        title: 'own 歡樂小鎮家族',
+        emoji: '🏘️',
+        skill: '押韻家族 -own · town, down',
+        intro: '熱鬧的小鎮 town！像 down 和 brown，都是 own 家族的小夥伴！',
         makeQuestions(count = 6) { return []; }
       }
     ]
@@ -146,42 +146,42 @@ export const en_g2_islands = [
     emoji: '🌌',
     theme: 'space',
     color: '#443f9a',
-    blurb: '問候、自我介紹、描述與簡單問句，用英文說出自己的生活。',
+    blurb: '打招呼、自我介紹與簡單問句，用英文說出日常生活！',
     levels: [
       {
         id: 13,
         island: 4,
-        title: 'Hello, My Name Is…',
-        emoji: '🪐',
-        skill: '問候與自我介紹',
-        intro: 'Hello! My name is… Nice to meet you! Say hello and tell your name in English!',
+        title: '打招呼：Hello, My Name Is…',
+        emoji: '👋',
+        skill: '日常生活 · 問候與自我介紹',
+        intro: '見到新朋友說 Hello！跟著小狐狸一起用英文說出自己的名字吧！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 14,
         island: 4,
-        title: 'I Like… I Have…',
-        emoji: '💫',
-        skill: '描述喜好與擁有',
-        intro: 'I like cats. I have a red ball. Tell what you like and what you have!',
+        title: '我喜歡、我有：I Like, I Have',
+        emoji: '🐱',
+        skill: '日常生活 · 喜好與擁有',
+        intro: '分享你喜歡的東西！像 I like cats、I have a ball，大聲說出來！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 15,
         island: 4,
-        title: 'What Is This? Where Is It?',
-        emoji: '💰',
-        skill: '簡單問句',
-        intro: 'What is this? Where is the cat? Ask questions in English and find the answers!',
+        title: '這是什麼：What Is This?',
+        emoji: '🔍',
+        skill: '日常生活 · 好奇問問看',
+        intro: '這是什麼呢？What is this? 一起在奇幻星島尋找答案！',
         makeQuestions(count = 6) { return []; }
       },
       {
         id: 16,
         island: 4,
-        title: 'My Day in English',
-        emoji: '🍕',
-        skill: '日常活動描述',
-        intro: 'I eat breakfast. I go to school. I play with friends. Tell your day in English!',
+        title: '我的一天：My Day In English',
+        emoji: '☀️',
+        skill: '日常生活 · 日常生活描述',
+        intro: '吃早餐、上學、跟好朋友玩！用最棒的英文說出精采的一天！',
         makeQuestions(count = 6) { return []; }
       }
     ]

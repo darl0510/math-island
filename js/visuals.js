@@ -58,6 +58,8 @@ export function renderVisual(visual) {
     fraction,
     angle,
     barChart,
+    chinese,
+    phonetic,
   };
   const renderer = renderers[visual.type];
   if (!renderer) {
@@ -881,6 +883,131 @@ export function fraction({ numerator = 1, denominator = 4, shape = 'bar', label 
 
   const caption = label || `平分成 ${denominator} 份，塗色部分是 ${numerator} 份（${numerator}/${denominator}）`;
   wrap.appendChild(node('div', 'visual-caption', caption));
+  return wrap;
+}
+
+const BOPOMOFO_MAP = {
+  '下': 'ㄒㄧㄚˋ', '人': 'ㄖㄣˊ', '他': 'ㄊㄚ', '位': 'ㄨㄟˋ', '住': 'ㄓㄨˋ', '你': 'ㄋㄧˇ',
+  '個': 'ㄍㄜ˙', '入': 'ㄖㄨˋ', '八': 'ㄅㄚ', '冒': 'ㄇㄠˋ', '十': 'ㄕˊ', '叫': 'ㄐㄧㄠˋ',
+  '司': 'ㄙ', '吃': 'ㄔ', '吉': 'ㄐㄧˊ', '同': 'ㄊㄨㄥˊ', '吹': 'ㄔㄨㄟ', '味': 'ㄨㄟˋ',
+  '和': 'ㄏㄢˋ', '唱': 'ㄔㄤˋ', '問': 'ㄨㄣˋ', '喝': 'ㄏㄜ', '四': 'ㄙˋ', '回': 'ㄏㄨㄟˊ',
+  '圈': 'ㄑㄩㄢ', '國': 'ㄍㄨㄛˊ', '圍': 'ㄨㄟˊ', '園': 'ㄩㄢˊ', '圓': 'ㄩㄢˊ', '圖': 'ㄊㄨˊ',
+  '團': 'ㄊㄨㄢˊ', '土': 'ㄊㄨˇ', '士': 'ㄕˋ', '大': 'ㄉㄚˋ', '天': 'ㄊㄧㄢ', '好': 'ㄏㄠˇ',
+  '尖': 'ㄐㄧㄢ', '工': 'ㄍㄨㄥ', '己': 'ㄐㄧˇ', '已': 'ㄧˇ', '巳': 'ㄙˋ', '干': 'ㄍㄢ',
+  '床': 'ㄔㄨㄤˊ', '張': 'ㄓㄤ', '想': 'ㄒㄧㄤˇ', '打': 'ㄉㄚˇ', '文': 'ㄨㄣˊ', '早': 'ㄗㄠˇ',
+  '明': 'ㄇㄧㄥˊ', '星': 'ㄒㄧㄥ', '書': 'ㄕㄨ', '月': 'ㄩㄝˋ', '木': 'ㄇㄨˋ', '未': 'ㄨㄟˋ',
+  '末': 'ㄇㄛˋ', '本': 'ㄅㄣˇ', '朵': 'ㄉㄨㄛˇ', '村': 'ㄘㄨㄣ', '松': 'ㄙㄨㄥ', '林': 'ㄌㄧㄣˊ',
+  '桌': 'ㄓㄨㄛ', '森': 'ㄙㄣ', '棵': 'ㄎㄜ', '椅': 'ㄧˇ', '樹': 'ㄕㄨˋ', '橋': 'ㄑㄧㄠˊ',
+  '汗': 'ㄏㄢˋ', '沒': 'ㄇㄟˊ', '河': 'ㄏㄜˊ', '泳': 'ㄩㄥˇ', '洗': 'ㄒㄧˇ', '海': 'ㄏㄞˇ',
+  '游': 'ㄧㄡˊ', '湖': 'ㄏㄨˊ', '火': 'ㄏㄨㄛˇ', '災': 'ㄗㄞ', '炎': 'ㄧㄢˊ', '烈': 'ㄌㄧㄝˋ',
+  '烤': 'ㄎㄠˇ', '照': 'ㄓㄠˋ', '煮': 'ㄓㄨˇ', '熱': 'ㄖㄜˋ', '燈': 'ㄉㄥ', '燒': 'ㄕㄠ',
+  '牛': 'ㄋㄧㄡˊ', '王': 'ㄨㄤˊ', '用': 'ㄩㄥˋ', '田': 'ㄊㄧㄢˊ', '紙': 'ㄓˇ', '花': 'ㄏㄨㄚ',
+  '草': 'ㄘㄠˇ', '說': 'ㄕㄨㄛ', '閃': 'ㄕㄢˇ', '隻': 'ㄓ', '頭': 'ㄊㄡˊ', '風': 'ㄈㄥ', '馬': 'ㄇㄚˇ'
+};
+
+export function chinese({ character = '', word = '', pinyin = '', gridType = '米', hint = '', foxHint = '', strokes = [] }) {
+  const displayChar = character || word || '學';
+  const displayPinyin = pinyin || BOPOMOFO_MAP[displayChar] || '';
+  const defaultFox = foxHint || (
+    displayChar === '十' || displayChar === '干' || displayChar === '土' ? '小狐狸提醒：先橫後豎，筆畫要站穩喔！' :
+    displayChar === '八' || displayChar === '人' || displayChar === '入' ? '小狐狸提醒：先撇後捺，像展開小翅膀！' :
+    displayChar === '回' || displayChar === '國' || displayChar === '同' ? '小狐狸提醒：進門先進去，最後再關門喔！' :
+    '小狐狸提醒：看清楚字形，筆順寫得漂亮又整齊！'
+  );
+
+  const wrap = node('div', 'chinese-wrap');
+  const styleEl = node('style');
+  styleEl.textContent = `
+    .chinese-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 16px; }
+    .chinese-stage { display: flex; align-items: center; gap: 20px; }
+    .chinese-grid-box { position: relative; width: 140px; height: 140px; border: 3px solid #6c5ce7; border-radius: 14px; background: #fffdf7; box-shadow: 0 6px 18px rgba(108,92,231,0.18); display: flex; align-items: center; justify-content: center; }
+    .chinese-grid-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .chinese-char-text { position: relative; z-index: 2; font-size: 84px; font-weight: 800; color: #2d3436; font-family: "KaiTi", "標楷體", "BiauKai", "Noto Sans TC", sans-serif; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+    .chinese-side { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .chinese-pinyin-badge { background: #ffeaa7; color: #d63031; font-weight: 800; font-size: 20px; padding: 4px 14px; border-radius: 12px; border: 2px solid #fdcb6e; letter-spacing: 2px; }
+    .chinese-fox-card { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #fff9f0, #fff0e6); border: 2px solid #ffcca5; border-radius: 16px; padding: 10px 16px; max-width: 380px; box-shadow: 0 4px 12px rgba(255,107,129,0.1); }
+    .chinese-fox-avatar { font-size: 32px; animation: foxBounce 2s infinite ease-in-out; }
+    .chinese-fox-msg { font-size: 14px; font-weight: 700; color: #63422d; line-height: 1.4; }
+    @keyframes foxBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  `;
+  wrap.appendChild(styleEl);
+
+  const stage = node('div', 'chinese-stage');
+  const gridBox = node('div', 'chinese-grid-box');
+
+  // SVG 米字格 / 田字格線條
+  const gridSvg = svg('svg', { viewBox: '0 0 140 140', class: 'chinese-grid-svg' });
+  gridSvg.innerHTML = `
+    <line x1="0" y1="70" x2="140" y2="70" stroke="#ff7675" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.6"/>
+    <line x1="70" y1="0" x2="70" y2="140" stroke="#ff7675" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.6"/>
+    ${gridType === '米' ? `
+      <line x1="0" y1="0" x2="140" y2="140" stroke="#ff7675" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.35"/>
+      <line x1="140" y1="0" x2="0" y2="140" stroke="#ff7675" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.35"/>
+    ` : ''}
+  `;
+  gridBox.appendChild(gridSvg);
+
+  const charEl = node('div', 'chinese-char-text', displayChar);
+  gridBox.appendChild(charEl);
+  stage.appendChild(gridBox);
+
+  const side = node('div', 'chinese-side');
+  if (displayPinyin) {
+    side.appendChild(node('div', 'chinese-pinyin-badge', `注音：${displayPinyin}`));
+  }
+  if (displayChar.length > 1) {
+    side.appendChild(node('div', 'visual-caption', `生詞：${displayChar}`));
+  }
+  stage.appendChild(side);
+  wrap.appendChild(stage);
+
+  const foxCard = node('div', 'chinese-fox-card');
+  foxCard.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
+  foxCard.appendChild(node('div', 'chinese-fox-msg', defaultFox));
+  wrap.appendChild(foxCard);
+
+  return wrap;
+}
+
+export function phonetic({ symbol = 'ㄅ', word = '', example = '' }) {
+  const wrap = node('div', 'phonetic-visual-wrap');
+  wrap.style.display = 'flex';
+  wrap.style.flexDirection = 'column';
+  wrap.style.alignItems = 'center';
+  wrap.style.gap = '12px';
+  wrap.style.padding = '12px';
+
+  const card = node('div', 'phonetic-card');
+  card.style.display = 'flex';
+  card.style.alignItems = 'center';
+  card.style.gap = '16px';
+  card.style.background = '#fff8e7';
+  card.style.border = '3px solid #ffa502';
+  card.style.borderRadius = '18px';
+  card.style.padding = '12px 24px';
+  card.style.boxShadow = '0 6px 16px rgba(255,165,2,0.2)';
+
+  const sym = node('div', 'phonetic-symbol', symbol);
+  sym.style.fontSize = '48px';
+  sym.style.fontWeight = '900';
+  sym.style.color = '#ff4757';
+  sym.style.fontFamily = '"BiauKai", "標楷體", sans-serif';
+  card.appendChild(sym);
+
+  if (word) {
+    const w = node('div', 'phonetic-word', `➔ ${word}`);
+    w.style.fontSize = '32px';
+    w.style.fontWeight = '800';
+    w.style.color = '#2f3542';
+    card.appendChild(w);
+  }
+  wrap.appendChild(card);
+
+  const tip = node('div', 'chinese-fox-card');
+  tip.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
+  tip.appendChild(node('div', 'chinese-fox-msg', `大聲念出來：${symbol}！聽聽看是什麼聲音喔！`));
+  wrap.appendChild(tip);
+
   return wrap;
 }
 

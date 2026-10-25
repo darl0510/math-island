@@ -3,7 +3,7 @@
 ## ⚡ 極致節省 Token 規範 (Extreme Token-Saving Protocol)
 
 > 本節由 `scripts/sync_all_projects_rules.py` 自動注入，請勿手動修改。
-> 最後同步：2026-10-25 19:32:19
+> 最後同步：2026-10-25 20:44:47
 
 ### 🔪 極致省 Token 4 刀流 (Four-Blade Token-Saving Protocol)
 
@@ -27,17 +27,17 @@
 - 派工送出後立即停止輸出，等待本地回傳；嚴禁同一輪內重複補充、追問或自我覆寫。
 - 回傳未通過時，監工只補一句修正指令，不重寫整份契約。
 
-### 🛡️ 本地離線無縫降級防呆機制 (Offline Fail-Safe & Auto-Fallback)
+### 🛡️ 本地離線降級與使用者指定雲端執行模式 (Cloud-First & User-Directed Override)
 
-- 探測 `http://127.0.0.1:8080/v1/models`，超時 > 5 秒自動降級為 **Cloud-First** 模式。
-- 降級時解除「15 行禁令」，雲端可直接產出完整代碼。
+- **使用者指示雲端優先**：當使用者在指令中明確指示由雲端執行（如「直接用雲端寫」、「消耗雲端額度」等），自動解除「15 行禁令」與強制外包鐵律，雲端可直接生成完整代碼並正常推進版本與看板。此操作完全合規，後續版本推進或規則同步絕不會覆蓋或變更既有規則。
+- **本地離線自動降級**：探測 `http://127.0.0.1:8080/v1/models`，超時 > 5 秒自動降級為 **Cloud-First** 模式，降級時解除「15 行禁令」，雲端可直接產出完整代碼。
 - 連續 3 次探測成功後自動恢復本地優先模式。
 - 探測一律使用 Python `requests.get(..., timeout=5)`，嚴禁 PowerShell 2 秒超時指令誤判。
 
 ### 🚫 15 行極限代碼禁寫令
 
-- 本地大腦在線時，雲端嚴禁手寫超過 **15 行**的完整功能模組。
-- 超過 15 行的任務必須外包給本地端 AI 苦力執行。
+- 本地大腦在線時，雲端嚴禁擅自手寫超過 **15 行**的完整功能模組（使用者明確指示由雲端執行者除外）。
+- 超過 15 行的任務預設必須外包給本地端 AI 苦力執行。
 - 嚴禁雲端自行反覆大量讀取 / 搜尋代碼。
 
 ### 🚫 零盲目摸索派工令 (Zero-Exploration Dispatch Fallback)
@@ -50,20 +50,20 @@
 
 ### 👑 雲端監工與本地實作鐵律 (Supervisor & Dispatcher Only Protocol)
 
-- 雲端 Agent 僅負責 **監工 (Supervise)** 及 **派工 (Dispatch)**。
+- 雲端 Agent 預設僅負責 **監工 (Supervise)** 及 **派工 (Dispatch)**（使用者明確指示雲端執行除外）。
 - 出具精煉契約 (Contract) → 本地自主執行 → 雲端只看 Diff 驗收。
-- 嚴禁雲端直接寫入源碼檔案。
+- 嚴禁雲端擅自直接寫入源碼檔案（除非符合離線降級或使用者指定雲端模式）。
 
 ### 🚫 嚴禁監工代勞陷阱鐵律 (No Supervisor-as-Worker Trap)
 
 - 苦力未盡事項（未寫完的函式、未跑的測試、未修的報錯）**嚴禁監工下場代寫**：一律改派原子契約或補「最小 Diff 錨點」，嚴禁監工自己把活幹完。
 - 嚴禁監工自行撰寫測試腳本補跑：測試屬苦力自檢範圍，缺測試即退回原契約，不補寫、不代跑。
-- 嚴禁監工直接改源碼：任何對 `.ts` / `.js` / `.py` 等源碼檔案的寫入動作，必須經由 `scripts/claude_delegator.py` 或 `scripts/brain_delegator.py` 派工完成。
+- 嚴禁監工直接改源碼：任何對 `.ts` / `.js` / `.py` 等源碼檔案的寫入動作，必須經由 `scripts/claude_delegator.py` 或 `scripts/brain_delegator.py` 派工完成（使用者明確指定雲端直接執行除外）。
 - 驗收步驟嚴格限制 **3 步以內**，固定順序：
   1. `git diff --stat`
   2. `git status`
-  3. 交付報告
-- 超過 3 個檢查指令視同重大違規：立即停止驗收，直接改派下一輪原子契約。
+  3. `python scripts/bump_version.py <版號>` 並產出交付報告（含 Token 量化表格）
+- 嚴禁額外執行指令重複讀取 `PROJECT_HANDOVER.md` (如 Get-Content / Select-String / git diff 手動核對) 或以 `Test-Path` 提前摸索下一階段檔案；超過 3 個檢查指令視同重大違規：立即停止驗收，直接改派下一輪原子契約。
 
 ### 🧠 實體外包派工與記帳本防空報鐵律
 
@@ -97,7 +97,7 @@
 ### 🔧 Herdr 管線 (Plan → Execute → Validate → Deploy)
 
 1. **Plan**：拆解任務為原子步驟。
-2. **Execute**：外包給本地端執行。
+2. **Execute**：外包給本地端執行（使用者指定雲端直接執行除外）。
 3. **Validate**：Diff 審查 + 測試通過。
 4. **Deploy**：更新版號、推進看板。
 
@@ -123,16 +123,18 @@
 ### 📋 執行檢查清單
 
 - [ ] 本地大腦在線？(8080 探測)
+- [ ] 是否為使用者指示之雲端直寫模式？(若是則允許雲端直接生成，否則超過 15 行強制外包)
 - [ ] 任務是否超過 15 行？→ 外包
 - [ ] 是否已寫入 ledger？
 - [ ] 是否已更新 PROJECT_HANDOVER.md？
 - [ ] 是否已更新 package.json 版號？(一律 `python scripts/bump_version.py <版號>`，嚴禁手動 edit)
 - [ ] 本對話是否僅執行單次原子派工？(嚴禁同輪疊加第二輪契約)
 - [ ] 是否已提供下一輪 Prompt？
+- [ ] 交付報告是否已包含【本次 Token 消耗精準量化】表格？
 - [ ] 4 刀流已啟動？(0 重複讀檔編譯 / 驗收 ≤15 行 / Prompt 極簡 / 派工一句話即停)
 - [ ] 高難度任務是否已原子拆解？(≤3 輪收斂 ✕ 128k 防爆)
 - [ ] 缺指令時是否直接預設派工？(嚴禁 list_dir / --help / view_file 摸索)
-- [ ] 是否守住「監工不下場」？(0 代寫源碼 / 0 代跑測試 / 驗收 ≤3 步)
+- [ ] 是否守住「監工不下場」？(0 代寫源碼 / 0 代跑測試 / 驗收 ≤3 步 / 0 摸索讀檔)
 ## 📌 版本管理與交接鐵律
 1. **版號與看板推進**：每次迭代完成必須更新 [`PROJECT_HANDOVER.md`](PROJECT_HANDOVER.md) 版號、頂部待辦看板 (`[x]`) 與更新記錄；常態保留最新 3 版（或超過 280 行時調用 `auto_backup.check_and_trim_handover(max_lines=280, keep_recent=3)` 自動封存至 `docs/CHANGELOG_ARCHIVE.md`）。
 2. **介面版號同步**：前端介面（`index.html` 之 `#brand-version-badge`）版號必須與 `PROJECT_HANDOVER.md` 保持 100% 同步。

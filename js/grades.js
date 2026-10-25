@@ -144,6 +144,23 @@ export const CHINESE_GRADES = [
       { id: 3, name: '部件拼字島', theme: 'cloud', color: '#ff7675', emoji: '🔥', blurb: '把部件拼成完整國字：左右、上下、包圍結構，拆拆拼拼學造字。' },
       { id: 4, name: '形近字與量詞島', theme: 'space', color: '#443f9a', emoji: '🌌', blurb: '分辨形近字（己已巳、未末、土士）與正確使用量詞。' }
     ]
+  },
+  {
+    id: 3,
+    name: '三年級',
+    shortName: '小三',
+    icon: '📖',
+    badge: '台灣小三 · 108 課綱',
+    title: '奇幻國語島：修辭成語與閱讀大冒險',
+    subtitle: '4 座挑戰島嶼 · 16 個修辭基礎、成語運用、句型變換與段落閱讀關卡 · 奇幻啟航',
+    age: '適合 8–9 歲',
+    questionBankUrl: 'data/question-bank-ch-g3.json',
+    islands: [
+      { id: 1, name: '修辭魔法殿', theme: 'forest', color: '#3fae6a', emoji: '🏛️', blurb: '認識譬喻、擬人、排比與設問等常用修辭手法，讓文章變得生動傳神！' },
+      { id: 2, name: '成語典故海', theme: 'ocean', color: '#2b9cdb', emoji: '🌊', blurb: '探索動物寓言成語、勤學勵志、景物描摹與品德成語，妙筆生花！' },
+      { id: 3, name: '句型變換雲', theme: 'cloud', color: '#8d7bf0', emoji: '☁️', blurb: '熟練因果轉折複句、條件遞進、把字句被字句互換與照樣造句！' },
+      { id: 4, name: '段落閱讀星', theme: 'space', color: '#443f9a', emoji: '🪐', blurb: '標點符號應用、段落主旨歸納、記敘文六要素與短文閱讀理解大考驗！' }
+    ]
   }
 ];
 

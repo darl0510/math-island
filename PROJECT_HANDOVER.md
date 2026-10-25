@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.4.0 版)  
+> **最後更新時間**：2026-10-25 (v2.4.3 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,12 +10,12 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.4.0】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
+【v2.4.3】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
 
 【🚨 五大紅線】已由 AGENTS.md 自動注入（本節由 sync_all_projects_rules.py 維護），本 Prompt 拒絕重複貼上。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
-python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "奇幻國語島小二題庫建置：新增 data/question-bank-ch-g2.json (16 關 x 8 題 = 128 題，涵蓋常用國字筆順、部首歸類、部件拼字、形近字與量詞詞語)，新增 js/levels/island_defs_ch_g2.js (4 島 16 關)，js/grades.js CHINESE_GRADES 擴充小二元資料與關卡掛載，完成後 node --check 自檢"
+python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "全科全年級 144 關卡聯動自檢與跨科目進度持久化驗證，完成後 node --check 自檢"
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -54,9 +54,11 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
-- [ ] **擴充「奇幻國語島」小二與小三題庫與關卡 (各 16 關 x 8 題 = 128 題，涵蓋國字筆畫、部件拆解與造詞句型)**
+- [ ] **全科全年級 144 關卡（數/英/國 × 小一~小三）聯動驗收與跨科目進度持久化優化**
 
 ### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
+- [ ] 全科 9 大年級 × 16 關 = 144 關完整流程整合測試與 UI 視覺走查
+- [ ] 國語島動態注音卡與生字米字格教具響應式優化
 
 > 💡 **中長期全科學習宇宙擴展藍圖**：已完整收錄至 [`docs/ROADMAP.md`](docs/ROADMAP.md)，涵蓋英文、國語、自然、社會、生活、資訊邏輯等科目之教具與題型規格！
 
@@ -71,6 +73,8 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 </details>
 
 <details><summary>過往已完成歷史任務</summary>
+- [x] **奇幻國語島小三題庫與關卡建置** (`data/question-bank-ch-g3.json` 128 題修辭成語閱讀、`js/levels/island_defs_ch_g3.js` 4 島 16 關、`js/levels/index.js` 與 `js/grades.js` 全面掛載) (v2.4.3)
+- [x] **奇幻國語島小二題庫與關卡建置** (`data/question-bank-ch-g2.json` 128 題筆順部首拼字、`js/levels/island_defs_ch_g2.js` 4 島 16 關、`js/levels/index.js` 與 `js/grades.js` 全面掛載) (v2.4.2)
 - [x] **奇幻國語島小一 MVP 上線** (`data/question-bank-ch-g1.json` 128 題注音、`js/levels/island_defs_ch_g1.js` 4 島 16 關、`js/grades.js` 掛載 `CHINESE_GRADES`、`subjects.js` 國語就緒綠燈) (v2.4.0)
 - [x] **奇幻英文島小二／小三掛表上線** (`js/levels/island_defs_en_g2.js`、`island_defs_en_g3.js`、`js/levels/index.js` 科目關卡表雙向掛載、`js/grades.js` `ENGLISH_GRADES` 增 id2/id3、`sw.js` 快取同步) (v2.3.4)
 - [x] **奇幻英文島小二／小三題庫建置** (`data/question-bank-en-g2.json`、`data/question-bank-en-g3.json` 各 16 關 × 8 題 = 128 題，自檢 0 錯誤) (v2.3.3)
@@ -87,7 +91,19 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 - [x] **啟動 GitHub Pages 免費即時上線準備與 Git 倉庫初始化 (含一鍵推送腳本)**
 - [x] **全面升級 PWA 桌面/平板 App 安裝支援 (Manifest + Service Worker 離線快取) (v2.1.3)**
 - [x] **確立「小一～小三橫向主科奠基」戰略方針與方案 A Roadmap (`docs/ROADMAP.md`)**
-</details>## 🌟 近期重大功能更新歷程 (Version Changelog)
+</details>
+
+## 🌟 近期重大功能更新歷程 (Version Changelog)
+
+### 【v2.4.3 版】📖 奇幻國語島小三題庫建置 ✕ 128 題修辭成語閱讀 ✕ 4 島 16 關關卡定義與掛載 📅 2026-10-25
+
+1. **國語小三題庫建置 (`data/question-bank-ch-g3.json`)**：16 關 × 8 題 = 128 題，涵蓋修辭基礎（譬喻、擬人、排比、設問）、成語運用（動物寓言、勤學勵志、景物描摹、品德成語）、句型變換（因果轉折、條件遞進、把被互換、照樣造句）與段落閱讀（標點符號、段落主旨、記敘六要素、閱讀理解魔王）。
+2. **小三國語島關卡定義 (`js/levels/island_defs_ch_g3.js`)**：4 座島嶼（修辭魔法殿、成語典故海、句型變換雲、段落閱讀星）共 16 個挑戰關卡，完整配置技能說明、emoji 與中文 intro 提示。
+3. **科目年級字典與全域關卡表雙向掛載**：
+   - `js/grades.js`：`CHINESE_GRADES` 擴充小三 (id: 3) 元資料，指向 `data/question-bank-ch-g3.json`。
+   - `js/levels/index.js`：引入並掛載 `ch_g2_islands` 與 `ch_g3_islands` 至 `SUBJECT_LEVEL_TABLES.chinese`，解鎖小二與小三關卡總表。
+4. **離線快取與版本推進**：`sw.js` 納入小二與小三國語題庫離線快取，快取名稱升級至 `math-island-v2.4.3`；`bump_version.py` 自動建立版本備份快照。
+5. **完整性驗收**：`node --check` 語法檢查 100% 綠燈，ESM 動態載入驗證小三 16 關卡與 128 題庫資料結構無誤。
 
 ### 【v2.4.0 版】📖 奇幻國語島小一 MVP 上線 ✕ 128 題注音題庫 ✕ 4 島 16 關關卡定義 ✕ 科目啟用綠燈 📅 2026-10-25
 
