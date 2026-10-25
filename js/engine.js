@@ -1,8 +1,9 @@
 import { audio } from './audio.js';
-import { completeLevel, isUnlocked } from './state.js';
+import { completeLevel, isUnlocked, getLevelLockInfo } from './state.js';
 import { renderVisual, renderStoryVisual } from './visuals.js';
 import { clearConfetti, launchConfetti, fireworks, showToast, starsMarkup } from './ui.js';
 import { getLevelById } from './levels/index.js';
+import { checkNewlyUnlockedBadges } from './badges.js';
 import { getBankQuestions } from './question-bank.js';
 import { shuffle as shuffleArray } from './utils.js';
 import { escapeHtml } from './ui.js';
@@ -387,6 +388,7 @@ function finishLevel(session) {
   const { level, mistakes, correct } = session;
   const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
   const result = completeLevel(level.id, stars, correct);
+  const newBadges = checkNewlyUnlockedBadges();
   audio.playSfx('levelup');
   audio.playJingle('victory');
   fireworks({ bursts: 4 });
@@ -397,6 +399,21 @@ function finishLevel(session) {
   const screen = document.getElementById('screen-level');
   const overlay = document.createElement('div');
   overlay.className = 'result-overlay';
+
+  const newBadgesMarkup = newBadges.length > 0 ? `
+    <div class="result-new-badges">
+      ${newBadges.map((b) => `
+        <div class="result-badge-pill">
+          <span class="badge-pill-icon">${b.icon}</span>
+          <div class="badge-pill-text">
+            <span class="badge-pill-title">獲得榮譽徽章！</span>
+            <strong>${escapeHtml(b.name)}</strong>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  ` : '';
+
   overlay.innerHTML = `
     <div class="result-card">
       <div class="result-emoji" aria-hidden="true">${stars === 3 ? '🏆' : stars === 2 ? '🌟' : '🎖️'}</div>
@@ -404,6 +421,7 @@ function finishLevel(session) {
       <div class="result-stars">${starsMarkup(stars)}</div>
       <p class="result-line">答對 <strong>${correct}</strong> 題${mistakes ? `，再加油一點就三顆星囉！` : '，完全沒有失誤！'}</p>
       ${result.stars > result.previousStars ? '<p class="result-new">刷新紀錄！</p>' : ''}
+      ${newBadgesMarkup}
       <p class="result-skill">${escapeHtml(level.skill)} ✓</p>
       <div class="result-actions">
         ${nextLevel ? `<button class="big-btn" type="button" data-action="next">下一關：${escapeHtml(nextLevel.title)} <span>▶</span></button>` : ''}
@@ -428,8 +446,11 @@ function finishLevel(session) {
   overlay.querySelector('[data-action="next"]')?.addEventListener('click', () => {
     audio.playSfx('click', 0.5);
     const target = getLevelById(nextId);
-    if (!target || !isUnlocked(target.id)) {
-      showToast('先完成前面的關卡喔！', '🔒');
+    if (!target) return;
+    const lockInfo = getLevelLockInfo(target.id);
+    if (!lockInfo.unlocked) {
+      showToast(lockInfo.message, lockInfo.reason === 'stars' ? '⭐' : '🔒');
+      audio.speak(lockInfo.message);
       return;
     }
     startLevel(target, { onExit: session.onExit });

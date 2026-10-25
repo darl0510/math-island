@@ -146,8 +146,63 @@ export function saveState(grade = getCurrentGrade(), subject = getCurrentSubject
   }
 }
 
-export function isUnlocked(levelId) {
-  return Number(levelId) <= Number(state.unlocked || 1);
+export const ISLAND_UNLOCK_STARS = {
+  1: 0,  // 第一座島：無門檻
+  2: 6,  // 第二座島：累積滿 6 顆星
+  3: 16, // 第三座島：累積滿 16 顆星
+  4: 28, // 第四座島：累積滿 28 顆星
+};
+
+export function getIslandIdByLevel(levelId) {
+  const id = Number(levelId);
+  if (id <= 4) return 1;
+  if (id <= 8) return 2;
+  if (id <= 12) return 3;
+  return 4;
+}
+
+export function getIslandRequiredStars(islandId) {
+  return ISLAND_UNLOCK_STARS[islandId] || 0;
+}
+
+export function getLevelLockInfo(levelId, grade = getCurrentGrade(), subject = getCurrentSubject()) {
+  const id = Number(levelId);
+  if (id === 1) {
+    return { unlocked: true, reason: null };
+  }
+  const s = snapshot(grade, subject);
+  const islandId = getIslandIdByLevel(id);
+  const requiredStars = getIslandRequiredStars(islandId);
+  const currentTotalStars = Object.values(s.stars || {}).reduce((sum, v) => sum + Number(v || 0), 0);
+
+  // 1. 線性通關檢驗
+  if (id > Number(s.unlocked || 1)) {
+    return {
+      unlocked: false,
+      reason: 'sequential',
+      message: '先完成前面的關卡，就能解鎖囉！',
+    };
+  }
+
+  // 2. 島嶼累積前置星數檢驗
+  if (currentTotalStars < requiredStars) {
+    const need = requiredStars - currentTotalStars;
+    return {
+      unlocked: false,
+      reason: 'stars',
+      islandId,
+      requiredStars,
+      currentTotalStars,
+      starsNeeded: need,
+      message: `這座島嶼需要累積滿 ${requiredStars} 顆星解鎖，目前還差 ${need} 顆星！先去拿更多星星吧！⭐`,
+    };
+  }
+
+  return { unlocked: true, reason: null };
+}
+
+export function isUnlocked(levelId, grade = getCurrentGrade(), subject = getCurrentSubject()) {
+  return getLevelLockInfo(levelId, grade, subject).unlocked;
 }
 
 export function completeLevel(levelId, stars, correctCount = 0) {

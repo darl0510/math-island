@@ -3403,3 +3403,1014 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
     font-size: 22px;
   }
 }
+
+/* ========================================================
+   學習徽章系統 (Badges System) & 前置星數門檻 (Star Unlocks)
+   ======================================================== */
+
+/* 頂部全域列徽章按鈕 */
+.bar-btn.badges-btn {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.25), rgba(255, 107, 107, 0.2));
+  border: 2px solid rgba(255, 217, 61, 0.45);
+}
+
+.badge-btn-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.badge-count-pill {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #ff4757;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(255, 71, 87, 0.4);
+  transform: scale(0.8);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.badge-count-pill.has-badges {
+  background: linear-gradient(135deg, #ffd93d, #ff9f43);
+  color: #371b58;
+  transform: scale(1);
+}
+
+/* 首頁與地圖頁徽章入口按鈕 */
+.badges-entry-btn,
+.badges-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 217, 61, 0.85);
+  background: linear-gradient(135deg, #fff9e6, #fff0c7);
+  color: #8c5b00;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 209, 67, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.badges-entry-btn:hover,
+.badges-map-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(255, 209, 67, 0.5);
+  filter: brightness(1.04);
+}
+
+.badges-map-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* 島嶼標題列與前置星數標籤 */
+.island-kicker-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.island-lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.island-lock-badge.locked {
+  background: rgba(255, 107, 107, 0.16);
+  color: #e03131;
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  animation: pulse-soft 2s infinite ease-in-out;
+}
+
+.island-lock-badge.unlocked {
+  background: rgba(46, 204, 113, 0.16);
+  color: #27ae60;
+  border: 1px solid rgba(46, 204, 113, 0.35);
+}
+
+.island-card.is-island-locked .island-bg {
+  filter: saturate(0.65) brightness(0.85);
+}
+
+.level-card.lock-by-stars {
+  border-color: rgba(255, 159, 67, 0.4);
+  background: linear-gradient(135deg, rgba(255, 243, 224, 0.6), rgba(255, 255, 255, 0.7));
+}
+
+/* 學習徽章館彈窗 */
+.badges-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 3vw, 24px);
+  background: rgba(20, 10, 36, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: fade-in 0.25s ease-out;
+}
+
+.badges-modal-card {
+  position: relative;
+  width: min(720px, 96vw);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #ffffff 0%, #faf5ff 100%);
+  border-radius: 36px;
+  box-shadow: 0 24px 60px rgba(18, 5, 38, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  overflow: hidden;
+  animation: scale-up 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.badges-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+.badges-header-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.badges-header-icon {
+  font-size: 38px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.45));
+}
+
+.badges-header-title h2 {
+  font-size: clamp(20px, 4vw, 24px);
+  font-weight: 900;
+  color: #2c1a4d;
+  margin: 0;
+}
+
+.badges-header-title p {
+  font-size: 13px;
+  color: #7b6f93;
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+
+/* 進度條列 */
+.badges-stat-bar {
+  padding: 12px 28px 16px;
+  background: rgba(245, 240, 255, 0.6);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+}
+
+.badges-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: #553c7b;
+  margin-bottom: 6px;
+}
+
+.badges-progress-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(139, 92, 246, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.badges-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd93d, #ff9f43, #ff6b6b);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 徽章網格 */
+.badges-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1.5px solid rgba(139, 92, 246, 0.12);
+  box-shadow: 0 4px 12px rgba(92, 53, 148, 0.04);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.badge-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(92, 53, 148, 0.12);
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+.badge-item.is-unlocked {
+  background: linear-gradient(135deg, #ffffff 40%, #fffbf0 100%);
+  border-color: rgba(255, 217, 61, 0.6);
+  box-shadow: 0 6px 16px rgba(255, 187, 36, 0.14);
+}
+
+.badge-item.is-locked {
+  opacity: 0.72;
+  background: #fbfaff;
+}
+
+.badge-icon-bubble {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f3ebff, #e9dcff);
+  font-size: 26px;
+}
+
+.badge-item.is-unlocked .badge-icon-bubble {
+  background: linear-gradient(135deg, #fff3cf, #ffe17d);
+  box-shadow: 0 4px 10px rgba(255, 200, 0, 0.3);
+}
+
+.badge-status-sparkle,
+.badge-lock-ico {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.badge-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.badge-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.badge-category-tag {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #6b3ab2;
+}
+
+.badge-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #2c1a4d;
+}
+
+.badge-desc {
+  font-size: 12px;
+  color: #665a78;
+  margin: 2px 0 6px;
+  line-height: 1.35;
+}
+
+.badge-mini-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-mini-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.badge-mini-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd93d, #ff9f43);
+  border-radius: 999px;
+}
+
+.badge-mini-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: #7b6f93;
+}
+
+/* 徽章彈窗頁尾 */
+.badges-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  background: #fbf9ff;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.badges-footer-tip {
+  font-size: 12px;
+  color: #7b6f93;
+  font-weight: 600;
+  margin: 0;
+}
+
+.badges-close-btn {
+  padding: 10px 24px;
+  font-size: 15px;
+}
+
+/* 關卡結算畫面徽章通知卡片 */
+.result-new-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0 8px;
+  width: 100%;
+}
+
+.result-badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff7d9, #ffeaa7);
+  border: 1.5px solid #fed330;
+  box-shadow: 0 4px 14px rgba(254, 211, 48, 0.35);
+  animation: pulse-soft 2s infinite ease-in-out;
+}
+
+.badge-pill-icon {
+  font-size: 28px;
+}
+
+.badge-pill-text {
+  text-align: left;
+}
+
+.badge-pill-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #b7791f;
+}
+
+.badge-pill-text strong {
+  font-size: 15px;
+  color: #744210;
+}
+
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .badges-grid {
+    grid-template-columns: 1fr;
+    padding: 14px 16px;
+  }
+  .badges-modal-header {
+    padding: 18px 18px 12px;
+  }
+  .badges-stat-bar {
+    padding: 10px 18px 12px;
+  }
+  .badges-modal-footer {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 18px;
+  }
+  .badges-footer-tip {
+    text-align: center;
+  }
+  .badges-close-btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   國語島生字筆順動態繪製與筆畫指引教具樣式
+   ========================================================================== */
+.chinese-visual-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.chinese-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.chinese-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 800;
+  background: #f1f2f6;
+  color: #2f3542;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stroke-rule-badge {
+  background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+  color: #d63031;
+  border: 1px solid #e17055;
+}
+
+.chinese-stage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #ffffff, #fdfbf7);
+  border-radius: 20px;
+  border: 3px solid #fab1a0;
+  box-shadow: 0 8px 18px rgba(225, 112, 85, 0.12);
+}
+
+.chinese-grid-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 6px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.chinese-mizige-svg {
+  width: min(200px, 45vw);
+  height: min(200px, 45vw);
+  display: block;
+}
+
+/* 筆劃動態繪製動畫 */
+.stroke-order-path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawStroke 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.stroke-marker-dot,
+.stroke-marker-text {
+  opacity: 0;
+  transform-origin: center;
+  animation: popMarker 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popMarker {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.chinese-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.chinese-pinyin-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #fff5eb;
+  border-radius: 14px;
+  border: 2px dashed #fdcb6e;
+}
+
+.chinese-char-preview {
+  font-size: 34px;
+  font-weight: 900;
+  font-family: "DFKai-SB", "BiauKai", "KaiTi", "Noto Serif TC", serif;
+  color: #d63031;
+  line-height: 1;
+}
+
+.chinese-char-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chinese-pinyin-display {
+  font-size: 16px;
+  font-weight: 900;
+  color: #e17055;
+  letter-spacing: 1px;
+}
+
+.chinese-word-display {
+  font-size: 13px;
+  font-weight: 700;
+  color: #636e72;
+}
+
+.chinese-steps-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chinese-step-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #ffffff;
+  border: 1.5px solid #dfe6e9;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #2d3436;
+}
+
+.chinese-step-chip strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #ff7675;
+  color: #fff;
+  font-size: 10.5px;
+}
+
+.chinese-actions-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.chinese-action-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.chinese-action-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.chinese-action-btn.btn-speak {
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #0769b5;
+}
+
+.chinese-action-btn.btn-replay {
+  background: linear-gradient(135deg, #55efc4, #00b894);
+  color: #ffffff;
+  box-shadow: 0 4px 0 #008f72;
+}
+
+/* 國語島注音卡教具 */
+.phonetic-visual-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.phonetic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 160px;
+  height: 170px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #a8ff78, #78ffd6);
+  border: 4px solid #fff;
+  box-shadow: 0 8px 24px rgba(46, 204, 113, 0.25);
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.phonetic-card:hover {
+  transform: scale(1.05);
+}
+
+.phonetic-symbol-display {
+  font-size: 64px;
+  font-weight: 900;
+  color: #2c3e50;
+  line-height: 1;
+}
+
+.phonetic-tone-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: #27ae60;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.phonetic-example {
+  font-size: 13px;
+  font-weight: 700;
+  color: #34495e;
+}
+
+/* ==========================================================================
+   奇幻英文島專屬視覺教具：自然發音卡 ✕ 單字拼讀積木 ✕ 雙軌美語發音互動
+   ========================================================================== */
+.english-visual-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  gap: 12px;
+  animation: fadeInVisual 0.35s ease-out;
+}
+
+.english-meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.english-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1.5px solid rgba(59, 130, 246, 0.28);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #1d4ed8;
+}
+
+.english-meta-badge.sound-badge {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.32);
+  color: #b45309;
+}
+
+/* 自然發音卡 (Phonics Card) */
+.english-phonics-card {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(145deg, #ffffff, #f0f9ff);
+  border: 3px solid #7dd3fc;
+  border-radius: 24px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.english-letter-stage {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.english-letter-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-family: 'Outfit', 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.15s ease;
+}
+
+.english-big-tile {
+  width: 68px;
+  height: 74px;
+  font-size: 44px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.3);
+}
+
+.english-big-tile.tile-lower {
+  background: linear-gradient(135deg, #818cf8, #4f46e5);
+  box-shadow: 0 8px 22px rgba(79, 70, 229, 0.3);
+}
+
+.english-letter-tile:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.38);
+}
+
+.english-letter-tile:active,
+.english-letter-tile.is-speaking {
+  transform: scale(0.92);
+  filter: brightness(1.2);
+}
+
+.english-phonics-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.english-word-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.english-anchor-emoji {
+  font-size: 38px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+}
+
+.english-anchor-word {
+  font-size: 24px;
+  font-weight: 900;
+  color: #1e293b;
+  letter-spacing: 0.5px;
+}
+
+.english-listen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.english-listen-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.42);
+}
+
+.english-listen-btn:active,
+.english-listen-btn.is-speaking {
+  transform: scale(0.95);
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+/* 單字拼讀積木 (Spelling Board) */
+.english-spelling-stage {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border: 3px solid #cbd5e1;
+  border-radius: 24px;
+  padding: 16px 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+.english-spelling-emojis {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.english-stage-emoji {
+  font-size: 42px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
+}
+
+.english-tiles-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.english-letter-tile.tile-vowel {
+  width: 50px;
+  height: 54px;
+  font-size: 28px;
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  color: #ffffff;
+  border: 3px solid #ffedd5;
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.28);
+}
+
+.english-letter-tile.tile-consonant {
+  width: 50px;
+  height: 54px;
+  font-size: 28px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #ffffff;
+  border: 3px solid #e0f2fe;
+  box-shadow: 0 6px 16px rgba(14, 165, 233, 0.25);
+}
+
+.english-letter-tile.tile-missing {
+  width: 52px;
+  height: 56px;
+  font-size: 30px;
+  background: linear-gradient(135deg, #fef08a, #facc15);
+  color: #854d0e;
+  border: 3px dashed #ca8a04;
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.6);
+  animation: pulseMysteryTile 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseMysteryTile {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 16px rgba(250, 204, 21, 0.55);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 26px rgba(250, 204, 21, 0.85);
+  }
+}
+
+.english-actions-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.english-vocab-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: #334155;
+  letter-spacing: 0.5px;
+}
+
+/* 狐狸老師錦囊卡片 */
+.english-fox-card {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border: 2px solid #fed7aa;
+  border-radius: 18px;
+  padding: 9px 16px;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.08);
+  box-sizing: border-box;
+}
+
+.english-fox-avatar {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.english-fox-msg {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #9a3412;
+  line-height: 1.45;
+}
+
+/* 響應式適配：手機螢幕 */
+@media (max-width: 560px) {
+  .english-phonics-card {
+    flex-direction: column;
+    padding: 14px 12px;
+    gap: 12px;
+  }
+  .english-big-tile {
+    width: 60px;
+    height: 66px;
+    font-size: 38px;
+  }
+  .english-letter-tile.tile-vowel,
+  .english-letter-tile.tile-consonant,
+  .english-letter-tile.tile-missing {
+    width: 44px;
+    height: 48px;
+    font-size: 24px;
+  }
+  .english-anchor-word {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .english-letter-tile.tile-vowel,
+  .english-letter-tile.tile-consonant,
+  .english-letter-tile.tile-missing {
+    width: 38px;
+    height: 42px;
+    font-size: 20px;
+  }
+}
+
+

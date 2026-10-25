@@ -106,3 +106,15 @@
    - `js/visuals.js` 升級 `verticalMath`：動態支援 2～4 位數直式加減與乘法（`×`）。
    - 新增 `fraction`（分數格/餅圖）、`angle`（角）、`barChart`（長條圖）教具渲染。
 
+
+
+### 【v2.3.4 版】🔤 奇幻英文島小二／小三掛表上線 ✕ 4 島 16 關關卡定義 ✕ 題庫掛表與離線快取 📅 2026-10-25
+
+1. **英文島小二與小三關卡定義 (`js/levels/island_defs_en_g2.js` 與 `js/levels/island_defs_en_g3.js`)**：各 4 島 16 關，包含英文關卡標題、emoji、技能說明與純美語 intro 語音文字。
+2. **科目化關卡總表 (`js/levels/index.js`)**：引入 `en_g2_islands` 與 `en_g3_islands`，掛載至 `SUBJECT_LEVEL_TABLES.english` (SSOT)，支援 `getAllLevels(grade, 'english')` 正確載入小二與小三 16 關卡。
+3. **科目年級字典 (`js/grades.js`)**：`ENGLISH_GRADES` 擴充小二 (id: 2) 與小三 (id: 3) 元資料，分別指向 `data/question-bank-en-g2.json` 與 `data/question-bank-en-g3.json`。
+4. **離線快取與版本標籤**：`sw.js` 納入小二／小三英文題庫離線快取，`CACHE_NAME` 升級至 `math-island-v2.3.4`；前端頁面 `#brand-version-badge` 同步推進至 `v2.3.4`。
+5. **完整性自檢**：`node --check` 語法檢查 100% 綠燈，ESM 動態載入確認 `math` 與 `english` 全年級（各 4 島 16 關）共 96 關全部正常出題，題庫 24/24 結構檢驗全數通過。
+
+---
+

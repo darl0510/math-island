@@ -8,10 +8,12 @@ import { renderHome, openMap } from './map.js';
 import { hasActiveSession, teardownSession, exitLevel } from './engine.js';
 import { setScreen, showToast } from './ui.js';
 import { loadQuestionBank } from './question-bank.js';
+import { showBadgesModal, getUnlockedBadgeCount } from './badges.js';
 
 const musicButton = document.getElementById('music-btn');
 const ttsButton = document.getElementById('tts-btn');
 const homeButton = document.getElementById('home-btn');
+const badgesButton = document.getElementById('badges-btn');
 
 /* ===== 頂部科目膠囊 (方案 A：多科目切換大廳) ===== */
 function syncSubjectUI(subjectId = getCurrentSubject()) {
@@ -88,12 +90,26 @@ function init() {
     document.querySelectorAll('.grade-dropdown-item').forEach(item => {
       item.classList.toggle('is-selected', Number(item.dataset.grade) === Number(grade));
     });
+  function syncBadgesCount() {
+    const pill = document.getElementById('badge-count-pill');
+    if (pill) {
+      const count = getUnlockedBadgeCount();
+      pill.textContent = String(count);
+      pill.classList.toggle('has-badges', count > 0);
+    }
   }
-  window.__syncSubjectUI = syncSubjectUI;
+
+  window.__syncSubjectUI = () => {
+    syncSubjectUI();
+    syncBadgesCount();
+  };
   window.__syncGradeUI = syncGradeUI;
+  window.__syncBadgesUI = syncBadgesCount;
+
   renderSubjectCapsules();
   syncSubjectUI();
   syncGradeUI();
+  syncBadgesCount();
 
   if (gradeBtn && gradeMenu) {
     gradeBtn.addEventListener('click', (e) => {
@@ -140,6 +156,10 @@ function init() {
   setScreen('home');
   renderHome();
   syncAudioButtons();
+
+  badgesButton?.addEventListener('click', () => {
+    showBadgesModal();
+  });
 
   musicButton.addEventListener('click', () => {
     const on = audio.toggleMusic();

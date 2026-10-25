@@ -82,6 +82,14 @@ export function renderVisual(visual, question = null) {
     barChart,
     chinese,
     phonetic,
+    strokeOrder: (v, q) => strokeOrderVisual(v, q),
+    englishPhonics,
+    englishSpelling,
+    english: (v, q) => englishVisual(v, q),
+    phonicsCard: (v, q) => englishPhonics(v, q),
+    spellingBoard: (v, q) => englishSpelling(v, q),
+    letterPhonics: (v, q) => englishPhonics(v, q),
+    englishWord: (v, q) => englishVisual(v, q),
   };
   const renderer = renderers[visual.type];
   if (!renderer) {
@@ -553,6 +561,9 @@ export function table({ title = '', columns = [], rows = [] }) {
 }
 
 export function scene({ emojis = [], text = '' }, question = null) {
+  if ((question && question.subject === 'english') || isEnglishContext(text, question)) {
+    return englishVisual({ emojis, text }, question);
+  }
   const wrap = node('div', 'scene-wrap');
   const stage = node('div', 'scene-stage');
   for (const emoji of emojis) stage.appendChild(node('span', 'scene-emoji', emoji));
@@ -1230,6 +1241,903 @@ export function barChart({ title = '', items = [], max = 10, unit = '人' }) {
   wrap.appendChild(node('div', 'visual-caption', `長條圖：高度代表數量（單位：${unit}）`));
   return wrap;
 }
+
+// 國語島生字筆劃字典（含動態路徑、起點、筆畫名稱與規則）
+const STROKE_CHAR_MAP = {
+  '十': {
+    strokes: [
+      { d: 'M 35 100 L 165 100', name: '橫', start: [35, 100] },
+      { d: 'M 100 35 L 100 165', name: '豎', start: [100, 35] }
+    ],
+    rule: '先橫後豎',
+    radical: '十',
+    strokeCount: 2,
+    pinyin: 'ㄕˊ'
+  },
+  '八': {
+    strokes: [
+      { d: 'M 75 60 Q 55 105 40 145', name: '撇', start: [75, 60] },
+      { d: 'M 125 60 Q 145 105 160 145', name: '捺', start: [125, 60] }
+    ],
+    rule: '先撇後捺',
+    radical: '八',
+    strokeCount: 2,
+    pinyin: 'ㄅㄚ'
+  },
+  '人': {
+    strokes: [
+      { d: 'M 100 40 Q 80 95 40 160', name: '撇', start: [100, 40] },
+      { d: 'M 86 92 Q 120 128 160 160', name: '捺', start: [86, 92] }
+    ],
+    rule: '先撇後捺',
+    radical: '人',
+    strokeCount: 2,
+    pinyin: 'ㄖㄣˊ'
+  },
+  '入': {
+    strokes: [
+      { d: 'M 85 75 Q 70 110 45 155', name: '撇', start: [85, 75] },
+      { d: 'M 75 40 Q 115 100 165 160', name: '捺', start: [75, 40] }
+    ],
+    rule: '先撇後捺',
+    radical: '入',
+    strokeCount: 2,
+    pinyin: 'ㄖㄨˋ'
+  },
+  '大': {
+    strokes: [
+      { d: 'M 35 80 L 165 80', name: '橫', start: [35, 80] },
+      { d: 'M 100 40 Q 85 105 45 165', name: '撇', start: [100, 40] },
+      { d: 'M 95 95 Q 125 130 165 165', name: '捺', start: [95, 95] }
+    ],
+    rule: '先橫後撇捺',
+    radical: '大',
+    strokeCount: 3,
+    pinyin: 'ㄉㄚˋ'
+  },
+  '天': {
+    strokes: [
+      { d: 'M 50 60 L 150 60', name: '橫', start: [50, 60] },
+      { d: 'M 35 100 L 165 100', name: '長橫', start: [35, 100] },
+      { d: 'M 100 60 Q 85 115 45 165', name: '撇', start: [100, 60] },
+      { d: 'M 95 110 Q 125 135 165 165', name: '捺', start: [95, 110] }
+    ],
+    rule: '從上到下',
+    radical: '大',
+    strokeCount: 4,
+    pinyin: 'ㄊㄧㄢ'
+  },
+  '上': {
+    strokes: [
+      { d: 'M 100 35 L 100 145', name: '豎', start: [100, 35] },
+      { d: 'M 100 90 L 150 90', name: '短橫', start: [100, 90] },
+      { d: 'M 35 150 L 165 150', name: '長橫', start: [35, 150] }
+    ],
+    rule: '從上到下',
+    radical: '一',
+    strokeCount: 3,
+    pinyin: 'ㄕㄤˋ'
+  },
+  '下': {
+    strokes: [
+      { d: 'M 35 50 L 165 50', name: '長橫', start: [35, 50] },
+      { d: 'M 100 50 L 100 155', name: '豎', start: [100, 50] },
+      { d: 'M 108 92 Q 126 112 145 128', name: '點', start: [108, 92] }
+    ],
+    rule: '先橫後豎',
+    radical: '一',
+    strokeCount: 3,
+    pinyin: 'ㄒㄧㄚˋ'
+  },
+  '土': {
+    strokes: [
+      { d: 'M 55 85 L 145 85', name: '短橫', start: [55, 85] },
+      { d: 'M 100 40 L 100 150', name: '豎', start: [100, 40] },
+      { d: 'M 35 150 L 165 150', name: '長橫', start: [35, 150] }
+    ],
+    rule: '先橫後豎',
+    radical: '土',
+    strokeCount: 3,
+    pinyin: 'ㄊㄨˇ'
+  },
+  '士': {
+    strokes: [
+      { d: 'M 35 75 L 165 75', name: '長橫', start: [35, 75] },
+      { d: 'M 100 40 L 100 150', name: '豎', start: [100, 40] },
+      { d: 'M 55 150 L 145 150', name: '短橫', start: [55, 150] }
+    ],
+    rule: '先橫後豎',
+    radical: '士',
+    strokeCount: 3,
+    pinyin: 'ㄕˋ'
+  },
+  '王': {
+    strokes: [
+      { d: 'M 45 55 L 155 55', name: '橫', start: [45, 55] },
+      { d: 'M 55 95 L 145 95', name: '短橫', start: [55, 95] },
+      { d: 'M 100 55 L 100 145', name: '豎', start: [100, 55] },
+      { d: 'M 35 145 L 165 145', name: '長橫', start: [35, 145] }
+    ],
+    rule: '先橫後豎',
+    radical: '玉',
+    strokeCount: 4,
+    pinyin: 'ㄨㄤˊ'
+  },
+  '干': {
+    strokes: [
+      { d: 'M 45 60 L 155 60', name: '短橫', start: [45, 60] },
+      { d: 'M 35 100 L 165 100', name: '長橫', start: [35, 100] },
+      { d: 'M 100 60 L 100 165', name: '豎', start: [100, 60] }
+    ],
+    rule: '先橫後豎',
+    radical: '干',
+    strokeCount: 3,
+    pinyin: 'ㄍㄢ'
+  },
+  '工': {
+    strokes: [
+      { d: 'M 40 60 L 160 60', name: '橫', start: [40, 60] },
+      { d: 'M 100 60 L 100 140', name: '豎', start: [100, 60] },
+      { d: 'M 35 140 L 165 140', name: '長橫', start: [35, 140] }
+    ],
+    rule: '先橫後豎',
+    radical: '工',
+    strokeCount: 3,
+    pinyin: 'ㄍㄨㄥ'
+  },
+  '吉': {
+    strokes: [
+      { d: 'M 45 50 L 155 50', name: '橫', start: [45, 50] },
+      { d: 'M 100 35 L 100 85', name: '豎', start: [100, 35] },
+      { d: 'M 55 85 L 145 85', name: '橫', start: [55, 85] },
+      { d: 'M 65 105 L 65 155', name: '豎', start: [65, 105] },
+      { d: 'M 65 105 L 135 105 L 135 155', name: '橫折', start: [65, 105] },
+      { d: 'M 65 155 L 135 155', name: '橫', start: [65, 155] }
+    ],
+    rule: '先橫後豎',
+    radical: '口',
+    strokeCount: 6,
+    pinyin: 'ㄐㄧˊ'
+  },
+  '口': {
+    strokes: [
+      { d: 'M 55 60 L 55 140', name: '豎', start: [55, 60] },
+      { d: 'M 55 60 L 145 60 L 145 140', name: '橫折', start: [55, 60] },
+      { d: 'M 55 140 L 145 140', name: '橫', start: [55, 140] }
+    ],
+    rule: '先外後內最後封口',
+    radical: '口',
+    strokeCount: 3,
+    pinyin: 'ㄎㄡˇ'
+  },
+  '日': {
+    strokes: [
+      { d: 'M 60 50 L 60 150', name: '豎', start: [60, 50] },
+      { d: 'M 60 50 L 140 50 L 140 150', name: '橫折', start: [60, 50] },
+      { d: 'M 60 100 L 140 100', name: '橫', start: [60, 100] },
+      { d: 'M 60 150 L 140 150', name: '橫', start: [60, 150] }
+    ],
+    rule: '先外後內最後封口',
+    radical: '日',
+    strokeCount: 4,
+    pinyin: 'ㄖˋ'
+  },
+  '中': {
+    strokes: [
+      { d: 'M 55 65 L 55 125', name: '豎', start: [55, 65] },
+      { d: 'M 55 65 L 145 65 L 145 125', name: '橫折', start: [55, 65] },
+      { d: 'M 55 125 L 145 125', name: '橫', start: [55, 125] },
+      { d: 'M 100 35 L 100 165', name: '豎', start: [100, 35] }
+    ],
+    rule: '先外後內最後穿心豎',
+    radical: '丨',
+    strokeCount: 4,
+    pinyin: 'ㄓㄨㄥ'
+  },
+  '小': {
+    strokes: [
+      { d: 'M 100 45 L 100 155 L 85 140', name: '豎勾', start: [100, 45] },
+      { d: 'M 68 85 Q 52 115 42 135', name: '撇', start: [68, 85] },
+      { d: 'M 132 85 Q 148 115 158 135', name: '點', start: [132, 85] }
+    ],
+    rule: '先中間後兩邊',
+    radical: '小',
+    strokeCount: 3,
+    pinyin: 'ㄒㄧㄠˇ'
+  },
+  '水': {
+    strokes: [
+      { d: 'M 100 40 L 100 160 L 85 145', name: '豎勾', start: [100, 40] },
+      { d: 'M 65 85 L 85 85 L 55 120', name: '橫撇', start: [65, 85] },
+      { d: 'M 140 75 L 115 105', name: '撇', start: [140, 75] },
+      { d: 'M 115 105 Q 135 135 165 155', name: '捺', start: [115, 105] }
+    ],
+    rule: '先中間後兩邊',
+    radical: '水',
+    strokeCount: 4,
+    pinyin: 'ㄕㄨㄟˇ'
+  },
+  '火': {
+    strokes: [
+      { d: 'M 55 85 Q 65 100 60 115', name: '點', start: [55, 85] },
+      { d: 'M 145 85 Q 135 100 135 115', name: '撇', start: [145, 85] },
+      { d: 'M 100 40 Q 95 95 48 160', name: '撇', start: [100, 40] },
+      { d: 'M 95 90 Q 125 130 165 160', name: '捺', start: [95, 90] }
+    ],
+    rule: '先撇後捺',
+    radical: '火',
+    strokeCount: 4,
+    pinyin: 'ㄏㄨㄛˇ'
+  },
+  '木': {
+    strokes: [
+      { d: 'M 40 80 L 160 80', name: '橫', start: [40, 80] },
+      { d: 'M 100 40 L 100 160', name: '豎', start: [100, 40] },
+      { d: 'M 100 80 Q 80 120 45 155', name: '撇', start: [100, 80] },
+      { d: 'M 100 80 Q 120 120 155 155', name: '捺', start: [100, 80] }
+    ],
+    rule: '先橫後豎',
+    radical: '木',
+    strokeCount: 4,
+    pinyin: 'ㄇㄨˋ'
+  },
+  '文': {
+    strokes: [
+      { d: 'M 100 45 L 100 65', name: '點', start: [100, 45] },
+      { d: 'M 45 75 L 155 75', name: '橫', start: [45, 75] },
+      { d: 'M 95 75 Q 80 115 45 155', name: '撇', start: [95, 75] },
+      { d: 'M 85 95 Q 120 130 165 155', name: '捺', start: [85, 95] }
+    ],
+    rule: '先撇後捺',
+    radical: '文',
+    strokeCount: 4,
+    pinyin: 'ㄨㄣˊ'
+  },
+  '山': {
+    strokes: [
+      { d: 'M 100 50 L 100 145', name: '豎', start: [100, 50] },
+      { d: 'M 55 95 L 55 145 L 145 145', name: '豎折', start: [55, 95] },
+      { d: 'M 145 95 L 145 145', name: '豎', start: [145, 95] }
+    ],
+    rule: '先中間後兩邊',
+    radical: '山',
+    strokeCount: 3,
+    pinyin: 'ㄕㄢ'
+  },
+  '田': {
+    strokes: [
+      { d: 'M 55 55 L 55 145', name: '豎', start: [55, 55] },
+      { d: 'M 55 55 L 145 55 L 145 145', name: '橫折', start: [55, 55] },
+      { d: 'M 55 100 L 145 100', name: '橫', start: [55, 100] },
+      { d: 'M 100 55 L 100 145', name: '豎', start: [100, 55] },
+      { d: 'M 55 145 L 145 145', name: '橫', start: [55, 145] }
+    ],
+    rule: '先外後內最後封口',
+    radical: '田',
+    strokeCount: 5,
+    pinyin: 'ㄊㄧㄢˊ'
+  },
+  '月': {
+    strokes: [
+      { d: 'M 65 50 Q 60 115 50 155', name: '撇', start: [65, 50] },
+      { d: 'M 65 50 L 135 50 L 135 155 L 120 140', name: '橫折勾', start: [65, 50] },
+      { d: 'M 65 85 L 135 85', name: '橫', start: [65, 85] },
+      { d: 'M 65 120 L 135 120', name: '橫', start: [65, 120] }
+    ],
+    rule: '從外到內',
+    radical: '月',
+    strokeCount: 4,
+    pinyin: 'ㄩㄝˋ'
+  },
+  '一': {
+    strokes: [{ d: 'M 35 100 L 165 100', name: '橫', start: [35, 100] }],
+    rule: '從左到右',
+    radical: '一',
+    strokeCount: 1,
+    pinyin: 'ㄧ'
+  },
+  '二': {
+    strokes: [
+      { d: 'M 55 75 L 145 75', name: '短橫', start: [55, 75] },
+      { d: 'M 35 130 L 165 130', name: '長橫', start: [35, 130] }
+    ],
+    rule: '從上到下',
+    radical: '二',
+    strokeCount: 2,
+    pinyin: 'ㄦˋ'
+  },
+  '三': {
+    strokes: [
+      { d: 'M 55 65 L 145 65', name: '短橫', start: [55, 65] },
+      { d: 'M 65 100 L 135 100', name: '短橫', start: [65, 100] },
+      { d: 'M 35 140 L 165 140', name: '長橫', start: [35, 140] }
+    ],
+    rule: '從上到下',
+    radical: '一',
+    strokeCount: 3,
+    pinyin: 'ㄙㄢ'
+  }
+};
+
+/**
+ * 國語島生字筆順動態繪製與筆畫指引教具
+ */
+export function strokeOrderVisual(visual = {}, question = null) {
+  const wrap = node('div', 'chinese-visual-wrap');
+  
+  // 1. 決定目標生字
+  let char = visual.character || visual.word || '';
+  if (!char && question?.prompt) {
+    const m = question.prompt.match(/[「『]([一-龜])|[「『]([\u4e00-\u9fa5])/);
+    if (m) char = m[1] || m[2];
+  }
+  if (!char && typeof visual.text === 'string') {
+    char = visual.text.trim().charAt(0);
+  }
+  if (!char) char = '十';
+
+  const word = visual.word || (char.length > 1 ? char : '');
+  const mainChar = char.charAt(0);
+  const data = STROKE_CHAR_MAP[mainChar] || null;
+
+  const strokeCount = visual.strokeCount || data?.strokeCount || (data ? data.strokes.length : char.length);
+  const rule = visual.rule || data?.rule || '依標準筆順書寫';
+  const pinyin = visual.pinyin || visual.bopomofo || data?.pinyin || '';
+  const radical = visual.radical || data?.radical || '';
+
+  // 頂部生字資訊標籤行
+  const metaRow = node('div', 'chinese-meta-row');
+  metaRow.innerHTML = `
+    <span class="chinese-meta-badge stroke-rule-badge">📜 筆順規則：${rule}</span>
+    ${strokeCount ? `<span class="chinese-meta-badge">✍️ 總筆畫：${strokeCount} 畫</span>` : ''}
+    ${radical ? `<span class="chinese-meta-badge">🔖 部首：${radical}</span>` : ''}
+  `;
+  wrap.appendChild(metaRow);
+
+  // 中央主舞台：米字格書法視窗 + 筆順步驟清單
+  const stage = node('div', 'chinese-stage');
+
+  // A. 田字格 / 米字格 (SVG)
+  const gridBox = node('div', 'chinese-grid-box');
+  const size = 200;
+  const svgEl = svg('svg', {
+    width: size,
+    height: size,
+    viewBox: `0 0 ${size} ${size}`,
+    class: 'chinese-mizige-svg',
+    role: 'img',
+    'aria-label': `漢字「${mainChar}」筆順動態展示`
+  });
+
+  // 米字格底線
+  svgEl.appendChild(svg('rect', {
+    x: 6,
+    y: 6,
+    width: 188,
+    height: 188,
+    rx: 14,
+    fill: '#fffef9',
+    stroke: '#e17055',
+    'stroke-width': 3
+  }));
+  // 十字虛線
+  svgEl.appendChild(svg('line', {
+    x1: 6, y1: 100, x2: 194, y2: 100,
+    stroke: '#fab1a0', 'stroke-width': 1.6, 'stroke-dasharray': '5 5'
+  }));
+  svgEl.appendChild(svg('line', {
+    x1: 100, y1: 6, x2: 100, y2: 194,
+    stroke: '#fab1a0', 'stroke-width': 1.6, 'stroke-dasharray': '5 5'
+  }));
+  // 對角虛線
+  svgEl.appendChild(svg('line', {
+    x1: 6, y1: 6, x2: 194, y2: 194,
+    stroke: '#ffeaa7', 'stroke-width': 1.2, 'stroke-dasharray': '4 4'
+  }));
+  svgEl.appendChild(svg('line', {
+    x1: 194, y1: 6, x2: 6, y2: 194,
+    stroke: '#ffeaa7', 'stroke-width': 1.2, 'stroke-dasharray': '4 4'
+  }));
+
+  // 繪製筆劃：若有向量路徑庫則動態繪製；否則以標準標楷體顯示
+  const strokeGroup = svg('g', { class: 'chinese-stroke-group' });
+
+  function renderStrokes(animated = true) {
+    strokeGroup.innerHTML = '';
+    if (data && data.strokes && data.strokes.length > 0) {
+      data.strokes.forEach((stroke, idx) => {
+        const delay = animated ? idx * 0.55 : 0;
+        const pathEl = svg('path', {
+          d: stroke.d,
+          fill: 'none',
+          stroke: '#2d3436',
+          'stroke-width': 13,
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+          class: 'stroke-order-path',
+          style: `animation-delay: ${delay}s;`
+        });
+        strokeGroup.appendChild(pathEl);
+
+        // 標記筆劃起點序號圓點
+        if (stroke.start) {
+          const [sx, sy] = stroke.start;
+          const dot = svg('circle', {
+            cx: sx,
+            cy: sy,
+            r: 7.5,
+            fill: '#e84393',
+            stroke: '#ffffff',
+            'stroke-width': 2,
+            class: 'stroke-marker-dot',
+            style: `animation-delay: ${delay + 0.1}s;`
+          });
+          const num = svg('text', {
+            x: sx,
+            y: sy + 3.5,
+            'text-anchor': 'middle',
+            fill: '#ffffff',
+            'font-size': '10px',
+            'font-weight': '900',
+            'font-family': 'Arial, sans-serif',
+            class: 'stroke-marker-text',
+            style: `animation-delay: ${delay + 0.1}s;`
+          });
+          num.textContent = String(idx + 1);
+          strokeGroup.appendChild(dot);
+          strokeGroup.appendChild(num);
+        }
+      });
+    } else {
+      // 通用高精度大字顯示
+      const textEl = svg('text', {
+        x: 100,
+        y: 138,
+        'text-anchor': 'middle',
+        fill: '#2d3436',
+        'font-size': '108px',
+        'font-family': '"DFKai-SB", "BiauKai", "KaiTi", "Noto Serif TC", serif',
+        'font-weight': '700',
+        class: 'chinese-large-char'
+      });
+      textEl.textContent = mainChar;
+      strokeGroup.appendChild(textEl);
+    }
+  }
+
+  renderStrokes(true);
+  svgEl.appendChild(strokeGroup);
+  gridBox.appendChild(svgEl);
+
+  // B. 右側筆畫步驟與注音引導面板
+  const infoBox = node('div', 'chinese-info-box');
+  
+  // 注音與讀音橫列
+  const pinyinRow = node('div', 'chinese-pinyin-row');
+  pinyinRow.innerHTML = `
+    <div class="chinese-char-preview">${mainChar}</div>
+    <div class="chinese-char-detail">
+      <div class="chinese-pinyin-display">${pinyin || '注音學習'}</div>
+      <div class="chinese-word-display">${word ? `詞語：${word}` : '生字練習'}</div>
+    </div>
+  `;
+  infoBox.appendChild(pinyinRow);
+
+  // 筆順分解步驟清單（若已知）
+  if (data && data.strokes) {
+    const stepsList = node('div', 'chinese-steps-list');
+    data.strokes.forEach((s, i) => {
+      const stepItem = node('span', 'chinese-step-chip');
+      stepItem.innerHTML = `<strong>${i + 1}</strong> ${s.name}`;
+      stepsList.appendChild(stepItem);
+    });
+    infoBox.appendChild(stepsList);
+  }
+
+  // 互動按鈕群：🔊 發音 & ▶ 重播筆順
+  const actionRow = node('div', 'chinese-actions-row');
+  
+  const speakBtn = node('button', 'chinese-action-btn btn-speak', '🔊 朗讀');
+  speakBtn.type = 'button';
+  speakBtn.addEventListener('click', () => {
+    speakText(`${mainChar}。${pinyin ? pinyin + '。' : ''}${word ? word : ''}`);
+  });
+
+  const replayBtn = node('button', 'chinese-action-btn btn-replay', '▶ 重播筆順');
+  replayBtn.type = 'button';
+  replayBtn.addEventListener('click', () => {
+    renderStrokes(true);
+    audio.playSfx?.('click', 0.4);
+  });
+
+  actionRow.appendChild(speakBtn);
+  if (data && data.strokes) {
+    actionRow.appendChild(replayBtn);
+  }
+  infoBox.appendChild(actionRow);
+
+  stage.appendChild(gridBox);
+  stage.appendChild(infoBox);
+  wrap.appendChild(stage);
+
+  // 底部提示
+  wrap.appendChild(node('div', 'visual-caption', `生字筆畫指引：跟著筆順順序，在米字格中工整寫出「${mainChar}」！`));
+
+  return wrap;
+}
+
+export const strokeOrder = strokeOrderVisual;
+
+/**
+ * 英語島專屬語音發音器（美語 en-US）
+ */
+export function speakEnglish(text, rate = 0.85) {
+  if (!text) return;
+  const clean = String(text).replace(/[\?_\(\)\[\]「」\/\#\@\*\&]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!clean) return;
+  try {
+    if (audio && typeof audio.speak === 'function') {
+      audio.playSfx?.('click', 0.35);
+      const prevLang = audio.speechLang;
+      if (typeof audio.setSpeechLang === 'function') audio.setSpeechLang('en-US');
+      audio.speak(clean);
+      if (prevLang && prevLang !== 'en-US' && typeof audio.setSpeechLang === 'function') {
+        setTimeout(() => audio.setSpeechLang(prevLang), 1800);
+      }
+      return;
+    }
+  } catch (e) {}
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      const u = new SpeechSynthesisUtterance(clean);
+      u.lang = 'en-US';
+      u.rate = rate;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+}
+
+/**
+ * 判斷是否為英語島題目情境
+ */
+export function isEnglishContext(text, question) {
+  if (question && question.subject === 'english') return true;
+  if (question && question.gradeName && question.gradeName.includes('英文')) return true;
+  if (text && /^[a-zA-Z\s\?_\-\.\,\!\'\"]+$/.test(text) && /[a-zA-Z]/.test(text)) return true;
+  if (question && question.prompt && (
+    question.prompt.includes('英文') ||
+    question.prompt.includes('單字') ||
+    question.prompt.includes('開頭音') ||
+    question.prompt.includes('結尾音') ||
+    question.prompt.includes('母音') ||
+    question.prompt.includes('拼字') ||
+    /「[a-zA-Z]+」/.test(question.prompt) ||
+    /_[a-zA-Z]+|[a-zA-Z]+_/.test(question.prompt)
+  )) return true;
+  return false;
+}
+
+const PHONICS_SOUND_MAP = {
+  a: { ipa: '/æ/', name: 'Short A', word: 'apple', emoji: '🍎', sample: 'apple' },
+  b: { ipa: '/b/', name: 'Consonant B', word: 'ball', emoji: '⚽', sample: 'ball' },
+  c: { ipa: '/k/', name: 'Hard C', word: 'cat', emoji: '🐱', sample: 'cat' },
+  d: { ipa: '/d/', name: 'Consonant D', word: 'dog', emoji: '🐶', sample: 'dog' },
+  e: { ipa: '/e/', name: 'Short E', word: 'egg', emoji: '🥚', sample: 'egg' },
+  f: { ipa: '/f/', name: 'Consonant F', word: 'fish', emoji: '🐟', sample: 'fish' },
+  g: { ipa: '/ɡ/', name: 'Hard G', word: 'gift', emoji: '🎁', sample: 'gift' },
+  h: { ipa: '/h/', name: 'Consonant H', word: 'hat', emoji: '🎩', sample: 'hat' },
+  i: { ipa: '/ɪ/', name: 'Short I', word: 'igloo', emoji: '🧊', sample: 'igloo' },
+  j: { ipa: '/dʒ/', name: 'Consonant J', word: 'jam', emoji: '🍯', sample: 'jam' },
+  k: { ipa: '/k/', name: 'Consonant K', word: 'kite', emoji: '🪁', sample: 'kite' },
+  l: { ipa: '/l/', name: 'Consonant L', word: 'lion', emoji: '🦁', sample: 'lion' },
+  m: { ipa: '/m/', name: 'Consonant M', word: 'monkey', emoji: '🐵', sample: 'monkey' },
+  n: { ipa: '/n/', name: 'Consonant N', word: 'nest', emoji: '🪺', sample: 'nest' },
+  o: { ipa: '/ɒ/', name: 'Short O', word: 'octopus', emoji: '🐙', sample: 'octopus' },
+  p: { ipa: '/p/', name: 'Consonant P', word: 'pig', emoji: '🐷', sample: 'pig' },
+  q: { ipa: '/kw/', name: 'Consonant Q', word: 'queen', emoji: '👑', sample: 'queen' },
+  r: { ipa: '/r/', name: 'Consonant R', word: 'rabbit', emoji: '🐰', sample: 'rabbit' },
+  s: { ipa: '/s/', name: 'Consonant S', word: 'sun', emoji: '☀️', sample: 'sun' },
+  t: { ipa: '/t/', name: 'Consonant T', word: 'tiger', emoji: '🐯', sample: 'tiger' },
+  u: { ipa: '/ʌ/', name: 'Short U', word: 'umbrella', emoji: '☂️', sample: 'umbrella' },
+  v: { ipa: '/v/', name: 'Consonant V', word: 'van', emoji: '🚐', sample: 'van' },
+  w: { ipa: '/w/', name: 'Consonant W', word: 'watch', emoji: '⌚', sample: 'watch' },
+  x: { ipa: '/ks/', name: 'Consonant X', word: 'box', emoji: '📦', sample: 'box' },
+  y: { ipa: '/j/', name: 'Consonant Y', word: 'yo-yo', emoji: '🪀', sample: 'yo-yo' },
+  z: { ipa: '/z/', name: 'Consonant Z', word: 'zebra', emoji: '🦓', sample: 'zebra' },
+};
+
+/**
+ * 英語島：字母自然發音視覺卡 (Phonics Card)
+ */
+export function englishPhonics(visual = {}, question = null) {
+  const wrap = node('div', 'english-visual-wrap english-phonics-wrap');
+
+  // 解析目標字母與單字
+  let letter = (visual.letter || '').toLowerCase();
+  let word = visual.word || '';
+  const prompt = question?.prompt || '';
+  const answer = String(question?.answer || '').trim();
+
+  // 若未指定 letter，從 prompt 或 answer 推導
+  if (!letter) {
+    const quoteMatch = prompt.match(/[「『]([a-zA-Z]+)[」』]/);
+    if (quoteMatch) {
+      word = word || quoteMatch[1];
+      if (/開頭|第一/.test(prompt)) letter = word.charAt(0).toLowerCase();
+      else if (/結尾|最後/.test(prompt)) letter = word.slice(-1).toLowerCase();
+      else letter = word.charAt(0).toLowerCase();
+    } else if (/^[a-zA-Z]$/.test(answer)) {
+      letter = answer.toLowerCase();
+    }
+  }
+
+  if (!letter) letter = 'a';
+  const phonicsInfo = PHONICS_SOUND_MAP[letter] || {
+    ipa: `/${letter}/`,
+    name: 'Letter Phonics',
+    word: word || letter,
+    emoji: '🔤',
+  };
+
+  const displayEmoji = visual.emoji || (visual.emojis && visual.emojis[0]) || phonicsInfo.emoji;
+  const upper = letter.toUpperCase();
+  const lower = letter.toLowerCase();
+  const soundIpa = visual.phonetic || visual.ipa || phonicsInfo.ipa;
+  const targetWord = word || phonicsInfo.word;
+
+  // 1. 卡片頂部徽章
+  const metaRow = node('div', 'english-meta-row');
+  metaRow.innerHTML = `
+    <span class="english-meta-badge"><span class="badge-icon">🔤</span> 自然發音 · Phonics</span>
+    <span class="english-meta-badge sound-badge"><span class="badge-icon">🔊</span> 發音：${soundIpa}</span>
+  `;
+  wrap.appendChild(metaRow);
+
+  // 2. 主舞台卡片
+  const card = node('div', 'english-phonics-card');
+  card.setAttribute('role', 'region');
+  card.setAttribute('aria-label', `字母發音卡：${upper}${lower}`);
+
+  // 左側：字母巨大展示
+  const letterStage = node('div', 'english-letter-stage');
+  const upperTile = node('div', 'english-letter-tile english-big-tile tile-upper', upper);
+  const lowerTile = node('div', 'english-letter-tile english-big-tile tile-lower', lower);
+  upperTile.addEventListener('click', () => {
+    upperTile.classList.add('is-speaking');
+    speakEnglish(upper);
+    setTimeout(() => upperTile.classList.remove('is-speaking'), 600);
+  });
+  lowerTile.addEventListener('click', () => {
+    lowerTile.classList.add('is-speaking');
+    speakEnglish(lower);
+    setTimeout(() => lowerTile.classList.remove('is-speaking'), 600);
+  });
+  letterStage.appendChild(upperTile);
+  letterStage.appendChild(lowerTile);
+  card.appendChild(letterStage);
+
+  // 右側：範例單字與互動聽音
+  const infoBox = node('div', 'english-phonics-info');
+  const wordRow = node('div', 'english-word-row');
+  wordRow.innerHTML = `
+    <span class="english-anchor-emoji">${displayEmoji}</span>
+    <span class="english-anchor-word">${targetWord}</span>
+  `;
+  infoBox.appendChild(wordRow);
+
+  const listenBtn = node('button', 'english-listen-btn', '🔊 聽發音 (Listen)');
+  listenBtn.type = 'button';
+  listenBtn.addEventListener('click', () => {
+    listenBtn.classList.add('is-speaking');
+    speakEnglish(targetWord);
+    setTimeout(() => listenBtn.classList.remove('is-speaking'), 800);
+  });
+  infoBox.appendChild(listenBtn);
+  card.appendChild(infoBox);
+  wrap.appendChild(card);
+
+  // 3. 狐狸老師發音小提示
+  const foxCard = node('div', 'english-fox-card');
+  const foxTip = visual.hint || `狐狸老師的小法寶：字母 ${upper} 發音是 ${soundIpa}，就像 ${targetWord} 一樣喔！`;
+  foxCard.innerHTML = `
+    <span class="english-fox-avatar" aria-hidden="true">🦊</span>
+    <div class="english-fox-msg">${foxTip}</div>
+  `;
+  wrap.appendChild(foxCard);
+
+  // 4. 底部引導
+  wrap.appendChild(node('div', 'visual-caption', `字母發音教具：點擊字母或發音鈕，練習標準美語發音！`));
+  return wrap;
+}
+
+/**
+ * 英語島：單字拼讀積木教具 (Spelling Board)
+ */
+export function englishSpelling(visual = {}, question = null) {
+  const wrap = node('div', 'english-visual-wrap english-spelling-wrap');
+
+  const prompt = question?.prompt || '';
+  const answer = String(question?.answer || '').trim();
+  const rawText = visual.text || '';
+  const emojis = visual.emojis || (visual.emoji ? [visual.emoji] : ['⭐']);
+
+  // 解析題目拼字序列
+  let letters = [];
+  let mysteryIndex = -1;
+
+  // 模式 A：visual.text 含有空格或問號，如 "? p p l e" 或 "c _ t"
+  if (rawText && /[\s_\?]/.test(rawText)) {
+    const tokens = rawText.trim().split(/\s+/);
+    letters = tokens.map((token, idx) => {
+      if (token === '?' || token === '_' || token === '？') {
+        mysteryIndex = idx;
+        return { char: '?', isMissing: true };
+      }
+      return { char: token, isMissing: false };
+    });
+  } else if (prompt.includes('_')) {
+    // 模式 B：prompt 含有填空，例如 "_pple" 或 "c_t"
+    const m = prompt.match(/([a-zA-Z]*_[a-zA-Z]*)/);
+    if (m) {
+      const pattern = m[1];
+      letters = pattern.split('').map((c, idx) => {
+        if (c === '_') {
+          mysteryIndex = idx;
+          return { char: '?', isMissing: true };
+        }
+        return { char: c, isMissing: false };
+      });
+    }
+  }
+
+  // 模式 C：備用，如果 rawText 是完整單字
+  if (letters.length === 0) {
+    const baseWord = rawText.replace(/[^a-zA-Z]/g, '') || (answer.length > 1 ? answer : 'cat');
+    letters = baseWord.split('').map((c, idx) => ({ char: c, isMissing: false }));
+  }
+
+  // 1. 頂部徽章
+  const metaRow = node('div', 'english-meta-row');
+  metaRow.innerHTML = `
+    <span class="english-meta-badge"><span class="badge-icon">🧩</span> 單字拼讀 · Word Spelling</span>
+    <span class="english-meta-badge sound-badge"><span class="badge-icon">✨</span> 字母積木</span>
+  `;
+  wrap.appendChild(metaRow);
+
+  // 2. 主舞台：emoji + 拼字積木列
+  const stage = node('div', 'english-spelling-stage');
+
+  if (emojis && emojis.length > 0) {
+    const emojiBox = node('div', 'english-spelling-emojis');
+    emojis.forEach(emo => emojiBox.appendChild(node('span', 'english-stage-emoji', emo)));
+    stage.appendChild(emojiBox);
+  }
+
+  const tilesRow = node('div', 'english-tiles-row');
+  const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+
+  letters.forEach((item, idx) => {
+    const isVowel = vowels.has(item.char);
+    const tileClass = item.isMissing
+      ? 'english-letter-tile tile-missing'
+      : (isVowel ? 'english-letter-tile tile-vowel' : 'english-letter-tile tile-consonant');
+    const tile = node('div', tileClass, item.char);
+    tile.setAttribute('title', item.isMissing ? '缺少的神秘字母' : `字母 ${item.char}`);
+    
+    if (!item.isMissing) {
+      tile.addEventListener('click', () => {
+        tile.classList.add('is-speaking');
+        speakEnglish(item.char);
+        setTimeout(() => tile.classList.remove('is-speaking'), 500);
+      });
+    }
+    tilesRow.appendChild(tile);
+  });
+  stage.appendChild(tilesRow);
+  wrap.appendChild(stage);
+
+  // 3. 朗讀與操作按鈕列
+  const actionsRow = node('div', 'english-actions-row');
+  // 組合已知單字讀音
+  const pronounceWord = letters.map(item => item.isMissing ? (answer || '') : item.char).join('');
+  const playWordBtn = node('button', 'english-listen-btn btn-word', '🔊 聽完整單字');
+  playWordBtn.type = 'button';
+  playWordBtn.addEventListener('click', () => {
+    playWordBtn.classList.add('is-speaking');
+    speakEnglish(pronounceWord);
+    setTimeout(() => playWordBtn.classList.remove('is-speaking'), 900);
+  });
+  actionsRow.appendChild(playWordBtn);
+  wrap.appendChild(actionsRow);
+
+  // 4. 狐狸老師的小錦囊
+  const foxCard = node('div', 'english-fox-card');
+  const foxMsg = question?.hint
+    ? `狐狸老師提示：${question.hint}`
+    : '狐狸老師提示：輕輕點擊積木可以聽發音，選出金黃色空格裡缺少的字母喔！';
+  foxCard.innerHTML = `
+    <span class="english-fox-avatar" aria-hidden="true">🦊</span>
+    <div class="english-fox-msg">${foxMsg}</div>
+  `;
+  wrap.appendChild(foxCard);
+
+  wrap.appendChild(node('div', 'visual-caption', '單字拼讀教具：觀察拼字積木，找出神秘的字母！'));
+  return wrap;
+}
+
+/**
+ * 英語島：通用視覺教具分流派發器
+ */
+export function englishVisual(visual = {}, question = null) {
+  const text = visual.text || '';
+  const prompt = question?.prompt || '';
+
+  // 1. 若題目含有空格填字、缺少字母、拼字下劃線 -> 拼讀積木
+  if (text.includes('?') || text.includes('_') || /補上缺少的字母|缺了哪個|拼字/.test(prompt) || prompt.includes('_')) {
+    return englishSpelling(visual, question);
+  }
+
+  // 2. 若題目問字母、開頭音、結尾音、發音 -> 字母發音卡
+  if (/開頭音|結尾音|開頭字母|母音字母|自然發音|發音是哪一個/.test(prompt) || (question && /^[a-zA-Z]$/.test(String(question.answer).trim()))) {
+    return englishPhonics(visual, question);
+  }
+
+  // 3. 圖片單字學習卡 (Vocabulary Picture Card)
+  const wrap = node('div', 'english-visual-wrap english-vocab-wrap');
+  const emojis = visual.emojis || (visual.emoji ? [visual.emoji] : ['🌟']);
+
+  const metaRow = node('div', 'english-meta-row');
+  metaRow.innerHTML = `
+    <span class="english-meta-badge"><span class="badge-icon">🏝️</span> 奇幻英文島 · Vocabulary</span>
+    <span class="english-meta-badge sound-badge"><span class="badge-icon">🎧</span> 雙語生活單字</span>
+  `;
+  wrap.appendChild(metaRow);
+
+  const stage = node('div', 'english-spelling-stage');
+  const emojiBox = node('div', 'english-spelling-emojis');
+  emojis.forEach(emo => emojiBox.appendChild(node('span', 'english-stage-emoji', emo)));
+  stage.appendChild(emojiBox);
+
+  // 標題或提示（防洩題：若 text 包含答案且有 emoji，則不印出純文字）
+  let displayText = text;
+  if (question && question.answer && displayText) {
+    const cleanAns = String(question.answer).trim().toLowerCase();
+    const cleanTxt = String(displayText).trim().toLowerCase();
+    if (cleanTxt === cleanAns || cleanTxt.includes(cleanAns)) displayText = '';
+  }
+  if (displayText) {
+    stage.appendChild(node('div', 'english-vocab-text', displayText));
+  }
+  wrap.appendChild(stage);
+
+  // 朗讀按鈕
+  if (question && question.answer) {
+    const actionsRow = node('div', 'english-actions-row');
+    const speakBtn = node('button', 'english-listen-btn', '🔊 聽聽看 (Listen)');
+    speakBtn.type = 'button';
+    speakBtn.addEventListener('click', () => {
+      speakBtn.classList.add('is-speaking');
+      speakEnglish(String(question.answer));
+      setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
+    });
+    actionsRow.appendChild(speakBtn);
+    wrap.appendChild(actionsRow);
+  }
+
+  // 狐狸老師錦囊
+  const foxCard = node('div', 'english-fox-card');
+  const foxMsg = question?.hint || '狐狸老師提示：看看可愛的圖片，選出最適合的英文單字喔！';
+  foxCard.innerHTML = `
+    <span class="english-fox-avatar" aria-hidden="true">🦊</span>
+    <div class="english-fox-msg">${foxMsg}</div>
+  `;
+  wrap.appendChild(foxCard);
+
+  wrap.appendChild(node('div', 'visual-caption', '英文單字學習卡：看圖思考，點擊聽標準發音！'));
+  return wrap;
+}
+
 
 /**
  * 智慧情境故事圖解：當題目沒有指定特定教具 (visual 為 null) 時，

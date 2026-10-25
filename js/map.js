@@ -1,6 +1,6 @@
 import { audio } from './audio.js';
 import { startLevel } from './engine.js';
-import { isUnlocked, getState, totalStars, completedCount, unlockedLevel, resetProgress, getAllSubjectsSummary } from './state.js';
+import { isUnlocked, getLevelLockInfo, getIslandRequiredStars, getState, totalStars, completedCount, unlockedLevel, resetProgress, getAllSubjectsSummary } from './state.js';
 import { escapeHtml, setScreen, showToast, starsMarkup } from './ui.js';
 import { islands, getLevelById, syncGradeLevels } from './levels/index.js';
 import { getGradeConfig, getSubjectGrades } from './grades.js';
@@ -8,6 +8,7 @@ import { getCurrentSubject } from './state.js';
 import { getSubjectConfig, isSubjectReady } from './subjects.js';
 import { getCurrentGrade, setCurrentGrade } from './state.js';
 import { loadQuestionBankForGrade } from './question-bank.js';
+import { showBadgesModal } from './badges.js';
 
 const ISLAND_IMAGES = {
   1: 'assets/images/island-forest.jpg',
@@ -85,6 +86,7 @@ export function renderHome() {
             <span class="start-icon" aria-hidden="true">${subjectReady ? '🚀' : subjectConfig.icon}</span>
           </button>
           <button class="how-btn" type="button" id="how-btn">怎麼玩？</button>
+          <button class="badges-entry-btn" type="button" id="home-badges-btn">🏅 學習徽章</button>
         </div>
         <div class="home-stats">
           <div class="stat-chip"><span class="stat-emoji">⭐</span><strong>${subjectReady ? totalStars(grade, subject) : 0}</strong><span>顆星</span></div>
@@ -146,6 +148,10 @@ export function renderHome() {
     showHowTo();
   });
 
+  screen.querySelector('#home-badges-btn')?.addEventListener('click', () => {
+    showBadgesModal();
+  });
+
   if (subjectReady && state.unlocked > 1) {
     const continueButton = document.createElement('button');
     continueButton.className = 'continue-btn';
@@ -194,6 +200,7 @@ export function renderMap() {
         <div class="map-summary">
           <span class="summary-star">⭐ ${totalStars(grade, subject)} / 48</span>
           <span class="summary-level">已解鎖 ${unlocked} / 16</span>
+          <button class="badges-map-btn" type="button" id="map-badges-btn" title="查看榮譽學習徽章">🏅 學習徽章</button>
         </div>
       </div>
       <div class="island-list">
@@ -206,6 +213,10 @@ export function renderMap() {
       </footer>
     </div>
   `;
+
+  screen.querySelector('#map-badges-btn')?.addEventListener('click', () => {
+    showBadgesModal();
+  });
 
   screen.querySelector('#map-home').addEventListener('click', () => {
     audio.playSfx('click', 0.4);
@@ -247,12 +258,13 @@ export function renderMap() {
       const levelId = Number(card.dataset.level);
       const level = getLevelById(levelId);
       if (!level) return;
-      if (!isUnlocked(levelId)) {
+      const lockInfo = getLevelLockInfo(levelId);
+      if (!lockInfo.unlocked) {
         audio.playSfx('wrong', 0.35);
         card.classList.add('locked-shake');
         setTimeout(() => card.classList.remove('locked-shake'), 500);
-        showToast('先完成前面的關卡，就能解鎖囉！', '🔒');
-        audio.speak('先完成前面的關卡，就能解鎖囉！');
+        showToast(lockInfo.message, lockInfo.reason === 'stars' ? '⭐' : '🔒');
+        audio.speak(lockInfo.message);
         return;
       }
       openLevel(level);
@@ -264,15 +276,22 @@ function islandMarkup(island, state) {
   const stars = island.levels.reduce((sum, level) => sum + Number(state.stars[level.id] || 0), 0);
   const maxStars = island.levels.length * 3;
   const done = island.levels.filter((level) => state.stars[level.id]).length;
+  const reqStars = getIslandRequiredStars(island.id);
+  const currentTotalStars = totalStars(getCurrentGrade(), getCurrentSubject());
+  const isIslandLocked = currentTotalStars < reqStars;
+
   return `
-    <section class="island-card island-${island.theme}" data-island="${island.id}">
+    <section class="island-card island-${island.theme} ${isIslandLocked ? 'is-island-locked' : ''}" data-island="${island.id}">
       <div class="island-bg" style="background-image:url('${ISLAND_IMAGES[island.id]}')"></div>
       <div class="island-shade"></div>
       <div class="island-header">
         <div class="island-title-wrap">
           <span class="island-emoji" aria-hidden="true">${island.emoji}</span>
           <div>
-            <span class="island-kicker">第 ${island.id} 座島嶼</span>
+            <div class="island-kicker-row">
+              <span class="island-kicker">第 ${island.id} 座島嶼</span>
+              ${reqStars > 0 ? `<span class="island-lock-badge ${isIslandLocked ? 'locked' : 'unlocked'}">${isIslandLocked ? `🔒 需累積滿 ${reqStars} ⭐ 解鎖（還差 ${reqStars - currentTotalStars} ⭐）` : `✨ 門檻 ${reqStars} ⭐ 已達成`}</span>` : ''}
+            </div>
             <h2>${escapeHtml(island.name)}</h2>
             <p>${escapeHtml(island.blurb)}</p>
           </div>
@@ -290,15 +309,18 @@ function islandMarkup(island, state) {
 }
 
 function levelCardMarkup(level, state) {
-  const unlocked = isUnlocked(level.id);
+  const lockInfo = getLevelLockInfo(level.id);
+  const unlocked = lockInfo.unlocked;
   const stars = Number(state.stars[level.id] || 0);
+  const lockLabel = lockInfo.reason === 'stars' ? `需要 ${lockInfo.requiredStars} 顆星解鎖` : '尚未解鎖';
   return `
     <button
-      class="level-card ${unlocked ? 'unlocked' : 'locked'} ${stars === 3 ? 'perfect' : ''}"
+      class="level-card ${unlocked ? 'unlocked' : 'locked'} ${stars === 3 ? 'perfect' : ''} ${lockInfo.reason === 'stars' ? 'lock-by-stars' : ''}"
       type="button"
       data-level="${level.id}"
-      aria-label="第 ${level.id} 關 ${escapeHtml(level.title)}${unlocked ? '' : '，尚未解鎖'}">
-      <span class="level-number">${unlocked ? String(level.id).padStart(2, '0') : '🔒'}</span>
+      data-lock-reason="${lockInfo.reason || ''}"
+      aria-label="第 ${level.id} 關 ${escapeHtml(level.title)}${unlocked ? '' : `，${lockLabel}`}">
+      <span class="level-number">${unlocked ? String(level.id).padStart(2, '0') : (lockInfo.reason === 'stars' ? '⭐🔒' : '🔒')}</span>
       <span class="level-emoji" aria-hidden="true">${level.emoji}</span>
       <span class="level-title">${escapeHtml(level.title)}</span>
       <span class="level-skill">${escapeHtml(level.skill)}</span>
