@@ -35,7 +35,7 @@ export const SUBJECTS = [
     brandTitle: '奇幻國語島',
     tagline: '注音符號、筆順與部首部件',
     speechLang: 'zh-TW',
-    ready: false,
+    ready: true,
     symbols: ['ㄅ', 'ㄆ', 'ㄇ', '口', '★', '水', '火', '木', '☁'],
   },
 ];

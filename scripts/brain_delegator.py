@@ -29,6 +29,17 @@ try:
 except Exception:
     react_agent = None
 
+if react_agent is None:  # 全域 fallback：跨專案改由 antigravity-local-ide 共用工具源載入
+    _GLOBAL_SCRIPTS_DIR = os.path.join(
+        os.path.abspath(os.path.expanduser("~")), "projects", "antigravity-local-ide", "scripts"
+    )
+    if os.path.isfile(os.path.join(_GLOBAL_SCRIPTS_DIR, "react_agent.py")):
+        sys.path.append(_GLOBAL_SCRIPTS_DIR)
+        try:
+            import react_agent
+        except Exception:
+            react_agent = None
+
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER_PATH = os.path.join(ROOT_DIR, "local_tokens_ledger.json")
 DEFAULT_URL = "http://127.0.0.1:8080/v1/chat/completions"

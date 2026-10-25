@@ -1,0 +1,2473 @@
+{
+  "generatedAt": "2026-10-25T11:02:14.377255Z",
+  "targetPerLevel": 8,
+  "totalQuestions": 128,
+  "subject": "phonetic",
+  "grade": 1,
+  "levels": {
+    "1": [
+      {
+        "prompt": "「歪」的結合韻是什麼？",
+        "speak": "「歪」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「歪」的結合韻是「ㄨㄞ」。",
+        "answer": "ㄨㄞ",
+        "options": [
+          "ㄨㄞ",
+          "ㄩㄝ",
+          "ㄧㄚ",
+          "ㄧㄡ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄞ",
+          "word": "歪"
+        }
+      },
+      {
+        "prompt": "「爸」的注音是什麼？",
+        "speak": "「爸」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「爸」的注音是「ㄅㄚ」。",
+        "answer": "ㄅㄚ",
+        "options": [
+          "ㄧㄤ",
+          "ㄏㄜ",
+          "ㄅㄚ",
+          "ㄐㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄚ",
+          "word": "爸"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄠ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄠ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄠ」=「ㄇㄠ」，就是「毛」。",
+        "answer": "ㄇㄠ",
+        "options": [
+          "ㄈㄞ",
+          "ㄅㄛ",
+          "ㄇㄥ",
+          "ㄇㄠ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄠ",
+          "word": "毛"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄤ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄤ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄤ」=「ㄆㄤ」，就是「旁」。",
+        "answer": "ㄆㄤ",
+        "options": [
+          "ㄆㄟ",
+          "ㄈㄤ",
+          "ㄆㄤ",
+          "ㄈㄠ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄤ",
+          "word": "旁"
+        }
+      },
+      {
+        "prompt": "「迂」的韻母是什麼？",
+        "speak": "「迂」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「迂」的韻母是「ㄩ」。",
+        "answer": "ㄩ",
+        "options": [
+          "ㄞ",
+          "ㄩ",
+          "ㄜ",
+          "ㄣ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄩ",
+          "word": "迂"
+        }
+      },
+      {
+        "prompt": "「溫」的結合韻是什麼？",
+        "speak": "「溫」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「溫」的結合韻是「ㄨㄣ」。",
+        "answer": "ㄨㄣ",
+        "options": [
+          "ㄧㄢ",
+          "ㄨㄣ",
+          "ㄧㄡ",
+          "ㄩㄣ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄣ",
+          "word": "溫"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄣ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄣ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄣ」=「ㄅㄣ」，就是「奔」。",
+        "answer": "ㄅㄣ",
+        "options": [
+          "ㄈㄟ",
+          "ㄅㄚ",
+          "ㄅㄣ",
+          "ㄊㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄣ",
+          "word": "奔"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄠ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄠ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄠ」=「ㄅㄠ」，就是「包」。",
+        "answer": "ㄅㄠ",
+        "options": [
+          "ㄇㄝ",
+          "ㄅㄠ",
+          "ㄊㄚ",
+          "ㄇㄠ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄠ",
+          "word": "包"
+        }
+      }
+    ],
+    "2": [
+      {
+        "prompt": "「煙」的注音是什麼？",
+        "speak": "「煙」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「煙」的注音是「ㄧㄢ」。",
+        "answer": "ㄧㄢ",
+        "options": [
+          "ㄖ",
+          "ㄨㄣ",
+          "ㄊㄚ",
+          "ㄧㄢ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄢ",
+          "word": "煙"
+        }
+      },
+      {
+        "prompt": "「西」的聲母是什麼？",
+        "speak": "「西」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「西」的聲母是「ㄒ」。",
+        "answer": "ㄒ",
+        "options": [
+          "ㄐ",
+          "ㄙ",
+          "ㄋ",
+          "ㄒ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄒ",
+          "word": "西"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄚ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄚ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄚ」=「ㄈㄚ」，就是「發」。",
+        "answer": "ㄈㄚ",
+        "options": [
+          "ㄋㄚ",
+          "ㄊㄚ",
+          "ㄈㄚ",
+          "ㄆㄥ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄚ",
+          "word": "發"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄡ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄡ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄡ」=「ㄇㄡ」，就是「某」。",
+        "answer": "ㄇㄡ",
+        "options": [
+          "ㄆㄟ",
+          "ㄇㄟ",
+          "ㄇㄡ",
+          "ㄈㄥ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄡ",
+          "word": "某"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄡ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄡ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄡ」=「ㄈㄡ」，就是「否」。",
+        "answer": "ㄈㄡ",
+        "options": [
+          "ㄆㄥ",
+          "ㄈㄝ",
+          "ㄈㄡ",
+          "ㄌㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄡ",
+          "word": "否"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄨ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄨ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄨ」=「ㄅㄨ」，就是「不」。",
+        "answer": "ㄅㄨ",
+        "options": [
+          "ㄆㄞ",
+          "ㄅㄨ",
+          "ㄈㄤ",
+          "ㄆㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄨ",
+          "word": "不"
+        }
+      },
+      {
+        "prompt": "「ㄋ」+「ㄜ」拼起來是什麼？",
+        "speak": "「ㄋ」加「ㄜ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄋ」+「ㄜ」=「ㄋㄜ」，就是「呢」。",
+        "answer": "ㄋㄜ",
+        "options": [
+          "ㄇㄣ",
+          "ㄈㄞ",
+          "ㄋㄜ",
+          "ㄆㄝ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄋㄜ",
+          "word": "呢"
+        }
+      },
+      {
+        "prompt": "「哥」的聲母是什麼？",
+        "speak": "「哥」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「哥」的聲母是「ㄍ」。",
+        "answer": "ㄍ",
+        "options": [
+          "ㄇ",
+          "ㄌ",
+          "ㄆ",
+          "ㄍ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄍ",
+          "word": "哥"
+        }
+      }
+    ],
+    "3": [
+      {
+        "prompt": "「恩」的韻母是什麼？",
+        "speak": "「恩」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「恩」的韻母是「ㄣ」。",
+        "answer": "ㄣ",
+        "options": [
+          "ㄤ",
+          "ㄢ",
+          "ㄝ",
+          "ㄣ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄣ",
+          "word": "恩"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄟ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄟ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄟ」=「ㄆㄟ」，就是「陪」。",
+        "answer": "ㄆㄟ",
+        "options": [
+          "ㄆㄟ",
+          "ㄅㄚ",
+          "ㄅㄞ",
+          "ㄆㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄟ",
+          "word": "陪"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄧ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄧ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄧ」=「ㄈㄧ」，就是「非」。",
+        "answer": "ㄈㄧ",
+        "options": [
+          "ㄈㄨ",
+          "ㄇㄝ",
+          "ㄈㄧ",
+          "ㄈㄤ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄧ",
+          "word": "非"
+        }
+      },
+      {
+        "prompt": "「哥」的注音是什麼？",
+        "speak": "「哥」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「哥」的注音是「ㄍㄜ」。",
+        "answer": "ㄍㄜ",
+        "options": [
+          "ㄕ",
+          "ㄋㄚ",
+          "ㄍㄜ",
+          "ㄨㄛ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄍㄜ",
+          "word": "哥"
+        }
+      },
+      {
+        "prompt": "「鞥」的注音是什麼？",
+        "speak": "「鞥」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「鞥」的注音是「ㄥ」。",
+        "answer": "ㄥ",
+        "options": [
+          "ㄜ",
+          "ㄥ",
+          "ㄅㄚ",
+          "ㄧㄤ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄥ",
+          "word": "鞥"
+        }
+      },
+      {
+        "prompt": "「呀」的結合韻是什麼？",
+        "speak": "「呀」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「呀」的結合韻是「ㄧㄚ」。",
+        "answer": "ㄧㄚ",
+        "options": [
+          "ㄧㄚ",
+          "ㄩㄝ",
+          "ㄧㄤ",
+          "ㄨㄣ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄚ",
+          "word": "呀"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄟ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄟ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄟ」=「ㄅㄟ」，就是「北」。",
+        "answer": "ㄅㄟ",
+        "options": [
+          "ㄈㄞ",
+          "ㄅㄛ",
+          "ㄅㄟ",
+          "ㄋㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄟ",
+          "word": "北"
+        }
+      },
+      {
+        "prompt": "「煙」的結合韻是什麼？",
+        "speak": "「煙」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「煙」的結合韻是「ㄧㄢ」。",
+        "answer": "ㄧㄢ",
+        "options": [
+          "ㄧㄢ",
+          "ㄧㄠ",
+          "ㄧㄚ",
+          "ㄨㄛ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄢ",
+          "word": "煙"
+        }
+      }
+    ],
+    "4": [
+      {
+        "prompt": "「那」的注音是什麼？",
+        "speak": "「那」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「那」的注音是「ㄋㄚ」。",
+        "answer": "ㄋㄚ",
+        "options": [
+          "ㄇㄚ",
+          "ㄋㄚ",
+          "ㄥ",
+          "ㄗ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄋㄚ",
+          "word": "那"
+        }
+      },
+      {
+        "prompt": "「蛙」的注音是什麼？",
+        "speak": "「蛙」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「蛙」的注音是「ㄨㄚ」。",
+        "answer": "ㄨㄚ",
+        "options": [
+          "ㄑㄧ",
+          "ㄨㄚ",
+          "ㄒㄧ",
+          "ㄨㄣ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄚ",
+          "word": "蛙"
+        }
+      },
+      {
+        "prompt": "「呀」的注音是什麼？",
+        "speak": "「呀」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「呀」的注音是「ㄚ」。",
+        "answer": "ㄚ",
+        "options": [
+          "ㄚ",
+          "ㄧㄣ",
+          "ㄨㄛ",
+          "ㄅㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄚ",
+          "word": "呀"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄝ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄝ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄝ」=「ㄆㄝ」，就是「撇」。",
+        "answer": "ㄆㄝ",
+        "options": [
+          "ㄆㄝ",
+          "ㄇㄥ",
+          "ㄈㄡ",
+          "ㄈㄣ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄝ",
+          "word": "撇"
+        }
+      },
+      {
+        "prompt": "「可」的聲母是什麼？",
+        "speak": "「可」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「可」的聲母是「ㄎ」。",
+        "answer": "ㄎ",
+        "options": [
+          "ㄒ",
+          "ㄎ",
+          "ㄖ",
+          "ㄋ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄎ",
+          "word": "可"
+        }
+      },
+      {
+        "prompt": "「師」的聲母是什麼？",
+        "speak": "「師」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「師」的聲母是「ㄕ」。",
+        "answer": "ㄕ",
+        "options": [
+          "ㄕ",
+          "ㄔ",
+          "ㄒ",
+          "ㄘ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄕ",
+          "word": "師"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄥ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄥ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄥ」=「ㄈㄥ」，就是「風」。",
+        "answer": "ㄈㄥ",
+        "options": [
+          "ㄈㄣ",
+          "ㄈㄞ",
+          "ㄈㄥ",
+          "ㄅㄤ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄥ",
+          "word": "風"
+        }
+      },
+      {
+        "prompt": "「吃」的聲母是什麼？",
+        "speak": "「吃」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「吃」的聲母是「ㄔ」。",
+        "answer": "ㄔ",
+        "options": [
+          "ㄋ",
+          "ㄆ",
+          "ㄈ",
+          "ㄔ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄔ",
+          "word": "吃"
+        }
+      }
+    ],
+    "5": [
+      {
+        "prompt": "「喔」的注音是什麼？",
+        "speak": "「喔」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「喔」的注音是「ㄛ」。",
+        "answer": "ㄛ",
+        "options": [
+          "ㄛ",
+          "ㄧㄤ",
+          "ㄑㄧ",
+          "ㄒㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄛ",
+          "word": "喔"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄝ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄝ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄝ」=「ㄅㄝ」，就是「別」。",
+        "answer": "ㄅㄝ",
+        "options": [
+          "ㄅㄝ",
+          "ㄊㄚ",
+          "ㄇㄨ",
+          "ㄉㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄝ",
+          "word": "別"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄧ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄧ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄧ」=「ㄆㄧ」，就是「批」。",
+        "answer": "ㄆㄧ",
+        "options": [
+          "ㄆㄡ",
+          "ㄊㄜ",
+          "ㄇㄟ",
+          "ㄆㄧ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄧ",
+          "word": "批"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄣ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄣ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄣ」=「ㄆㄣ」，就是「噴」。",
+        "answer": "ㄆㄣ",
+        "options": [
+          "ㄆㄧ",
+          "ㄇㄠ",
+          "ㄆㄣ",
+          "ㄇㄛ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄣ",
+          "word": "噴"
+        }
+      },
+      {
+        "prompt": "「七」的聲母是什麼？",
+        "speak": "「七」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「七」的聲母是「ㄑ」。",
+        "answer": "ㄑ",
+        "options": [
+          "ㄈ",
+          "ㄓ",
+          "ㄑ",
+          "ㄎ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄑ",
+          "word": "七"
+        }
+      },
+      {
+        "prompt": "「機」的聲母是什麼？",
+        "speak": "「機」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「機」的聲母是「ㄐ」。",
+        "answer": "ㄐ",
+        "options": [
+          "ㄐ",
+          "ㄓ",
+          "ㄏ",
+          "ㄍ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄐ",
+          "word": "機"
+        }
+      },
+      {
+        "prompt": "「迂」的注音是什麼？",
+        "speak": "「迂」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「迂」的注音是「ㄩ」。",
+        "answer": "ㄩ",
+        "options": [
+          "ㄗ",
+          "ㄨㄞ",
+          "ㄕ",
+          "ㄩ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄩ",
+          "word": "迂"
+        }
+      },
+      {
+        "prompt": "「思」的注音是什麼？",
+        "speak": "「思」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「思」的注音是「ㄙ」。",
+        "answer": "ㄙ",
+        "options": [
+          "ㄙ",
+          "ㄅㄚ",
+          "ㄢ",
+          "ㄨㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄙ",
+          "word": "思"
+        }
+      }
+    ],
+    "6": [
+      {
+        "prompt": "「腰」的結合韻是什麼？",
+        "speak": "「腰」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「腰」的結合韻是「ㄧㄠ」。",
+        "answer": "ㄧㄠ",
+        "options": [
+          "ㄨㄛ",
+          "ㄧㄠ",
+          "ㄧㄣ",
+          "ㄧㄢ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄠ",
+          "word": "腰"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄛ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄛ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄛ」=「ㄅㄛ」，就是「波」。",
+        "answer": "ㄅㄛ",
+        "options": [
+          "ㄆㄧ",
+          "ㄅㄛ",
+          "ㄈㄤ",
+          "ㄇㄥ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄛ",
+          "word": "波"
+        }
+      },
+      {
+        "prompt": "「思」的聲母是什麼？",
+        "speak": "「思」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「思」的聲母是「ㄙ」。",
+        "answer": "ㄙ",
+        "options": [
+          "ㄓ",
+          "ㄅ",
+          "ㄏ",
+          "ㄙ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄙ",
+          "word": "思"
+        }
+      },
+      {
+        "prompt": "「他」的注音是什麼？",
+        "speak": "「他」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「他」的注音是「ㄊㄚ」。",
+        "answer": "ㄊㄚ",
+        "options": [
+          "ㄖ",
+          "ㄝ",
+          "ㄊㄚ",
+          "ㄛ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄊㄚ",
+          "word": "他"
+        }
+      },
+      {
+        "prompt": "「凹」的注音是什麼？",
+        "speak": "「凹」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「凹」的注音是「ㄠ」。",
+        "answer": "ㄠ",
+        "options": [
+          "ㄘ",
+          "ㄠ",
+          "ㄧㄤ",
+          "ㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄠ",
+          "word": "凹"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄢ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄢ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄢ」=「ㄈㄢ」，就是「分」。",
+        "answer": "ㄈㄢ",
+        "options": [
+          "ㄆㄟ",
+          "ㄈㄠ",
+          "ㄈㄢ",
+          "ㄈㄧ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄢ",
+          "word": "分"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄚ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄚ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄚ」=「ㄆㄚ」，就是「怕」。",
+        "answer": "ㄆㄚ",
+        "options": [
+          "ㄇㄢ",
+          "ㄌㄜ",
+          "ㄆㄚ",
+          "ㄇㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄚ",
+          "word": "怕"
+        }
+      },
+      {
+        "prompt": "「西」的注音是什麼？",
+        "speak": "「西」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「西」的注音是「ㄒㄧ」。",
+        "answer": "ㄒㄧ",
+        "options": [
+          "ㄧ",
+          "ㄎㄜ",
+          "ㄤ",
+          "ㄒㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄒㄧ",
+          "word": "西"
+        }
+      }
+    ],
+    "7": [
+      {
+        "prompt": "「ㄆ」+「ㄡ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄡ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄡ」=「ㄆㄡ」，就是「陪」。",
+        "answer": "ㄆㄡ",
+        "options": [
+          "ㄆㄡ",
+          "ㄈㄤ",
+          "ㄇㄟ",
+          "ㄈㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄡ",
+          "word": "陪"
+        }
+      },
+      {
+        "prompt": "「呃」的注音是什麼？",
+        "speak": "「呃」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「呃」的注音是「ㄜ」。",
+        "answer": "ㄜ",
+        "options": [
+          "ㄡ",
+          "ㄜ",
+          "ㄨㄣ",
+          "ㄥ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄜ",
+          "word": "呃"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄢ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄢ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄢ」=「ㄇㄢ」，就是「門」。",
+        "answer": "ㄇㄢ",
+        "options": [
+          "ㄆㄛ",
+          "ㄇㄢ",
+          "ㄆㄥ",
+          "ㄇㄝ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄢ",
+          "word": "門"
+        }
+      },
+      {
+        "prompt": "「次」的注音是什麼？",
+        "speak": "「次」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「次」的注音是「ㄘ」。",
+        "answer": "ㄘ",
+        "options": [
+          "ㄩㄝ",
+          "ㄧㄢ",
+          "ㄨㄣ",
+          "ㄘ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄘ",
+          "word": "次"
+        }
+      },
+      {
+        "prompt": "「呃」的韻母是什麼？",
+        "speak": "「呃」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「呃」的韻母是「ㄜ」。",
+        "answer": "ㄜ",
+        "options": [
+          "ㄛ",
+          "ㄡ",
+          "ㄜ",
+          "ㄧ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄜ",
+          "word": "呃"
+        }
+      },
+      {
+        "prompt": "「喝」的注音是什麼？",
+        "speak": "「喝」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「喝」的注音是「ㄏㄜ」。",
+        "answer": "ㄏㄜ",
+        "options": [
+          "ㄔ",
+          "ㄏㄜ",
+          "ㄐㄧ",
+          "ㄥ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄏㄜ",
+          "word": "喝"
+        }
+      },
+      {
+        "prompt": "「可」的注音是什麼？",
+        "speak": "「可」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「可」的注音是「ㄎㄜ」。",
+        "answer": "ㄎㄜ",
+        "options": [
+          "ㄒㄧ",
+          "ㄐㄧ",
+          "ㄨㄛ",
+          "ㄎㄜ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄎㄜ",
+          "word": "可"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄚ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄚ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄚ」=「ㄇㄚ」，就是「媽」。",
+        "answer": "ㄇㄚ",
+        "options": [
+          "ㄅㄨ",
+          "ㄅㄧ",
+          "ㄇㄚ",
+          "ㄆㄛ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄚ",
+          "word": "媽"
+        }
+      }
+    ],
+    "8": [
+      {
+        "prompt": "「日」的聲母是什麼？",
+        "speak": "「日」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「日」的聲母是「ㄖ」。",
+        "answer": "ㄖ",
+        "options": [
+          "ㄋ",
+          "ㄏ",
+          "ㄖ",
+          "ㄉ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄖ",
+          "word": "日"
+        }
+      },
+      {
+        "prompt": "「窩」的注音是什麼？",
+        "speak": "「窩」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「窩」的注音是「ㄨㄛ」。",
+        "answer": "ㄨㄛ",
+        "options": [
+          "ㄨㄛ",
+          "ㄇㄚ",
+          "ㄑㄧ",
+          "ㄧㄤ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄛ",
+          "word": "窩"
+        }
+      },
+      {
+        "prompt": "「耶」的韻母是什麼？",
+        "speak": "「耶」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「耶」的韻母是「ㄝ」。",
+        "answer": "ㄝ",
+        "options": [
+          "ㄡ",
+          "ㄝ",
+          "ㄨ",
+          "ㄨㄚ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄝ",
+          "word": "耶"
+        }
+      },
+      {
+        "prompt": "「打」的聲母是什麼？",
+        "speak": "「打」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「打」的聲母是「ㄉ」。",
+        "answer": "ㄉ",
+        "options": [
+          "ㄉ",
+          "ㄅ",
+          "ㄘ",
+          "ㄗ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄉ",
+          "word": "打"
+        }
+      },
+      {
+        "prompt": "「爸」的聲母是什麼？",
+        "speak": "「爸」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「爸」的聲母是「ㄅ」。",
+        "answer": "ㄅ",
+        "options": [
+          "ㄅ",
+          "ㄔ",
+          "ㄋ",
+          "ㄙ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅ",
+          "word": "爸"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄞ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄞ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄞ」=「ㄆㄞ」，就是「陪」。",
+        "answer": "ㄆㄞ",
+        "options": [
+          "ㄈㄠ",
+          "ㄅㄨ",
+          "ㄆㄞ",
+          "ㄅㄣ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄞ",
+          "word": "陪"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄥ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄥ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄥ」=「ㄆㄥ」，就是「朋」。",
+        "answer": "ㄆㄥ",
+        "options": [
+          "ㄆㄤ",
+          "ㄈㄝ",
+          "ㄆㄥ",
+          "ㄇㄟ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄥ",
+          "word": "朋"
+        }
+      },
+      {
+        "prompt": "「知」的注音是什麼？",
+        "speak": "「知」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「知」的注音是「ㄓ」。",
+        "answer": "ㄓ",
+        "options": [
+          "ㄧ",
+          "ㄨㄞ",
+          "ㄙ",
+          "ㄓ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄓ",
+          "word": "知"
+        }
+      }
+    ],
+    "9": [
+      {
+        "prompt": "「ㄅ」+「ㄤ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄤ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄤ」=「ㄅㄤ」，就是「帮」。",
+        "answer": "ㄅㄤ",
+        "options": [
+          "ㄆㄥ",
+          "ㄅㄤ",
+          "ㄋㄜ",
+          "ㄈㄟ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄤ",
+          "word": "帮"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄟ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄟ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄟ」=「ㄇㄟ」，就是「沒」。",
+        "answer": "ㄇㄟ",
+        "options": [
+          "ㄅㄡ",
+          "ㄇㄟ",
+          "ㄉㄜ",
+          "ㄋㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄟ",
+          "word": "沒"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄞ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄞ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄞ」=「ㄇㄞ」，就是「沒」。",
+        "answer": "ㄇㄞ",
+        "options": [
+          "ㄅㄡ",
+          "ㄆㄚ",
+          "ㄈㄨ",
+          "ㄇㄞ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄞ",
+          "word": "沒"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄛ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄛ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄛ」=「ㄇㄛ」，就是「摸」。",
+        "answer": "ㄇㄛ",
+        "options": [
+          "ㄇㄛ",
+          "ㄇㄧ",
+          "ㄅㄚ",
+          "ㄅㄞ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄛ",
+          "word": "摸"
+        }
+      },
+      {
+        "prompt": "「拉」的聲母是什麼？",
+        "speak": "「拉」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「拉」的聲母是「ㄌ」。",
+        "answer": "ㄌ",
+        "options": [
+          "ㄌ",
+          "ㄇ",
+          "ㄑ",
+          "ㄍ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄌ",
+          "word": "拉"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄣ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄣ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄣ」=「ㄇㄣ」，就是「民」。",
+        "answer": "ㄇㄣ",
+        "options": [
+          "ㄆㄛ",
+          "ㄇㄣ",
+          "ㄇㄧ",
+          "ㄆㄞ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄣ",
+          "word": "民"
+        }
+      },
+      {
+        "prompt": "「鞥」的韻母是什麼？",
+        "speak": "「鞥」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「鞥」的韻母是「ㄥ」。",
+        "answer": "ㄥ",
+        "options": [
+          "ㄨㄚ",
+          "ㄨ",
+          "ㄜ",
+          "ㄥ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄥ",
+          "word": "鞥"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄨ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄨ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄨ」=「ㄇㄨ」，就是「木」。",
+        "answer": "ㄇㄨ",
+        "options": [
+          "ㄆㄡ",
+          "ㄆㄧ",
+          "ㄇㄢ",
+          "ㄇㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄨ",
+          "word": "木"
+        }
+      }
+    ],
+    "10": [
+      {
+        "prompt": "「安」的注音是什麼？",
+        "speak": "「安」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「安」的注音是「ㄢ」。",
+        "answer": "ㄢ",
+        "options": [
+          "ㄢ",
+          "ㄗ",
+          "ㄤ",
+          "ㄅㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄢ",
+          "word": "安"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄥ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄥ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄥ」=「ㄇㄥ」，就是「蒙」。",
+        "answer": "ㄇㄥ",
+        "options": [
+          "ㄈㄣ",
+          "ㄇㄥ",
+          "ㄅㄨ",
+          "ㄇㄧ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄥ",
+          "word": "蒙"
+        }
+      },
+      {
+        "prompt": "「歪」的注音是什麼？",
+        "speak": "「歪」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「歪」的注音是「ㄨㄞ」。",
+        "answer": "ㄨㄞ",
+        "options": [
+          "ㄞ",
+          "ㄊㄚ",
+          "ㄨㄞ",
+          "ㄧㄢ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄞ",
+          "word": "歪"
+        }
+      },
+      {
+        "prompt": "「ㄋ」+「ㄚ」拼起來是什麼？",
+        "speak": "「ㄋ」加「ㄚ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄋ」+「ㄚ」=「ㄋㄚ」，就是「那」。",
+        "answer": "ㄋㄚ",
+        "options": [
+          "ㄋㄚ",
+          "ㄇㄟ",
+          "ㄆㄝ",
+          "ㄉㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄋㄚ",
+          "word": "那"
+        }
+      },
+      {
+        "prompt": "「師」的注音是什麼？",
+        "speak": "「師」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「師」的注音是「ㄕ」。",
+        "answer": "ㄕ",
+        "options": [
+          "ㄧㄤ",
+          "ㄧㄣ",
+          "ㄕ",
+          "ㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄕ",
+          "word": "師"
+        }
+      },
+      {
+        "prompt": "「烏」的注音是什麼？",
+        "speak": "「烏」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「烏」的注音是「ㄨ」。",
+        "answer": "ㄨ",
+        "options": [
+          "ㄧ",
+          "ㄨㄣ",
+          "ㄞ",
+          "ㄨ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨ",
+          "word": "烏"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄟ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄟ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄟ」=「ㄈㄟ」，就是「非」。",
+        "answer": "ㄈㄟ",
+        "options": [
+          "ㄈㄟ",
+          "ㄆㄛ",
+          "ㄅㄛ",
+          "ㄌㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄟ",
+          "word": "非"
+        }
+      },
+      {
+        "prompt": "「愛」的注音是什麼？",
+        "speak": "「愛」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「愛」的注音是「ㄞ」。",
+        "answer": "ㄞ",
+        "options": [
+          "ㄖ",
+          "ㄧㄤ",
+          "ㄞ",
+          "ㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄞ",
+          "word": "愛"
+        }
+      }
+    ],
+    "11": [
+      {
+        "prompt": "「衣」的注音是什麼？",
+        "speak": "「衣」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「衣」的注音是「ㄧ」。",
+        "answer": "ㄧ",
+        "options": [
+          "ㄧㄣ",
+          "ㄧ",
+          "ㄠ",
+          "ㄋㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧ",
+          "word": "衣"
+        }
+      },
+      {
+        "prompt": "「英」的注音是什麼？",
+        "speak": "「英」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「英」的注音是「ㄧㄥ」。",
+        "answer": "ㄧㄥ",
+        "options": [
+          "ㄏㄜ",
+          "ㄓ",
+          "ㄧㄥ",
+          "ㄑㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄥ",
+          "word": "英"
+        }
+      },
+      {
+        "prompt": "「凹」的韻母是什麼？",
+        "speak": "「凹」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「凹」的韻母是「ㄠ」。",
+        "answer": "ㄠ",
+        "options": [
+          "ㄠ",
+          "ㄡ",
+          "ㄚ",
+          "ㄤ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄠ",
+          "word": "凹"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄨ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄨ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄨ」=「ㄈㄨ」，就是「福」。",
+        "answer": "ㄈㄨ",
+        "options": [
+          "ㄆㄚ",
+          "ㄅㄥ",
+          "ㄈㄨ",
+          "ㄆㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄨ",
+          "word": "福"
+        }
+      },
+      {
+        "prompt": "「給」的韻母是什麼？",
+        "speak": "「給」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「給」的韻母是「ㄟ」。",
+        "answer": "ㄟ",
+        "options": [
+          "ㄟ",
+          "ㄜ",
+          "ㄛ",
+          "ㄚ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄟ",
+          "word": "給"
+        }
+      },
+      {
+        "prompt": "「央」的結合韻是什麼？",
+        "speak": "「央」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「央」的結合韻是「ㄧㄤ」。",
+        "answer": "ㄧㄤ",
+        "options": [
+          "ㄧㄥ",
+          "ㄨㄣ",
+          "ㄧㄤ",
+          "ㄨㄞ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄤ",
+          "word": "央"
+        }
+      },
+      {
+        "prompt": "「媽」的聲母是什麼？",
+        "speak": "「媽」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「媽」的聲母是「ㄇ」。",
+        "answer": "ㄇ",
+        "options": [
+          "ㄇ",
+          "ㄊ",
+          "ㄌ",
+          "ㄔ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇ",
+          "word": "媽"
+        }
+      },
+      {
+        "prompt": "「吃」的注音是什麼？",
+        "speak": "「吃」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「吃」的注音是「ㄔ」。",
+        "answer": "ㄔ",
+        "options": [
+          "ㄔ",
+          "ㄨㄛ",
+          "ㄨㄞ",
+          "ㄙ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄔ",
+          "word": "吃"
+        }
+      }
+    ],
+    "12": [
+      {
+        "prompt": "「七」的注音是什麼？",
+        "speak": "「七」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「七」的注音是「ㄑㄧ」。",
+        "answer": "ㄑㄧ",
+        "options": [
+          "ㄖ",
+          "ㄑㄧ",
+          "ㄅㄚ",
+          "ㄔ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄑㄧ",
+          "word": "七"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄣ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄣ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄣ」=「ㄈㄣ」，就是「芬」。",
+        "answer": "ㄈㄣ",
+        "options": [
+          "ㄆㄛ",
+          "ㄇㄣ",
+          "ㄈㄠ",
+          "ㄈㄣ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄣ",
+          "word": "芬"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄛ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄛ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄛ」=「ㄈㄛ」，就是「佛」。",
+        "answer": "ㄈㄛ",
+        "options": [
+          "ㄉㄚ",
+          "ㄈㄛ",
+          "ㄈㄠ",
+          "ㄆㄝ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄛ",
+          "word": "佛"
+        }
+      },
+      {
+        "prompt": "「月」的注音是什麼？",
+        "speak": "「月」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「月」的注音是「ㄩㄝ」。",
+        "answer": "ㄩㄝ",
+        "options": [
+          "ㄢ",
+          "ㄥ",
+          "ㄩㄝ",
+          "ㄇㄚ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄩㄝ",
+          "word": "月"
+        }
+      },
+      {
+        "prompt": "「英」的結合韻是什麼？",
+        "speak": "「英」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「英」的結合韻是「ㄧㄥ」。",
+        "answer": "ㄧㄥ",
+        "options": [
+          "ㄧㄢ",
+          "ㄧㄥ",
+          "ㄧㄤ",
+          "ㄧㄠ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄥ",
+          "word": "英"
+        }
+      },
+      {
+        "prompt": "「怕」的聲母是什麼？",
+        "speak": "「怕」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「怕」的聲母是「ㄆ」。",
+        "answer": "ㄆ",
+        "options": [
+          "ㄙ",
+          "ㄘ",
+          "ㄗ",
+          "ㄆ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆ",
+          "word": "怕"
+        }
+      },
+      {
+        "prompt": "「蛙」的韻母是什麼？",
+        "speak": "「蛙」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「蛙」的韻母是「ㄨㄚ」。",
+        "answer": "ㄨㄚ",
+        "options": [
+          "ㄛ",
+          "ㄚ",
+          "ㄟ",
+          "ㄨㄚ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄚ",
+          "word": "蛙"
+        }
+      },
+      {
+        "prompt": "「ㄈ」+「ㄠ」拼起來是什麼？",
+        "speak": "「ㄈ」加「ㄠ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄈ」+「ㄠ」=「ㄈㄠ」，就是「風」。",
+        "answer": "ㄈㄠ",
+        "options": [
+          "ㄈㄡ",
+          "ㄈㄠ",
+          "ㄇㄠ",
+          "ㄅㄟ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈㄠ",
+          "word": "風"
+        }
+      }
+    ],
+    "13": [
+      {
+        "prompt": "「ㄅ」+「ㄢ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄢ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄢ」=「ㄅㄢ」，就是「班」。",
+        "answer": "ㄅㄢ",
+        "options": [
+          "ㄅㄠ",
+          "ㄇㄛ",
+          "ㄊㄜ",
+          "ㄅㄢ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄢ",
+          "word": "班"
+        }
+      },
+      {
+        "prompt": "「昂」的韻母是什麼？",
+        "speak": "「昂」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「昂」的韻母是「ㄤ」。",
+        "answer": "ㄤ",
+        "options": [
+          "ㄨ",
+          "ㄤ",
+          "ㄥ",
+          "ㄢ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄤ",
+          "word": "昂"
+        }
+      },
+      {
+        "prompt": "「那」的聲母是什麼？",
+        "speak": "「那」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「那」的聲母是「ㄋ」。",
+        "answer": "ㄋ",
+        "options": [
+          "ㄑ",
+          "ㄋ",
+          "ㄖ",
+          "ㄙ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄋ",
+          "word": "那"
+        }
+      },
+      {
+        "prompt": "「ㄊ」+「ㄚ」拼起來是什麼？",
+        "speak": "「ㄊ」加「ㄚ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄊ」+「ㄚ」=「ㄊㄚ」，就是「他」。",
+        "answer": "ㄊㄚ",
+        "options": [
+          "ㄈㄥ",
+          "ㄊㄚ",
+          "ㄅㄞ",
+          "ㄈㄤ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄊㄚ",
+          "word": "他"
+        }
+      },
+      {
+        "prompt": "「知」的聲母是什麼？",
+        "speak": "「知」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「知」的聲母是「ㄓ」。",
+        "answer": "ㄓ",
+        "options": [
+          "ㄕ",
+          "ㄎ",
+          "ㄓ",
+          "ㄒ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄓ",
+          "word": "知"
+        }
+      },
+      {
+        "prompt": "「喝」的聲母是什麼？",
+        "speak": "「喝」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「喝」的聲母是「ㄏ」。",
+        "answer": "ㄏ",
+        "options": [
+          "ㄇ",
+          "ㄍ",
+          "ㄏ",
+          "ㄐ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄏ",
+          "word": "喝"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄧ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄧ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄧ」=「ㄅㄧ」，就是「逼」。",
+        "answer": "ㄅㄧ",
+        "options": [
+          "ㄆㄠ",
+          "ㄅㄧ",
+          "ㄈㄥ",
+          "ㄇㄥ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄧ",
+          "word": "逼"
+        }
+      },
+      {
+        "prompt": "「ㄌ」+「ㄚ」拼起來是什麼？",
+        "speak": "「ㄌ」加「ㄚ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄌ」+「ㄚ」=「ㄌㄚ」，就是「拉」。",
+        "answer": "ㄌㄚ",
+        "options": [
+          "ㄆㄡ",
+          "ㄆㄨ",
+          "ㄅㄡ",
+          "ㄌㄚ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄌㄚ",
+          "word": "拉"
+        }
+      }
+    ],
+    "14": [
+      {
+        "prompt": "「次」的聲母是什麼？",
+        "speak": "「次」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「次」的聲母是「ㄘ」。",
+        "answer": "ㄘ",
+        "options": [
+          "ㄙ",
+          "ㄔ",
+          "ㄘ",
+          "ㄆ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄘ",
+          "word": "次"
+        }
+      },
+      {
+        "prompt": "「月」的結合韻是什麼？",
+        "speak": "「月」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「月」的結合韻是「ㄩㄝ」。",
+        "answer": "ㄩㄝ",
+        "options": [
+          "ㄧㄤ",
+          "ㄨㄞ",
+          "ㄩㄝ",
+          "ㄧㄥ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄩㄝ",
+          "word": "月"
+        }
+      },
+      {
+        "prompt": "「溫」的注音是什麼？",
+        "speak": "「溫」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「溫」的注音是「ㄨㄣ」。",
+        "answer": "ㄨㄣ",
+        "options": [
+          "ㄊㄚ",
+          "ㄨㄛ",
+          "ㄨㄣ",
+          "ㄨ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄣ",
+          "word": "溫"
+        }
+      },
+      {
+        "prompt": "「愛」的韻母是什麼？",
+        "speak": "「愛」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「愛」的韻母是「ㄞ」。",
+        "answer": "ㄞ",
+        "options": [
+          "ㄢ",
+          "ㄨ",
+          "ㄩ",
+          "ㄞ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄞ",
+          "word": "愛"
+        }
+      },
+      {
+        "prompt": "「安」的韻母是什麼？",
+        "speak": "「安」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「安」的韻母是「ㄢ」。",
+        "answer": "ㄢ",
+        "options": [
+          "ㄣ",
+          "ㄞ",
+          "ㄢ",
+          "ㄛ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄢ",
+          "word": "安"
+        }
+      },
+      {
+        "prompt": "「ㄌ」+「ㄜ」拼起來是什麼？",
+        "speak": "「ㄌ」加「ㄜ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄌ」+「ㄜ」=「ㄌㄜ」，就是「勒」。",
+        "answer": "ㄌㄜ",
+        "options": [
+          "ㄆㄝ",
+          "ㄋㄚ",
+          "ㄉㄜ",
+          "ㄌㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄌㄜ",
+          "word": "勒"
+        }
+      },
+      {
+        "prompt": "「他」的聲母是什麼？",
+        "speak": "「他」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「他」的聲母是「ㄊ」。",
+        "answer": "ㄊ",
+        "options": [
+          "ㄓ",
+          "ㄏ",
+          "ㄘ",
+          "ㄊ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄊ",
+          "word": "他"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄢ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄢ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄢ」=「ㄆㄢ」，就是「潘」。",
+        "answer": "ㄆㄢ",
+        "options": [
+          "ㄇㄢ",
+          "ㄅㄟ",
+          "ㄆㄢ",
+          "ㄊㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄢ",
+          "word": "潘"
+        }
+      }
+    ],
+    "15": [
+      {
+        "prompt": "「ㄅ」+「ㄡ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄡ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄡ」=「ㄅㄡ」，就是「北」。",
+        "answer": "ㄅㄡ",
+        "options": [
+          "ㄆㄥ",
+          "ㄆㄛ",
+          "ㄅㄡ",
+          "ㄆㄨ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄡ",
+          "word": "北"
+        }
+      },
+      {
+        "prompt": "「昂」的注音是什麼？",
+        "speak": "「昂」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「昂」的注音是「ㄤ」。",
+        "answer": "ㄤ",
+        "options": [
+          "ㄛ",
+          "ㄩ",
+          "ㄨㄣ",
+          "ㄤ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄤ",
+          "word": "昂"
+        }
+      },
+      {
+        "prompt": "「機」的注音是什麼？",
+        "speak": "「機」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「機」的注音是「ㄐㄧ」。",
+        "answer": "ㄐㄧ",
+        "options": [
+          "ㄐㄧ",
+          "ㄤ",
+          "ㄇㄚ",
+          "ㄑㄧ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄐㄧ",
+          "word": "機"
+        }
+      },
+      {
+        "prompt": "「ㄊ」+「ㄜ」拼起來是什麼？",
+        "speak": "「ㄊ」加「ㄜ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄊ」+「ㄜ」=「ㄊㄜ」，就是「特」。",
+        "answer": "ㄊㄜ",
+        "options": [
+          "ㄆㄝ",
+          "ㄊㄜ",
+          "ㄅㄞ",
+          "ㄌㄜ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄊㄜ",
+          "word": "特"
+        }
+      },
+      {
+        "prompt": "「ㄇ」+「ㄧ」拼起來是什麼？",
+        "speak": "「ㄇ」加「ㄧ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄇ」+「ㄧ」=「ㄇㄧ」，就是「迷」。",
+        "answer": "ㄇㄧ",
+        "options": [
+          "ㄉㄜ",
+          "ㄇㄧ",
+          "ㄇㄢ",
+          "ㄈㄢ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄇㄧ",
+          "word": "迷"
+        }
+      },
+      {
+        "prompt": "「歐」的注音是什麼？",
+        "speak": "「歐」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「歐」的注音是「ㄡ」。",
+        "answer": "ㄡ",
+        "options": [
+          "ㄡ",
+          "ㄥ",
+          "ㄧㄣ",
+          "ㄎㄜ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄡ",
+          "word": "歐"
+        }
+      },
+      {
+        "prompt": "「ㄅ」+「ㄥ」拼起來是什麼？",
+        "speak": "「ㄅ」加「ㄥ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄅ」+「ㄥ」=「ㄅㄥ」，就是「崩」。",
+        "answer": "ㄅㄥ",
+        "options": [
+          "ㄅㄥ",
+          "ㄅㄞ",
+          "ㄅㄟ",
+          "ㄆㄝ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄅㄥ",
+          "word": "崩"
+        }
+      },
+      {
+        "prompt": "「呀」的韻母是什麼？",
+        "speak": "「呀」的韻母是什麼？",
+        "hint": "韻母是結尾的那個音。",
+        "explanation": "「呀」的韻母是「ㄚ」。",
+        "answer": "ㄚ",
+        "options": [
+          "ㄚ",
+          "ㄞ",
+          "ㄛ",
+          "ㄢ"
+        ],
+        "category": "韻母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄚ",
+          "word": "呀"
+        }
+      }
+    ],
+    "16": [
+      {
+        "prompt": "「優」的結合韻是什麼？",
+        "speak": "「優」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「優」的結合韻是「ㄧㄡ」。",
+        "answer": "ㄧㄡ",
+        "options": [
+          "ㄧㄡ",
+          "ㄧㄤ",
+          "ㄧㄥ",
+          "ㄨㄛ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄡ",
+          "word": "優"
+        }
+      },
+      {
+        "prompt": "「ㄆ」+「ㄛ」拼起來是什麼？",
+        "speak": "「ㄆ」加「ㄛ」拼起來是什麼？",
+        "hint": "把聲母和韻母合在一起讀。",
+        "explanation": "「ㄆ」+「ㄛ」=「ㄆㄛ」，就是「坡」。",
+        "answer": "ㄆㄛ",
+        "options": [
+          "ㄆㄛ",
+          "ㄋㄚ",
+          "ㄅㄨ",
+          "ㄇㄛ"
+        ],
+        "category": "拼讀",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄆㄛ",
+          "word": "坡"
+        }
+      },
+      {
+        "prompt": "「發」的聲母是什麼？",
+        "speak": "「發」的聲母是什麼？",
+        "hint": "聲母是開頭的那個音。",
+        "explanation": "「發」的聲母是「ㄈ」。",
+        "answer": "ㄈ",
+        "options": [
+          "ㄕ",
+          "ㄓ",
+          "ㄈ",
+          "ㄅ"
+        ],
+        "category": "聲母",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄈ",
+          "word": "發"
+        }
+      },
+      {
+        "prompt": "「央」的注音是什麼？",
+        "speak": "「央」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「央」的注音是「ㄧㄤ」。",
+        "answer": "ㄧㄤ",
+        "options": [
+          "ㄖ",
+          "ㄥ",
+          "ㄧ",
+          "ㄧㄤ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄤ",
+          "word": "央"
+        }
+      },
+      {
+        "prompt": "「耶」的注音是什麼？",
+        "speak": "「耶」的注音是什麼？",
+        "hint": "想想這個字怎麼拼。",
+        "explanation": "「耶」的注音是「ㄝ」。",
+        "answer": "ㄝ",
+        "options": [
+          "ㄔ",
+          "ㄋㄚ",
+          "ㄅㄚ",
+          "ㄝ"
+        ],
+        "category": "看字讀音",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄝ",
+          "word": "耶"
+        }
+      },
+      {
+        "prompt": "「窩」的結合韻是什麼？",
+        "speak": "「窩」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「窩」的結合韻是「ㄨㄛ」。",
+        "answer": "ㄨㄛ",
+        "options": [
+          "ㄧㄡ",
+          "ㄧㄤ",
+          "ㄨㄛ",
+          "ㄨㄣ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄨㄛ",
+          "word": "窩"
+        }
+      },
+      {
+        "prompt": "「因」的結合韻是什麼？",
+        "speak": "「因」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「因」的結合韻是「ㄧㄣ」。",
+        "answer": "ㄧㄣ",
+        "options": [
+          "ㄧㄣ",
+          "ㄧㄡ",
+          "ㄨㄣ",
+          "ㄨㄛ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄧㄣ",
+          "word": "因"
+        }
+      },
+      {
+        "prompt": "「雲」的結合韻是什麼？",
+        "speak": "「雲」的結合韻是什麼？",
+        "hint": "結合韻是兩個韻母合在一起的音。",
+        "explanation": "「雲」的結合韻是「ㄩㄣ」。",
+        "answer": "ㄩㄣ",
+        "options": [
+          "ㄧㄢ",
+          "ㄩㄣ",
+          "ㄧㄚ",
+          "ㄨㄣ"
+        ],
+        "category": "結合韻",
+        "visual": {
+          "type": "phonetic",
+          "symbol": "ㄩㄣ",
+          "word": "雲"
+        }
+      }
+    ]
+  }
+}

@@ -3,7 +3,7 @@
 ## ⚡ 極致節省 Token 規範 (Extreme Token-Saving Protocol)
 
 > 本節由 `scripts/sync_all_projects_rules.py` 自動注入，請勿手動修改。
-> 最後同步：2026-10-25 15:57:51
+> 最後同步：2026-10-25 19:32:19
 
 ### 🔪 極致省 Token 4 刀流 (Four-Blade Token-Saving Protocol)
 
@@ -54,6 +54,17 @@
 - 出具精煉契約 (Contract) → 本地自主執行 → 雲端只看 Diff 驗收。
 - 嚴禁雲端直接寫入源碼檔案。
 
+### 🚫 嚴禁監工代勞陷阱鐵律 (No Supervisor-as-Worker Trap)
+
+- 苦力未盡事項（未寫完的函式、未跑的測試、未修的報錯）**嚴禁監工下場代寫**：一律改派原子契約或補「最小 Diff 錨點」，嚴禁監工自己把活幹完。
+- 嚴禁監工自行撰寫測試腳本補跑：測試屬苦力自檢範圍，缺測試即退回原契約，不補寫、不代跑。
+- 嚴禁監工直接改源碼：任何對 `.ts` / `.js` / `.py` 等源碼檔案的寫入動作，必須經由 `scripts/claude_delegator.py` 或 `scripts/brain_delegator.py` 派工完成。
+- 驗收步驟嚴格限制 **3 步以內**，固定順序：
+  1. `git diff --stat`
+  2. `git status`
+  3. 交付報告
+- 超過 3 個檢查指令視同重大違規：立即停止驗收，直接改派下一輪原子契約。
+
 ### 🧠 實體外包派工與記帳本防空報鐵律
 
 - 所有代碼生成 / 重構 / 測試任務，必須調用：
@@ -61,6 +72,12 @@
   - `scripts/brain_delegator.py`（本地大腦外包）
 - 每次派工必須真實寫入 `local_tokens_ledger.json`。
 - 嚴禁虛報完成、嚴禁跳過記帳。
+
+### 🧾 一鍵改版鐵律 (One-Shot Version Bump Protocol)
+
+- 嚴禁監工手動 `view_file` / `edit_file` 反覆改版號：改版一律執行 `python scripts/bump_version.py <版號>`，一次同步 `package.json`、`PROJECT_HANDOVER.md`、`index.html` 版號標籤、`sw.js` 快取名，並自動呼叫 `smart_backup` 建立還原節點。
+- 改版後嚴禁二次讀取 `package.json` 與 `PROJECT_HANDOVER.md` 確認版號：只看 `bump_version.py` 輸出的 `[OK]/[SKIP]/[FAIL]` 單行結果。
+- 單一對話僅限 **單次原子派工**：一個對話只交付 1 個原子契約，嚴禁在同一對話疊加第二輪派工或順手做第二個任務，杜絕 Context 疊加與 128k 膨脹。
 
 ### 📜 契約式派工 (Contract-First)
 
@@ -109,11 +126,13 @@
 - [ ] 任務是否超過 15 行？→ 外包
 - [ ] 是否已寫入 ledger？
 - [ ] 是否已更新 PROJECT_HANDOVER.md？
-- [ ] 是否已更新 package.json 版號？
+- [ ] 是否已更新 package.json 版號？(一律 `python scripts/bump_version.py <版號>`，嚴禁手動 edit)
+- [ ] 本對話是否僅執行單次原子派工？(嚴禁同輪疊加第二輪契約)
 - [ ] 是否已提供下一輪 Prompt？
 - [ ] 4 刀流已啟動？(0 重複讀檔編譯 / 驗收 ≤15 行 / Prompt 極簡 / 派工一句話即停)
 - [ ] 高難度任務是否已原子拆解？(≤3 輪收斂 ✕ 128k 防爆)
 - [ ] 缺指令時是否直接預設派工？(嚴禁 list_dir / --help / view_file 摸索)
+- [ ] 是否守住「監工不下場」？(0 代寫源碼 / 0 代跑測試 / 驗收 ≤3 步)
 ## 📌 版本管理與交接鐵律
 1. **版號與看板推進**：每次迭代完成必須更新 [`PROJECT_HANDOVER.md`](PROJECT_HANDOVER.md) 版號、頂部待辦看板 (`[x]`) 與更新記錄；常態保留最新 3 版（或超過 280 行時調用 `auto_backup.check_and_trim_handover(max_lines=280, keep_recent=3)` 自動封存至 `docs/CHANGELOG_ARCHIVE.md`）。
 2. **介面版號同步**：前端介面（`index.html` 之 `#brand-version-badge`）版號必須與 `PROJECT_HANDOVER.md` 保持 100% 同步。

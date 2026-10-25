@@ -1,0 +1,2473 @@
+{
+  "generatedAt": "2026-10-25T12:12:22.471263Z",
+  "targetPerLevel": 8,
+  "totalQuestions": 128,
+  "subject": "chinese",
+  "grade": 2,
+  "levels": {
+    "1": [
+      {
+        "prompt": "「十」的筆順要遵守哪一條規則？",
+        "speak": "「十」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「十」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "十",
+          "word": "十"
+        }
+      },
+      {
+        "prompt": "「干」的筆順要遵守哪一條規則？",
+        "speak": "「干」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「干」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先橫後豎",
+          "先中間後封口",
+          "先撇後捺",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "干",
+          "word": "干"
+        }
+      },
+      {
+        "prompt": "「土」的筆順要遵守哪一條規則？",
+        "speak": "「土」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「土」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先外後內",
+          "先撇後捺",
+          "先中間後封口",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "土",
+          "word": "土"
+        }
+      },
+      {
+        "prompt": "「王」的筆順要遵守哪一條規則？",
+        "speak": "「王」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「王」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先外後內",
+          "先橫後豎",
+          "先中間後封口",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "王",
+          "word": "王"
+        }
+      },
+      {
+        "prompt": "「工」的筆順要遵守哪一條規則？",
+        "speak": "「工」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「工」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "工",
+          "word": "工"
+        }
+      },
+      {
+        "prompt": "「下」的筆順要遵守哪一條規則？",
+        "speak": "「下」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「下」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先撇後捺",
+          "先橫後豎",
+          "先外後內",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "下",
+          "word": "下"
+        }
+      },
+      {
+        "prompt": "「吉」的筆順要遵守哪一條規則？",
+        "speak": "「吉」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「吉」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先中間後封口",
+          "先橫後豎",
+          "先撇後捺",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "吉",
+          "word": "吉"
+        }
+      },
+      {
+        "prompt": "「士」的筆順要遵守哪一條規則？",
+        "speak": "「士」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「士」的筆順是「先橫後豎」。",
+        "answer": "先橫後豎",
+        "options": [
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "士",
+          "word": "士"
+        }
+      }
+    ],
+    "2": [
+      {
+        "prompt": "「八」的筆順要遵守哪一條規則？",
+        "speak": "「八」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「八」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先橫後豎",
+          "先外後內",
+          "先中間後封口",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "八",
+          "word": "八"
+        }
+      },
+      {
+        "prompt": "「人」的筆順要遵守哪一條規則？",
+        "speak": "「人」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「人」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "人",
+          "word": "人"
+        }
+      },
+      {
+        "prompt": "「入」的筆順要遵守哪一條規則？",
+        "speak": "「入」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「入」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先橫後豎",
+          "先撇後捺",
+          "先外後內",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "入",
+          "word": "入"
+        }
+      },
+      {
+        "prompt": "「火」的筆順要遵守哪一條規則？",
+        "speak": "「火」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「火」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先外後內",
+          "先橫後豎",
+          "先中間後封口",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "火",
+          "word": "火"
+        }
+      },
+      {
+        "prompt": "「文」的筆順要遵守哪一條規則？",
+        "speak": "「文」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「文」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "文",
+          "word": "文"
+        }
+      },
+      {
+        "prompt": "「天」的筆順要遵守哪一條規則？",
+        "speak": "「天」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「天」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "天",
+          "word": "天"
+        }
+      },
+      {
+        "prompt": "「木」的筆順要遵守哪一條規則？",
+        "speak": "「木」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「木」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先橫後豎",
+          "先中間後封口",
+          "先撇後捺",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "木",
+          "word": "木"
+        }
+      },
+      {
+        "prompt": "「大」的筆順要遵守哪一條規則？",
+        "speak": "「大」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「大」的筆順是「先撇後捺」。",
+        "answer": "先撇後捺",
+        "options": [
+          "先中間後封口",
+          "先撇後捺",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "大",
+          "word": "大"
+        }
+      }
+    ],
+    "3": [
+      {
+        "prompt": "「月」的筆順要遵守哪一條規則？",
+        "speak": "「月」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「月」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "月",
+          "word": "月"
+        }
+      },
+      {
+        "prompt": "「同」的筆順要遵守哪一條規則？",
+        "speak": "「同」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「同」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先中間後封口",
+          "先橫後豎",
+          "先撇後捺",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "同",
+          "word": "同"
+        }
+      },
+      {
+        "prompt": "「用」的筆順要遵守哪一條規則？",
+        "speak": "「用」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「用」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先外後內",
+          "先中間後封口",
+          "先撇後捺",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "用",
+          "word": "用"
+        }
+      },
+      {
+        "prompt": "「問」的筆順要遵守哪一條規則？",
+        "speak": "「問」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「問」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先外後內",
+          "先撇後捺",
+          "先橫後豎",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "問",
+          "word": "問"
+        }
+      },
+      {
+        "prompt": "「風」的筆順要遵守哪一條規則？",
+        "speak": "「風」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「風」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "風",
+          "word": "風"
+        }
+      },
+      {
+        "prompt": "「司」的筆順要遵守哪一條規則？",
+        "speak": "「司」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「司」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先中間後封口",
+          "先撇後捺",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "司",
+          "word": "司"
+        }
+      },
+      {
+        "prompt": "「閃」的筆順要遵守哪一條規則？",
+        "speak": "「閃」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「閃」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先橫後豎",
+          "先外後內",
+          "先中間後封口",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "閃",
+          "word": "閃"
+        }
+      },
+      {
+        "prompt": "「田」的筆順要遵守哪一條規則？",
+        "speak": "「田」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「田」的筆順是「先外後內」。",
+        "answer": "先外後內",
+        "options": [
+          "先外後內",
+          "先撇後捺",
+          "先中間後封口",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "田",
+          "word": "田"
+        }
+      }
+    ],
+    "4": [
+      {
+        "prompt": "「回」的筆順要遵守哪一條規則？",
+        "speak": "「回」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「回」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先橫後豎",
+          "先撇後捺",
+          "先中間後封口",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "回",
+          "word": "回"
+        }
+      },
+      {
+        "prompt": "「國」的筆順要遵守哪一條規則？",
+        "speak": "「國」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「國」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先中間後封口",
+          "先撇後捺",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "國",
+          "word": "國"
+        }
+      },
+      {
+        "prompt": "「圈」的筆順要遵守哪一條規則？",
+        "speak": "「圈」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「圈」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺",
+          "先中間後封口"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "圈",
+          "word": "圈"
+        }
+      },
+      {
+        "prompt": "「團」的筆順要遵守哪一條規則？",
+        "speak": "「團」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「團」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先中間後封口",
+          "先外後內",
+          "先撇後捺",
+          "先橫後豎"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "團",
+          "word": "團"
+        }
+      },
+      {
+        "prompt": "「圖」的筆順要遵守哪一條規則？",
+        "speak": "「圖」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「圖」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先中間後封口",
+          "先撇後捺",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "圖",
+          "word": "圖"
+        }
+      },
+      {
+        "prompt": "「圍」的筆順要遵守哪一條規則？",
+        "speak": "「圍」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「圍」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先中間後封口",
+          "先外後內",
+          "先橫後豎",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "圍",
+          "word": "圍"
+        }
+      },
+      {
+        "prompt": "「園」的筆順要遵守哪一條規則？",
+        "speak": "「園」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「園」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先橫後豎",
+          "先外後內",
+          "先中間後封口",
+          "先撇後捺"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "園",
+          "word": "園"
+        }
+      },
+      {
+        "prompt": "「圓」的筆順要遵守哪一條規則？",
+        "speak": "「圓」的筆順要遵守哪一條規則？",
+        "hint": "先寫哪一筆、後寫哪一筆？",
+        "explanation": "「圓」的筆順是「先中間後封口」。",
+        "answer": "先中間後封口",
+        "options": [
+          "先撇後捺",
+          "先中間後封口",
+          "先橫後豎",
+          "先外後內"
+        ],
+        "category": "筆順規則",
+        "visual": {
+          "type": "chinese",
+          "character": "圓",
+          "word": "圓"
+        }
+      }
+    ],
+    "5": [
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「河」的部首是「氵」（水部，跟水有關）。",
+        "answer": "河",
+        "options": [
+          "熱",
+          "河",
+          "林",
+          "吃"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "河",
+          "word": "河"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「海」的部首是「氵」（水部，跟水有關）。",
+        "answer": "海",
+        "options": [
+          "森",
+          "海",
+          "燈",
+          "吃"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "海",
+          "word": "海"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「洗」的部首是「氵」（水部，跟水有關）。",
+        "answer": "洗",
+        "options": [
+          "桌",
+          "熱",
+          "洗",
+          "叫"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "洗",
+          "word": "洗"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「湖」的部首是「氵」（水部，跟水有關）。",
+        "answer": "湖",
+        "options": [
+          "煮",
+          "湖",
+          "林",
+          "唱"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "湖",
+          "word": "湖"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「泳」的部首是「氵」（水部，跟水有關）。",
+        "answer": "泳",
+        "options": [
+          "問",
+          "椅",
+          "燒",
+          "泳"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "泳",
+          "word": "泳"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「汗」的部首是「氵」（水部，跟水有關）。",
+        "answer": "汗",
+        "options": [
+          "汗",
+          "吃",
+          "樹",
+          "熱"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "汗",
+          "word": "汗"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「游」的部首是「氵」（水部，跟水有關）。",
+        "answer": "游",
+        "options": [
+          "游",
+          "林",
+          "燈",
+          "喝"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "游",
+          "word": "游"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「氵」？",
+        "speak": "下面哪個字的部首是「氵」？",
+        "hint": "部首代表這個字的類別：水部，跟水有關。",
+        "explanation": "「沒」的部首是「氵」（水部，跟水有關）。",
+        "answer": "沒",
+        "options": [
+          "叫",
+          "桌",
+          "沒",
+          "煮"
+        ],
+        "category": "部首水部",
+        "visual": {
+          "type": "chinese",
+          "character": "沒",
+          "word": "沒"
+        }
+      }
+    ],
+    "6": [
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「熱」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "熱",
+        "options": [
+          "河",
+          "林",
+          "熱",
+          "吃"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "熱",
+          "word": "熱"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「煮」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "煮",
+        "options": [
+          "喝",
+          "森",
+          "煮",
+          "海"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "煮",
+          "word": "煮"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「燒」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "燒",
+        "options": [
+          "燒",
+          "叫",
+          "桌",
+          "洗"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "燒",
+          "word": "燒"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「燈」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "燈",
+        "options": [
+          "問",
+          "湖",
+          "燈",
+          "椅"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "燈",
+          "word": "燈"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「照」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "照",
+        "options": [
+          "吃",
+          "照",
+          "林",
+          "汗"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "照",
+          "word": "照"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「烈」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "烈",
+        "options": [
+          "烈",
+          "唱",
+          "河",
+          "椅"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "烈",
+          "word": "烈"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「災」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "災",
+        "options": [
+          "災",
+          "泳",
+          "桌",
+          "喝"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "災",
+          "word": "災"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「灬／火」？",
+        "speak": "下面哪個字的部首是「灬／火」？",
+        "hint": "部首代表這個字的類別：火部，跟火有關。",
+        "explanation": "「烤」的部首是「灬／火」（火部，跟火有關）。",
+        "answer": "烤",
+        "options": [
+          "森",
+          "烤",
+          "沒",
+          "叫"
+        ],
+        "category": "部首火部",
+        "visual": {
+          "type": "chinese",
+          "character": "烤",
+          "word": "烤"
+        }
+      }
+    ],
+    "7": [
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「林」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "林",
+        "options": [
+          "吃",
+          "河",
+          "林",
+          "熱"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "林",
+          "word": "林"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「森」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "森",
+        "options": [
+          "森",
+          "燈",
+          "海",
+          "叫"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "森",
+          "word": "森"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「桌」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "桌",
+        "options": [
+          "洗",
+          "煮",
+          "喝",
+          "桌"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "桌",
+          "word": "桌"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「椅」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "椅",
+        "options": [
+          "問",
+          "椅",
+          "湖",
+          "燒"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "椅",
+          "word": "椅"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「樹」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "樹",
+        "options": [
+          "河",
+          "樹",
+          "唱",
+          "熱"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "樹",
+          "word": "樹"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「橋」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "橋",
+        "options": [
+          "燈",
+          "吃",
+          "汗",
+          "橋"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "橋",
+          "word": "橋"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「村」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "村",
+        "options": [
+          "海",
+          "照",
+          "叫",
+          "村"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "村",
+          "word": "村"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「木」？",
+        "speak": "下面哪個字的部首是「木」？",
+        "hint": "部首代表這個字的類別：木部，跟木頭有關。",
+        "explanation": "「松」的部首是「木」（木部，跟木頭有關）。",
+        "answer": "松",
+        "options": [
+          "洗",
+          "災",
+          "松",
+          "喝"
+        ],
+        "category": "部首木部",
+        "visual": {
+          "type": "chinese",
+          "character": "松",
+          "word": "松"
+        }
+      }
+    ],
+    "8": [
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「吃」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "吃",
+        "options": [
+          "河",
+          "林",
+          "熱",
+          "吃"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "吃",
+          "word": "吃"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「喝」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "喝",
+        "options": [
+          "森",
+          "燈",
+          "喝",
+          "洗"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "喝",
+          "word": "喝"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「叫」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "叫",
+        "options": [
+          "海",
+          "叫",
+          "燒",
+          "桌"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "叫",
+          "word": "叫"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「唱」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "唱",
+        "options": [
+          "煮",
+          "椅",
+          "唱",
+          "橋"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "唱",
+          "word": "唱"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「問」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "問",
+        "options": [
+          "湖",
+          "林",
+          "熱",
+          "問"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "問",
+          "word": "問"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「吹」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "吹",
+        "options": [
+          "燈",
+          "森",
+          "吹",
+          "河"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "吹",
+          "word": "吹"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「味」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "味",
+        "options": [
+          "洗",
+          "燒",
+          "樹",
+          "味"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "味",
+          "word": "味"
+        }
+      },
+      {
+        "prompt": "下面哪個字的部首是「口」？",
+        "speak": "下面哪個字的部首是「口」？",
+        "hint": "部首代表這個字的類別：口部，跟嘴巴有關。",
+        "explanation": "「和」的部首是「口」（口部，跟嘴巴有關）。",
+        "answer": "和",
+        "options": [
+          "和",
+          "熱",
+          "海",
+          "村"
+        ],
+        "category": "部首口部",
+        "visual": {
+          "type": "chinese",
+          "character": "和",
+          "word": "和"
+        }
+      }
+    ],
+    "9": [
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「明」是左右結構。",
+        "answer": "明",
+        "options": [
+          "花",
+          "明",
+          "回",
+          "尖"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "明",
+          "word": "明"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「好」是左右結構。",
+        "answer": "好",
+        "options": [
+          "國",
+          "好",
+          "炎",
+          "想"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "好",
+          "word": "好"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「你」是左右結構。",
+        "answer": "你",
+        "options": [
+          "花",
+          "圈",
+          "你",
+          "尖"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "你",
+          "word": "你"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「他」是左右結構。",
+        "answer": "他",
+        "options": [
+          "想",
+          "回",
+          "他",
+          "炎"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "他",
+          "word": "他"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「住」是左右結構。",
+        "answer": "住",
+        "options": [
+          "住",
+          "花",
+          "國",
+          "尖"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "住",
+          "word": "住"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「位」是左右結構。",
+        "answer": "位",
+        "options": [
+          "圈",
+          "炎",
+          "位",
+          "想"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "位",
+          "word": "位"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「打」是左右結構。",
+        "answer": "打",
+        "options": [
+          "打",
+          "花",
+          "尖",
+          "回"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "打",
+          "word": "打"
+        }
+      },
+      {
+        "prompt": "下面哪個字是左右結構？",
+        "speak": "下面哪個字是左右結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「說」是左右結構。",
+        "answer": "說",
+        "options": [
+          "說",
+          "炎",
+          "想",
+          "國"
+        ],
+        "category": "結構左右",
+        "visual": {
+          "type": "chinese",
+          "character": "說",
+          "word": "說"
+        }
+      }
+    ],
+    "10": [
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「尖」是上下結構。",
+        "answer": "尖",
+        "options": [
+          "尖",
+          "回",
+          "明",
+          "好"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "尖",
+          "word": "尖"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「炎」是上下結構。",
+        "answer": "炎",
+        "options": [
+          "炎",
+          "明",
+          "你",
+          "國"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "炎",
+          "word": "炎"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「花」是上下結構。",
+        "answer": "花",
+        "options": [
+          "圈",
+          "好",
+          "花",
+          "他"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "花",
+          "word": "花"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「想」是上下結構。",
+        "answer": "想",
+        "options": [
+          "明",
+          "想",
+          "你",
+          "回"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "想",
+          "word": "想"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「早」是上下結構。",
+        "answer": "早",
+        "options": [
+          "好",
+          "國",
+          "他",
+          "早"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "早",
+          "word": "早"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「星」是上下結構。",
+        "answer": "星",
+        "options": [
+          "圈",
+          "你",
+          "明",
+          "星"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "星",
+          "word": "星"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「草」是上下結構。",
+        "answer": "草",
+        "options": [
+          "草",
+          "回",
+          "他",
+          "好"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "草",
+          "word": "草"
+        }
+      },
+      {
+        "prompt": "下面哪個字是上下結構？",
+        "speak": "下面哪個字是上下結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「冒」是上下結構。",
+        "answer": "冒",
+        "options": [
+          "冒",
+          "你",
+          "國",
+          "明"
+        ],
+        "category": "結構上下",
+        "visual": {
+          "type": "chinese",
+          "character": "冒",
+          "word": "冒"
+        }
+      }
+    ],
+    "11": [
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「回」是包圍結構。",
+        "answer": "回",
+        "options": [
+          "尖",
+          "回",
+          "花",
+          "明"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "回",
+          "word": "回"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「國」是包圍結構。",
+        "answer": "國",
+        "options": [
+          "國",
+          "炎",
+          "想",
+          "好"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "國",
+          "word": "國"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「圈」是包圍結構。",
+        "answer": "圈",
+        "options": [
+          "花",
+          "尖",
+          "圈",
+          "明"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "圈",
+          "word": "圈"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「團」是包圍結構。",
+        "answer": "團",
+        "options": [
+          "想",
+          "團",
+          "好",
+          "炎"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "團",
+          "word": "團"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「圖」是包圍結構。",
+        "answer": "圖",
+        "options": [
+          "好",
+          "圖",
+          "花",
+          "尖"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "圖",
+          "word": "圖"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「圍」是包圍結構。",
+        "answer": "圍",
+        "options": [
+          "想",
+          "炎",
+          "明",
+          "圍"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "圍",
+          "word": "圍"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「四」是包圍結構。",
+        "answer": "四",
+        "options": [
+          "四",
+          "你",
+          "花",
+          "尖"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "四",
+          "word": "四"
+        }
+      },
+      {
+        "prompt": "下面哪個字是包圍結構？",
+        "speak": "下面哪個字是包圍結構？",
+        "hint": "把字拆成兩半，看看它們怎麼擺。",
+        "explanation": "「圓」是包圍結構。",
+        "answer": "圓",
+        "options": [
+          "好",
+          "明",
+          "圓",
+          "炎"
+        ],
+        "category": "結構包圍",
+        "visual": {
+          "type": "chinese",
+          "character": "圓",
+          "word": "圓"
+        }
+      }
+    ],
+    "12": [
+      {
+        "prompt": "「想」是由部件拼成的哪一種結構？",
+        "speak": "「想」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「想」是「上下結構」。",
+        "answer": "上下結構",
+        "options": [
+          "左右結構",
+          "包圍結構",
+          "上下結構",
+          "獨體結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "想",
+          "word": "想"
+        }
+      },
+      {
+        "prompt": "「花」是由部件拼成的哪一種結構？",
+        "speak": "「花」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「花」是「上下結構」。",
+        "answer": "上下結構",
+        "options": [
+          "包圍結構",
+          "左右結構",
+          "獨體結構",
+          "上下結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "花",
+          "word": "花"
+        }
+      },
+      {
+        "prompt": "「明」是由部件拼成的哪一種結構？",
+        "speak": "「明」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「明」是「左右結構」。",
+        "answer": "左右結構",
+        "options": [
+          "左右結構",
+          "包圍結構",
+          "獨體結構",
+          "上下結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "明",
+          "word": "明"
+        }
+      },
+      {
+        "prompt": "「好」是由部件拼成的哪一種結構？",
+        "speak": "「好」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「好」是「左右結構」。",
+        "answer": "左右結構",
+        "options": [
+          "包圍結構",
+          "左右結構",
+          "獨體結構",
+          "上下結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "好",
+          "word": "好"
+        }
+      },
+      {
+        "prompt": "「回」是由部件拼成的哪一種結構？",
+        "speak": "「回」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「回」是「包圍結構」。",
+        "answer": "包圍結構",
+        "options": [
+          "上下結構",
+          "獨體結構",
+          "左右結構",
+          "包圍結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "回",
+          "word": "回"
+        }
+      },
+      {
+        "prompt": "「國」是由部件拼成的哪一種結構？",
+        "speak": "「國」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「國」是「包圍結構」。",
+        "answer": "包圍結構",
+        "options": [
+          "左右結構",
+          "獨體結構",
+          "包圍結構",
+          "上下結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "國",
+          "word": "國"
+        }
+      },
+      {
+        "prompt": "「尖」是由部件拼成的哪一種結構？",
+        "speak": "「尖」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「尖」是「上下結構」。",
+        "answer": "上下結構",
+        "options": [
+          "獨體結構",
+          "包圍結構",
+          "上下結構",
+          "左右結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "尖",
+          "word": "尖"
+        }
+      },
+      {
+        "prompt": "「打」是由部件拼成的哪一種結構？",
+        "speak": "「打」是由部件拼成的哪一種結構？",
+        "hint": "先把它拆成部件，再看部件怎麼擺。",
+        "explanation": "「打」是「左右結構」。",
+        "answer": "左右結構",
+        "options": [
+          "獨體結構",
+          "包圍結構",
+          "左右結構",
+          "上下結構"
+        ],
+        "category": "部件組合",
+        "visual": {
+          "type": "chinese",
+          "character": "打",
+          "word": "打"
+        }
+      }
+    ],
+    "13": [
+      {
+        "prompt": "「己」的封口狀況是哪一個？",
+        "speak": "「己」的封口狀況是哪一個？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「己」是「全開」。",
+        "answer": "全開",
+        "options": [
+          "半開",
+          "多一點",
+          "全閉",
+          "全開"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "己",
+          "word": "己"
+        }
+      },
+      {
+        "prompt": "「已」的封口狀況是哪一個？",
+        "speak": "「已」的封口狀況是哪一個？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「已」是「半開」。",
+        "answer": "半開",
+        "options": [
+          "全閉",
+          "全開",
+          "半開",
+          "多一點"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "已",
+          "word": "已"
+        }
+      },
+      {
+        "prompt": "「巳」的封口狀況是哪一個？",
+        "speak": "「巳」的封口狀況是哪一個？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「巳」是「全閉」。",
+        "answer": "全閉",
+        "options": [
+          "全閉",
+          "半開",
+          "全開",
+          "多一點"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "巳",
+          "word": "巳"
+        }
+      },
+      {
+        "prompt": "「自＿」的「＿」應該填哪個字？",
+        "speak": "「自空格」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「自己」要寫「己」。",
+        "answer": "己",
+        "options": [
+          "了",
+          "己",
+          "已",
+          "巳"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "己",
+          "word": "自＿"
+        }
+      },
+      {
+        "prompt": "「＿經」的「＿」應該填哪個字？",
+        "speak": "「空格經」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「已經」要寫「已」。",
+        "answer": "已",
+        "options": [
+          "巳",
+          "己",
+          "了",
+          "已"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "已",
+          "word": "＿經"
+        }
+      },
+      {
+        "prompt": "「早＿」的「＿」應該填哪個字？",
+        "speak": "「早空格」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「早已」要寫「已」。",
+        "answer": "已",
+        "options": [
+          "巳",
+          "了",
+          "已",
+          "己"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "已",
+          "word": "早＿"
+        }
+      },
+      {
+        "prompt": "「自＿介紹」的「＿」應該填哪個字？",
+        "speak": "「自空格介紹」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「自己介紹」要寫「己」。",
+        "answer": "己",
+        "options": [
+          "己",
+          "了",
+          "已",
+          "巳"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "己",
+          "word": "自＿介紹"
+        }
+      },
+      {
+        "prompt": "「＿時」的「＿」應該填哪個字？",
+        "speak": "「空格時」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「巳時」要寫「巳」。",
+        "answer": "巳",
+        "options": [
+          "了",
+          "己",
+          "巳",
+          "已"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "巳",
+          "word": "＿時"
+        }
+      }
+    ],
+    "14": [
+      {
+        "prompt": "「未」的橫畫怎麼分？",
+        "speak": "「未」的橫畫怎麼分？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「未」是「上短下長」。",
+        "answer": "上短下長",
+        "options": [
+          "兩橫一樣長",
+          "上長下短",
+          "有三橫",
+          "上短下長"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "未",
+          "word": "未"
+        }
+      },
+      {
+        "prompt": "「末」的橫畫怎麼分？",
+        "speak": "「末」的橫畫怎麼分？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「末」是「上長下短」。",
+        "answer": "上長下短",
+        "options": [
+          "上短下長",
+          "兩橫一樣長",
+          "有三橫",
+          "上長下短"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "末",
+          "word": "末"
+        }
+      },
+      {
+        "prompt": "「土」的橫畫怎麼分？",
+        "speak": "「土」的橫畫怎麼分？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「土」是「下橫長」。",
+        "answer": "下橫長",
+        "options": [
+          "下橫長",
+          "兩橫一樣長",
+          "上橫長",
+          "有兩豎"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "土",
+          "word": "土"
+        }
+      },
+      {
+        "prompt": "「士」的橫畫怎麼分？",
+        "speak": "「士」的橫畫怎麼分？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「士」是「上橫長」。",
+        "answer": "上橫長",
+        "options": [
+          "下橫長",
+          "上橫長",
+          "兩橫一樣長",
+          "有兩豎"
+        ],
+        "category": "形近字辨識",
+        "visual": {
+          "type": "chinese",
+          "character": "士",
+          "word": "士"
+        }
+      },
+      {
+        "prompt": "「＿來」的「＿」應該填哪個字？",
+        "speak": "「空格來」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「未來」要寫「未」。",
+        "answer": "未",
+        "options": [
+          "末",
+          "土",
+          "未",
+          "士"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "未",
+          "word": "＿來"
+        }
+      },
+      {
+        "prompt": "「期＿」的「＿」應該填哪個字？",
+        "speak": "「期空格」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「期末」要寫「末」。",
+        "answer": "末",
+        "options": [
+          "末",
+          "未",
+          "土",
+          "士"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "末",
+          "word": "期＿"
+        }
+      },
+      {
+        "prompt": "「＿地」的「＿」應該填哪個字？",
+        "speak": "「空格地」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「土地」要寫「土」。",
+        "answer": "土",
+        "options": [
+          "士",
+          "土",
+          "末",
+          "未"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "土",
+          "word": "＿地"
+        }
+      },
+      {
+        "prompt": "「戰＿」的「＿」應該填哪個字？",
+        "speak": "「戰空格」的「空格」應該填哪個字？",
+        "hint": "己全開、已半開、巳全閉；未短上長下、末長上短下、土下長、士上長。",
+        "explanation": "「戰士」要寫「士」。",
+        "answer": "士",
+        "options": [
+          "末",
+          "未",
+          "土",
+          "士"
+        ],
+        "category": "選字填空",
+        "visual": {
+          "type": "chinese",
+          "character": "士",
+          "word": "戰＿"
+        }
+      }
+    ],
+    "15": [
+      {
+        "prompt": "一（＿）蘋果，應該用哪個量詞？",
+        "speak": "一（空格）蘋果，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一個蘋果」。",
+        "answer": "個",
+        "options": [
+          "本",
+          "隻",
+          "個",
+          "棵"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "個",
+          "word": "蘋果"
+        }
+      },
+      {
+        "prompt": "一（＿）小貓，應該用哪個量詞？",
+        "speak": "一（空格）小貓，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一隻小貓」。",
+        "answer": "隻",
+        "options": [
+          "個",
+          "棵",
+          "隻",
+          "本"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "隻",
+          "word": "小貓"
+        }
+      },
+      {
+        "prompt": "一（＿）樹，應該用哪個量詞？",
+        "speak": "一（空格）樹，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一棵樹」。",
+        "answer": "棵",
+        "options": [
+          "本",
+          "個",
+          "棵",
+          "隻"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "樹",
+          "word": "樹"
+        }
+      },
+      {
+        "prompt": "一（＿）書，應該用哪個量詞？",
+        "speak": "一（空格）書，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一本書」。",
+        "answer": "本",
+        "options": [
+          "個",
+          "隻",
+          "棵",
+          "本"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "書",
+          "word": "書"
+        }
+      },
+      {
+        "prompt": "一（＿）小狗，應該用哪個量詞？",
+        "speak": "一（空格）小狗，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一隻小狗」。",
+        "answer": "隻",
+        "options": [
+          "本",
+          "隻",
+          "個",
+          "棵"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "隻",
+          "word": "小狗"
+        }
+      },
+      {
+        "prompt": "一（＿）橘子，應該用哪個量詞？",
+        "speak": "一（空格）橘子，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一個橘子」。",
+        "answer": "個",
+        "options": [
+          "個",
+          "棵",
+          "本",
+          "隻"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "個",
+          "word": "橘子"
+        }
+      },
+      {
+        "prompt": "一（＿）大樹，應該用哪個量詞？",
+        "speak": "一（空格）大樹，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一棵大樹」。",
+        "answer": "棵",
+        "options": [
+          "本",
+          "棵",
+          "個",
+          "隻"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "棵",
+          "word": "大樹"
+        }
+      },
+      {
+        "prompt": "一（＿）故事書，應該用哪個量詞？",
+        "speak": "一（空格）故事書，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一本故事書」。",
+        "answer": "本",
+        "options": [
+          "個",
+          "本",
+          "棵",
+          "隻"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "本",
+          "word": "故事書"
+        }
+      }
+    ],
+    "16": [
+      {
+        "prompt": "一（＿）紙，應該用哪個量詞？",
+        "speak": "一（空格）紙，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一張紙」。",
+        "answer": "張",
+        "options": [
+          "匹",
+          "頭",
+          "張",
+          "朵"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "紙",
+          "word": "紙"
+        }
+      },
+      {
+        "prompt": "一（＿）馬，應該用哪個量詞？",
+        "speak": "一（空格）馬，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一匹馬」。",
+        "answer": "匹",
+        "options": [
+          "朵",
+          "張",
+          "頭",
+          "匹"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "馬",
+          "word": "馬"
+        }
+      },
+      {
+        "prompt": "一（＿）牛，應該用哪個量詞？",
+        "speak": "一（空格）牛，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一頭牛」。",
+        "answer": "頭",
+        "options": [
+          "朵",
+          "匹",
+          "張",
+          "頭"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "牛",
+          "word": "牛"
+        }
+      },
+      {
+        "prompt": "一（＿）花，應該用哪個量詞？",
+        "speak": "一（空格）花，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一朵花」。",
+        "answer": "朵",
+        "options": [
+          "頭",
+          "朵",
+          "匹",
+          "張"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "花",
+          "word": "花"
+        }
+      },
+      {
+        "prompt": "一（＿）桌子，應該用哪個量詞？",
+        "speak": "一（空格）桌子，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一張桌子」。",
+        "answer": "張",
+        "options": [
+          "頭",
+          "朵",
+          "張",
+          "匹"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "張",
+          "word": "桌子"
+        }
+      },
+      {
+        "prompt": "一（＿）大象，應該用哪個量詞？",
+        "speak": "一（空格）大象，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一頭大象」。",
+        "answer": "頭",
+        "options": [
+          "匹",
+          "張",
+          "朵",
+          "頭"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "頭",
+          "word": "大象"
+        }
+      },
+      {
+        "prompt": "一（＿）床，應該用哪個量詞？",
+        "speak": "一（空格）床，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一張床」。",
+        "answer": "張",
+        "options": [
+          "頭",
+          "朵",
+          "張",
+          "匹"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "床",
+          "word": "床"
+        }
+      },
+      {
+        "prompt": "一（＿）白雲，應該用哪個量詞？",
+        "speak": "一（空格）白雲，應該用哪個量詞？",
+        "hint": "想想平常怎麼幫它數數。",
+        "explanation": "正確說法是「一朵白雲」。",
+        "answer": "朵",
+        "options": [
+          "朵",
+          "匹",
+          "張",
+          "頭"
+        ],
+        "category": "量詞",
+        "visual": {
+          "type": "chinese",
+          "character": "朵",
+          "word": "白雲"
+        }
+      }
+    ]
+  }
+}

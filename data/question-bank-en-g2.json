@@ -1,0 +1,1321 @@
+{
+  "generatedAt": "2026-10-25T17:00:00.000Z",
+  "subject": "english",
+  "grade": 2,
+  "gradeName": "國小二年級 · 奇幻英文島",
+  "targetPerLevel": 8,
+  "levels": {
+    "1": [
+      {
+        "prompt": "聽一聽：哪個單字以 /b/ 開頭？",
+        "speak": "Which word starts with b? bug, hug, mug",
+        "hint": "小蟲蟲 bug 開頭是 b 喔！",
+        "explanation": "bug 以 /b/ 開頭，hug 以 /h/ 開頭，mug 以 /m/ 開頭。",
+        "answer": "bug",
+        "options": ["bug", "hug", "mug"],
+        "optionEmojis": ["🐛", "🤗", "🥤"],
+        "visual": { "type": "scene", "emojis": ["🐛"], "text": "b u g" }
+      },
+      {
+        "prompt": "hug 的結尾音是什麼？",
+        "speak": "What is the ending sound of hug?",
+        "hint": "hug 最後一個字母是 g 喔！",
+        "explanation": "hug 結尾是 /g/ 音，不是 /b/ 或 /d/。",
+        "answer": "/g/",
+        "options": ["/g/", "/b/", "/d/"],
+        "optionEmojis": ["🐛", "🐜", "🥁"],
+        "visual": { "type": "scene", "emojis": ["🤗"], "text": "h u g" }
+      },
+      {
+        "prompt": "c_b 缺了哪個母音字母？",
+        "speak": "What letter is missing in c b?",
+        "hint": "小熊 cub 中間是 u 喔！",
+        "explanation": "cub 中間缺了 u，不是 a 或 o。",
+        "answer": "u",
+        "options": ["u", "a", "o"],
+        "optionEmojis": ["🐻", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🐻"], "text": "c _ b" }
+      },
+      {
+        "prompt": "看圖選單字：🐛 是什麼？",
+        "speak": "What is this? It is a bug.",
+        "hint": "小蟲蟲在英文叫 bug 喔！",
+        "explanation": "🐛 是 bug（蟲），不是 hug（擁抱）或 mug（杯子）。",
+        "answer": "bug",
+        "options": ["bug", "hug", "mug"],
+        "optionEmojis": ["🐛", "🤗", "🥤"],
+        "visual": { "type": "scene", "emojis": ["🐛"], "text": "b u g" }
+      },
+      {
+        "prompt": "mug 是什麼意思？",
+        "speak": "What does mug mean?",
+        "hint": "mug 是喝水用的杯子喔！",
+        "explanation": "mug 是杯子，bug 是蟲，hug 是擁抱。",
+        "answer": "杯子",
+        "options": ["杯子", "蟲", "擁抱"],
+        "optionEmojis": ["🥤", "🐛", "🤗"],
+        "visual": { "type": "scene", "emojis": ["🥤"], "text": "m u g" }
+      },
+      {
+        "prompt": "哪個單字和 hug 押韻？",
+        "speak": "Which word rhymes with hug?",
+        "hint": "結尾都是 ug 的就是押韻喔！",
+        "explanation": "bug 和 hug 結尾都是 -ug，所以押韻。cat 和 pen 不押韻。",
+        "answer": "bug",
+        "options": ["bug", "cat", "pen"],
+        "optionEmojis": ["🐛", "🐱", "🖊️"],
+        "visual": { "type": "scene", "emojis": ["🐛", "🤗"], "text": "bug hug" }
+      },
+      {
+        "prompt": "What is this? 🥤",
+        "speak": "What is this? It is a mug.",
+        "hint": "喝水的杯子英文叫 mug 喔！",
+        "explanation": "🥤 是 mug（杯子），不是 bug 或 hug。",
+        "answer": "mug",
+        "options": ["mug", "bug", "hug"],
+        "optionEmojis": ["🥤", "🐛", "🤗"],
+        "visual": { "type": "scene", "emojis": ["🥤"], "text": "m u g" }
+      },
+      {
+        "prompt": "drum 以哪個音開頭？",
+        "speak": "What sound does drum start with?",
+        "hint": "打鼓 drum 開頭是 d 喔！",
+        "explanation": "drum 以 /d/ 開頭，不是 /b/ 或 /c/。",
+        "answer": "/d/",
+        "options": ["/d/", "/b/", "/c/"],
+        "optionEmojis": ["🥁", "🐛", "🐻"],
+        "visual": { "type": "scene", "emojis": ["🥁"], "text": "d r u m" }
+      }
+    ],
+    "2": [
+      {
+        "prompt": "聽一聽：哪個單字以 /n/ 開頭？",
+        "speak": "Which word starts with n? net, pen, hen",
+        "hint": "捕蟲網 net 開頭是 n 喔！",
+        "explanation": "net 以 /n/ 開頭，pen 以 /p/ 開頭，hen 以 /h/ 開頭。",
+        "answer": "net",
+        "options": ["net", "pen", "hen"],
+        "optionEmojis": ["🕸️", "🖊️", "🐔"],
+        "visual": { "type": "scene", "emojis": ["🕸️"], "text": "n e t" }
+      },
+      {
+        "prompt": "bed 的結尾音是什麼？",
+        "speak": "What is the ending sound of bed?",
+        "hint": "小床 bed 最後一個字母是 d 喔！",
+        "explanation": "bed 結尾是 /d/ 音，不是 /t/ 或 /n/。",
+        "answer": "/d/",
+        "options": ["/d/", "/t/", "/n/"],
+        "optionEmojis": ["🛏️", "🕸️", "🖊️"],
+        "visual": { "type": "scene", "emojis": ["🛏️"], "text": "b e d" }
+      },
+      {
+        "prompt": "p_n 缺了哪個母音字母？",
+        "speak": "What letter is missing in p n?",
+        "hint": "筆 pen 中間是 e 喔！",
+        "explanation": "pen 中間缺了 e，不是 a 或 o。",
+        "answer": "e",
+        "options": ["e", "a", "o"],
+        "optionEmojis": ["🖊️", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🖊️"], "text": "p _ n" }
+      },
+      {
+        "prompt": "看圖選單字：🐔 是什麼？",
+        "speak": "What is this? It is a hen.",
+        "hint": "母雞在英文叫 hen 喔！",
+        "explanation": "🐔 是 hen（母雞），不是 pen（筆）或 net（網）。",
+        "answer": "hen",
+        "options": ["hen", "pen", "net"],
+        "optionEmojis": ["🐔", "🖊️", "🕸️"],
+        "visual": { "type": "scene", "emojis": ["🐔"], "text": "h e n" }
+      },
+      {
+        "prompt": "ten 是什麼意思？",
+        "speak": "What does ten mean?",
+        "hint": "十根手指頭就是 ten 喔！",
+        "explanation": "ten 是十，two 是二，five 是五。",
+        "answer": "十",
+        "options": ["十", "二", "五"],
+        "optionEmojis": ["🔟", "2️⃣", "5️⃣"],
+        "visual": { "type": "scene", "emojis": ["🔟"], "text": "t e n" }
+      },
+      {
+        "prompt": "哪個單字和 pen 押韻？",
+        "speak": "Which word rhymes with pen?",
+        "hint": "結尾都是 en 的就是押韻喔！",
+        "explanation": "hen 和 pen 結尾都是 -en，所以押韻。cat 和 bug 不押韻。",
+        "answer": "hen",
+        "options": ["hen", "cat", "bug"],
+        "optionEmojis": ["🐔", "🐱", "🐛"],
+        "visual": { "type": "scene", "emojis": ["🐔", "🖊️"], "text": "hen pen" }
+      },
+      {
+        "prompt": "How many fingers? ✋✋",
+        "speak": "How many fingers? Ten.",
+        "hint": "兩隻手十根手指就是 ten 喔！",
+        "explanation": "兩隻手共十根手指，答案是 ten。",
+        "answer": "ten",
+        "options": ["ten", "two", "five"],
+        "optionEmojis": ["🔟", "2️⃣", "5️⃣"],
+        "visual": { "type": "scene", "emojis": ["✋", "✋"], "text": "10 fingers" }
+      },
+      {
+        "prompt": "red 以哪個音開頭？",
+        "speak": "What sound does red start with?",
+        "hint": "紅色 red 開頭是 r 喔！",
+        "explanation": "red 以 /r/ 開頭，不是 /b/ 或 /d/。",
+        "answer": "/r/",
+        "options": ["/r/", "/b/", "/d/"],
+        "optionEmojis": ["🔴", "🐛", "🥁"],
+        "visual": { "type": "scene", "emojis": ["🔴"], "text": "r e d" }
+      }
+    ],
+    "3": [
+      {
+        "prompt": "聽一聽：哪個單字以 /k/ 開頭？",
+        "speak": "Which word starts with k? cat, hat, mat",
+        "hint": "小貓咪 cat 開頭是 c 發 /k/ 音喔！",
+        "explanation": "cat 以 /k/ 開頭，hat 以 /h/ 開頭，mat 以 /m/ 開頭。",
+        "answer": "cat",
+        "options": ["cat", "hat", "mat"],
+        "optionEmojis": ["🐱", "🎩", "🧘"],
+        "visual": { "type": "scene", "emojis": ["🐱"], "text": "c a t" }
+      },
+      {
+        "prompt": "cap 的結尾音是什麼？",
+        "speak": "What is the ending sound of cap?",
+        "hint": "棒球帽 cap 最後一個字母是 p 喔！",
+        "explanation": "cap 結尾是 /p/ 音，不是 /t/ 或 /b/。",
+        "answer": "/p/",
+        "options": ["/p/", "/t/", "/b/"],
+        "optionEmojis": ["🧢", "🐱", "🐛"],
+        "visual": { "type": "scene", "emojis": ["🧢"], "text": "c a p" }
+      },
+      {
+        "prompt": "h_t 缺了哪個母音字母？",
+        "speak": "What letter is missing in h t?",
+        "hint": "帽子 hat 中間是 a 喔！",
+        "explanation": "hat 中間缺了 a，不是 e 或 o。",
+        "answer": "a",
+        "options": ["a", "e", "o"],
+        "optionEmojis": ["🎩", "🐔", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🎩"], "text": "h _ t" }
+      },
+      {
+        "prompt": "看圖選單字：🎩 是什麼？",
+        "speak": "What is this? It is a hat.",
+        "hint": "禮帽在英文叫 hat 喔！",
+        "explanation": "🎩 是 hat（帽子），不是 cat（貓）或 mat（墊子）。",
+        "answer": "hat",
+        "options": ["hat", "cat", "mat"],
+        "optionEmojis": ["🎩", "🐱", "🧘"],
+        "visual": { "type": "scene", "emojis": ["🎩"], "text": "h a t" }
+      },
+      {
+        "prompt": "map 是什麼意思？",
+        "speak": "What does map mean?",
+        "hint": "map 是看路用的地圖喔！",
+        "explanation": "map 是地圖，hat 是帽子，rat 是老鼠。",
+        "answer": "地圖",
+        "options": ["地圖", "帽子", "老鼠"],
+        "optionEmojis": ["🗺️", "🎩", "🐀"],
+        "visual": { "type": "scene", "emojis": ["🗺️"], "text": "m a p" }
+      },
+      {
+        "prompt": "哪個單字和 rat 押韻？",
+        "speak": "Which word rhymes with rat?",
+        "hint": "結尾都是 at 的就是押韻喔！",
+        "explanation": "cat 和 rat 結尾都是 -at，所以押韻。cap 和 pen 不押韻。",
+        "answer": "cat",
+        "options": ["cat", "cap", "pen"],
+        "optionEmojis": ["🐱", "🧢", "🖊️"],
+        "visual": { "type": "scene", "emojis": ["🐱", "🐀"], "text": "cat rat" }
+      },
+      {
+        "prompt": "What is this? 🐀",
+        "speak": "What is this? It is a rat.",
+        "hint": "小老鼠在英文叫 rat 喔！",
+        "explanation": "🐀 是 rat（老鼠），不是 cat 或 hat。",
+        "answer": "rat",
+        "options": ["rat", "cat", "hat"],
+        "optionEmojis": ["🐀", "🐱", "🎩"],
+        "visual": { "type": "scene", "emojis": ["🐀"], "text": "r a t" }
+      },
+      {
+        "prompt": "mat 以哪個音開頭？",
+        "speak": "What sound does mat start with?",
+        "hint": "瑜伽墊 mat 開頭是 m 喔！",
+        "explanation": "mat 以 /m/ 開頭，不是 /c/ 或 /h/。",
+        "answer": "/m/",
+        "options": ["/m/", "/c/", "/h/"],
+        "optionEmojis": ["🧘", "🐱", "🎩"],
+        "visual": { "type": "scene", "emojis": ["🧘"], "text": "m a t" }
+      }
+    ],
+    "4": [
+      {
+        "prompt": "聽一聽：哪個單字以 /p/ 開頭？",
+        "speak": "Which word starts with p? pig, big, dig",
+        "hint": "小豬 pig 開頭是 p 喔！",
+        "explanation": "pig 以 /p/ 開頭，big 以 /b/ 開頭，dig 以 /d/ 開頭。",
+        "answer": "pig",
+        "options": ["pig", "big", "dig"],
+        "optionEmojis": ["🐷", "📏", "⛏️"],
+        "visual": { "type": "scene", "emojis": ["🐷"], "text": "p i g" }
+      },
+      {
+        "prompt": "pin 的結尾音是什麼？",
+        "speak": "What is the ending sound of pin?",
+        "hint": "別針 pin 最後一個字母是 n 喔！",
+        "explanation": "pin 結尾是 /n/ 音，不是 /g/ 或 /d/。",
+        "answer": "/n/",
+        "options": ["/n/", "/g/", "/d/"],
+        "optionEmojis": ["📌", "🐷", "⛏️"],
+        "visual": { "type": "scene", "emojis": ["📌"], "text": "p i n" }
+      },
+      {
+        "prompt": "b_g 缺了哪個母音字母？",
+        "speak": "What letter is missing in b g?",
+        "hint": "大大的 big 中間是 i 喔！",
+        "explanation": "big 中間缺了 i，不是 a 或 o。",
+        "answer": "i",
+        "options": ["i", "a", "o"],
+        "optionEmojis": ["📏", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["📏"], "text": "b _ g" }
+      },
+      {
+        "prompt": "看圖選單字：🐷 是什麼？",
+        "speak": "What is this? It is a pig.",
+        "hint": "小豬在英文叫 pig 喔！",
+        "explanation": "🐷 是 pig（豬），不是 pin（別針）或 fin（魚鰭）。",
+        "answer": "pig",
+        "options": ["pig", "pin", "fin"],
+        "optionEmojis": ["🐷", "📌", "🦈"],
+        "visual": { "type": "scene", "emojis": ["🐷"], "text": "p i g" }
+      },
+      {
+        "prompt": "win 是什麼意思？",
+        "speak": "What does win mean?",
+        "hint": "比賽贏了就是 win 喔！",
+        "explanation": "win 是贏，big 是大，dig 是挖。",
+        "answer": "贏",
+        "options": ["贏", "大", "挖"],
+        "optionEmojis": ["🏆", "📏", "⛏️"],
+        "visual": { "type": "scene", "emojis": ["🏆"], "text": "w i n" }
+      },
+      {
+        "prompt": "哪個單字和 dig 押韻？",
+        "speak": "Which word rhymes with dig?",
+        "hint": "結尾都是 ig 的就是押韻喔！",
+        "explanation": "pig 和 dig 結尾都是 -ig，所以押韻。pin 和 win 結尾是 -in，不押韻。",
+        "answer": "pig",
+        "options": ["pig", "pin", "win"],
+        "optionEmojis": ["🐷", "📌", "🏆"],
+        "visual": { "type": "scene", "emojis": ["🐷", "⛏️"], "text": "pig dig" }
+      },
+      {
+        "prompt": "What is this? 🦈",
+        "speak": "What is this? It is a fin.",
+        "hint": "鯊魚的鰭在英文叫 fin 喔！",
+        "explanation": "🦈 的鰭是 fin，不是 pin 或 win。",
+        "answer": "fin",
+        "options": ["fin", "pin", "win"],
+        "optionEmojis": ["🦈", "📌", "🏆"],
+        "visual": { "type": "scene", "emojis": ["🦈"], "text": "f i n" }
+      },
+      {
+        "prompt": "big 以哪個音開頭？",
+        "speak": "What sound does big start with?",
+        "hint": "大大的 big 開頭是 b 喔！",
+        "explanation": "big 以 /b/ 開頭，不是 /p/ 或 /d/。",
+        "answer": "/b/",
+        "options": ["/b/", "/p/", "/d/"],
+        "optionEmojis": ["📏", "🐷", "⛏️"],
+        "visual": { "type": "scene", "emojis": ["📏"], "text": "b i g" }
+      }
+    ],
+    "5": [
+      {
+        "prompt": "聽一聽：哪個單字以 /m/ 開頭？",
+        "speak": "Which word starts with m? mop, top, hop",
+        "hint": "拖把 mop 開頭是 m 喔！",
+        "explanation": "mop 以 /m/ 開頭，top 以 /t/ 開頭，hop 以 /h/ 開頭。",
+        "answer": "mop",
+        "options": ["mop", "top", "hop"],
+        "optionEmojis": ["🧹", "🔝", "🐰"],
+        "visual": { "type": "scene", "emojis": ["🧹"], "text": "m o p" }
+      },
+      {
+        "prompt": "hot 的結尾音是什麼？",
+        "speak": "What is the ending sound of hot?",
+        "hint": "熱熱的 hot 最後一個字母是 t 喔！",
+        "explanation": "hot 結尾是 /t/ 音，不是 /p/ 或 /b/。",
+        "answer": "/t/",
+        "options": ["/t/", "/p/", "/b/"],
+        "optionEmojis": ["🔥", "🧹", "🐛"],
+        "visual": { "type": "scene", "emojis": ["🔥"], "text": "h o t" }
+      },
+      {
+        "prompt": "p_t 缺了哪個母音字母？",
+        "speak": "What letter is missing in p t?",
+        "hint": "鍋子 pot 中間是 o 喔！",
+        "explanation": "pot 中間缺了 o，不是 a 或 e。",
+        "answer": "o",
+        "options": ["o", "a", "e"],
+        "optionEmojis": ["🍲", "🐱", "🐔"],
+        "visual": { "type": "scene", "emojis": ["🍲"], "text": "p _ t" }
+      },
+      {
+        "prompt": "看圖選單字：🧹 是什麼？",
+        "speak": "What is this? It is a mop.",
+        "hint": "拖地在英文叫 mop 喔！",
+        "explanation": "🧹 是 mop（拖把），不是 top（頂端）或 hop（跳）。",
+        "answer": "mop",
+        "options": ["mop", "top", "hop"],
+        "optionEmojis": ["🧹", "🔝", "🐰"],
+        "visual": { "type": "scene", "emojis": ["🧹"], "text": "m o p" }
+      },
+      {
+        "prompt": "not 是什麼意思？",
+        "speak": "What does not mean?",
+        "hint": "not 就是「不」的意思喔！",
+        "explanation": "not 是不，top 是頂端，hop 是跳。",
+        "answer": "不",
+        "options": ["不", "頂端", "跳"],
+        "optionEmojis": ["🚫", "🔝", "🐰"],
+        "visual": { "type": "scene", "emojis": ["🚫"], "text": "n o t" }
+      },
+      {
+        "prompt": "哪個單字和 hop 押韻？",
+        "speak": "Which word rhymes with hop?",
+        "hint": "結尾都是 op 的就是押韻喔！",
+        "explanation": "top 和 hop 結尾都是 -op，所以押韻。hot 結尾是 -ot，不押韻。",
+        "answer": "top",
+        "options": ["top", "hot", "pen"],
+        "optionEmojis": ["🔝", "🔥", "🖊️"],
+        "visual": { "type": "scene", "emojis": ["🔝", "🐰"], "text": "top hop" }
+      },
+      {
+        "prompt": "What is this? 🔥",
+        "speak": "What is this? It is hot.",
+        "hint": "好燙好熱就是 hot 喔！",
+        "explanation": "🔥 是 hot（熱），不是 mop 或 top。",
+        "answer": "hot",
+        "options": ["hot", "mop", "top"],
+        "optionEmojis": ["🔥", "🧹", "🔝"],
+        "visual": { "type": "scene", "emojis": ["🔥"], "text": "h o t" }
+      },
+      {
+        "prompt": "pot 以哪個音開頭？",
+        "speak": "What sound does pot start with?",
+        "hint": "鍋子 pot 開頭是 p 喔！",
+        "explanation": "pot 以 /p/ 開頭，不是 /m/ 或 /h/。",
+        "answer": "/p/",
+        "options": ["/p/", "/m/", "/h/"],
+        "optionEmojis": ["🍲", "🧹", "🐰"],
+        "visual": { "type": "scene", "emojis": ["🍲"], "text": "p o t" }
+      }
+    ],
+    "6": [
+      {
+        "prompt": "聽一聽：哪個單字以 /r/ 開頭？",
+        "speak": "Which word starts with r? rug, mug, bug",
+        "hint": "地毯 rug 開頭是 r 喔！",
+        "explanation": "rug 以 /r/ 開頭，mug 以 /m/ 開頭，bug 以 /b/ 開頭。",
+        "answer": "rug",
+        "options": ["rug", "mug", "bug"],
+        "optionEmojis": ["🟫", "🥤", "🐛"],
+        "visual": { "type": "scene", "emojis": ["🟫"], "text": "r u g" }
+      },
+      {
+        "prompt": "sun 的結尾音是什麼？",
+        "speak": "What is the ending sound of sun?",
+        "hint": "太陽 sun 最後一個字母是 n 喔！",
+        "explanation": "sun 結尾是 /n/ 音，不是 /g/ 或 /b/。",
+        "answer": "/n/",
+        "options": ["/n/", "/g/", "/b/"],
+        "optionEmojis": ["☀️", "🐛", "🐜"],
+        "visual": { "type": "scene", "emojis": ["☀️"], "text": "s u n" }
+      },
+      {
+        "prompt": "r_n 缺了哪個母音字母？",
+        "speak": "What letter is missing in r n?",
+        "hint": "跑步 run 中間是 u 喔！",
+        "explanation": "run 中間缺了 u，不是 a 或 o。",
+        "answer": "u",
+        "options": ["u", "a", "o"],
+        "optionEmojis": ["🏃", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🏃"], "text": "r _ n" }
+      },
+      {
+        "prompt": "看圖選單字：☀️ 是什麼？",
+        "speak": "What is this? It is the sun.",
+        "hint": "太陽在英文叫 sun 喔！",
+        "explanation": "☀️ 是 sun（太陽），不是 run（跑）或 fun（好玩）。",
+        "answer": "sun",
+        "options": ["sun", "run", "fun"],
+        "optionEmojis": ["☀️", "🏃", "🎉"],
+        "visual": { "type": "scene", "emojis": ["☀️"], "text": "s u n" }
+      },
+      {
+        "prompt": "fun 是什麼意思？",
+        "speak": "What does fun mean?",
+        "hint": "好玩就是 fun 喔！",
+        "explanation": "fun 是好玩，run 是跑，rug 是地毯。",
+        "answer": "好玩",
+        "options": ["好玩", "跑", "地毯"],
+        "optionEmojis": ["🎉", "🏃", "🟫"],
+        "visual": { "type": "scene", "emojis": ["🎉"], "text": "f u n" }
+      },
+      {
+        "prompt": "哪個單字和 mug 押韻？",
+        "speak": "Which word rhymes with mug?",
+        "hint": "結尾都是 ug 的就是押韻喔！",
+        "explanation": "bug 和 mug 結尾都是 -ug，所以押韻。sun 和 run 結尾是 -un，不押韻。",
+        "answer": "bug",
+        "options": ["bug", "sun", "run"],
+        "optionEmojis": ["🐛", "☀️", "🏃"],
+        "visual": { "type": "scene", "emojis": ["🐛", "🥤"], "text": "bug mug" }
+      },
+      {
+        "prompt": "What is this? 🏃",
+        "speak": "What is this? It is run.",
+        "hint": "跑步在英文叫 run 喔！",
+        "explanation": "🏃 是 run（跑），不是 sun 或 fun。",
+        "answer": "run",
+        "options": ["run", "sun", "fun"],
+        "optionEmojis": ["🏃", "☀️", "🎉"],
+        "visual": { "type": "scene", "emojis": ["🏃"], "text": "r u n" }
+      },
+      {
+        "prompt": "rug 以哪個音開頭？",
+        "speak": "What sound does rug start with?",
+        "hint": "地毯 rug 開頭是 r 喔！",
+        "explanation": "rug 以 /r/ 開頭，不是 /m/ 或 /s/。",
+        "answer": "/r/",
+        "options": ["/r/", "/m/", "/s/"],
+        "optionEmojis": ["🟫", "🥤", "☀️"],
+        "visual": { "type": "scene", "emojis": ["🟫"], "text": "r u g" }
+      }
+    ],
+    "7": [
+      {
+        "prompt": "聽一聽：哪個單字以 /sh/ 開頭？",
+        "speak": "Which word starts with sh? ship, fish, dish",
+        "hint": "大船 ship 開頭是 sh 喔！",
+        "explanation": "ship 以 /sh/ 開頭，fish 以 /f/ 開頭，dish 以 /d/ 開頭。",
+        "answer": "ship",
+        "options": ["ship", "fish", "dish"],
+        "optionEmojis": ["🚢", "🐟", "🍽️"],
+        "visual": { "type": "scene", "emojis": ["🚢"], "text": "s h i p" }
+      },
+      {
+        "prompt": "fish 的結尾音是什麼？",
+        "speak": "What is the ending sound of fish?",
+        "hint": "小魚 fish 最後兩個字母是 sh 喔！",
+        "explanation": "fish 結尾是 /sh/ 音，不是 /ch/ 或 /th/。",
+        "answer": "/sh/",
+        "options": ["/sh/", "/ch/", "/th/"],
+        "optionEmojis": ["🐟", "🍟", "🦷"],
+        "visual": { "type": "scene", "emojis": ["🐟"], "text": "f i s h" }
+      },
+      {
+        "prompt": "sh_p 缺了哪個母音字母？",
+        "speak": "What letter is missing in sh p?",
+        "hint": "大船 ship 中間是 i 喔！",
+        "explanation": "ship 中間缺了 i，不是 e 或 o。",
+        "answer": "i",
+        "options": ["i", "e", "o"],
+        "optionEmojis": ["🚢", "🐔", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🚢"], "text": "sh _ p" }
+      },
+      {
+        "prompt": "看圖選單字：🚢 是什麼？",
+        "speak": "What is this? It is a ship.",
+        "hint": "大船在英文叫 ship 喔！",
+        "explanation": "🚢 是 ship（船），不是 shop（商店）或 shell（貝殼）。",
+        "answer": "ship",
+        "options": ["ship", "shop", "shell"],
+        "optionEmojis": ["🚢", "🏪", "🐚"],
+        "visual": { "type": "scene", "emojis": ["🚢"], "text": "s h i p" }
+      },
+      {
+        "prompt": "shoe 是什麼意思？",
+        "speak": "What does shoe mean?",
+        "hint": "穿在腳上的鞋子就是 shoe 喔！",
+        "explanation": "shoe 是鞋子，fish 是魚，dish 是盤子。",
+        "answer": "鞋子",
+        "options": ["鞋子", "魚", "盤子"],
+        "optionEmojis": ["👟", "🐟", "🍽️"],
+        "visual": { "type": "scene", "emojis": ["👟"], "text": "s h o e" }
+      },
+      {
+        "prompt": "哪個單字含有 sh 音？",
+        "speak": "Which word has the sh sound?",
+        "hint": "fish 最後有 sh 音喔！",
+        "explanation": "fish 含有 /sh/ 音。chip 含有 /ch/，bath 含有 /th/。",
+        "answer": "fish",
+        "options": ["fish", "chip", "bath"],
+        "optionEmojis": ["🐟", "🍟", "🛁"],
+        "visual": { "type": "scene", "emojis": ["🐟"], "text": "f i s h" }
+      },
+      {
+        "prompt": "What is this? 🐟",
+        "speak": "What is this? It is a fish.",
+        "hint": "小魚在英文叫 fish 喔！",
+        "explanation": "🐟 是 fish（魚），不是 dish 或 shell。",
+        "answer": "fish",
+        "options": ["fish", "dish", "shell"],
+        "optionEmojis": ["🐟", "🍽️", "🐚"],
+        "visual": { "type": "scene", "emojis": ["🐟"], "text": "f i s h" }
+      },
+      {
+        "prompt": "shop 以哪個音開頭？",
+        "speak": "What sound does shop start with?",
+        "hint": "商店 shop 開頭是 sh 喔！",
+        "explanation": "shop 以 /sh/ 開頭，不是 /ch/ 或 /th/。",
+        "answer": "/sh/",
+        "options": ["/sh/", "/ch/", "/th/"],
+        "optionEmojis": ["🏪", "🍟", "🦷"],
+        "visual": { "type": "scene", "emojis": ["🏪"], "text": "s h o p" }
+      }
+    ],
+    "8": [
+      {
+        "prompt": "聽一聽：哪個單字以 /ch/ 開頭？",
+        "speak": "Which word starts with ch? chip, ship, thin",
+        "hint": "薯條 chip 開頭是 ch 喔！",
+        "explanation": "chip 以 /ch/ 開頭，ship 以 /sh/ 開頭，thin 以 /th/ 開頭。",
+        "answer": "chip",
+        "options": ["chip", "ship", "thin"],
+        "optionEmojis": ["🍟", "🚢", "📏"],
+        "visual": { "type": "scene", "emojis": ["🍟"], "text": "c h i p" }
+      },
+      {
+        "prompt": "watch 的結尾音是什麼？",
+        "speak": "What is the ending sound of watch?",
+        "hint": "手錶 watch 最後兩個字母是 ch 喔！",
+        "explanation": "watch 結尾是 /ch/ 音，不是 /sh/ 或 /th/。",
+        "answer": "/ch/",
+        "options": ["/ch/", "/sh/", "/th/"],
+        "optionEmojis": ["⌚", "🐟", "🦷"],
+        "visual": { "type": "scene", "emojis": ["⌚"], "text": "w a t c h" }
+      },
+      {
+        "prompt": "ch_t 缺了哪個母音字母？",
+        "speak": "What letter is missing in ch t?",
+        "hint": "聊天 chat 中間是 a 喔！",
+        "explanation": "chat 中間缺了 a，不是 e 或 o。",
+        "answer": "a",
+        "options": ["a", "e", "o"],
+        "optionEmojis": ["💬", "🐔", "🐶"],
+        "visual": { "type": "scene", "emojis": ["💬"], "text": "ch _ t" }
+      },
+      {
+        "prompt": "看圖選單字：🪑 是什麼？",
+        "speak": "What is this? It is a chair.",
+        "hint": "椅子在英文叫 chair 喔！",
+        "explanation": "🪑 是 chair（椅子），不是 chip（薯條）或 chat（聊天）。",
+        "answer": "chair",
+        "options": ["chair", "chip", "chat"],
+        "optionEmojis": ["🪑", "🍟", "💬"],
+        "visual": { "type": "scene", "emojis": ["🪑"], "text": "c h a i r" }
+      },
+      {
+        "prompt": "lunch 是什麼意思？",
+        "speak": "What does lunch mean?",
+        "hint": "中午吃飯就是 lunch 喔！",
+        "explanation": "lunch 是午餐，chair 是椅子，watch 是手錶。",
+        "answer": "午餐",
+        "options": ["午餐", "椅子", "手錶"],
+        "optionEmojis": ["🍱", "🪑", "⌚"],
+        "visual": { "type": "scene", "emojis": ["🍱"], "text": "l u n c h" }
+      },
+      {
+        "prompt": "哪個單字含有 ch 音？",
+        "speak": "Which word has the ch sound?",
+        "hint": "桃子 peach 最後有 ch 音喔！",
+        "explanation": "peach 含有 /ch/ 音。fish 含有 /sh/，bath 含有 /th/。",
+        "answer": "peach",
+        "options": ["peach", "fish", "bath"],
+        "optionEmojis": ["🍑", "🐟", "🛁"],
+        "visual": { "type": "scene", "emojis": ["🍑"], "text": "p e a c h" }
+      },
+      {
+        "prompt": "What is this? ⌚",
+        "speak": "What is this? It is a watch.",
+        "hint": "手錶在英文叫 watch 喔！",
+        "explanation": "⌚ 是 watch（手錶），不是 chair 或 lunch。",
+        "answer": "watch",
+        "options": ["watch", "chair", "lunch"],
+        "optionEmojis": ["⌚", "🪑", "🍱"],
+        "visual": { "type": "scene", "emojis": ["⌚"], "text": "w a t c h" }
+      },
+      {
+        "prompt": "chat 以哪個音開頭？",
+        "speak": "What sound does chat start with?",
+        "hint": "聊天 chat 開頭是 ch 喔！",
+        "explanation": "chat 以 /ch/ 開頭，不是 /sh/ 或 /th/。",
+        "answer": "/ch/",
+        "options": ["/ch/", "/sh/", "/th/"],
+        "optionEmojis": ["💬", "🐟", "🦷"],
+        "visual": { "type": "scene", "emojis": ["💬"], "text": "c h a t" }
+      }
+    ],
+    "9": [
+      {
+        "prompt": "聽一聽：哪個單字以 /th/ 開頭？",
+        "speak": "Which word starts with th? thin, chip, ship",
+        "hint": "瘦瘦的 thin 開頭是 th 喔！",
+        "explanation": "thin 以 /th/ 開頭，chip 以 /ch/ 開頭，ship 以 /sh/ 開頭。",
+        "answer": "thin",
+        "options": ["thin", "chip", "ship"],
+        "optionEmojis": ["📏", "🍟", "🚢"],
+        "visual": { "type": "scene", "emojis": ["📏"], "text": "t h i n" }
+      },
+      {
+        "prompt": "mouth 的結尾音是什麼？",
+        "speak": "What is the ending sound of mouth?",
+        "hint": "嘴巴 mouth 最後兩個字母是 th 喔！",
+        "explanation": "mouth 結尾是 /th/ 音，不是 /ch/ 或 /sh/。",
+        "answer": "/th/",
+        "options": ["/th/", "/ch/", "/sh/"],
+        "optionEmojis": ["👄", "🍟", "🐟"],
+        "visual": { "type": "scene", "emojis": ["👄"], "text": "m o u t h" }
+      },
+      {
+        "prompt": "b_th 缺了哪個母音字母？",
+        "speak": "What letter is missing in b th?",
+        "hint": "洗澡 bath 中間是 a 喔！",
+        "explanation": "bath 中間缺了 a，不是 e 或 o。",
+        "answer": "a",
+        "options": ["a", "e", "o"],
+        "optionEmojis": ["🛁", "🐔", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🛁"], "text": "b _ th" }
+      },
+      {
+        "prompt": "看圖選單字：🦷 是什麼？",
+        "speak": "What is this? It is a tooth.",
+        "hint": "牙齒在英文叫 tooth 喔！",
+        "explanation": "🦷 是 tooth（牙齒），不是 thin（瘦）或 thick（厚）。",
+        "answer": "tooth",
+        "options": ["tooth", "thin", "thick"],
+        "optionEmojis": ["🦷", "📏", "📐"],
+        "visual": { "type": "scene", "emojis": ["🦷"], "text": "t o o t h" }
+      },
+      {
+        "prompt": "three 是什麼意思？",
+        "speak": "What does three mean?",
+        "hint": "三就是 three 喔！",
+        "explanation": "three 是三，two 是二，ten 是十。",
+        "answer": "三",
+        "options": ["三", "二", "十"],
+        "optionEmojis": ["3️⃣", "2️⃣", "🔟"],
+        "visual": { "type": "scene", "emojis": ["3️⃣"], "text": "t h r e e" }
+      },
+      {
+        "prompt": "哪個單字含有 th 音？",
+        "speak": "Which word has the th sound?",
+        "hint": "洗澡 bath 最後有 th 音喔！",
+        "explanation": "bath 含有 /th/ 音。chip 含有 /ch/，fish 含有 /sh/。",
+        "answer": "bath",
+        "options": ["bath", "chip", "fish"],
+        "optionEmojis": ["🛁", "🍟", "🐟"],
+        "visual": { "type": "scene", "emojis": ["🛁"], "text": "b a t h" }
+      },
+      {
+        "prompt": "How many fingers? ✌️☝️",
+        "speak": "How many? Three.",
+        "hint": "三根手指就是 three 喔！",
+        "explanation": "三根手指答案是 three，不是 two 或 ten。",
+        "answer": "three",
+        "options": ["three", "two", "ten"],
+        "optionEmojis": ["3️⃣", "2️⃣", "🔟"],
+        "visual": { "type": "scene", "emojis": ["✌️", "☝️"], "text": "3 fingers" }
+      },
+      {
+        "prompt": "thick 以哪個音開頭？",
+        "speak": "What sound does thick start with?",
+        "hint": "厚厚的 thick 開頭是 th 喔！",
+        "explanation": "thick 以 /th/ 開頭，不是 /ch/ 或 /sh/。",
+        "answer": "/th/",
+        "options": ["/th/", "/ch/", "/sh/"],
+        "optionEmojis": ["📐", "🍟", "🐟"],
+        "visual": { "type": "scene", "emojis": ["📐"], "text": "t h i c k" }
+      }
+    ],
+    "10": [
+      {
+        "prompt": "聽一聽：哪個單字以 /bl/ 開頭？",
+        "speak": "Which word starts with bl? black, clock, class",
+        "hint": "黑色 black 開頭是 bl 喔！",
+        "explanation": "black 以 /bl/ 開頭，clock 以 /cl/ 開頭，class 以 /cl/ 開頭。",
+        "answer": "black",
+        "options": ["black", "clock", "class"],
+        "optionEmojis": ["⚫", "🕐", "🏫"],
+        "visual": { "type": "scene", "emojis": ["⚫"], "text": "b l a c k" }
+      },
+      {
+        "prompt": "clock 的結尾音是什麼？",
+        "speak": "What is the ending sound of clock?",
+        "hint": "時鐘 clock 最後一個字母是 k 喔！",
+        "explanation": "clock 結尾是 /k/ 音，不是 /s/ 或 /t/。",
+        "answer": "/k/",
+        "options": ["/k/", "/s/", "/t/"],
+        "optionEmojis": ["🕐", "🐍", "🥁"],
+        "visual": { "type": "scene", "emojis": ["🕐"], "text": "c l o c k" }
+      },
+      {
+        "prompt": "bl_e 缺了哪個母音字母？",
+        "speak": "What letter is missing in bl e?",
+        "hint": "藍色 blue 中間是 u 喔！",
+        "explanation": "blue 中間缺了 u，不是 a 或 o。",
+        "answer": "u",
+        "options": ["u", "a", "o"],
+        "optionEmojis": ["🔵", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🔵"], "text": "bl _ e" }
+      },
+      {
+        "prompt": "看圖選單字：🕐 是什麼？",
+        "speak": "What is this? It is a clock.",
+        "hint": "時鐘在英文叫 clock 喔！",
+        "explanation": "🕐 是 clock（時鐘），不是 block（積木）或 class（班級）。",
+        "answer": "clock",
+        "options": ["clock", "block", "class"],
+        "optionEmojis": ["🕐", "🧱", "🏫"],
+        "visual": { "type": "scene", "emojis": ["🕐"], "text": "c l o c k" }
+      },
+      {
+        "prompt": "clean 是什麼意思？",
+        "speak": "What does clean mean?",
+        "hint": "乾淨就是 clean 喔！",
+        "explanation": "clean 是乾淨，black 是黑色，blue 是藍色。",
+        "answer": "乾淨",
+        "options": ["乾淨", "黑色", "藍色"],
+        "optionEmojis": ["✨", "⚫", "🔵"],
+        "visual": { "type": "scene", "emojis": ["✨"], "text": "c l e a n" }
+      },
+      {
+        "prompt": "哪個單字以 cl 開頭？",
+        "speak": "Which word starts with cl?",
+        "hint": "班級 class 開頭是 cl 喔！",
+        "explanation": "class 以 /cl/ 開頭。black 和 blue 以 /bl/ 開頭。",
+        "answer": "class",
+        "options": ["class", "black", "blue"],
+        "optionEmojis": ["🏫", "⚫", "🔵"],
+        "visual": { "type": "scene", "emojis": ["🏫"], "text": "c l a s s" }
+      },
+      {
+        "prompt": "What color is this? ⚫",
+        "speak": "What color is this? Black.",
+        "hint": "黑色就是 black 喔！",
+        "explanation": "⚫ 是 black（黑色），不是 blue 或 clean。",
+        "answer": "black",
+        "options": ["black", "blue", "clean"],
+        "optionEmojis": ["⚫", "🔵", "✨"],
+        "visual": { "type": "scene", "emojis": ["⚫"], "text": "b l a c k" }
+      },
+      {
+        "prompt": "block 以哪個音開頭？",
+        "speak": "What sound does block start with?",
+        "hint": "積木 block 開頭是 bl 喔！",
+        "explanation": "block 以 /bl/ 開頭，不是 /cl/ 或 /st/。",
+        "answer": "/bl/",
+        "options": ["/bl/", "/cl/", "/st/"],
+        "optionEmojis": ["🧱", "🕐", "🛑"],
+        "visual": { "type": "scene", "emojis": ["🧱"], "text": "b l o c k" }
+      }
+    ],
+    "11": [
+      {
+        "prompt": "聽一聽：哪個單字以 /st/ 開頭？",
+        "speak": "Which word starts with st? stop, spin, spot",
+        "hint": "停止 stop 開頭是 st 喔！",
+        "explanation": "stop 以 /st/ 開頭，spin 以 /sp/ 開頭，spot 以 /sp/ 開頭。",
+        "answer": "stop",
+        "options": ["stop", "spin", "spot"],
+        "optionEmojis": ["🛑", "🌀", "🔴"],
+        "visual": { "type": "scene", "emojis": ["🛑"], "text": "s t o p" }
+      },
+      {
+        "prompt": "spoon 的結尾音是什麼？",
+        "speak": "What is the ending sound of spoon?",
+        "hint": "湯匙 spoon 最後一個字母是 n 喔！",
+        "explanation": "spoon 結尾是 /n/ 音，不是 /p/ 或 /t/。",
+        "answer": "/n/",
+        "options": ["/n/", "/p/", "/t/"],
+        "optionEmojis": ["🥄", "🛑", "🥁"],
+        "visual": { "type": "scene", "emojis": ["🥄"], "text": "s p o o n" }
+      },
+      {
+        "prompt": "st_p 缺了哪個母音字母？",
+        "speak": "What letter is missing in st p?",
+        "hint": "停止 stop 中間是 o 喔！",
+        "explanation": "stop 中間缺了 o，不是 a 或 e。",
+        "answer": "o",
+        "options": ["o", "a", "e"],
+        "optionEmojis": ["🛑", "🐱", "🐔"],
+        "visual": { "type": "scene", "emojis": ["🛑"], "text": "st _ p" }
+      },
+      {
+        "prompt": "看圖選單字：⭐ 是什麼？",
+        "speak": "What is this? It is a star.",
+        "hint": "星星在英文叫 star 喔！",
+        "explanation": "⭐ 是 star（星星），不是 stop（停止）或 step（踏）。",
+        "answer": "star",
+        "options": ["star", "stop", "step"],
+        "optionEmojis": ["⭐", "🛑", "👣"],
+        "visual": { "type": "scene", "emojis": ["⭐"], "text": "s t a r" }
+      },
+      {
+        "prompt": "spin 是什麼意思？",
+        "speak": "What does spin mean?",
+        "hint": "轉圈圈就是 spin 喔！",
+        "explanation": "spin 是轉，stop 是停，spot 是點。",
+        "answer": "轉",
+        "options": ["轉", "停", "點"],
+        "optionEmojis": ["🌀", "🛑", "🔴"],
+        "visual": { "type": "scene", "emojis": ["🌀"], "text": "s p i n" }
+      },
+      {
+        "prompt": "哪個單字以 sp 開頭？",
+        "speak": "Which word starts with sp?",
+        "hint": "小紅點 spot 開頭是 sp 喔！",
+        "explanation": "spot 以 /sp/ 開頭。stop 和 star 以 /st/ 開頭。",
+        "answer": "spot",
+        "options": ["spot", "stop", "star"],
+        "optionEmojis": ["🔴", "🛑", "⭐"],
+        "visual": { "type": "scene", "emojis": ["🔴"], "text": "s p o t" }
+      },
+      {
+        "prompt": "What is this? 🥄",
+        "speak": "What is this? It is a spoon.",
+        "hint": "湯匙在英文叫 spoon 喔！",
+        "explanation": "🥄 是 spoon（湯匙），不是 spin 或 spot。",
+        "answer": "spoon",
+        "options": ["spoon", "spin", "spot"],
+        "optionEmojis": ["🥄", "🌀", "🔴"],
+        "visual": { "type": "scene", "emojis": ["🥄"], "text": "s p o o n" }
+      },
+      {
+        "prompt": "step 以哪個音開頭？",
+        "speak": "What sound does step start with?",
+        "hint": "踏步 step 開頭是 st 喔！",
+        "explanation": "step 以 /st/ 開頭，不是 /sp/ 或 /bl/。",
+        "answer": "/st/",
+        "options": ["/st/", "/sp/", "/bl/"],
+        "optionEmojis": ["👣", "🌀", "🧱"],
+        "visual": { "type": "scene", "emojis": ["👣"], "text": "s t e p" }
+      }
+    ],
+    "12": [
+      {
+        "prompt": "cap 和 cape 哪個有長母音？",
+        "speak": "Which word has a long a? cap or cape?",
+        "hint": "cape 最後有 e，所以 a 發長音喔！",
+        "explanation": "cape 有長母音 /eɪ/，cap 是短母音 /æ/。",
+        "answer": "cape",
+        "options": ["cape", "cap", "tap"],
+        "optionEmojis": ["🦸", "🧢", "🚰"],
+        "visual": { "type": "scene", "emojis": ["🦸"], "text": "c a p e" }
+      },
+      {
+        "prompt": "kit 和 kite 哪個有長母音？",
+        "speak": "Which word has a long i? kit or kite?",
+        "hint": "kite 最後有 e，所以 i 發長音喔！",
+        "explanation": "kite 有長母音 /aɪ/，kit 是短母音 /ɪ/。",
+        "answer": "kite",
+        "options": ["kite", "kit", "pin"],
+        "optionEmojis": ["🪁", "🧰", "📌"],
+        "visual": { "type": "scene", "emojis": ["🪁"], "text": "k i t e" }
+      },
+      {
+        "prompt": "tap 加上哪個字母變成 tape？",
+        "speak": "What letter makes tape from tap?",
+        "hint": "tap 加上 e 就變成 tape 喔！",
+        "explanation": "tap 加上 e 變成 tape（膠帶），不是加 a 或 o。",
+        "answer": "e",
+        "options": ["e", "a", "o"],
+        "optionEmojis": ["🩹", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🩹"], "text": "t a p e" }
+      },
+      {
+        "prompt": "看圖選單字：🪁 是什麼？",
+        "speak": "What is this? It is a kite.",
+        "hint": "風箏在英文叫 kite 喔！",
+        "explanation": "🪁 是 kite（風箏），不是 kit（工具箱）或 pin（別針）。",
+        "answer": "kite",
+        "options": ["kite", "kit", "pin"],
+        "optionEmojis": ["🪁", "🧰", "📌"],
+        "visual": { "type": "scene", "emojis": ["🪁"], "text": "k i t e" }
+      },
+      {
+        "prompt": "pine 是什麼意思？",
+        "speak": "What does pine mean?",
+        "hint": "pine 是松樹喔！",
+        "explanation": "pine 是松樹，pin 是別針，cap 是帽子。",
+        "answer": "松樹",
+        "options": ["松樹", "別針", "帽子"],
+        "optionEmojis": ["🌲", "📌", "🧢"],
+        "visual": { "type": "scene", "emojis": ["🌲"], "text": "p i n e" }
+      },
+      {
+        "prompt": "hop 和 hope 哪個有長母音？",
+        "speak": "Which word has a long o? hop or hope?",
+        "hint": "hope 最後有 e，所以 o 發長音喔！",
+        "explanation": "hope 有長母音 /oʊ/，hop 是短母音 /ɒ/。",
+        "answer": "hope",
+        "options": ["hope", "hop", "tap"],
+        "optionEmojis": ["🌈", "🐰", "🚰"],
+        "visual": { "type": "scene", "emojis": ["🌈"], "text": "h o p e" }
+      },
+      {
+        "prompt": "What is this? 🩹",
+        "speak": "What is this? It is tape.",
+        "hint": "膠帶在英文叫 tape 喔！",
+        "explanation": "🩹 是 tape（膠帶），不是 tap（水龍頭）或 cape（披風）。",
+        "answer": "tape",
+        "options": ["tape", "tap", "cape"],
+        "optionEmojis": ["🩹", "🚰", "🦸"],
+        "visual": { "type": "scene", "emojis": ["🩹"], "text": "t a p e" }
+      },
+      {
+        "prompt": "pin 和 pine 哪個有長母音？",
+        "speak": "Which word has a long i? pin or pine?",
+        "hint": "pine 最後有 e，所以 i 發長音喔！",
+        "explanation": "pine 有長母音 /aɪ/，pin 是短母音 /ɪ/。",
+        "answer": "pine",
+        "options": ["pine", "pin", "cap"],
+        "optionEmojis": ["🌲", "📌", "🧢"],
+        "visual": { "type": "scene", "emojis": ["🌲"], "text": "p i n e" }
+      }
+    ],
+    "13": [
+      {
+        "prompt": "twelve 是幾？",
+        "speak": "What number is twelve?",
+        "hint": "twelve 是十二喔！",
+        "explanation": "twelve 是 12，two 是 2，twenty 是 20。",
+        "answer": "12",
+        "options": ["12", "2", "20"],
+        "optionEmojis": ["1️⃣2️⃣", "2️⃣", "2️⃣0️⃣"],
+        "visual": { "type": "scene", "emojis": ["1️⃣2️⃣"], "text": "t w e l v e" }
+      },
+      {
+        "prompt": "sixteen 是幾？",
+        "speak": "What number is sixteen?",
+        "hint": "sixteen 是十六喔！",
+        "explanation": "sixteen 是 16，six 是 6，sixty 是 60。",
+        "answer": "16",
+        "options": ["16", "6", "60"],
+        "optionEmojis": ["1️⃣6️⃣", "6️⃣", "6️⃣0️⃣"],
+        "visual": { "type": "scene", "emojis": ["1️⃣6️⃣"], "text": "s i x t e e n" }
+      },
+      {
+        "prompt": "t_n 缺了哪個母音字母？",
+        "speak": "What letter is missing in t n?",
+        "hint": "十 ten 中間是 e 喔！",
+        "explanation": "ten 中間缺了 e，不是 a 或 o。",
+        "answer": "e",
+        "options": ["e", "a", "o"],
+        "optionEmojis": ["🔟", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🔟"], "text": "t _ n" }
+      },
+      {
+        "prompt": "看圖選數字：7 根手指",
+        "speak": "How many? Seven.",
+        "hint": "七根手指就是 seven 喔！",
+        "explanation": "7 根手指是 seven，不是 five 或 ten。",
+        "answer": "seven",
+        "options": ["seven", "five", "ten"],
+        "optionEmojis": ["7️⃣", "5️⃣", "🔟"],
+        "visual": { "type": "scene", "emojis": ["7️⃣"], "text": "s e v e n" }
+      },
+      {
+        "prompt": "twenty 是什麼意思？",
+        "speak": "What does twenty mean?",
+        "hint": "twenty 是二十喔！",
+        "explanation": "twenty 是 20，twelve 是 12，two 是 2。",
+        "answer": "二十",
+        "options": ["二十", "十二", "二"],
+        "optionEmojis": ["2️⃣0️⃣", "1️⃣2️⃣", "2️⃣"],
+        "visual": { "type": "scene", "emojis": ["2️⃣0️⃣"], "text": "t w e n t y" }
+      },
+      {
+        "prompt": "How many stars? ⭐⭐⭐⭐⭐",
+        "speak": "How many stars? Five.",
+        "hint": "五顆星星就是 five 喔！",
+        "explanation": "五顆星星是 five，不是 four 或 six。",
+        "answer": "five",
+        "options": ["five", "four", "six"],
+        "optionEmojis": ["5️⃣", "4️⃣", "6️⃣"],
+        "visual": { "type": "scene", "emojis": ["⭐", "⭐", "⭐", "⭐"], "text": "5 stars" }
+      },
+      {
+        "prompt": "What number is this? 11",
+        "speak": "What number is eleven?",
+        "hint": "11 就是 eleven 喔！",
+        "explanation": "11 是 eleven，12 是 twelve，20 是 twenty。",
+        "answer": "eleven",
+        "options": ["eleven", "twelve", "twenty"],
+        "optionEmojis": ["1️⃣1️⃣", "1️⃣2️⃣", "2️⃣0️⃣"],
+        "visual": { "type": "scene", "emojis": ["1️⃣1️⃣"], "text": "e l e v e n" }
+      },
+      {
+        "prompt": "thirteen 是幾？",
+        "speak": "What number is thirteen?",
+        "hint": "thirteen 是十三喔！",
+        "explanation": "thirteen 是 13，three 是 3，thirty 是 30。",
+        "answer": "13",
+        "options": ["13", "3", "30"],
+        "optionEmojis": ["1️⃣3️⃣", "3️⃣", "3️⃣0️⃣"],
+        "visual": { "type": "scene", "emojis": ["1️⃣3️⃣"], "text": "t h i r t e e n" }
+      }
+    ],
+    "14": [
+      {
+        "prompt": "看圖選顏色：🔴 是什麼顏色？",
+        "speak": "What color is this? Red.",
+        "hint": "紅色就是 red 喔！",
+        "explanation": "🔴 是 red（紅色），不是 blue 或 green。",
+        "answer": "red",
+        "options": ["red", "blue", "green"],
+        "optionEmojis": ["🔴", "🔵", "🟢"],
+        "visual": { "type": "scene", "emojis": ["🔴"], "text": "r e d" }
+      },
+      {
+        "prompt": "blue 是什麼顏色？",
+        "speak": "What color is blue?",
+        "hint": "blue 是天空的顏色喔！",
+        "explanation": "blue 是藍色，red 是紅色，green 是綠色。",
+        "answer": "藍色",
+        "options": ["藍色", "紅色", "綠色"],
+        "optionEmojis": ["🔵", "🔴", "🟢"],
+        "visual": { "type": "scene", "emojis": ["🔵"], "text": "b l u e" }
+      },
+      {
+        "prompt": "看圖選形容詞：🐘 是大還是小？",
+        "speak": "Is the elephant big or small?",
+        "hint": "大象好大好大，就是 big 喔！",
+        "explanation": "大象很大，答案是 big。small 是小，tall 是高。",
+        "answer": "big",
+        "options": ["big", "small", "tall"],
+        "optionEmojis": ["🐘", "🐜", "🦒"],
+        "visual": { "type": "scene", "emojis": ["🐘"], "text": "b i g" }
+      },
+      {
+        "prompt": "small 是什麼意思？",
+        "speak": "What does small mean?",
+        "hint": "小小的就是 small 喔！",
+        "explanation": "small 是小，big 是大，tall 是高。",
+        "answer": "小",
+        "options": ["小", "大", "高"],
+        "optionEmojis": ["🐜", "🐘", "🦒"],
+        "visual": { "type": "scene", "emojis": ["🐜"], "text": "s m a l l" }
+      },
+      {
+        "prompt": "看圖選形容詞：🦒 是高還是矮？",
+        "speak": "Is the giraffe tall or short?",
+        "hint": "長頸鹿好高好高，就是 tall 喔！",
+        "explanation": "長頸鹿很高，答案是 tall。big 是大，small 是小。",
+        "answer": "tall",
+        "options": ["tall", "big", "small"],
+        "optionEmojis": ["🦒", "🐘", "🐜"],
+        "visual": { "type": "scene", "emojis": ["🦒"], "text": "t a l l" }
+      },
+      {
+        "prompt": "green 是什麼顏色？",
+        "speak": "What color is green?",
+        "hint": "green 是草地的顏色喔！",
+        "explanation": "green 是綠色，red 是紅色，blue 是藍色。",
+        "answer": "綠色",
+        "options": ["綠色", "紅色", "藍色"],
+        "optionEmojis": ["🟢", "🔴", "🔵"],
+        "visual": { "type": "scene", "emojis": ["🟢"], "text": "g r e e n" }
+      },
+      {
+        "prompt": "What color is the sky? ☁️",
+        "speak": "What color is the sky? Blue.",
+        "hint": "天空是藍色的喔！",
+        "explanation": "天空是 blue（藍色），不是 red 或 green。",
+        "answer": "blue",
+        "options": ["blue", "red", "green"],
+        "optionEmojis": ["🔵", "🔴", "🟢"],
+        "visual": { "type": "scene", "emojis": ["☁️", "🔵"], "text": "b l u e" }
+      },
+      {
+        "prompt": "看圖選形容詞：🐜 是大還是小？",
+        "speak": "Is the ant big or small?",
+        "hint": "螞蟻好小好小，就是 small 喔！",
+        "explanation": "螞蟻很小，答案是 small。big 是大，tall 是高。",
+        "answer": "small",
+        "options": ["small", "big", "tall"],
+        "optionEmojis": ["🐜", "🐘", "🦒"],
+        "visual": { "type": "scene", "emojis": ["🐜"], "text": "s m a l l" }
+      }
+    ],
+    "15": [
+      {
+        "prompt": "看圖選單字：👩 是誰？",
+        "speak": "Who is this? She is mom.",
+        "hint": "媽媽在英文叫 mom 喔！",
+        "explanation": "👩 是 mom（媽媽），不是 dad（爸爸）或 hand（手）。",
+        "answer": "mom",
+        "options": ["mom", "dad", "hand"],
+        "optionEmojis": ["👩", "👨", "✋"],
+        "visual": { "type": "scene", "emojis": ["👩"], "text": "m o m" }
+      },
+      {
+        "prompt": "dad 是什麼意思？",
+        "speak": "What does dad mean?",
+        "hint": "dad 是爸爸喔！",
+        "explanation": "dad 是爸爸，mom 是媽媽，foot 是腳。",
+        "answer": "爸爸",
+        "options": ["爸爸", "媽媽", "腳"],
+        "optionEmojis": ["👨", "👩", "🦶"],
+        "visual": { "type": "scene", "emojis": ["👨"], "text": "d a d" }
+      },
+      {
+        "prompt": "看圖選單字：✋ 是什麼？",
+        "speak": "What is this? It is a hand.",
+        "hint": "手在英文叫 hand 喔！",
+        "explanation": "✋ 是 hand（手），不是 foot（腳）或 mom（媽媽）。",
+        "answer": "hand",
+        "options": ["hand", "foot", "mom"],
+        "optionEmojis": ["✋", "🦶", "👩"],
+        "visual": { "type": "scene", "emojis": ["✋"], "text": "h a n d" }
+      },
+      {
+        "prompt": "foot 是什麼意思？",
+        "speak": "What does foot mean?",
+        "hint": "foot 是腳喔！",
+        "explanation": "foot 是腳，hand 是手，run 是跑。",
+        "answer": "腳",
+        "options": ["腳", "手", "跑"],
+        "optionEmojis": ["🦶", "✋", "🏃"],
+        "visual": { "type": "scene", "emojis": ["🦶"], "text": "f o o t" }
+      },
+      {
+        "prompt": "看圖選動作：🏃 是什麼動作？",
+        "speak": "What is this action? Run.",
+        "hint": "跑步在英文叫 run 喔！",
+        "explanation": "🏃 是 run（跑），不是 jump（跳）或 swim（游泳）。",
+        "answer": "run",
+        "options": ["run", "jump", "swim"],
+        "optionEmojis": ["🏃", "🤸", "🏊"],
+        "visual": { "type": "scene", "emojis": ["🏃"], "text": "r u n" }
+      },
+      {
+        "prompt": "jump 是什麼意思？",
+        "speak": "What does jump mean?",
+        "hint": "跳起來就是 jump 喔！",
+        "explanation": "jump 是跳，run 是跑，swim 是游泳。",
+        "answer": "跳",
+        "options": ["跳", "跑", "游泳"],
+        "optionEmojis": ["🤸", "🏃", "🏊"],
+        "visual": { "type": "scene", "emojis": ["🤸"], "text": "j u m p" }
+      },
+      {
+        "prompt": "What is this action? 🏊",
+        "speak": "What is this? It is swim.",
+        "hint": "游泳在英文叫 swim 喔！",
+        "explanation": "🏊 是 swim（游泳），不是 run 或 jump。",
+        "answer": "swim",
+        "options": ["swim", "run", "jump"],
+        "optionEmojis": ["🏊", "🏃", "🤸"],
+        "visual": { "type": "scene", "emojis": ["🏊"], "text": "s w i m" }
+      },
+      {
+        "prompt": "看圖選單字：🦶 是什麼？",
+        "speak": "What is this? It is a foot.",
+        "hint": "腳在英文叫 foot 喔！",
+        "explanation": "🦶 是 foot（腳），不是 hand（手）或 dad（爸爸）。",
+        "answer": "foot",
+        "options": ["foot", "hand", "dad"],
+        "optionEmojis": ["🦶", "✋", "👨"],
+        "visual": { "type": "scene", "emojis": ["🦶"], "text": "f o o t" }
+      }
+    ],
+    "16": [
+      {
+        "prompt": "What's this? 🍎",
+        "speak": "What is this? It is an apple.",
+        "hint": "蘋果在英文叫 apple 喔！",
+        "explanation": "🍎 是 apple（蘋果），不是 cat 或 dog。",
+        "answer": "apple",
+        "options": ["apple", "cat", "dog"],
+        "optionEmojis": ["🍎", "🐱", "🐶"],
+        "visual": { "type": "scene", "emojis": ["🍎"], "text": "a p p l e" }
+      },
+      {
+        "prompt": "Who is she? 👩",
+        "speak": "Who is she? She is mom.",
+        "hint": "她是媽媽就是 mom 喔！",
+        "explanation": "👩 是 mom（媽媽），不是 dad 或 hand。",
+        "answer": "mom",
+        "options": ["mom", "dad", "hand"],
+        "optionEmojis": ["👩", "👨", "✋"],
+        "visual": { "type": "scene", "emojis": ["👩"], "text": "m o m" }
+      },
+      {
+        "prompt": "I like 🍕. 我喜歡什麼？",
+        "speak": "I like pizza.",
+        "hint": "pizza 是披薩喔！",
+        "explanation": "🍕 是 pizza（披薩），不是 apple 或 cat。",
+        "answer": "披薩",
+        "options": ["披薩", "蘋果", "貓"],
+        "optionEmojis": ["🍕", "🍎", "🐱"],
+        "visual": { "type": "scene", "emojis": ["🍕"], "text": "p i z z a" }
+      },
+      {
+        "prompt": "How are you? 你怎麼了？",
+        "speak": "How are you? I am fine.",
+        "hint": "回答 I am fine 就是「我很好」喔！",
+        "explanation": "How are you? 是問你好不好，回答 I am fine 是我很好。",
+        "answer": "我很好",
+        "options": ["我很好", "我餓了", "我累了"],
+        "optionEmojis": ["😊", "🍽️", "😴"],
+        "visual": { "type": "scene", "emojis": ["😊"], "text": "I am fine" }
+      },
+      {
+        "prompt": "What's this? 🐶",
+        "speak": "What is this? It is a dog.",
+        "hint": "小狗在英文叫 dog 喔！",
+        "explanation": "🐶 是 dog（狗），不是 cat 或 apple。",
+        "answer": "dog",
+        "options": ["dog", "cat", "apple"],
+        "optionEmojis": ["🐶", "🐱", "🍎"],
+        "visual": { "type": "scene", "emojis": ["🐶"], "text": "d o g" }
+      },
+      {
+        "prompt": "I like 🐱. 我喜歡什麼？",
+        "speak": "I like cat.",
+        "hint": "cat 是小貓喔！",
+        "explanation": "🐱 是 cat（貓），不是 dog 或 pizza。",
+        "answer": "貓",
+        "options": ["貓", "狗", "披薩"],
+        "optionEmojis": ["🐱", "🐶", "🍕"],
+        "visual": { "type": "scene", "emojis": ["🐱"], "text": "c a t" }
+      },
+      {
+        "prompt": "How are you? 怎麼回答？",
+        "speak": "How are you? I am happy.",
+        "hint": "I am happy 就是「我很開心」喔！",
+        "explanation": "I am happy 是我很開心，不是「我餓了」或「我累了」。",
+        "answer": "我很開心",
+        "options": ["我很開心", "我餓了", "我累了"],
+        "optionEmojis": ["😄", "🍽️", "😴"],
+        "visual": { "type": "scene", "emojis": ["😄"], "text": "I am happy" }
+      },
+      {
+        "prompt": "Who is he? 👨",
+        "speak": "Who is he? He is dad.",
+        "hint": "他是爸爸就是 dad 喔！",
+        "explanation": "👨 是 dad（爸爸），不是 mom 或 foot。",
+        "answer": "dad",
+        "options": ["dad", "mom", "foot"],
+        "optionEmojis": ["👨", "👩", "🦶"],
+        "visual": { "type": "scene", "emojis": ["👨"], "text": "d a d" }
+      }
+    ]
+  }
+}

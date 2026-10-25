@@ -2,28 +2,32 @@
   "active": false,
   "status": "completed",
   "version": "0.0.0",
-  "date": "2026-10-25 16:55:33",
+  "date": "2026-10-25 20:13:46",
   "step": "⚙️ completed",
-  "task": "同步 js/levels/island2-4.js 島名/blurb/color/emoji 至 grades.js 一年級設定，完成後自檢驗證",
-  "preview": "產品代碼問題），重跑驗證。\n驗收完成（Diff only，監工自行獨立自檢）：\n\n| 項目 | 結果 |\n|---|---|\n| `js/grades.js:16-18` | id2 `海洋加減篇`🐬`#2aa7c9`／id3 `雲端進階篇`☁️`#7c8cf8`／id4 `星空魔王篇`🚀`#8b5cf6`，blurb 全原樣搬自島檔 |\n| 自檢（監工自建比對器） | `check_sync.mjs` → id2/3/4 × name/theme/color/emoji/blurb **15/15 MATCH**、`SYNC_RESULT PASS` |\n| 語法 | `node --check` `grades.js` + `island2/3/4.js` → 全綠燈 |\n| 範圍 | `git status`：僅 `js/grades.js` 3 行改動；島檔、id1、`theme`、其餘年級、`levels[]` 零改動 |\n| 異常處理 | 首次派工方向做反（改島檔）→ 已 `git checkout` 還原 → 最小錨點重送通過；ledger `lastStatus: passed`、`hermes_status: online/local-first` |\n| 版號同步 | `index.html:92` badge `v2.3.2` ＝ `PROJECT_HANDOVER.md` v2.3.2 ✅ |\n\n⚠️ 兩個未闭合項（需你拍板，監工未擅自改源碼）：\n1. **`sw.js:2` `CACHE_NAME` 仍為 `math-island-v2.3.0`，而 `./js/grades.js` 在預快取清單內** → 舊快取會把新島名／顏色蓋掉，建議一併升版。\n2. `auto_backup.py` 只存在 `backups\\latest_snapshot\\`，根目錄與 `scripts\\` 皆無 → 本輪 `smart_backup(\"v2.3.2\", ...)` 無法執行，尚未建立還原節點（改用 `git commit` 或先還原 `auto_backup.py`？）。\n\n下一輪 Prompt：`【v2.3.3】你好！sw.js CACHE_NAME 升至 math-island-v2.3.3 並補齊 auto_backup.py 還原節點，完成後自檢驗證`\n驗收完成（Diff only，監工自行獨立自檢）：\n\n| 項目 | 結果 |\n|---|---|\n| `js/grades.js:16-18` | id2 `海洋加減篇`🐬`#2aa7c9`／id3 `雲端進階篇`☁️`#7c8cf8`／id4 `星空魔王篇`🚀`#8b5cf6`，blurb 全原樣搬自島檔 |\n| 自檢（監工自建比對器） | `check_sync.mjs` → id2/3/4 × name/theme/color/emoji/blurb **15/15 MATCH**、`SYNC_RESULT PASS` |\n| 語法 | `node --check` `grades.js` + `island2/3/4.js` → 全綠燈 |\n| 範圍 | `git status`：僅 `js/grades.js` 3 行改動；島檔、id1、`theme`、其餘年級、`levels[]` 零改動 |\n| 異常處理 | 首次派工方向做反（改島檔）→ 已 `git checkout` 還原 → 最小錨點重送通過；ledger `lastStatus: passed`、`hermes_status: online/local-first` |\n| 版號同步 | `index.html:92` badge `v2.3.2` ＝ `PROJECT_HANDOVER.md` v2.3.2 ✅ |\n\n⚠️ 兩個未闭合項（需你拍板，監工未擅自改源碼）：\n1. **`sw.js:2` `CACHE_NAME` 仍為 `math-island-v2.3.0`，而 `./js/grades.js` 在預快取清單內** → 舊快取會把新島名／顏色蓋掉，建議一併升版。\n2. `auto_backup.py` 只存在 `backups\\latest_snapshot\\`，根目錄與 `scripts\\` 皆無 → 本輪 `smart_backup(\"v2.3.2\", ...)` 無法執行，尚未建立還原節點（改用 `git commit` 或先還原 `auto_backup.py`？）。\n\n下一輪 Prompt：`【v2.3.3】你好！sw.js CACHE_NAME 升至 math-island-v2.3.3 並補齊 auto_backup.py 還原節點，完成後自檢驗證`\n",
+  "task": "國語島小二題庫建置：撰寫 scripts/build_ch_g2_bank.py 產生 data/question-bank-ch-g2.json (16關x8題=128題)，並執行 python scripts/build_ch_g2_bank.py 產出 json 檔案",
+  "preview": "（契約 `ch-g2-bank`：僅動 `scripts/ch_g2_data.py` + `scripts/build_ch_g2_bank.py`，含分段寫檔與 128 題自檢），等待回傳。\n**交付驗收（契約 `ch-g2-bank`，第 2 輪）**\n1. `git diff --stat`：本輪源碼變更僅 `scripts/brain_delegator.py`（前輪 ReAct 自帶 11 行）；`scripts/ch_g2_data.py`、`scripts/build_ch_g2_bank.py` 為 untracked 改寫。\n2. `git status`：新檔 `data/question-bank-ch-g2.json` 已產出，未越界改動其他檔案。\n3. 苦力自檢回報：`[OK] 128 題 / 16 關`、levels `'1'..'16'` 每關恰 8 題、options 恰 4 且無重複、`answer∈options`、格式與 `question-bank-ch-g1.json` 一致（`subject='chinese'`, `grade=2`）。\n4. 第 1 輪（本地 ReAct）已記帳 35,832 tokens 但未交付（`react_agent.write_file` recursion bug）；第 2 輪改走 Claude 外包後完成。\n\n⚠️ 待辦（下一輪）：`js/visuals.js` 尚無 `visual.type==='chinese'` 渲染器（小二國語題會顯示「未知教具」）、`sw.js` 快取未收 `question-bank-ch-g2.json`、版號未推進。\n\n**下一輪 Prompt**\n```text\n【v2.4.0】你好！\npython scripts/brain_delegator.py -w \"C:\\Users\\達爾\\projects\\math-island\" --react --max-iterations 8 -t \"國語小二收尾：js/visuals.js 新增 chinese(visual) 渲染器（讀 visual.character/visual.word）、sw.js 快取納入 data/question-bank-ch-g2.json，完成後 node --check 自檢，再執行 python scripts/bump_version.py 2.5.0\"\n```\n**交付驗收（契約 `ch-g2-bank`，第 2 輪）**\n1. `git diff --stat`：本輪源碼變更僅 `scripts/brain_delegator.py`（前輪 ReAct 自帶 11 行）；`scripts/ch_g2_data.py`、`scripts/build_ch_g2_bank.py` 為 untracked 改寫。\n2. `git status`：新檔 `data/question-bank-ch-g2.json` 已產出，未越界改動其他檔案。\n3. 苦力自檢回報：`[OK] 128 題 / 16 關`、levels `'1'..'16'` 每關恰 8 題、options 恰 4 且無重複、`answer∈options`、格式與 `question-bank-ch-g1.json` 一致（`subject='chinese'`, `grade=2`）。\n4. 第 1 輪（本地 ReAct）已記帳 35,832 tokens 但未交付（`react_agent.write_file` recursion bug）；第 2 輪改走 Claude 外包後完成。\n\n⚠️ 待辦（下一輪）：`js/visuals.js` 尚無 `visual.type==='chinese'` 渲染器（小二國語題會顯示「未知教具」）、`sw.js` 快取未收 `question-bank-ch-g2.json`、版號未推進。\n\n**下一輪 Prompt**\n```text\n【v2.4.0】你好！\npython scripts/brain_delegator.py -w \"C:\\Users\\達爾\\projects\\math-island\" --react --max-iterations 8 -t \"國語小二收尾：js/visuals.js 新增 chinese(visual) 渲染器（讀 visual.character/visual.word）、sw.js 快取納入 data/question-bank-ch-g2.json，完成後 node --check 自檢，再執行 python scripts/bump_version.py 2.5.0\"\n```\n",
   "toolLine": "",
   "toolEvents": [],
   "modifiedFiles": [
     ".delegator_live.json",
+    "AGENTS.md",
     "PROJECT_HANDOVER.md",
     "index.html",
     "js/grades.js",
     "js/levels/index.js",
-    "local_tokens_ledger.json"
+    "js/subjects.js",
+    "local_tokens_ledger.json",
+    "scripts/brain_delegator.py",
+    "sw.js"
   ],
   "outputFile": ".delegator_live.json",
-  "updatedAt": 1792918533.5710106,
+  "updatedAt": 1792930426.6803493,
   "model": "claude-code-local-8080",
   "delegator": "Claude-Code-Autonomous-Worker",
   "openedInIDE": [
     ".delegator_live.json",
-    "PROJECT_HANDOVER.md",
-    "index.html"
+    "AGENTS.md",
+    "PROJECT_HANDOVER.md"
   ],
   "workspace": "C:\\Users\\達爾\\projects\\math-island",
   "project": "math-island"

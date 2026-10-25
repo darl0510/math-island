@@ -5,17 +5,21 @@ import { island4 } from './island4.js';
 import { g2_islands } from './island_defs_g2.js';
 import { g3_islands } from './island_defs_g3.js';
 import { en_g1_islands } from './island_defs_en_g1.js';
+import { en_g2_islands } from './island_defs_en_g2.js';
+import { en_g3_islands } from './island_defs_en_g3.js';
+import { ch_g1_islands } from './island_defs_ch_g1.js';
 import { getCurrentGrade, getCurrentSubject } from '../state.js';
 import { DEFAULT_SUBJECT } from '../subjects.js';
 
 export const g1_islands = [island1, island2, island3, island4];
-export { g2_islands, g3_islands, en_g1_islands };
+export { g2_islands, g3_islands, en_g1_islands, en_g2_islands, en_g3_islands, ch_g1_islands };
 
 /* 科目 → 年級 → 關卡表 (SSOT)：新增「奇幻英文島 / 奇幻國語島」時在此掛上該科關卡表即可，
    嚴禁在 map / engine 端硬編碼科目判斷。 */
 const SUBJECT_LEVEL_TABLES = {
   math: { 1: g1_islands, 2: g2_islands, 3: g3_islands },
-  english: { 1: en_g1_islands },
+  english: { 1: en_g1_islands, 2: en_g2_islands, 3: en_g3_islands },
+  chinese: { 1: ch_g1_islands },
 };
 
 function getSubjectTables(subjectId = getCurrentSubject()) {
