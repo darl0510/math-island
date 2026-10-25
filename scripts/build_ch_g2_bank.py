@@ -24,6 +24,22 @@ def build_item(target, ans, distractors, category):
         prompt = f"「{target}」的筆順要遵守哪一條規則？"
         hint = "先寫哪一筆、後寫哪一筆？"
         explanation = f"「{target}」的筆順是「{ans}」。"
+    elif category == "筆順選字":
+        prompt = f"下面哪一個字的筆順規則是「{target}」？"
+        hint = f"想一想，哪個字是{target}的寫法？"
+        explanation = f"「{ans}」的筆順規則是「{target}」。"
+    elif category == "筆畫先寫":
+        prompt = f"寫「{target}」字的時候，筆畫順序應該怎麼寫？"
+        hint = "回想一下老師教過的筆畫順序喔！"
+        explanation = f"寫「{target}」的時候，{ans}。"
+    elif category == "筆順例外":
+        prompt = f"下面哪一個字的筆順規則「不是」{target}？"
+        hint = f"找一找，哪一個字屬於其他筆順規則？"
+        explanation = f"「{ans}」不是{target}，其他三個字才是{target}。"
+    elif category == "完整筆順":
+        prompt = f"「{target}」的正確筆畫順序是哪一個？"
+        hint = "一筆一畫在心中描摹看看！"
+        explanation = f"「{target}」的筆順是「{ans}」。"
     elif category in RADICAL:
         mark, note = RADICAL[category]
         prompt = f"下面哪個字的部首是「{mark}」？"

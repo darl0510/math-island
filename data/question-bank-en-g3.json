@@ -9,7 +9,7 @@
       {
         "prompt": "哪一個單字的拼字是對的？",
         "speak": "哪一個單字的拼字是對的呢？",
-        "hint": "cake 的 a 發長音，結尾有 e",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "cake 是 a_e 結構，a 發長音 /eɪ/，結尾 e 不發音。",
         "answer": "cake",
         "options": [
@@ -28,7 +28,7 @@
       {
         "prompt": "聽一聽：「My name is Lily.」name 的拼字是哪一個？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "name 結尾有 e，a 發長音",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "name 是 a_e 結構，a 發長音 /eɪ/。",
         "answer": "name",
         "options": [
@@ -47,7 +47,7 @@
       {
         "prompt": "看 emoji 🏊🌊，選出正確的單字。",
         "speak": "看 emoji 🏊🌊，選出正確的單字。",
-        "hint": "lake 是 a_e 結構",
+        "hint": "它代表 a_e 結構",
         "explanation": "lake 表示「湖」，a_e 結構讓 a 發長音。",
         "answer": "lake",
         "options": [
@@ -67,7 +67,7 @@
       {
         "prompt": "哪一個單字的意思是「遊戲」？",
         "speak": "哪一個單字的意思是「遊戲」呢？",
-        "hint": "game 結尾有 e",
+        "hint": "想想看長母音規則：結尾有一個不發音的魔法 e 喔！",
         "explanation": "game 是 a_e 結構，意思是「遊戲」。",
         "answer": "game",
         "options": [
@@ -86,7 +86,7 @@
       {
         "prompt": "哪一個拼字是正確的？",
         "speak": "哪一個拼字是正確的呢？",
-        "hint": "make 是 a_e 結構",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "make 表示「做、製作」，a_e 結構。",
         "answer": "make",
         "options": [
@@ -124,7 +124,7 @@
       {
         "prompt": "下面哪一個拼字是對的？",
         "speak": "下面哪一個拼字是對的呢？",
-        "hint": "name 結尾有 e",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "name 是 a_e 結構，結尾 e 讓 a 發長音。",
         "answer": "name",
         "options": [
@@ -164,7 +164,7 @@
       {
         "prompt": "三個單字中，哪一個拼字是對的？",
         "speak": "三個單字中，哪一個拼字是對的呢？",
-        "hint": "kite 是 i_e 結構",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "kite 是 i_e 結構，i 發長音 /aɪ/。",
         "answer": "kite",
         "options": [
@@ -183,7 +183,7 @@
       {
         "prompt": "看 emoji 🚲，選出正確的單字。",
         "speak": "看 emoji 🚲，選出正確的單字。",
-        "hint": "bike 是 i_e 結構",
+        "hint": "它代表 i_e 結構",
         "explanation": "bike 表示「腳踏車」，i_e 結構讓 i 發長音。",
         "answer": "bike",
         "options": [
@@ -202,7 +202,7 @@
       {
         "prompt": "「It is ___ to play.」空格要填哪個字？",
         "speak": "「It is ___ to play.」空格要填哪個字呢？",
-        "hint": "time 是 i_e 結構",
+        "hint": "它代表 i_e 結構",
         "explanation": "time 表示「時間」，i_e 結構。",
         "answer": "time",
         "options": [
@@ -240,7 +240,7 @@
       {
         "prompt": "哪一個單字的拼字正確無誤？",
         "speak": "哪一個單字的拼字正確無誤呢？",
-        "hint": "ride 是 i_e 結構",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "ride 表示「騎」，i_e 結構讓 i 發長音。",
         "answer": "ride",
         "options": [
@@ -278,7 +278,7 @@
       {
         "prompt": "「I like to ___ my bike.」空格要填哪個字？",
         "speak": "「I like to ___ my bike.」空格要填哪個字呢？",
-        "hint": "ride 是 i_e 結構",
+        "hint": "它代表 i_e 結構",
         "explanation": "ride 表示「騎」，i_e 結構。",
         "answer": "ride",
         "options": [
@@ -318,7 +318,7 @@
       {
         "prompt": "哪一個單字拼得正確？",
         "speak": "哪一個單字拼得正確呢？",
-        "hint": "home 是 o_e 結構",
+        "hint": "想想看長母音規則：結尾有一個不發音的魔法 e 喔！",
         "explanation": "home 是 o_e 結構，o 發長音 /oʊ/。",
         "answer": "home",
         "options": [
@@ -337,7 +337,7 @@
       {
         "prompt": "看 emoji 👃，選出正確的單字。",
         "speak": "看 emoji 👃，選出正確的單字。",
-        "hint": "nose 是 o_e 結構",
+        "hint": "它代表 o_e 結構",
         "explanation": "nose 表示「鼻子」，o_e 結構讓 o 發長音。",
         "answer": "nose",
         "options": [
@@ -356,7 +356,7 @@
       {
         "prompt": "「I like the red ___.」空格要填哪個字？",
         "speak": "「I like the red ___.」空格要填哪個字呢？",
-        "hint": "rose 是 o_e 結構",
+        "hint": "它代表 o_e 結構",
         "explanation": "rose 表示「玫瑰」，o_e 結構。",
         "answer": "rose",
         "options": [
@@ -394,7 +394,7 @@
       {
         "prompt": "選出拼字完全正確的單字。",
         "speak": "選出拼字完全正確的單字。",
-        "hint": "stone 是 o_e 結構",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "stone 表示「石頭」，o_e 結構讓 o 發長音。",
         "answer": "stone",
         "options": [
@@ -432,7 +432,7 @@
       {
         "prompt": "「My ___ is small.」空格要填哪個字？",
         "speak": "「My ___ is small.」空格要填哪個字呢？",
-        "hint": "nose 是 o_e 結構",
+        "hint": "它代表 o_e 結構",
         "explanation": "nose 表示「鼻子」，o_e 結構。",
         "answer": "nose",
         "options": [
@@ -472,7 +472,7 @@
       {
         "prompt": "選出拼字正確的那一個單字。",
         "speak": "選出拼字正確的那一個單字。",
-        "hint": "cube 是 u_e 結構",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "cube 是 u_e 結構，u 發長音 /juː/。",
         "answer": "cube",
         "options": [
@@ -491,7 +491,7 @@
       {
         "prompt": "看 emoji 🚰，選出正確的單字。",
         "speak": "看 emoji 🚰，選出正確的單字。",
-        "hint": "tube 是 u_e 結構",
+        "hint": "它代表 u_e 結構",
         "explanation": "tube 表示「管子」，u_e 結構讓 u 發長音。",
         "answer": "tube",
         "options": [
@@ -529,7 +529,7 @@
       {
         "prompt": "哪一個拼字是正確無誤的？",
         "speak": "哪一個拼字是正確無誤的呢？",
-        "hint": "huge 是 u_e 結構",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "huge 表示「巨大的」，u_e 結構讓 u 發長音。",
         "answer": "huge",
         "options": [
@@ -548,7 +548,7 @@
       {
         "prompt": "三個單字裡，哪一個拼對了？",
         "speak": "三個單字裡，哪一個拼對了呢？",
-        "hint": "rule 是 u_e 結構",
+        "hint": "它代表 u_e 結構",
         "explanation": "rule 表示「規則」，u_e 結構。",
         "answer": "rule",
         "options": [
@@ -586,7 +586,7 @@
       {
         "prompt": "「I have a long ___.」空格要填哪個字？",
         "speak": "「I have a long ___.」空格要填哪個字呢？",
-        "hint": "tube 是 u_e 結構",
+        "hint": "它代表 u_e 結構",
         "explanation": "tube 表示「管子」，u_e 結構。",
         "answer": "tube",
         "options": [
@@ -626,7 +626,7 @@
       {
         "prompt": "哪一個單字的拼字沒有錯？",
         "speak": "哪一個單字的拼字沒有錯呢？",
-        "hint": "rain 有 ai",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "rain 是 ai 組合，發長音 /eɪ/。",
         "answer": "rain",
         "options": [
@@ -645,7 +645,7 @@
       {
         "prompt": "看 emoji 🐦🪶，選出正確的單字。",
         "speak": "看 emoji 🐦🪶，選出正確的單字。",
-        "hint": "tail 有 ai",
+        "hint": "這個單字 有 ai",
         "explanation": "tail 表示「尾巴」，ai 組合發長音。",
         "answer": "tail",
         "options": [
@@ -665,7 +665,7 @@
       {
         "prompt": "「I take the ___ to school.」空格要填哪個字？",
         "speak": "「I take the ___ to school.」空格要填哪個字呢？",
-        "hint": "train 有 ai",
+        "hint": "這個單字 有 ai",
         "explanation": "train 表示「火車」，ai 組合發長音。",
         "answer": "train",
         "options": [
@@ -703,7 +703,7 @@
       {
         "prompt": "哪一個才是正確的英文拼字？",
         "speak": "哪一個才是正確的英文拼字呢？",
-        "hint": "play 有 ay",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "play 表示「玩」，ay 組合發長音。",
         "answer": "play",
         "options": [
@@ -741,7 +741,7 @@
       {
         "prompt": "「I ___ my name.」空格要填哪個字？",
         "speak": "「I ___ my name.」空格要填哪個字呢？",
-        "hint": "say 有 ay",
+        "hint": "這個單字 有 ay",
         "explanation": "say 表示「說」，ay 組合發長音。",
         "answer": "say",
         "options": [
@@ -781,7 +781,7 @@
       {
         "prompt": "下面哪一個才是正確的拼字？",
         "speak": "下面哪一個才是正確的拼字呢？",
-        "hint": "tree 有 ee",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "tree 是 ee 組合，發長音 /iː/。",
         "answer": "tree",
         "options": [
@@ -800,7 +800,7 @@
       {
         "prompt": "看 emoji 🐝，選出正確的單字。",
         "speak": "看 emoji 🐝，選出正確的單字。",
-        "hint": "bee 有 ee",
+        "hint": "這個單字 有 ee",
         "explanation": "bee 表示「蜜蜂」，ee 組合發長音。",
         "answer": "bee",
         "options": [
@@ -819,7 +819,7 @@
       {
         "prompt": "「I ___ a cat.」空格要填哪個字？",
         "speak": "「I ___ a cat.」空格要填哪個字呢？",
-        "hint": "see 有 ee",
+        "hint": "這個單字 有 ee",
         "explanation": "see 表示「看見」，ee 組合發長音。",
         "answer": "see",
         "options": [
@@ -857,7 +857,7 @@
       {
         "prompt": "下面三個選項，哪一個拼字對？",
         "speak": "下面三個選項，哪一個拼字對呢？",
-        "hint": "read 有 ea",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "read 表示「讀」，ea 組合發長音。",
         "answer": "read",
         "options": [
@@ -895,7 +895,7 @@
       {
         "prompt": "「I ___ a book every day.」空格要填哪個字？",
         "speak": "「I ___ a book every day.」空格要填哪個字呢？",
-        "hint": "read 有 ea",
+        "hint": "這個單字 有 ea",
         "explanation": "read 表示「讀」，ea 組合發長音。",
         "answer": "read",
         "options": [
@@ -935,7 +935,7 @@
       {
         "prompt": "哪一個單字寫法正確？",
         "speak": "哪一個單字寫法正確呢？",
-        "hint": "boat 有 oa",
+        "hint": "想想這個單字的開頭音與母音發音！",
         "explanation": "boat 是 oa 組合，發長音 /oʊ/。",
         "answer": "boat",
         "options": [
@@ -954,7 +954,7 @@
       {
         "prompt": "看 emoji 🧥，選出正確的單字。",
         "speak": "看 emoji 🧥，選出正確的單字。",
-        "hint": "coat 有 oa",
+        "hint": "這個單字 有 oa",
         "explanation": "coat 表示「外套」，oa 組合發長音。",
         "answer": "coat",
         "options": [
@@ -973,7 +973,7 @@
       {
         "prompt": "「I walk on the ___.」空格要填哪個字？",
         "speak": "「I walk on the ___.」空格要填哪個字呢？",
-        "hint": "road 有 oa",
+        "hint": "這個單字 有 oa",
         "explanation": "road 表示「路」，oa 組合發長音。",
         "answer": "road",
         "options": [
@@ -1011,7 +1011,7 @@
       {
         "prompt": "哪一個單字拼字完全正確？",
         "speak": "哪一個單字拼字完全正確呢？",
-        "hint": "show 有 ow",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "show 表示「展示」，ow 組合發長音。",
         "answer": "show",
         "options": [
@@ -1049,7 +1049,7 @@
       {
         "prompt": "「The ___ is white.」空格要填哪個字？",
         "speak": "「The ___ is white.」空格要填哪個字呢？",
-        "hint": "snow 有 ow",
+        "hint": "這個單字 有 ow",
         "explanation": "snow 表示「雪」，ow 組合發長音。",
         "answer": "snow",
         "options": [
@@ -1089,7 +1089,7 @@
       {
         "prompt": "選出拼字正確的那一個。",
         "speak": "選出拼字正確的那一個。",
-        "hint": "car 有 ar",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "car 是 ar 組合，發長音 /ɑːr/。",
         "answer": "car",
         "options": [
@@ -1108,7 +1108,7 @@
       {
         "prompt": "看 emoji ⭐，選出正確的單字。",
         "speak": "看 emoji ⭐，選出正確的單字。",
-        "hint": "star 有 ar",
+        "hint": "這個單字 有 ar",
         "explanation": "star 表示「星星」，ar 組合發長音。",
         "answer": "star",
         "options": [
@@ -1127,7 +1127,7 @@
       {
         "prompt": "「I play in the ___.」空格要填哪個字？",
         "speak": "「I play in the ___.」空格要填哪個字呢？",
-        "hint": "park 有 ar",
+        "hint": "這個單字 有 ar",
         "explanation": "park 表示「公園」，ar 組合發長音。",
         "answer": "park",
         "options": [
@@ -1165,7 +1165,7 @@
       {
         "prompt": "哪一個單字的拼字寫對了？",
         "speak": "哪一個單字的拼字寫對了呢？",
-        "hint": "bird 有 ir",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "bird 表示「鳥」，ir 組合發長音。",
         "answer": "bird",
         "options": [
@@ -1203,7 +1203,7 @@
       {
         "prompt": "「I like ___ cat.」空格要填哪個字？",
         "speak": "「I like ___ cat.」空格要填哪個字呢？",
-        "hint": "her 有 er",
+        "hint": "這個單字 有 er",
         "explanation": "her 表示「她的」，er 組合發長音。",
         "answer": "her",
         "options": [
@@ -1243,7 +1243,7 @@
       {
         "prompt": "三個選項中，哪一個單字拼對了？",
         "speak": "三個選項中，哪一個單字拼對了呢？",
-        "hint": "for 有 or",
+        "hint": "想想這個單字的開頭音與母音發音！",
         "explanation": "for 是 or 組合，發長音 /ɔːr/。",
         "answer": "for",
         "options": [
@@ -1262,7 +1262,7 @@
       {
         "prompt": "看 emoji 🌽，選出正確的單字。",
         "speak": "看 emoji 🌽，選出正確的單字。",
-        "hint": "corn 有 or",
+        "hint": "這個單字 有 or",
         "explanation": "corn 表示「玉米」，or 組合發長音。",
         "answer": "corn",
         "options": [
@@ -1281,7 +1281,7 @@
       {
         "prompt": "「I eat with a ___.」空格要填哪個字？",
         "speak": "「I eat with a ___.」空格要填哪個字呢？",
-        "hint": "fork 有 or",
+        "hint": "這個單字 有 or",
         "explanation": "fork 表示「叉子」，or 組合發長音。",
         "answer": "fork",
         "options": [
@@ -1319,7 +1319,7 @@
       {
         "prompt": "三個選項中，哪一個拼字是對的？",
         "speak": "三個選項中，哪一個拼字是對的呢？",
-        "hint": "store 有 ore",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "store 表示「商店」，ore 組合發長音。",
         "answer": "store",
         "options": [
@@ -1357,7 +1357,7 @@
       {
         "prompt": "「I want ___ cookies.」空格要填哪個字？",
         "speak": "「I want ___ cookies.」空格要填哪個字呢？",
-        "hint": "more 有 ore",
+        "hint": "這個單字 有 ore",
         "explanation": "more 表示「更多」，ore 組合發長音。",
         "answer": "more",
         "options": [
@@ -1397,7 +1397,7 @@
       {
         "prompt": "哪一個拼字沒有多餘或漏掉的字母？",
         "speak": "哪一個拼字沒有多餘或漏掉的字母呢？",
-        "hint": "watch 有 tch",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "watch 是 tch 組合，發 /tʃ/ 音。",
         "answer": "watch",
         "options": [
@@ -1416,7 +1416,7 @@
       {
         "prompt": "看 emoji 🍳🏠，選出正確的單字。",
         "speak": "看 emoji 🍳🏠，選出正確的單字。",
-        "hint": "kitchen 有 tch",
+        "hint": "這個單字 有 tch",
         "explanation": "kitchen 表示「廚房」，tch 組合發 /tʃ/ 音。",
         "answer": "kitchen",
         "options": [
@@ -1436,7 +1436,7 @@
       {
         "prompt": "「I cross the ___.」空格要填哪個字？",
         "speak": "「I cross the ___.」空格要填哪個字呢？",
-        "hint": "bridge 有 dge",
+        "hint": "這個單字 有 dge",
         "explanation": "bridge 表示「橋」，dge 組合發 /dʒ/ 音。",
         "answer": "bridge",
         "options": [
@@ -1474,7 +1474,7 @@
       {
         "prompt": "選出拼字沒有錯誤的那一個。",
         "speak": "選出拼字沒有錯誤的那一個。",
-        "hint": "light 有 igh",
+        "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "light 表示「光、燈」，igh 組合發長音。",
         "answer": "light",
         "options": [
@@ -1512,7 +1512,7 @@
       {
         "prompt": "「I ___ TV every day.」空格要填哪個字？",
         "speak": "「I ___ TV every day.」空格要填哪個字呢？",
-        "hint": "watch 有 tch",
+        "hint": "這個單字 有 tch",
         "explanation": "watch 表示「看」，tch 組合發 /tʃ/ 音。",
         "answer": "watch",
         "options": [
@@ -1552,7 +1552,7 @@
       {
         "prompt": "「I ___ hello.」空格要填哪個字？",
         "speak": "「I ___ hello.」空格要填哪個字呢？",
-        "hint": "said 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "said 是「說了」，拼字和發音不完全一致，要記住。",
         "answer": "said",
         "options": [
@@ -1571,7 +1571,7 @@
       {
         "prompt": "「___ happy.」空格要填哪個字？",
         "speak": "「___ happy.」空格要填哪個字呢？",
-        "hint": "they 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "they 是「他們」，拼字要記住。",
         "answer": "They",
         "options": [
@@ -1590,7 +1590,7 @@
       {
         "prompt": "「I ___ late for school.」空格要填哪個字？",
         "speak": "「I ___ late for school.」空格要填哪個字呢？",
-        "hint": "was 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "was 表示「（之前）是」，是常見視覺字詞，拼字要記住。",
         "answer": "was",
         "options": [
@@ -1609,7 +1609,7 @@
       {
         "prompt": "「___ upon a time.」空格要填哪個字？",
         "speak": "「___ upon a time.」空格要填哪個字呢？",
-        "hint": "once 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "once 是「從前」，拼字要記住。",
         "answer": "Once",
         "options": [
@@ -1628,7 +1628,7 @@
       {
         "prompt": "「I ___ swim.」空格要填哪個字？",
         "speak": "「I ___ swim.」空格要填哪個字呢？",
-        "hint": "could 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "could 是「可以（過去）」，拼字要記住。",
         "answer": "could",
         "options": [
@@ -1647,7 +1647,7 @@
       {
         "prompt": "「You ___ do homework.」空格要填哪個字？",
         "speak": "「You ___ do homework.」空格要填哪個字呢？",
-        "hint": "should 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "should 是「應該」，拼字要記住。",
         "answer": "should",
         "options": [
@@ -1685,7 +1685,7 @@
       {
         "prompt": "「I ___ help you.」空格要填哪個字？",
         "speak": "「I ___ help you.」空格要填哪個字呢？",
-        "hint": "could 是常見視覺字詞",
+        "hint": "它代表常見視覺字詞",
         "explanation": "could 是「可以」，拼字要記住。",
         "answer": "could",
         "options": [
@@ -1820,7 +1820,7 @@
       {
         "prompt": "「I see ___ elephant.」空格要填哪個字？",
         "speak": "「I see ___ elephant.」空格要填哪個字呢？",
-        "hint": "elephant 開頭是母音",
+        "hint": "eleph這個單字t 開頭是母音",
         "explanation": "elephant 開頭是母音 e，所以用 an。",
         "answer": "an",
         "options": [
@@ -1860,7 +1860,7 @@
       {
         "prompt": "「___ is my brother.」空格要填哪個字？",
         "speak": "「___ is my brother.」空格要填哪個字呢？",
-        "hint": "brother 是男生",
+        "hint": "brot這個單字r 是男生",
         "explanation": "brother 是男生，所以用 He。",
         "answer": "He",
         "options": [
@@ -1917,7 +1917,7 @@
       {
         "prompt": "「This is ___ book.」空格要填哪個字？",
         "speak": "「This is ___ book.」空格要填哪個字呢？",
-        "hint": "my 表示「我的」",
+        "hint": "這個單字 表示「我的」",
         "explanation": "my 是「我的」，表示東西是你的。",
         "answer": "my",
         "options": [
@@ -1955,7 +1955,7 @@
       {
         "prompt": "「This is ___ cat.」空格要填哪個字？",
         "speak": "「This is ___ cat.」空格要填哪個字呢？",
-        "hint": "her 表示「她的」",
+        "hint": "這個單字 表示「她的」",
         "explanation": "her 是「她的」，表示東西是她的。",
         "answer": "her",
         "options": [
@@ -1993,7 +1993,7 @@
       {
         "prompt": "「This is ___ ball.」空格要填哪個字？",
         "speak": "「This is ___ ball.」空格要填哪個字呢？",
-        "hint": "your 表示「你的」",
+        "hint": "這個單字 表示「你的」",
         "explanation": "your 是「你的」，表示東西是你的。",
         "answer": "your",
         "options": [
@@ -2052,7 +2052,7 @@
       {
         "prompt": "「I ___ play with my cat.」空格要填哪個字？",
         "speak": "「I ___ play with my cat.」空格要填哪個字呢？",
-        "hint": "always 表示「總是」",
+        "hint": "這個單字 表示「總是」",
         "explanation": "always 是「總是」，表示常常做。",
         "answer": "always",
         "options": [
@@ -2109,7 +2109,7 @@
       {
         "prompt": "「I ___ eat candy.」空格要填哪個字？",
         "speak": "「I ___ eat candy.」空格要填哪個字呢？",
-        "hint": "sometimes 表示「有時候」",
+        "hint": "這個單字 表示「有時候」",
         "explanation": "sometimes 是「有時候」，表示不是每次都做。",
         "answer": "sometimes",
         "options": [

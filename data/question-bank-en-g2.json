@@ -9,7 +9,7 @@
       {
         "prompt": "聽一聽：哪個單字以 b 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "小蟲蟲 bug 開頭是 b 喔！",
+        "hint": "小蟲蟲 這個單字 開頭是 b 喔！",
         "explanation": "bug 以 b 音 開頭，hug 以 h 音 開頭，mug 以 m 音 開頭。",
         "answer": "bug",
         "options": [
@@ -47,7 +47,7 @@
       {
         "prompt": "c_b 缺了哪個母音字母？",
         "speak": "c_b 缺了哪個母音字母呢？",
-        "hint": "小熊 cub 中間是 u 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "cub 中間缺了 u，不是 a 或 o。",
         "answer": "u",
         "options": [
@@ -66,7 +66,7 @@
       {
         "prompt": "看圖選單字：🐛 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "小蟲蟲在英文叫 bug 喔！",
+        "hint": "小蟲蟲在英文叫 這個單字 喔！",
         "explanation": "🐛 是 bug（蟲），不是 hug（擁抱）或 mug（杯子）。",
         "answer": "bug",
         "options": [
@@ -85,7 +85,7 @@
       {
         "prompt": "mug 是什麼意思？",
         "speak": "請問 mug 是什麼意思呢？",
-        "hint": "mug 是喝水用的杯子喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "mug 是杯子，bug 是蟲，hug 是擁抱。",
         "answer": "杯子",
         "options": [
@@ -98,7 +98,7 @@
           "emojis": [
             "🥤"
           ],
-          "text": "m u g"
+          "text": ""
         }
       },
       {
@@ -124,7 +124,7 @@
       {
         "prompt": "What is this? 🥤",
         "speak": "What is this? 🥤",
-        "hint": "喝水的杯子英文叫 mug 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🥤 是 mug（杯子），不是 bug 或 hug。",
         "answer": "mug",
         "options": [
@@ -164,7 +164,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /n/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "捕蟲網 net 開頭是 n 喔！",
+        "hint": "捕蟲網 這個單字 開頭是 n 喔！",
         "explanation": "net 以 /n/ 開頭，pen 以 /p/ 開頭，hen 以 h 音 開頭。",
         "answer": "net",
         "options": [
@@ -202,7 +202,7 @@
       {
         "prompt": "p_n 缺了哪個母音字母？",
         "speak": "p_n 缺了哪個母音字母呢？",
-        "hint": "筆 pen 中間是 e 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "pen 中間缺了 e，不是 a 或 o。",
         "answer": "e",
         "options": [
@@ -221,7 +221,7 @@
       {
         "prompt": "看圖選單字：🐔 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "母雞在英文叫 hen 喔！",
+        "hint": "母雞在英文叫 這個單字 喔！",
         "explanation": "🐔 是 hen（母雞），不是 pen（筆）或 net（網）。",
         "answer": "hen",
         "options": [
@@ -240,7 +240,7 @@
       {
         "prompt": "ten 是什麼意思？",
         "speak": "請問 ten 是什麼意思呢？",
-        "hint": "十根手指頭就是 ten 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "ten 是十，two 是二，five 是五。",
         "answer": "十",
         "options": [
@@ -253,7 +253,7 @@
           "emojis": [
             "🔟"
           ],
-          "text": "t e n"
+          "text": ""
         }
       },
       {
@@ -279,7 +279,7 @@
       {
         "prompt": "How many fingers? ✋✋",
         "speak": "How many fingers? ✋✋",
-        "hint": "兩隻手十根手指就是 ten 喔！",
+        "hint": "兩隻手十根手指就是 這個單字 喔！",
         "explanation": "兩隻手共十根手指，答案是 ten。",
         "answer": "ten",
         "options": [
@@ -320,7 +320,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /k/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "小貓咪 cat 開頭是 c 發 /k/ 音喔！",
+        "hint": "小貓咪 這個單字 開頭是 c 發 /k/ 音喔！",
         "explanation": "cat 以 /k/ 開頭，hat 以 h 音 開頭，mat 以 m 音 開頭。",
         "answer": "cat",
         "options": [
@@ -358,7 +358,7 @@
       {
         "prompt": "h_t 缺了哪個母音字母？",
         "speak": "h_t 缺了哪個母音字母呢？",
-        "hint": "帽子 hat 中間是 a 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "hat 中間缺了 a，不是 e 或 o。",
         "answer": "a",
         "options": [
@@ -377,7 +377,7 @@
       {
         "prompt": "看圖選單字：🎩 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "禮帽在英文叫 hat 喔！",
+        "hint": "禮帽在英文叫 這個單字 喔！",
         "explanation": "🎩 是 hat（帽子），不是 cat（貓）或 mat（墊子）。",
         "answer": "hat",
         "options": [
@@ -396,7 +396,7 @@
       {
         "prompt": "map 是什麼意思？",
         "speak": "請問 map 是什麼意思呢？",
-        "hint": "map 是看路用的地圖喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "map 是地圖，hat 是帽子，rat 是老鼠。",
         "answer": "地圖",
         "options": [
@@ -409,7 +409,7 @@
           "emojis": [
             "🗺️"
           ],
-          "text": "m a p"
+          "text": ""
         }
       },
       {
@@ -435,7 +435,7 @@
       {
         "prompt": "What is this? 🐀",
         "speak": "What is this? 🐀",
-        "hint": "小老鼠在英文叫 rat 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🐀 是 rat（老鼠），不是 cat 或 hat。",
         "answer": "rat",
         "options": [
@@ -475,7 +475,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /p/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "小豬 pig 開頭是 p 喔！",
+        "hint": "小豬 這個單字 開頭是 p 喔！",
         "explanation": "pig 以 /p/ 開頭，big 以 b 音 開頭，dig 以 d 音 開頭。",
         "answer": "pig",
         "options": [
@@ -513,7 +513,7 @@
       {
         "prompt": "b_g 缺了哪個母音字母？",
         "speak": "b_g 缺了哪個母音字母呢？",
-        "hint": "大大的 big 中間是 i 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "big 中間缺了 i，不是 a 或 o。",
         "answer": "i",
         "options": [
@@ -532,7 +532,7 @@
       {
         "prompt": "看圖選單字：🐷 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "小豬在英文叫 pig 喔！",
+        "hint": "小豬在英文叫 這個單字 喔！",
         "explanation": "🐷 是 pig（豬），不是 pin（別針）或 fin（魚鰭）。",
         "answer": "pig",
         "options": [
@@ -551,7 +551,7 @@
       {
         "prompt": "win 是什麼意思？",
         "speak": "請問 win 是什麼意思呢？",
-        "hint": "比賽贏了就是 win 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "win 是贏，big 是大，dig 是挖。",
         "answer": "贏",
         "options": [
@@ -564,7 +564,7 @@
           "emojis": [
             "🏆"
           ],
-          "text": "w i n"
+          "text": ""
         }
       },
       {
@@ -590,7 +590,7 @@
       {
         "prompt": "What is this? 🦈",
         "speak": "What is this? 🦈",
-        "hint": "鯊魚的鰭在英文叫 fin 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🦈 的鰭是 fin，不是 pin 或 win。",
         "answer": "fin",
         "options": [
@@ -630,7 +630,7 @@
       {
         "prompt": "聽一聽：哪個單字以 m 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "拖把 mop 開頭是 m 喔！",
+        "hint": "拖把 這個單字 開頭是 m 喔！",
         "explanation": "mop 以 m 音 開頭，top 以 /t/ 開頭，hop 以 h 音 開頭。",
         "answer": "mop",
         "options": [
@@ -668,7 +668,7 @@
       {
         "prompt": "p_t 缺了哪個母音字母？",
         "speak": "p_t 缺了哪個母音字母呢？",
-        "hint": "鍋子 pot 中間是 o 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "pot 中間缺了 o，不是 a 或 e。",
         "answer": "o",
         "options": [
@@ -687,7 +687,7 @@
       {
         "prompt": "看圖選單字：🧹 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "拖地在英文叫 mop 喔！",
+        "hint": "拖地在英文叫 這個單字 喔！",
         "explanation": "🧹 是 mop（拖把），不是 top（頂端）或 hop（跳）。",
         "answer": "mop",
         "options": [
@@ -706,7 +706,7 @@
       {
         "prompt": "not 是什麼意思？",
         "speak": "請問 not 是什麼意思呢？",
-        "hint": "not 就是「不」的意思喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "not 是不，top 是頂端，hop 是跳。",
         "answer": "不",
         "options": [
@@ -719,7 +719,7 @@
           "emojis": [
             "🚫"
           ],
-          "text": "n o t"
+          "text": ""
         }
       },
       {
@@ -745,7 +745,7 @@
       {
         "prompt": "What is this? 🔥",
         "speak": "What is this? 🔥",
-        "hint": "好燙好熱就是 hot 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🔥 是 hot（熱），不是 mop 或 top。",
         "answer": "hot",
         "options": [
@@ -785,7 +785,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /r/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "地毯 rug 開頭是 r 喔！",
+        "hint": "地毯 這個單字 開頭是 r 喔！",
         "explanation": "rug 以 /r/ 開頭，mug 以 m 音 開頭，bug 以 b 音 開頭。",
         "answer": "rug",
         "options": [
@@ -823,7 +823,7 @@
       {
         "prompt": "r_n 缺了哪個母音字母？",
         "speak": "r_n 缺了哪個母音字母呢？",
-        "hint": "跑步 run 中間是 u 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "run 中間缺了 u，不是 a 或 o。",
         "answer": "u",
         "options": [
@@ -842,7 +842,7 @@
       {
         "prompt": "看圖選單字：☀️ 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "太陽在英文叫 sun 喔！",
+        "hint": "太陽在英文叫 這個單字 喔！",
         "explanation": "☀️ 是 sun（太陽），不是 run（跑）或 fun（好玩）。",
         "answer": "sun",
         "options": [
@@ -861,7 +861,7 @@
       {
         "prompt": "fun 是什麼意思？",
         "speak": "請問 fun 是什麼意思呢？",
-        "hint": "好玩就是 fun 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "fun 是好玩，run 是跑，rug 是地毯。",
         "answer": "好玩",
         "options": [
@@ -874,7 +874,7 @@
           "emojis": [
             "🎉"
           ],
-          "text": "f u n"
+          "text": ""
         }
       },
       {
@@ -900,7 +900,7 @@
       {
         "prompt": "What is this? 🏃",
         "speak": "What is this? 🏃",
-        "hint": "跑步在英文叫 run 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🏃 是 run（跑），不是 sun 或 fun。",
         "answer": "run",
         "options": [
@@ -940,7 +940,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /sh/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "大船 ship 開頭是 sh 喔！",
+        "hint": "大船 這個單字 開頭是 sh 喔！",
         "explanation": "ship 以 /sh/ 開頭，fish 以 /f/ 開頭，dish 以 d 音 開頭。",
         "answer": "ship",
         "options": [
@@ -978,7 +978,7 @@
       {
         "prompt": "sh_p 缺了哪個母音字母？",
         "speak": "sh_p 缺了哪個母音字母呢？",
-        "hint": "大船 ship 中間是 i 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "ship 中間缺了 i，不是 e 或 o。",
         "answer": "i",
         "options": [
@@ -997,7 +997,7 @@
       {
         "prompt": "看圖選單字：🚢 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "大船在英文叫 ship 喔！",
+        "hint": "大船在英文叫 這個單字 喔！",
         "explanation": "🚢 是 ship（船），不是 shop（商店）或 shell（貝殼）。",
         "answer": "ship",
         "options": [
@@ -1016,7 +1016,7 @@
       {
         "prompt": "shoe 是什麼意思？",
         "speak": "請問 shoe 是什麼意思呢？",
-        "hint": "穿在腳上的鞋子就是 shoe 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "shoe 是鞋子，fish 是魚，dish 是盤子。",
         "answer": "鞋子",
         "options": [
@@ -1029,13 +1029,13 @@
           "emojis": [
             "👟"
           ],
-          "text": "s h o e"
+          "text": ""
         }
       },
       {
         "prompt": "哪個單字含有 sh 音？",
         "speak": "哪個單字含有 sh 音呢？",
-        "hint": "fish 最後有 sh 音喔！",
+        "hint": "這個單字 最後有 sh 音喔！",
         "explanation": "fish 含有 /sh/ 音。chip 含有 /ch/，bath 含有 /th/。",
         "answer": "fish",
         "options": [
@@ -1054,7 +1054,7 @@
       {
         "prompt": "What is this? 🐟",
         "speak": "What is this? 🐟",
-        "hint": "小魚在英文叫 fish 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🐟 是 fish（魚），不是 dish 或 shell。",
         "answer": "fish",
         "options": [
@@ -1094,7 +1094,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /ch/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "薯條 chip 開頭是 ch 喔！",
+        "hint": "薯條 這個單字 開頭是 ch 喔！",
         "explanation": "chip 以 /ch/ 開頭，ship 以 /sh/ 開頭，thin 以 /th/ 開頭。",
         "answer": "chip",
         "options": [
@@ -1132,7 +1132,7 @@
       {
         "prompt": "ch_t 缺了哪個母音字母？",
         "speak": "ch_t 缺了哪個母音字母呢？",
-        "hint": "聊天 chat 中間是 a 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "chat 中間缺了 a，不是 e 或 o。",
         "answer": "a",
         "options": [
@@ -1151,7 +1151,7 @@
       {
         "prompt": "看圖選單字：🪑 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "椅子在英文叫 chair 喔！",
+        "hint": "椅子在英文叫 這個單字 喔！",
         "explanation": "🪑 是 chair（椅子），不是 chip（薯條）或 chat（聊天）。",
         "answer": "chair",
         "options": [
@@ -1183,13 +1183,13 @@
           "emojis": [
             "🍱"
           ],
-          "text": "l u n c h"
+          "text": ""
         }
       },
       {
         "prompt": "哪個單字含有 ch 音？",
         "speak": "哪個單字含有 ch 音呢？",
-        "hint": "桃子 peach 最後有 ch 音喔！",
+        "hint": "桃子 這個單字 最後有 ch 音喔！",
         "explanation": "peach 含有 /ch/ 音。fish 含有 /sh/，bath 含有 /th/。",
         "answer": "peach",
         "options": [
@@ -1208,7 +1208,7 @@
       {
         "prompt": "What is this? ⌚",
         "speak": "What is this? ⌚",
-        "hint": "手錶在英文叫 watch 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "⌚ 是 watch（手錶），不是 chair 或 lunch。",
         "answer": "watch",
         "options": [
@@ -1248,7 +1248,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /th/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "瘦瘦的 thin 開頭是 th 喔！",
+        "hint": "瘦瘦的 這個單字 開頭是 th 喔！",
         "explanation": "thin 以 /th/ 開頭，chip 以 /ch/ 開頭，ship 以 /sh/ 開頭。",
         "answer": "thin",
         "options": [
@@ -1286,7 +1286,7 @@
       {
         "prompt": "b_th 缺了哪個母音字母？",
         "speak": "b_th 缺了哪個母音字母呢？",
-        "hint": "洗澡 bath 中間是 a 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "bath 中間缺了 a，不是 e 或 o。",
         "answer": "a",
         "options": [
@@ -1305,7 +1305,7 @@
       {
         "prompt": "看圖選單字：🦷 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "牙齒在英文叫 tooth 喔！",
+        "hint": "牙齒在英文叫 這個單字 喔！",
         "explanation": "🦷 是 tooth（牙齒），不是 thin（瘦）或 thick（厚）。",
         "answer": "tooth",
         "options": [
@@ -1324,7 +1324,7 @@
       {
         "prompt": "three 是什麼意思？",
         "speak": "請問 three 是什麼意思呢？",
-        "hint": "三就是 three 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "three 是三，two 是二，ten 是十。",
         "answer": "三",
         "options": [
@@ -1337,13 +1337,13 @@
           "emojis": [
             "3️⃣"
           ],
-          "text": "t h r e e"
+          "text": ""
         }
       },
       {
         "prompt": "哪個單字含有 th 音？",
         "speak": "哪個單字含有 th 音呢？",
-        "hint": "洗澡 bath 最後有 th 音喔！",
+        "hint": "洗澡 這個單字 最後有 th 音喔！",
         "explanation": "bath 含有 /th/ 音。chip 含有 /ch/，fish 含有 /sh/。",
         "answer": "bath",
         "options": [
@@ -1362,7 +1362,7 @@
       {
         "prompt": "How many fingers? ✌️☝️",
         "speak": "How many fingers? ✌️☝️",
-        "hint": "三根手指就是 three 喔！",
+        "hint": "三根手指就是 這個單字 喔！",
         "explanation": "三根手指答案是 three，不是 two 或 ten。",
         "answer": "three",
         "options": [
@@ -1403,7 +1403,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /bl/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "黑色 black 開頭是 bl 喔！",
+        "hint": "黑色 這個單字 開頭是 bl 喔！",
         "explanation": "black 以 /bl/ 開頭，clock 以 /cl/ 開頭，class 以 /cl/ 開頭。",
         "answer": "black",
         "options": [
@@ -1441,7 +1441,7 @@
       {
         "prompt": "bl_e 缺了哪個母音字母？",
         "speak": "bl_e 缺了哪個母音字母呢？",
-        "hint": "藍色 blue 中間是 u 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "blue 中間缺了 u，不是 a 或 o。",
         "answer": "u",
         "options": [
@@ -1460,7 +1460,7 @@
       {
         "prompt": "看圖選單字：🕐 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "時鐘在英文叫 clock 喔！",
+        "hint": "時鐘在英文叫 這個單字 喔！",
         "explanation": "🕐 是 clock（時鐘），不是 block（積木）或 class（班級）。",
         "answer": "clock",
         "options": [
@@ -1479,7 +1479,7 @@
       {
         "prompt": "clean 是什麼意思？",
         "speak": "請問 clean 是什麼意思呢？",
-        "hint": "乾淨就是 clean 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "clean 是乾淨，black 是黑色，blue 是藍色。",
         "answer": "乾淨",
         "options": [
@@ -1492,13 +1492,13 @@
           "emojis": [
             "✨"
           ],
-          "text": "c l e a n"
+          "text": ""
         }
       },
       {
         "prompt": "哪個單字以 cl 開頭？",
         "speak": "哪個單字以 cl 開頭呢？",
-        "hint": "班級 class 開頭是 cl 喔！",
+        "hint": "班級 這個單字 開頭是 cl 喔！",
         "explanation": "class 以 /cl/ 開頭。black 和 blue 以 /bl/ 開頭。",
         "answer": "class",
         "options": [
@@ -1517,7 +1517,7 @@
       {
         "prompt": "What color is this? ⚫",
         "speak": "What color is this? ⚫",
-        "hint": "黑色就是 black 喔！",
+        "hint": "黑色就是 這個單字 喔！",
         "explanation": "⚫ 是 black（黑色），不是 blue 或 clean。",
         "answer": "black",
         "options": [
@@ -1557,7 +1557,7 @@
       {
         "prompt": "聽一聽：哪個單字以 /st/ 開頭？",
         "speak": "仔細聽，選出正確的選項喔！",
-        "hint": "停止 stop 開頭是 st 喔！",
+        "hint": "停止 這個單字 開頭是 st 喔！",
         "explanation": "stop 以 /st/ 開頭，spin 以 /sp/ 開頭，spot 以 /sp/ 開頭。",
         "answer": "stop",
         "options": [
@@ -1595,7 +1595,7 @@
       {
         "prompt": "st_p 缺了哪個母音字母？",
         "speak": "st_p 缺了哪個母音字母呢？",
-        "hint": "停止 stop 中間是 o 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "stop 中間缺了 o，不是 a 或 e。",
         "answer": "o",
         "options": [
@@ -1614,7 +1614,7 @@
       {
         "prompt": "看圖選單字：⭐ 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "星星在英文叫 star 喔！",
+        "hint": "星星在英文叫 這個單字 喔！",
         "explanation": "⭐ 是 star（星星），不是 stop（停止）或 step（踏）。",
         "answer": "star",
         "options": [
@@ -1633,7 +1633,7 @@
       {
         "prompt": "spin 是什麼意思？",
         "speak": "請問 spin 是什麼意思呢？",
-        "hint": "轉圈圈就是 spin 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "spin 是轉，stop 是停，spot 是點。",
         "answer": "轉",
         "options": [
@@ -1646,13 +1646,13 @@
           "emojis": [
             "🌀"
           ],
-          "text": "s p i n"
+          "text": ""
         }
       },
       {
         "prompt": "哪個單字以 sp 開頭？",
         "speak": "哪個單字以 sp 開頭呢？",
-        "hint": "小紅點 spot 開頭是 sp 喔！",
+        "hint": "小紅點 這個單字 開頭是 sp 喔！",
         "explanation": "spot 以 /sp/ 開頭。stop 和 star 以 /st/ 開頭。",
         "answer": "spot",
         "options": [
@@ -1671,7 +1671,7 @@
       {
         "prompt": "What is this? 🥄",
         "speak": "What is this? 🥄",
-        "hint": "湯匙在英文叫 spoon 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🥄 是 spoon（湯匙），不是 spin 或 spot。",
         "answer": "spoon",
         "options": [
@@ -1711,7 +1711,7 @@
       {
         "prompt": "cap 和 cape 哪個有長母音？",
         "speak": "cap 和 cape 哪個有長母音呢？",
-        "hint": "cape 最後有 e，所以 a 發長音喔！",
+        "hint": "這個單字 最後有 e，所以 a 發長音喔！",
         "explanation": "cape 有長母音 /eɪ/，cap 是短母音 /æ/。",
         "answer": "cape",
         "options": [
@@ -1730,7 +1730,7 @@
       {
         "prompt": "kit 和 kite 哪個有長母音？",
         "speak": "kit 和 kite 哪個有長母音呢？",
-        "hint": "kite 最後有 e，所以 i 發長音喔！",
+        "hint": "這個單字 最後有 e，所以 i 發長音喔！",
         "explanation": "kite 有長母音 /aɪ/，kit 是短母音 /ɪ/。",
         "answer": "kite",
         "options": [
@@ -1768,7 +1768,7 @@
       {
         "prompt": "看圖選單字：🪁 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "風箏在英文叫 kite 喔！",
+        "hint": "風箏在英文叫 這個單字 喔！",
         "explanation": "🪁 是 kite（風箏），不是 kit（工具箱）或 pin（別針）。",
         "answer": "kite",
         "options": [
@@ -1787,7 +1787,7 @@
       {
         "prompt": "pine 是什麼意思？",
         "speak": "請問 pine 是什麼意思呢？",
-        "hint": "pine 是松樹喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "pine 是松樹，pin 是別針，cap 是帽子。",
         "answer": "松樹",
         "options": [
@@ -1800,13 +1800,13 @@
           "emojis": [
             "🌲"
           ],
-          "text": "p i n e"
+          "text": ""
         }
       },
       {
         "prompt": "hop 和 hope 哪個有長母音？",
         "speak": "hop 和 hope 哪個有長母音呢？",
-        "hint": "hope 最後有 e，所以 o 發長音喔！",
+        "hint": "這個單字 最後有 e，所以 o 發長音喔！",
         "explanation": "hope 有長母音 /oʊ/，hop 是短母音 /ɒ/。",
         "answer": "hope",
         "options": [
@@ -1825,7 +1825,7 @@
       {
         "prompt": "What is this? 🩹",
         "speak": "What is this? 🩹",
-        "hint": "膠帶在英文叫 tape 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🩹 是 tape（膠帶），不是 tap（水龍頭）或 cape（披風）。",
         "answer": "tape",
         "options": [
@@ -1844,7 +1844,7 @@
       {
         "prompt": "pin 和 pine 哪個有長母音？",
         "speak": "pin 和 pine 哪個有長母音呢？",
-        "hint": "pine 最後有 e，所以 i 發長音喔！",
+        "hint": "這個單字 最後有 e，所以 i 發長音喔！",
         "explanation": "pine 有長母音 /aɪ/，pin 是短母音 /ɪ/。",
         "answer": "pine",
         "options": [
@@ -1903,7 +1903,7 @@
       {
         "prompt": "t_n 缺了哪個母音字母？",
         "speak": "t_n 缺了哪個母音字母呢？",
-        "hint": "十 ten 中間是 e 喔！",
+        "hint": "仔細聽聽看單字中間的母音發音喔！",
         "explanation": "ten 中間缺了 e，不是 a 或 o。",
         "answer": "e",
         "options": [
@@ -1922,7 +1922,7 @@
       {
         "prompt": "看圖選數字：7 根手指",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "七根手指就是 seven 喔！",
+        "hint": "七根手指就是 這個單字 喔！",
         "explanation": "7 根手指是 seven，不是 five 或 ten。",
         "answer": "seven",
         "options": [
@@ -1941,7 +1941,7 @@
       {
         "prompt": "twenty 是什麼意思？",
         "speak": "請問 twenty 是什麼意思呢？",
-        "hint": "twenty 是二十喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "twenty 是 20，twelve 是 12，two 是 2。",
         "answer": "二十",
         "options": [
@@ -1954,13 +1954,13 @@
           "emojis": [
             "2️⃣0️⃣"
           ],
-          "text": "t w e n t y"
+          "text": ""
         }
       },
       {
         "prompt": "How many stars? ⭐⭐⭐⭐⭐",
         "speak": "How many stars? ⭐⭐⭐⭐⭐",
-        "hint": "五顆星星就是 five 喔！",
+        "hint": "五顆星星就是 這個單字 喔！",
         "explanation": "五顆星星是 five，不是 four 或 six。",
         "answer": "five",
         "options": [
@@ -1982,7 +1982,7 @@
       {
         "prompt": "What number is this? 11",
         "speak": "What number is this? 11",
-        "hint": "11 就是 eleven 喔！",
+        "hint": "11 就是 這個單字 喔！",
         "explanation": "11 是 eleven，12 是 twelve，20 是 twenty。",
         "answer": "eleven",
         "options": [
@@ -2022,7 +2022,7 @@
       {
         "prompt": "看圖選顏色：🔴 是什麼顏色？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "紅色就是 red 喔！",
+        "hint": "紅色就是 這個單字 喔！",
         "explanation": "🔴 是 red（紅色），不是 blue 或 green。",
         "answer": "red",
         "options": [
@@ -2060,7 +2060,7 @@
       {
         "prompt": "看圖選形容詞：🐘 是大還是小？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "大象好大好大，就是 big 喔！",
+        "hint": "大象好大好大，就是 這個單字 喔！",
         "explanation": "大象很大，答案是 big。small 是小，tall 是高。",
         "answer": "big",
         "options": [
@@ -2079,7 +2079,7 @@
       {
         "prompt": "small 是什麼意思？",
         "speak": "請問 small 是什麼意思呢？",
-        "hint": "小小的就是 small 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "small 是小，big 是大，tall 是高。",
         "answer": "小",
         "options": [
@@ -2092,13 +2092,13 @@
           "emojis": [
             "🐜"
           ],
-          "text": "s m a l l"
+          "text": ""
         }
       },
       {
         "prompt": "看圖選形容詞：🦒 是高還是矮？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "長頸鹿好高好高，就是 tall 喔！",
+        "hint": "長頸鹿好高好高，就是 這個單字 喔！",
         "explanation": "長頸鹿很高，答案是 tall。big 是大，small 是小。",
         "answer": "tall",
         "options": [
@@ -2156,7 +2156,7 @@
       {
         "prompt": "看圖選形容詞：🐜 是大還是小？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "螞蟻好小好小，就是 small 喔！",
+        "hint": "螞蟻好小好小，就是 這個單字 喔！",
         "explanation": "螞蟻很小，答案是 small。big 是大，tall 是高。",
         "answer": "small",
         "options": [
@@ -2177,7 +2177,7 @@
       {
         "prompt": "看圖選單字：👩 是誰？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "媽媽在英文叫 mom 喔！",
+        "hint": "媽媽在英文叫 這個單字 喔！",
         "explanation": "👩 是 mom（媽媽），不是 dad（爸爸）或 hand（手）。",
         "answer": "mom",
         "options": [
@@ -2196,7 +2196,7 @@
       {
         "prompt": "dad 是什麼意思？",
         "speak": "請問 dad 是什麼意思呢？",
-        "hint": "dad 是爸爸喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "dad 是爸爸，mom 是媽媽，foot 是腳。",
         "answer": "爸爸",
         "options": [
@@ -2209,13 +2209,13 @@
           "emojis": [
             "👨"
           ],
-          "text": "d a d"
+          "text": ""
         }
       },
       {
         "prompt": "看圖選單字：✋ 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "手在英文叫 hand 喔！",
+        "hint": "手在英文叫 這個單字 喔！",
         "explanation": "✋ 是 hand（手），不是 foot（腳）或 mom（媽媽）。",
         "answer": "hand",
         "options": [
@@ -2234,7 +2234,7 @@
       {
         "prompt": "foot 是什麼意思？",
         "speak": "請問 foot 是什麼意思呢？",
-        "hint": "foot 是腳喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "foot 是腳，hand 是手，run 是跑。",
         "answer": "腳",
         "options": [
@@ -2247,13 +2247,13 @@
           "emojis": [
             "🦶"
           ],
-          "text": "f o o t"
+          "text": ""
         }
       },
       {
         "prompt": "看圖選動作：🏃 是什麼動作？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "跑步在英文叫 run 喔！",
+        "hint": "跑步在英文叫 這個單字 喔！",
         "explanation": "🏃 是 run（跑），不是 jump（跳）或 swim（游泳）。",
         "answer": "run",
         "options": [
@@ -2272,7 +2272,7 @@
       {
         "prompt": "jump 是什麼意思？",
         "speak": "請問 jump 是什麼意思呢？",
-        "hint": "跳起來就是 jump 喔！",
+        "hint": "觀察圖片中的物品特徵，想想平常生活中的用途喔！",
         "explanation": "jump 是跳，run 是跑，swim 是游泳。",
         "answer": "跳",
         "options": [
@@ -2285,13 +2285,13 @@
           "emojis": [
             "🤸"
           ],
-          "text": "j u m p"
+          "text": ""
         }
       },
       {
         "prompt": "What is this action? 🏊",
         "speak": "What is this action? 🏊",
-        "hint": "游泳在英文叫 swim 喔！",
+        "hint": "看圖想一想，這個生活物品的英文名字是什麼？",
         "explanation": "🏊 是 swim（游泳），不是 run 或 jump。",
         "answer": "swim",
         "options": [
@@ -2310,7 +2310,7 @@
       {
         "prompt": "看圖選單字：🦶 是什麼？",
         "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
-        "hint": "腳在英文叫 foot 喔！",
+        "hint": "腳在英文叫 這個單字 喔！",
         "explanation": "🦶 是 foot（腳），不是 hand（手）或 dad（爸爸）。",
         "answer": "foot",
         "options": [
@@ -2331,7 +2331,7 @@
       {
         "prompt": "What's this? 🍎",
         "speak": "What's this? 🍎",
-        "hint": "蘋果在英文叫 apple 喔！",
+        "hint": "蘋果在英文叫 這個單字 喔！",
         "explanation": "🍎 是 apple（蘋果），不是 cat 或 dog。",
         "answer": "apple",
         "options": [
@@ -2350,7 +2350,7 @@
       {
         "prompt": "Who is she? 👩",
         "speak": "Who is she? 👩",
-        "hint": "她是媽媽就是 mom 喔！",
+        "hint": "她是媽媽就是 這個單字 喔！",
         "explanation": "👩 是 mom（媽媽），不是 dad 或 hand。",
         "answer": "mom",
         "options": [
@@ -2369,7 +2369,7 @@
       {
         "prompt": "I like 🍕. 我喜歡什麼？",
         "speak": "I like 🍕. 我喜歡什麼呢？",
-        "hint": "pizza 是披薩喔！",
+        "hint": "pizza 是這個單字喔！",
         "explanation": "🍕 是 pizza（披薩），不是 apple 或 cat。",
         "answer": "披薩",
         "options": [
@@ -2388,7 +2388,7 @@
       {
         "prompt": "How are you? 你怎麼了？",
         "speak": "How are you? 你怎麼了呢？",
-        "hint": "回答 I am fine 就是「我很好」喔！",
+        "hint": "回答 I am fine 就是「這個單字」喔！",
         "explanation": "How are you? 是問你好不好，回答 I am fine 是我很好。",
         "answer": "我很好",
         "options": [
@@ -2407,7 +2407,7 @@
       {
         "prompt": "What's this? 🐶",
         "speak": "What's this? 🐶",
-        "hint": "小狗在英文叫 dog 喔！",
+        "hint": "小狗在英文叫 這個單字 喔！",
         "explanation": "🐶 是 dog（狗），不是 cat 或 apple。",
         "answer": "dog",
         "options": [
@@ -2445,7 +2445,7 @@
       {
         "prompt": "How are you? 怎麼回答？",
         "speak": "How are you? 怎麼回答呢？",
-        "hint": "I am happy 就是「我很開心」喔！",
+        "hint": "I am happy 就是「這個單字」喔！",
         "explanation": "I am happy 是我很開心，不是「我餓了」或「我累了」。",
         "answer": "我很開心",
         "options": [
@@ -2464,7 +2464,7 @@
       {
         "prompt": "Who is he? 👨",
         "speak": "Who is he? 👨",
-        "hint": "他是爸爸就是 dad 喔！",
+        "hint": "他是爸爸就是 這個單字 喔！",
         "explanation": "👨 是 dad（爸爸），不是 mom 或 foot。",
         "answer": "dad",
         "options": [

@@ -108,7 +108,7 @@
       {
         "prompt": "哪一個單字以字母 A 開頭？",
         "speak": "哪一個單字以字母 A 開頭呢？",
-        "hint": "ax 是斧頭，apple 也是 a 開頭。",
+        "hint": "想想這個單字的開頭音與母音發音！",
         "explanation": "ax 以 a 開頭；cat 是 c，duck 是 d。",
         "answer": "ax",
         "options": [
@@ -208,7 +208,7 @@
       {
         "prompt": "補上缺少的字母：_us（公車）",
         "speak": "補上缺少的字母：_us（公車）",
-        "hint": "公車的英文開頭是 b。",
+        "hint": "輕輕讀讀看，選出發音最符合的字母！",
         "explanation": "b + us = bus 公車。",
         "answer": "b",
         "options": [
@@ -367,7 +367,7 @@
       {
         "prompt": "補上缺少的字母：_at（小貓）",
         "speak": "補上缺少的字母：_at（小貓）",
-        "hint": "小貓的英文開頭是 c。",
+        "hint": "輕輕讀讀看，選出發音最符合的字母！",
         "explanation": "c + at = cat 小貓。",
         "answer": "c",
         "options": [
@@ -687,7 +687,7 @@
       {
         "prompt": "補上字母，變成「戴在頭上」的單字：_at",
         "speak": "補上字母，變成「戴在頭上」的單字：_at",
-        "hint": "帽子戴在頭上，它的英文開頭是 h。",
+        "hint": "輕輕讀讀看，選出發音最符合的字母！",
         "explanation": "h + at = hat 帽子。",
         "answer": "h",
         "options": [
@@ -849,7 +849,7 @@
       {
         "prompt": "補上字母，變成「十」的單字：_en",
         "speak": "補上字母，變成「十」的單字：_en",
-        "hint": "十的英文開頭是 t。",
+        "hint": "輕輕讀讀看，選出發音最符合的字母！",
         "explanation": "t + en = ten 十。",
         "answer": "t",
         "options": [
@@ -1013,7 +1013,7 @@
       {
         "prompt": "補上字母，變成「大大的」單字：_ig",
         "speak": "補上字母，變成「大大的」單字：_ig",
-        "hint": "大大的英文開頭是 b。",
+        "hint": "輕輕讀讀看，選出發音最符合的字母！",
         "explanation": "b + ig = big 大大的。",
         "answer": "b",
         "options": [
@@ -1358,7 +1358,7 @@
       {
         "prompt": "補上字母，變成「鞋子」的單字：_hoe",
         "speak": "補上字母，變成「鞋子」的單字：_hoe",
-        "hint": "鞋子的英文開頭是 sh。",
+        "hint": "輕輕讀讀看，選出發音最符合的字母！",
         "explanation": "s + hoe = shoe 鞋子。",
         "answer": "s",
         "options": [
@@ -1396,7 +1396,7 @@
       {
         "prompt": "「brush」的結尾音是？",
         "speak": "「brush」的結尾音是呢？",
-        "hint": "brush 最後兩個字母是什麼？",
+        "hint": "bru這個單字 最後兩個字母是什麼？",
         "explanation": "brush 以 sh 結尾：b-r-u-s-h。",
         "answer": "sh",
         "options": [
@@ -1436,7 +1436,7 @@
       {
         "prompt": "補上缺少的字母：wa_（洗澡）",
         "speak": "補上缺少的字母：wa_（洗澡）",
-        "hint": "洗澡的英文，最後是 sh 兩個字母。",
+        "hint": "洗澡的英文，最後是 這個單字 兩個字母。",
         "explanation": "wa + sh = wash 洗澡。",
         "answer": "sh",
         "options": [
@@ -1536,7 +1536,7 @@
       {
         "prompt": "補上缺少的字母：lun_（午餐）",
         "speak": "補上缺少的字母：lun_（午餐）",
-        "hint": "午餐的英文，最後是 ch 兩個字母。",
+        "hint": "午餐的英文，最後是 這個單字 兩個字母。",
         "explanation": "lun + ch = lunch 午餐。",
         "answer": "ch",
         "options": [
@@ -1555,7 +1555,7 @@
       {
         "prompt": "「watch」的結尾音是？",
         "speak": "「watch」的結尾音是呢？",
-        "hint": "watch 最後兩個字母是什麼？",
+        "hint": "wat這個單字 最後兩個字母是什麼？",
         "explanation": "watch 以 ch 結尾：w-a-t-c-h。",
         "answer": "ch",
         "options": [
@@ -1695,7 +1695,7 @@
       {
         "prompt": "補上缺少的字母：_ree（三）",
         "speak": "補上缺少的字母：_ree（三）",
-        "hint": "三的英文，開頭是 th 兩個字母。",
+        "hint": "三的英文，開頭是 這個單字 兩個字母。",
         "explanation": "th + ree = three 三。",
         "answer": "th",
         "options": [
@@ -1714,7 +1714,7 @@
       {
         "prompt": "「tooth」的結尾音是？",
         "speak": "「tooth」的結尾音是呢？",
-        "hint": "tooth 最後兩個字母是什麼？",
+        "hint": "too這個單字 最後兩個字母是什麼？",
         "explanation": "tooth 以 th 結尾：t-o-o-t-h。",
         "answer": "th",
         "options": [
@@ -1836,7 +1836,7 @@
       {
         "prompt": "補上缺少的字母：ki_（國王）",
         "speak": "補上缺少的字母：ki_（國王）",
-        "hint": "國王的英文，最後是 ng 兩個字母。",
+        "hint": "國王的英文，最後是 這個單字 兩個字母。",
         "explanation": "ki + ng = king 國王。",
         "answer": "ng",
         "options": [
@@ -1855,7 +1855,7 @@
       {
         "prompt": "「clock」的結尾音是？",
         "speak": "「clock」的結尾音是呢？",
-        "hint": "clock 最後兩個字母是什麼？",
+        "hint": "clo這個單字 最後兩個字母是什麼？",
         "explanation": "clock 以 ck 結尾：c-l-o-c-k。",
         "answer": "ck",
         "options": [
@@ -2526,7 +2526,7 @@
       {
         "prompt": "「fish」的結尾音是？",
         "speak": "「fish」的結尾音是呢？",
-        "hint": "fish 最後兩個字母是什麼？",
+        "hint": "fi這個單字 最後兩個字母是什麼？",
         "explanation": "fish 以 sh 結尾：f-i-s-h。",
         "answer": "sh",
         "options": [

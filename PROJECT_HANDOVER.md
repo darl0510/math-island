@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.5.6 版)  
+> **最後更新時間**：2026-10-26 (v2.5.7 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,7 +10,7 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.5.6】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.5.7】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
 python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "實裝跨領域綜合素養成果分享海報與家長成績單報表功能，完成後 node --check 自檢"
@@ -56,12 +56,14 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
+- [x] **英文國語防洩題全面修復 ✕ 語音裝置智慧中英雙軌升級 ✕ 國語筆順多元題型重構** (修復英文教具常態洩題與發音朗讀錯誤、清洗 172 題英文題庫直接給答案的提示、重構小二筆順島出題消除每題答案相同問題、升級 `js/audio.js` 智慧雙軌語音與 voices 預載、重構 `js/texts.js` 分科讚美詞庫消除跨科稱讚數學小達人問題) (v2.5.7)
 - [x] **全域注音標示系統實裝** (建立 5,324 字注音辭典 `js/zhuyin-data.js` 與 `js/zhuyin.js`、題目/提示/選項預設 `<ruby><rt>` 注音標註、防洩題防禦、頂部導覽列 `ㄅ` 開關按鈕與 localStorage 偏好記憶、`node --check` 與瀏覽器實測 100% 綠燈) (v2.5.6)
 - [x] **奇幻自然科學島小三 16 關自然探索關卡題庫建置與整合** (完成 `data/question-bank-science-g3.json` 128 題小三自然科學題庫、建立 `js/levels/island_defs_science_g3.js` 4 島 16 關定義、在 `js/levels/index.js` 與 `js/grades.js` 註冊小三自然領域，`node --check` 自檢全綠燈) (v2.5.5)
 - [x] **奇幻自然科學島小二 16 關自然進階探索關卡題庫建置** (完成 `data/question-bank-science-g2.json` 128 題自然探索題庫、建置 `js/levels/island_defs_science_g2.js` 4 島 16 關定義) (v2.5.4)
 - [x] **奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置** (完成小一 128 題自然探索題庫與關卡定義掛載) (v2.5.3)
-- [x] **跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝** (建立 `js/trophy.js` 通關金盃頒發盛典模組) (v2.5.1)
 <details><summary>過往已完成歷史任務</summary>
+- [x] **跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝** (建立 `js/trophy.js` 通關金盃頒發盛典模組) (v2.5.1)
+
 - [x] **英文島答案洩漏全面修復 ✕ 跨科目期末綜合挑戰島關卡規劃與規則串接** (v2.5.0)
 - [x] **國語島生字筆順動態繪製與筆畫指引教具擴展** (v2.4.8)
 - [x] **多科目關卡前置星數解鎖與學習徽章系統實裝** (v2.4.7)
@@ -72,6 +74,20 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 </details>
 
 ## 🌟 近期重大功能更新歷程 (Version Changelog)
+
+### 【v2.5.7 版】🛡️ 英文國語防洩題全面修復 ✕ 語音裝置智慧雙軌升級 ✕ 國語筆順多元題型重構 📅 2026-10-26
+
+1. **語音裝置與跨科讚美詞庫重構 (`js/texts.js` & `js/engine.js` & `js/audio.js` & `js/subjects.js`)**：
+   - 根治「英文答題卻被叫數學小達人」：在 `js/texts.js` 重構 `PRAISE` 與新增 `SUBJECT_PRAISES` / `getSubjectPraise()`，數學/英文/國語/自然各司其職，通用詞改為「太棒了！答題小高手！」。
+   - 語音裝置升級：`js/audio.js` 加入 `updateVoices()` 與 `onvoiceschanged` 預載機制，解決 Windows / Chrome 剛啟動時 voices 為空導致啞巴問題。
+   - 中英智慧雙軌分流：`browserSpeak` 自動偵測文字主體（純英文字母/單字走 `en-US` 美語自然發音；中文字詞走 `zh-TW` 台灣國語），英文島科目語系配置同步校正為 `en-US`。
+2. **英文視覺教具與題庫防洩題徹底修復 (`js/visuals.js` & `data/question-bank-en-*.json`)**：
+   - 移除教具常態顯示的 `english-fox-card` 洩題卡片，回歸由右上角「💡 提示」按鈕按需觸發。
+   - 修正拼字題（Spelling）：無挖空時嚴禁直接拼出完整正解積木；單字釋義題聽聽看按鈕朗讀目標英文詞，修正誤將中文答案丟進美語引擎之問題。
+   - 清洗 172 處直接寫出正解的題庫 hints，改為引導性提示。
+3. **國語小二筆順島出題多元化重構 (`scripts/ch_g2_data.py` & `scripts/build_ch_g2_bank.py` & `data/question-bank-ch-g2.json`)**：
+   - 徹底終結「先橫後豎森林 每一題答案都是先橫後豎毫無難度」的問題。
+   - 引進 3 大高質量題型：逆向選字（選出先橫後豎的字）、筆畫順序（第一筆先寫什麼）、筆順例外（哪一個字不是本關筆順），每題正解完全不同，具備真實思考深度。
 
 ### 【v2.5.1 版】🏆 跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝 📅 2026-10-25
 

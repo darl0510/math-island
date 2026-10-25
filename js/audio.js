@@ -26,10 +26,22 @@ class AudioManager {
     this.onMusicChange = null;
     this.onTtsChange = null;
 
+    this.cachedVoices = [];
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      this.updateVoices();
+      window.speechSynthesis.onvoiceschanged = () => this.updateVoices();
+    }
+
     for (const channel of this.channels) {
       channel.loop = true;
       channel.preload = 'auto';
       channel.volume = 0;
+    }
+  }
+
+  updateVoices() {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      this.cachedVoices = window.speechSynthesis.getVoices() || [];
     }
   }
 
@@ -310,29 +322,48 @@ class AudioManager {
     }
   }
 
-  browserSpeak(text) {
+  browserSpeak(text, langOverride) {
     return new Promise((resolve) => {
-      if (!('speechSynthesis' in window)) return resolve();
-      const lang = this.speechLang || 'zh-TW';
-      const isChinese = /^zh/i.test(lang);
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      // 美語島：語速稍慢、音調中性，協助自然發音分節
-      utterance.rate = isChinese ? 0.88 : 0.82;
-      utterance.pitch = isChinese ? 1.08 : 1.0;
-      const voices = window.speechSynthesis.getVoices();
-      const voice = isChinese
-        ? voices.find((v) => /zh[-_]TW|zh[-_]Hant|Taiwan/i.test(`${v.lang} ${v.name}`))
-          || voices.find((v) => /zh/i.test(v.lang))
-        : voices.find((v) => /^en[-_]US$/i.test(v.lang))
-          || voices.find((v) => /en[-_](US|GB)|American|English \(United States\)/i.test(`${v.lang} ${v.name}`))
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return resolve();
+      const clean = String(text || '').trim();
+      if (!clean) return resolve();
+
+      // 智慧偵測文本主體語言：
+      // 1. 若全為英文/數字/常見標點符號且包含英文字母 -> 優先採用美語 en-US
+      // 2. 若包含中文字元 -> 採用繁體中文 zh-TW
+      // 3. 否則採用傳入的 override 或 this.speechLang
+      const isPureEnglish = /^[a-zA-Z0-9\s\.\,\!\?\'\-\_\:\/\(\)]+$/.test(clean) && /[a-zA-Z]/.test(clean);
+      const hasChinese = /[\u4e00-\u9fff\u3105-\u312f]/.test(clean);
+
+      let targetLang = langOverride;
+      if (!targetLang) {
+        if (isPureEnglish) targetLang = 'en-US';
+        else if (hasChinese) targetLang = 'zh-TW';
+        else targetLang = this.speechLang || 'zh-TW';
+      }
+
+      const isChinese = /^zh/i.test(targetLang);
+      const utterance = new SpeechSynthesisUtterance(clean);
+      utterance.lang = targetLang;
+      utterance.rate = isChinese ? 0.90 : 0.85;
+      utterance.pitch = isChinese ? 1.05 : 1.0;
+
+      const voices = (this.cachedVoices && this.cachedVoices.length) ? this.cachedVoices : window.speechSynthesis.getVoices();
+      let voice = null;
+      if (isChinese) {
+        voice = voices.find((v) => /zh[-_]TW|zh[-_]Hant|Taiwan/i.test(`${v.lang} ${v.name}`))
+          || voices.find((v) => /zh/i.test(v.lang));
+      } else {
+        voice = voices.find((v) => /^en[-_]US$/i.test(v.lang))
+          || voices.find((v) => /en[-_](US|GB)|American|English \(United States\)|Google US English/i.test(`${v.lang} ${v.name}`))
           || voices.find((v) => /^en/i.test(v.lang));
+      }
       if (voice) utterance.voice = voice;
       utterance.onend = resolve;
       utterance.onerror = resolve;
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
-      setTimeout(resolve, Math.min(20_000, 2200 + text.length * 220));
+      setTimeout(resolve, Math.min(20_000, 2000 + clean.length * 200));
     });
   }
 

@@ -1993,8 +1993,17 @@ export function englishSpelling(visual = {}, question = null) {
 
   // 模式 C：備用，如果 rawText 是完整單字
   if (letters.length === 0) {
-    const baseWord = rawText.replace(/[^a-zA-Z]/g, '') || (answer.length > 1 ? answer : 'cat');
-    letters = baseWord.split('').map((c, idx) => ({ char: c, isMissing: false }));
+    const baseWord = rawText.replace(/[^a-zA-Z]/g, '') || '';
+    if (baseWord) {
+      letters = baseWord.split('').map((c, idx) => ({ char: c, isMissing: false }));
+    } else {
+      // 避免洩題：如果沒有挖空資訊，絕不直接展示正解積木，改以神祕積木引導
+      const ansWord = (typeof answer === 'string' && /^[a-zA-Z]+$/.test(answer)) ? answer : 'word';
+      letters = ansWord.split('').map((c, idx) => ({
+        char: idx === 0 ? c : '?',
+        isMissing: idx !== 0,
+      }));
+    }
   }
 
   // 1. 頂部徽章
@@ -2025,7 +2034,7 @@ export function englishSpelling(visual = {}, question = null) {
     const tile = node('div', tileClass, item.char);
     tile.setAttribute('title', item.isMissing ? '缺少的神秘字母' : `字母 ${item.char}`);
     
-    if (!item.isMissing) {
+    if (!item.isMissing && item.char !== '?') {
       tile.addEventListener('click', () => {
         tile.classList.add('is-speaking');
         speakEnglish(item.char);
@@ -2039,23 +2048,23 @@ export function englishSpelling(visual = {}, question = null) {
 
   // 3. 朗讀與操作按鈕列
   const actionsRow = node('div', 'english-actions-row');
-  // 組合已知單字讀音
-  const pronounceWord = letters.map(item => item.isMissing ? (answer || '') : item.char).join('');
-  const playWordBtn = node('button', 'english-listen-btn btn-word', '🔊 聽完整單字');
-  playWordBtn.type = 'button';
-  playWordBtn.addEventListener('click', () => {
-    playWordBtn.classList.add('is-speaking');
-    speakEnglish(pronounceWord);
-    setTimeout(() => playWordBtn.classList.remove('is-speaking'), 900);
-  });
-  actionsRow.appendChild(playWordBtn);
-  wrap.appendChild(actionsRow);
+  const hasOnlyLetters = letters.every(item => item.char && item.char !== '?');
+  const targetPronounce = hasOnlyLetters ? letters.map(item => item.char).join('') : (typeof answer === 'string' && /^[a-zA-Z]+$/.test(answer) ? answer : '');
+  if (targetPronounce) {
+    const playWordBtn = node('button', 'english-listen-btn btn-word', '🔊 聽發音 (Listen)');
+    playWordBtn.type = 'button';
+    playWordBtn.addEventListener('click', () => {
+      playWordBtn.classList.add('is-speaking');
+      speakEnglish(targetPronounce);
+      setTimeout(() => playWordBtn.classList.remove('is-speaking'), 900);
+    });
+    actionsRow.appendChild(playWordBtn);
+    wrap.appendChild(actionsRow);
+  }
 
-  // 4. 狐狸老師的小錦囊
+  // 4. 狐狸老師的小錦囊（防洩題：不常態顯示 hint，提示需由右上角按鈕點開）
   const foxCard = node('div', 'english-fox-card');
-  const foxMsg = question?.hint
-    ? `狐狸老師提示：${question.hint}`
-    : '狐狸老師提示：輕輕點擊積木可以聽發音，選出金黃色空格裡缺少的字母喔！';
+  const foxMsg = '狐狸老師小叮嚀：觀察拼字結構，選出正確的字母或單字喔！需要提示可點右上角 💡！';
   foxCard.innerHTML = `
     <span class="english-fox-avatar" aria-hidden="true">🦊</span>
     <div class="english-fox-msg">${foxMsg}</div>
@@ -2073,8 +2082,9 @@ export function englishVisual(visual = {}, question = null) {
   const text = visual.text || '';
   const prompt = question?.prompt || '';
 
-  // 1. 若題目含有空格填字、缺少字母、拼字下劃線 -> 拼讀積木
-  if (text.includes('?') || text.includes('_') || /補上缺少的字母|缺了哪個|拼字/.test(prompt) || prompt.includes('_')) {
+  // 1. 若題目含有空格填字、缺少字母、拼字下劃線 -> 拼讀積木（排查純「拼字」字樣以防單字選擇題被誤判為積木）
+  const hasSpellingBlank = text.includes('?') || text.includes('_') || /補上缺少的字母|缺了哪個母音|缺了哪個字母/.test(prompt) || /([a-zA-Z]*_[a-zA-Z]*)/.test(prompt);
+  if (hasSpellingBlank) {
     return englishSpelling(visual, question);
   }
 
@@ -2099,35 +2109,48 @@ export function englishVisual(visual = {}, question = null) {
   emojis.forEach(emo => emojiBox.appendChild(node('span', 'english-stage-emoji', emo)));
   stage.appendChild(emojiBox);
 
-  // 標題或提示（防洩題：若 text 包含答案且有 emoji，則不印出純文字）
+  // 標題或提示（防洩題：若題目在問此單字中文意思，不在卡片上重複顯示答案；若答案為純英文且與 text 相同則遮蔽）
   let displayText = text;
   if (question && question.answer && displayText) {
     const cleanAns = String(question.answer).trim().toLowerCase();
-    const cleanTxt = String(displayText).trim().toLowerCase();
-    if (cleanTxt === cleanAns || cleanTxt.includes(cleanAns)) displayText = '';
+    const cleanTxt = String(displayText).trim().toLowerCase().replace(/\s+/g, '');
+    if (cleanTxt === cleanAns || cleanTxt.includes(cleanAns) || cleanAns.includes(cleanTxt)) {
+      displayText = '';
+    }
   }
   if (displayText) {
     stage.appendChild(node('div', 'english-vocab-text', displayText));
   }
   wrap.appendChild(stage);
 
+  // 尋找目標朗讀英文單字（防讀中文答案錯誤）
+  let targetEnglishWord = '';
+  if (typeof question?.answer === 'string' && /^[a-zA-Z]+$/.test(question.answer.trim())) {
+    targetEnglishWord = question.answer.trim();
+  } else if (text && /[a-zA-Z]/.test(text)) {
+    targetEnglishWord = text.replace(/[^a-zA-Z]/g, '');
+  } else {
+    const matched = prompt.match(/[a-zA-Z]{2,}/);
+    if (matched) targetEnglishWord = matched[0];
+  }
+
   // 朗讀按鈕
-  if (question && question.answer) {
+  if (targetEnglishWord) {
     const actionsRow = node('div', 'english-actions-row');
-    const speakBtn = node('button', 'english-listen-btn', '🔊 聽聽看 (Listen)');
+    const speakBtn = node('button', 'english-listen-btn', `🔊 聽聽看 (${targetEnglishWord})`);
     speakBtn.type = 'button';
     speakBtn.addEventListener('click', () => {
       speakBtn.classList.add('is-speaking');
-      speakEnglish(String(question.answer));
+      speakEnglish(targetEnglishWord);
       setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
     });
     actionsRow.appendChild(speakBtn);
     wrap.appendChild(actionsRow);
   }
 
-  // 狐狸老師錦囊
+  // 狐狸老師錦囊（防洩題：不常態印出 hint，引導小朋友點擊右上角）
   const foxCard = node('div', 'english-fox-card');
-  const foxMsg = question?.hint || '狐狸老師提示：看看可愛的圖片，選出最適合的英文單字喔！';
+  const foxMsg = '狐狸老師小叮嚀：看圖思考發音與意義，需要提示可點右上角 💡 喔！';
   foxCard.innerHTML = `
     <span class="english-fox-avatar" aria-hidden="true">🦊</span>
     <div class="english-fox-msg">${foxMsg}</div>
@@ -2137,6 +2160,7 @@ export function englishVisual(visual = {}, question = null) {
   wrap.appendChild(node('div', 'visual-caption', '英文單字學習卡：看圖思考，點擊聽標準發音！'));
   return wrap;
 }
+
 
 
 /**

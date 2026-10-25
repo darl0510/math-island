@@ -10,7 +10,7 @@ import { escapeHtml } from './ui.js';
 import { showTrophyModal } from './trophy.js';
 import { toZhuyinRuby } from './zhuyin.js';
 
-import { PRAISE, ENCOURAGE } from './texts.js';
+import { PRAISE, ENCOURAGE, getSubjectPraise } from './texts.js';
 
 const THEMES = { 1: 'forest', 2: 'ocean', 3: 'cloud', 4: 'space' };
 
@@ -299,7 +299,8 @@ function chooseAnswer(session, value, button) {
     launchConfetti({ count: 100, y: window.innerHeight * 0.25 });
     showFeedback('correct', `🎉 ${question.explanation || '答對了！'}`, session);
     setBuddy('太棒了！');
-    const praise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
+    const currentSub = question.subject || getCurrentSubject();
+    const praise = getSubjectPraise(currentSub);
     audio.speakSequence([praise, question.explanation || '']);
     offerNext(session);
     return;

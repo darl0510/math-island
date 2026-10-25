@@ -22,7 +22,7 @@ export const SUBJECTS = [
     color: '#2b9cdb',
     brandTitle: '奇幻英文島',
     tagline: '自然發音與生活單字',
-    speechLang: 'zh-TW',
+    speechLang: 'en-US',
     ready: true,
     symbols: ['A', 'b', 'C', '🔤', 'e', '★', 'Hi', '1', '?'],
   },
