@@ -3056,3 +3056,350 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
     text-align: right;
   }
 }
+
+/* ---------- Visual: Chinese & Phonetic (國語島生字米字格與動態注音卡) ---------- */
+.chinese-wrap,
+.phonetic-visual-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+/* ── 生字米字格舞台與佈局 ── */
+.chinese-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 24px);
+  width: 100%;
+  max-width: 520px;
+}
+
+/* 多字群組 (如「譬喻」、「陽光」) */
+.chinese-grid-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.5vw, 12px);
+  flex-wrap: wrap;
+}
+
+/* 單個米字格容器 */
+.chinese-grid-box {
+  position: relative;
+  width: var(--grid-size, 136px);
+  height: var(--grid-size, 136px);
+  border: 3px solid #6c5ce7;
+  border-radius: 16px;
+  background: #fffdf9;
+  box-shadow:
+    0 6px 16px rgba(108, 92, 231, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.chinese-grid-box:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(108, 92, 231, 0.24);
+}
+
+.chinese-grid-box:active,
+.chinese-grid-box.is-speaking {
+  transform: scale(0.96);
+  border-color: #ff7675;
+}
+
+/* 多字時的自適應變數 */
+.chinese-grid-group[data-count="2"] .chinese-grid-box {
+  --grid-size: 96px;
+}
+.chinese-grid-group[data-count="3"] .chinese-grid-box,
+.chinese-grid-group[data-count="4"] .chinese-grid-box {
+  --grid-size: 78px;
+}
+
+/* 米字格 SVG 線條 */
+.chinese-grid-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 米字格漢字字元 */
+.chinese-char-text {
+  position: relative;
+  z-index: 2;
+  font-size: var(--char-size, 82px);
+  font-weight: 800;
+  color: #2d3436;
+  font-family: "KaiTi", "標楷體", "BiauKai", "TW-Kai", "Noto Serif TC", serif;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+}
+
+.chinese-grid-group[data-count="2"] .chinese-char-text {
+  --char-size: 56px;
+}
+.chinese-grid-group[data-count="3"] .chinese-char-text,
+.chinese-grid-group[data-count="4"] .chinese-char-text {
+  --char-size: 44px;
+}
+
+/* 側邊資訊 (注音/生詞/朗讀鍵) */
+.chinese-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.chinese-pinyin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff3c4, #ffeaa7);
+  color: #d63031;
+  font-weight: 900;
+  font-size: clamp(15px, 2.2vw, 19px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 2px solid #fdcb6e;
+  box-shadow: 0 3px 8px rgba(253, 203, 110, 0.4);
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chinese-pinyin-badge:hover {
+  transform: scale(1.04);
+  background: #ffeaa7;
+}
+
+.chinese-pinyin-badge:active,
+.chinese-pinyin-badge.is-speaking {
+  transform: scale(0.96);
+}
+
+.chinese-speak-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #5f3dc4;
+  background: #f0edff;
+  border: 1.5px solid #d4c8fc;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  user-select: none;
+}
+
+.chinese-speak-chip:hover {
+  background: #e2dbfc;
+  transform: translateY(-1px);
+}
+
+.chinese-speak-chip:active {
+  transform: scale(0.95);
+}
+
+.chinese-word-caption {
+  font-size: 14px;
+  font-weight: 800;
+  color: #636e72;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px dashed #b2bec3;
+}
+
+/* 小狐狸引導提示卡片 */
+.chinese-fox-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #fffbf2 0%, #fff2e6 100%);
+  border: 2px solid #ffd8b8;
+  border-radius: 16px;
+  padding: 9px 16px;
+  max-width: 440px;
+  width: min(100%, 440px);
+  box-shadow: 0 4px 14px rgba(255, 120, 90, 0.1);
+  box-sizing: border-box;
+}
+
+.chinese-fox-avatar {
+  font-size: 28px;
+  line-height: 1;
+  animation: foxBounce 2.4s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.chinese-fox-msg {
+  font-size: 14px;
+  font-weight: 700;
+  color: #63422d;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+/* ── 動態注音卡 (Phonetic Flashcard) ── */
+.phonetic-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 22px);
+  background: linear-gradient(145deg, #fffdf5 0%, #fff5db 100%);
+  border: 3.5px solid #ffa502;
+  border-radius: 22px;
+  padding: 14px clamp(18px, 4vw, 32px);
+  box-shadow:
+    0 8px 24px rgba(255, 165, 2, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+.phonetic-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(255, 165, 2, 0.32);
+  border-color: #ff7f00;
+}
+
+.phonetic-card:active,
+.phonetic-card.is-speaking {
+  transform: scale(0.97);
+  box-shadow: 0 4px 12px rgba(255, 165, 2, 0.28);
+  border-color: #ff4757;
+}
+
+.phonetic-symbol-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.phonetic-symbol {
+  font-size: clamp(40px, 8vw, 56px);
+  font-weight: 900;
+  color: #ff4757;
+  font-family: "KaiTi", "標楷體", "BiauKai", "TW-Kai", sans-serif;
+  line-height: 1;
+  text-shadow: 0 2px 6px rgba(255, 71, 87, 0.15);
+}
+
+.phonetic-divider {
+  width: 2px;
+  height: 44px;
+  background: #f1dfb0;
+  border-radius: 2px;
+}
+
+.phonetic-word-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.phonetic-word {
+  font-size: clamp(24px, 5.5vw, 36px);
+  font-weight: 900;
+  color: #2f3542;
+  font-family: "KaiTi", "標楷體", "BiauKai", "TW-Kai", "Noto Sans TC", sans-serif;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.phonetic-word-arrow {
+  color: #ffa502;
+  font-size: 0.8em;
+}
+
+.phonetic-audio-hint {
+  font-size: 12px;
+  font-weight: 800;
+  color: #e67e22;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #ffd8a8;
+}
+
+/* 響應式優化：螢幕窄於 560px */
+@media (max-width: 560px) {
+  .chinese-stage {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .chinese-side {
+    align-items: center;
+  }
+  .chinese-pinyin-badge {
+    font-size: 16px;
+    padding: 5px 12px;
+  }
+  .chinese-fox-card {
+    padding: 8px 12px;
+  }
+  .chinese-fox-avatar {
+    font-size: 24px;
+  }
+  .chinese-fox-msg {
+    font-size: 13px;
+  }
+  .phonetic-card {
+    padding: 10px 16px;
+    gap: 12px;
+  }
+}
+
+/* 極窄手機響應式適配：螢幕窄於 380px */
+@media (max-width: 380px) {
+  .chinese-grid-box {
+    --grid-size: 110px;
+  }
+  .chinese-char-text {
+    --char-size: 68px;
+  }
+  .chinese-grid-group[data-count="2"] .chinese-grid-box {
+    --grid-size: 82px;
+  }
+  .chinese-grid-group[data-count="2"] .chinese-char-text {
+    --char-size: 48px;
+  }
+  .phonetic-symbol {
+    font-size: 36px;
+  }
+  .phonetic-word {
+    font-size: 22px;
+  }
+}

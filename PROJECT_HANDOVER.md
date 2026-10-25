@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-25 (v2.4.5 版)  
+> **最後更新時間**：2026-10-25 (v2.4.6 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,12 +10,12 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.4.5】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
+【v2.4.6】你好！這是我們目前正在持續開發的奇幻數學島大冒險 (math-island) 專案。
 
 【🚨 五大紅線】已由 AGENTS.md 自動注入（本節由 sync_all_projects_rules.py 維護），本 Prompt 拒絕重複貼上。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
-python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "全科全年級 144 關卡聯動自檢與跨科目進度持久化驗證，完成後 node --check 自檢"
+python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "多科目關卡前置星數解鎖與學習徽章系統規劃與實裝，完成後 node --check 自檢"
 ```
 
 > 🤖 **自動升級維護協議**：本專案已配置 `AGENTS.md` 自動升級記錄規則。只要 AI 完成任何功能更新或 Bug 修復，皆會自動在下方「版本更新歷程」自動累加版本號並詳述升級訊息。
@@ -54,11 +54,12 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 ---
 
 ## 📌 當前推進焦點看板 (Active Focus) 【極簡常駐・防膨脹】
-- [ ] **國語島動態注音卡與生字米字格教具響應式優化**
+- [ ] **多科目關卡前置星數解鎖與學習徽章系統規劃**
 
 ### 🎯 待執行任務清單 (Pending Tasks - 置頂優先)
-- [ ] 國語島動態注音卡與生字米字格教具響應式優化
 - [ ] 多科目關卡前置星數解鎖與學習徽章系統規劃
+- [ ] 國語島生字筆順動態繪製與筆畫指引教具擴展
+- [ ] 跨科目期末綜合挑戰島關卡規劃
 
 > 💡 **中長期全科學習宇宙擴展藍圖**：已完整收錄至 [`docs/ROADMAP.md`](docs/ROADMAP.md)，涵蓋英文、國語、自然、社會、生活、資訊邏輯等科目之教具與題型規格！
 
@@ -73,6 +74,7 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 </details>
 
 <details><summary>過往已完成歷史任務</summary>
+- [x] **國語島動態注音卡與生字米字格教具響應式優化** (`js/visuals.js` 升級多字米字格自適應群組、小學標準米字格 SVG 網格線、教育部標準標楷體字體鏈、點擊卡片與米字格雙軌語音發音反饋與微動效、`style.css` 響應式斷點全面適配行動裝置與極窄手機) (v2.4.6)
 - [x] **英文與國語島語音讀題中文化與教具防洩題全面修復** (英文島語音切換 zh-TW 台灣雙語混讀、英文島看圖選字教具隱藏答案文字、國語島注音卡隱藏答案符號改為「？」並展示生字引導拼音、渲染層防洩題機制與題庫全面清洗) (v2.4.5)
 - [x] **全科全年級 144 關卡聯動驗收與跨科目進度持久化優化** (數/英/國 × 小一~小三 144 關整合測試、跨科目存儲隔離與單元測試全通、全景聚合匯總與導出導入 API、首頁與膠囊即時聯動) (v2.4.4)
 - [x] **奇幻國語島小三題庫與關卡建置** (`data/question-bank-ch-g3.json` 128 題修辭成語閱讀、`js/levels/island_defs_ch_g3.js` 4 島 16 關、`js/levels/index.js` 與 `js/grades.js` 全面掛載) (v2.4.3)
@@ -96,6 +98,22 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 </details>
 
 ## 🌟 近期重大功能更新歷程 (Version Changelog)
+
+### 【v2.4.6 版】🏮 國語島動態注音卡與生字米字格教具響應式優化 ✕ 多字自適應群組 ✕ 點擊雙軌語音互動 📅 2026-10-25
+
+1. **生字米字格教具全面升級 (`js/visuals.js`)**：
+   - 支援多字（生詞）自適應米字格群組 (`.chinese-grid-group`)，單字大格 (136px)、雙字並排 (96px)、多字 (78px)，徹底根除多字重疊破版問題。
+   - 小學練習本格規範 SVG 繪製：標準十字紅虛線、米字對角虛線、中心定位錨點，搭配教育部標準標楷體字體鏈。
+   - 米字格與注音徽章均支援點擊朗讀互動，具備雙軌語音合成（優先調用專案語音，平滑降級 Web Speech API）與 `.is-speaking` 彈跳動態反饋。
+2. **動態注式卡升級 (`js/visuals.js`)**：
+   - 重構為結構化語意類別（`.phonetic-card`、`.phonetic-symbol`、`.phonetic-word`、`.phonetic-audio-hint`）。
+   - 魔法字卡金黃柔光立體漸層質感、觸控彈跳反饋，點擊即朗讀注音或生字。
+3. **響應式佈局全面適配 (`css/style.css`)**：
+   - 新增 `@media (max-width: 560px)` 與 `@media (max-width: 380px)` 斷點適配，在平板、直向手機與極窄螢幕上均自適應流體置中，0 水平溢出。
+   - 小狐狸提醒氣泡卡片支援自適應滿寬與可讀性字體行高。
+4. **版本同步與安全備份**：
+   - `python scripts/bump_version.py 2.4.6` 一鍵同步 `PROJECT_HANDOVER.md`、`index.html`、`sw.js`。
+   - 自動調用 `auto_backup` 產出 `backup_v2.4.6_2026-10-25_214351.zip` 還原節點。
 
 ### 【v2.4.3 版】📖 奇幻國語島小三題庫建置 ✕ 128 題修辭成語閱讀 ✕ 4 島 16 關關卡定義與掛載 📅 2026-10-25
 

@@ -19,7 +19,29 @@
  *  numberLine     { max, marks:[], from, to }
  */
 
+import { audio } from './audio.js';
+
 const SVG_NS = 'http://www.w3.org/2000/svg';
+
+function speakText(text) {
+  if (!text) return;
+  try {
+    if (audio && typeof audio.speak === 'function') {
+      audio.playSfx?.('click', 0.35);
+      audio.speak(text);
+      return;
+    }
+  } catch (e) {}
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = 0.88;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+}
 
 export function node(tag, className, html) {
   const element = document.createElement(tag);
@@ -945,51 +967,83 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
   }
 
   const wrap = node('div', 'chinese-wrap');
-  const styleEl = node('style');
-  styleEl.textContent = `
-    .chinese-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 16px; }
-    .chinese-stage { display: flex; align-items: center; gap: 20px; }
-    .chinese-grid-box { position: relative; width: 140px; height: 140px; border: 3px solid #6c5ce7; border-radius: 14px; background: #fffdf7; box-shadow: 0 6px 18px rgba(108,92,231,0.18); display: flex; align-items: center; justify-content: center; }
-    .chinese-grid-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-    .chinese-char-text { position: relative; z-index: 2; font-size: 84px; font-weight: 800; color: #2d3436; font-family: "KaiTi", "標楷體", "BiauKai", "Noto Sans TC", sans-serif; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.06); }
-    .chinese-side { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-    .chinese-pinyin-badge { background: #ffeaa7; color: #d63031; font-weight: 800; font-size: 20px; padding: 4px 14px; border-radius: 12px; border: 2px solid #fdcb6e; letter-spacing: 2px; }
-    .chinese-fox-card { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #fff9f0, #fff0e6); border: 2px solid #ffcca5; border-radius: 16px; padding: 10px 16px; max-width: 380px; box-shadow: 0 4px 12px rgba(255,107,129,0.1); }
-    .chinese-fox-avatar { font-size: 32px; animation: foxBounce 2s infinite ease-in-out; }
-    .chinese-fox-msg { font-size: 14px; font-weight: 700; color: #63422d; line-height: 1.4; }
-    @keyframes foxBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-  `;
-  wrap.appendChild(styleEl);
-
   const stage = node('div', 'chinese-stage');
-  const gridBox = node('div', 'chinese-grid-box');
 
-  // SVG 米字格 / 田字格線條
-  const gridSvg = svg('svg', { viewBox: '0 0 140 140', class: 'chinese-grid-svg' });
-  gridSvg.innerHTML = `
-    <line x1="0" y1="70" x2="140" y2="70" stroke="#ff7675" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.6"/>
-    <line x1="70" y1="0" x2="70" y2="140" stroke="#ff7675" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.6"/>
-    ${gridType === '米' ? `
-      <line x1="0" y1="0" x2="140" y2="140" stroke="#ff7675" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.35"/>
-      <line x1="140" y1="0" x2="0" y2="140" stroke="#ff7675" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.35"/>
-    ` : ''}
-  `;
-  gridBox.appendChild(gridSvg);
+  // 將 displayChar 拆分為單字陣列（支援生詞多格米字格並排）
+  const charList = displayChar === '？' ? ['？'] : Array.from(displayChar);
+  const gridGroup = node('div', 'chinese-grid-group');
+  gridGroup.dataset.count = String(charList.length);
 
-  const charEl = node('div', 'chinese-char-text', displayChar);
-  gridBox.appendChild(charEl);
-  stage.appendChild(gridBox);
+  // 建立 SVG 米字格 / 田字格生成器
+  function createGridBox(char) {
+    const box = node('div', 'chinese-grid-box');
+    box.setAttribute('role', 'button');
+    box.setAttribute('tabindex', '0');
+    box.setAttribute('aria-label', `國字：${char}，點擊朗讀`);
 
+    const gridSvg = svg('svg', { viewBox: '0 0 100 100', class: 'chinese-grid-svg', preserveAspectRatio: 'none' });
+    gridSvg.innerHTML = `
+      <!-- 中心十字基準虛線 -->
+      <line x1="0" y1="50" x2="100" y2="50" stroke="#ff7675" stroke-width="1.6" stroke-dasharray="4 3" opacity="0.6"/>
+      <line x1="50" y1="0" x2="50" y2="100" stroke="#ff7675" stroke-width="1.6" stroke-dasharray="4 3" opacity="0.6"/>
+      ${gridType === '米' ? `
+        <!-- 對角米字斜虛線 -->
+        <line x1="0" y1="0" x2="100" y2="100" stroke="#ff7675" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.35"/>
+        <line x1="100" y1="0" x2="0" y2="100" stroke="#ff7675" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.35"/>
+      ` : ''}
+      <!-- 中心定位錨點 -->
+      <circle cx="50" cy="50" r="1.5" fill="#e84393" opacity="0.45"/>
+    `;
+    box.appendChild(gridSvg);
+
+    const charEl = node('div', 'chinese-char-text', char);
+    box.appendChild(charEl);
+
+    // 點擊朗讀並觸發動畫反饋
+    box.addEventListener('click', () => {
+      box.classList.add('is-speaking');
+      setTimeout(() => box.classList.remove('is-speaking'), 450);
+      speakText(char === '？' ? '問號' : (word || displayChar));
+    });
+
+    return box;
+  }
+
+  charList.forEach(c => gridGroup.appendChild(createGridBox(c)));
+  stage.appendChild(gridGroup);
+
+  // 側邊資訊區塊 (注音/生詞/朗讀鍵)
   const side = node('div', 'chinese-side');
   if (displayPinyin) {
-    side.appendChild(node('div', 'chinese-pinyin-badge', `注音：${displayPinyin}`));
+    const pinyinBadge = node('div', 'chinese-pinyin-badge');
+    pinyinBadge.setAttribute('role', 'button');
+    pinyinBadge.setAttribute('tabindex', '0');
+    pinyinBadge.setAttribute('title', '點擊聽發音');
+    pinyinBadge.innerHTML = `<span>🔊</span> <span>注音：${displayPinyin}</span>`;
+    pinyinBadge.addEventListener('click', () => {
+      pinyinBadge.classList.add('is-speaking');
+      setTimeout(() => pinyinBadge.classList.remove('is-speaking'), 400);
+      speakText(word || displayChar);
+    });
+    side.appendChild(pinyinBadge);
   }
-  if (displayChar.length > 1) {
-    side.appendChild(node('div', 'visual-caption', `生詞：${displayChar}`));
+
+  if (displayChar.length > 1 || (word && word !== displayChar)) {
+    side.appendChild(node('div', 'chinese-word-caption', `生詞：${word || displayChar}`));
   }
+
+  const speakChip = node('button', 'chinese-speak-chip');
+  speakChip.type = 'button';
+  speakChip.innerHTML = `<span>🔊</span> <span>聽讀音</span>`;
+  speakChip.addEventListener('click', () => {
+    speakText(word || displayChar);
+  });
+  side.appendChild(speakChip);
+
   stage.appendChild(side);
   wrap.appendChild(stage);
 
+  // 小狐狸引導卡片
   const foxCard = node('div', 'chinese-fox-card');
   foxCard.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
   foxCard.appendChild(node('div', 'chinese-fox-msg', defaultFox));
@@ -1000,21 +1054,6 @@ export function chinese({ character = '', word = '', pinyin = '', gridType = '�
 
 export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question = null) {
   const wrap = node('div', 'phonetic-visual-wrap');
-  wrap.style.display = 'flex';
-  wrap.style.flexDirection = 'column';
-  wrap.style.alignItems = 'center';
-  wrap.style.gap = '12px';
-  wrap.style.padding = '12px';
-
-  const card = node('div', 'phonetic-card');
-  card.style.display = 'flex';
-  card.style.alignItems = 'center';
-  card.style.gap = '16px';
-  card.style.background = '#fff8e7';
-  card.style.border = '3px solid #ffa502';
-  card.style.borderRadius = '18px';
-  card.style.padding = '12px 24px';
-  card.style.boxShadow = '0 6px 16px rgba(255,165,2,0.2)';
 
   let displaySymbol = symbol;
   let displayWord = word;
@@ -1036,27 +1075,48 @@ export function phonetic({ symbol = 'ㄅ', word = '', example = '' }, question =
     }
   }
 
-  const sym = node('div', 'phonetic-symbol', displaySymbol);
-  sym.style.fontSize = '48px';
-  sym.style.fontWeight = '900';
-  sym.style.color = '#ff4757';
-  sym.style.fontFamily = '"BiauKai", "標楷體", sans-serif';
-  card.appendChild(sym);
+  const card = node('div', 'phonetic-card');
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', `注音卡：${displaySymbol}，點擊朗讀`);
 
+  // 注音符號方塊
+  const symBox = node('div', 'phonetic-symbol-box');
+  const symEl = node('span', 'phonetic-symbol', displaySymbol);
+  symBox.appendChild(symEl);
+  card.appendChild(symBox);
+
+  // 若有生字或詞彙
   if (displayWord) {
-    const wordLabel = displaySymbol === '？' ? `生字：${displayWord}` : `➔ ${displayWord}`;
-    const w = node('div', 'phonetic-word', wordLabel);
-    w.style.fontSize = '32px';
-    w.style.fontWeight = '800';
-    w.style.color = '#2f3542';
-    card.appendChild(w);
+    card.appendChild(node('div', 'phonetic-divider'));
+    const wordWrap = node('div', 'phonetic-word-wrap');
+    const wordLabel = displaySymbol === '？'
+      ? `生字：${displayWord}`
+      : `<span class="phonetic-word-arrow">➔</span> <span>${displayWord}</span>`;
+    wordWrap.appendChild(node('div', 'phonetic-word', wordLabel));
+    wordWrap.appendChild(node('span', 'phonetic-audio-hint', '🔊 點擊聽發音'));
+    card.appendChild(wordWrap);
+  } else {
+    const hintWrap = node('div', 'phonetic-word-wrap');
+    hintWrap.appendChild(node('span', 'phonetic-audio-hint', '🔊 點擊聽讀音'));
+    card.appendChild(hintWrap);
   }
+
+  // 點擊卡片發音
+  card.addEventListener('click', () => {
+    card.classList.add('is-speaking');
+    setTimeout(() => card.classList.remove('is-speaking'), 450);
+    const textToSpeak = (displayWord && displayWord !== '？') ? displayWord : (displaySymbol === '？' ? '問號' : displaySymbol);
+    speakText(textToSpeak);
+  });
+
   wrap.appendChild(card);
 
-  const tip = node('div', 'chinese-fox-card');
-  tip.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
-  tip.appendChild(node('div', 'chinese-fox-msg', foxMsg));
-  wrap.appendChild(tip);
+  // 小狐狸提示卡片
+  const foxCard = node('div', 'chinese-fox-card');
+  foxCard.appendChild(node('span', 'chinese-fox-avatar', '🦊'));
+  foxCard.appendChild(node('div', 'chinese-fox-msg', foxMsg));
+  wrap.appendChild(foxCard);
 
   return wrap;
 }
