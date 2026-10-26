@@ -388,8 +388,8 @@ class AudioManager {
     return this.browserSpeak(text, 'en-US');
   }
 
-  /* 題幹與選項朗讀建構器：支援雙軌多語系無縫讀題 */
-  buildQuestionSpeechSequence(question) {
+  /* 題幹與選項朗讀建構器：支援雙軌多語系無縫讀題（100% 依畫面打亂後順序念選項，絕不照原始題庫正解序洩題） */
+  buildQuestionSpeechSequence(question, optionsOverride) {
     if (!question) return [];
     let promptText = question.speak || question.prompt || '';
     // 將音標 /p/ 轉換為平易近人的 "p 的發音"
@@ -401,8 +401,25 @@ class AudioManager {
 
     const sequence = [{ text: promptText.trim(), lang: 'zh-TW' }];
 
-    const options = Array.isArray(question.options) ? question.options : [];
-    // 若選項為純英文字詞（例如 pig, big, dig），依序加入「選項一 pig、選項二 big、選項三 dig」
+    // 優先使用畫面上打亂後之選項順序 (optionsOverride / currentOptions / _displayOptions)
+    // 嚴禁直接使用題庫原始 question.options，以防永遠先念第 0 個正解而洩題破梗！
+    let options = optionsOverride;
+    if (!options || !options.length) {
+      options = question.currentOptions || question._displayOptions;
+    }
+    if (!options || !options.length) {
+      // 若尚未打亂（例如外部直接調用），複製後隨機打亂順序，絕不按題庫原始正解順序暴露答案
+      const raw = Array.isArray(question.options) ? [...question.options] : [];
+      if (!question.fixedOrder && raw.length > 1) {
+        for (let i = raw.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [raw[i], raw[j]] = [raw[j], raw[i]];
+        }
+      }
+      options = raw;
+    }
+
+    // 若選項為純英文字詞（例如 pig, big, dig），依畫面實際打亂順序加入「選項一 big、選項二 dig、選項三 pig」
     const areEnglishOptions = options.length > 0 && options.every(opt => /^[a-zA-Z\s\-]+$/.test(String(opt).trim()));
 
     if (areEnglishOptions) {
@@ -426,9 +443,9 @@ class AudioManager {
   }
 
   /* 智慧播放題目與選項語音 */
-  playQuestionAudio(question) {
+  playQuestionAudio(question, optionsOverride) {
     if (!question || !this.ttsOn) return;
-    const sequence = this.buildQuestionSpeechSequence(question);
+    const sequence = this.buildQuestionSpeechSequence(question, optionsOverride);
     return this.speakSequence(sequence, { gap: 120 });
   }
 

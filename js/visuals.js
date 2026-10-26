@@ -2242,8 +2242,9 @@ export function englishVisual(visual = {}, question = null) {
   speakBtn.type = 'button';
   speakBtn.addEventListener('click', () => {
     speakBtn.classList.add('is-speaking');
+    const displayOptions = question?.currentOptions || question?._displayOptions;
     if (audio && typeof audio.playQuestionAudio === 'function') {
-      audio.playQuestionAudio(question);
+      audio.playQuestionAudio(question, displayOptions);
     } else {
       speakText(question?.speak || prompt);
     }

@@ -186,8 +186,9 @@ function renderLevelShell(session) {
   screen.querySelector('[data-action="speak"]').addEventListener('click', () => {
     const question = session.questions[session.index];
     audio.playSfx('click', 0.4);
+    const displayOptions = question.currentOptions || question._displayOptions;
     if (typeof audio.playQuestionAudio === 'function') {
-      audio.playQuestionAudio(question);
+      audio.playQuestionAudio(question, displayOptions);
     } else {
       audio.speak(question.speak || question.prompt);
     }
@@ -214,6 +215,11 @@ function renderQuestion(session) {
   const hintText = document.getElementById('hint-text');
   const buddy = document.getElementById('buddy-bubble');
 
+  // 提前隨機化選項並記錄於題目物件上，確保視覺元件朗讀按鈕與語音序列 100% 依序對應畫面選項
+  const options = question._displayOptions || shuffleOptions(question);
+  question._displayOptions = options;
+  question.currentOptions = options;
+
   prompt.innerHTML = toZhuyinRuby(question.prompt, question);
   feedback.className = 'feedback';
   feedback.innerHTML = '';
@@ -226,7 +232,6 @@ function renderQuestion(session) {
   if (visual) visualZone.appendChild(visual);
 
   answerGrid.innerHTML = '';
-  const options = shuffleOptions(question);
   options.forEach((option, index) => {
     const button = document.createElement('button');
     button.type = 'button';
@@ -269,7 +274,7 @@ function renderQuestion(session) {
 
   if (audio.ttsOn) later(session, () => {
     if (typeof audio.playQuestionAudio === 'function') {
-      audio.playQuestionAudio(question);
+      audio.playQuestionAudio(question, options);
     } else {
       audio.speak(question.speak || question.prompt);
     }
@@ -528,8 +533,9 @@ function handleKey(session, event) {
   if (event.key === 'h' || event.key === 'H') showHint(session, true);
   if (event.key === 'r' || event.key === 'R') {
     const question = session.questions[session.index];
+    const displayOptions = question.currentOptions || question._displayOptions;
     if (typeof audio.playQuestionAudio === 'function') {
-      audio.playQuestionAudio(question);
+      audio.playQuestionAudio(question, displayOptions);
     } else {
       audio.speak(question.speak || question.prompt);
     }
