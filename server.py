@@ -80,6 +80,21 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 "port": self.server.server_address[1]
             })
 
+        if path == '/api/host_info':
+            local_ip = get_local_ip()
+            port = self.server.server_address[1]
+            return self._send_json(200, {
+                "success": True,
+                "server_time": datetime.now().isoformat(),
+                "local_ip": local_ip,
+                "port": port,
+                "tablet_url": f"http://{local_ip}:{port}",
+                "admin_url": f"http://{local_ip}:{port}/admin.html",
+                "sync_endpoint": f"http://{local_ip}:{port}/api/sync_progress",
+                "students_endpoint": f"http://{local_ip}:{port}/api/students",
+                "records_endpoint": f"http://{local_ip}:{port}/api/records"
+            })
+
         if path == '/api/students':
             store = load_store()
             return self._send_json(200, {"success": True, "students": store.get("students", [])})

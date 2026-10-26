@@ -12,6 +12,7 @@ import { toZhuyinRuby } from './zhuyin.js';
 import { uploadLevelRecord, getCurrentStudent } from './student.js';
 
 import { PRAISE, ENCOURAGE, getSubjectPraise } from './texts.js';
+import { createComboState, onCorrect, onWrong, renderComboBar, showComboCelebration, showComboBreak, comboSummaryMarkup } from './combo.js';
 
 const THEMES = { 1: 'forest', 2: 'ocean', 3: 'cloud', 4: 'space' };
 
@@ -35,6 +36,7 @@ export function startLevel(level, { onExit } = {}) {
     timers: [],
     errors: [],
     startTime: Date.now(),
+    combo: createComboState(),
   };
   activeSession = session;
   session.questions = buildQuestions(level);
@@ -341,6 +343,10 @@ function chooseAnswer(session, value, button) {
     const currentSub = question.subject || getCurrentSubject();
     const praise = getSubjectPraise(currentSub);
     audio.speakSequence([praise, question.explanation || '']);
+    // ── Combo 答對處理 ──
+    const newTier = onCorrect(session);
+    renderComboBar(session);
+    if (newTier) showComboCelebration(session, newTier);
     offerNext(session);
     return;
   }
@@ -358,6 +364,10 @@ function chooseAnswer(session, value, button) {
   button.disabled = true;
   audio.playSfx('wrong', 0.55);
   setBuddy('再想想～');
+  // ── Combo 答錯處理 ──
+  const comboBreak = onWrong(session);
+  renderComboBar(session);
+  if (comboBreak) showComboBreak(session, comboBreak);
   if (session.perQuestion === 1) {
     showFeedback('gentle', `💛 ${ENCOURAGE[Math.floor(Math.random() * ENCOURAGE.length)]}`, session);
     showHint(session, true);

@@ -12,6 +12,33 @@ const STORAGE_KEY_CURRENT = 'fantasy_math_current_student';
 const STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';
 const STORAGE_KEY_PENDING = 'fantasy_math_pending_records';
 const STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';
+const STORAGE_KEY_HOST = 'fantasy_math_host_url';
+
+/**
+ * 取得自訂後台基礎 URL（優先級：URL ?host= 參數 > localStorage > 相對路徑）
+ */
+export function getHostBase() {
+  const params = new URLSearchParams(window.location.search);
+  const urlHost = params.get('host');
+  if (urlHost) {
+    try { localStorage.setItem(STORAGE_KEY_HOST, urlHost); } catch (e) {}
+    return urlHost.replace(/\/+$/, '');
+  }
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_HOST);
+    if (saved) return saved.replace(/\/+$/, '');
+  } catch (e) {}
+  return '';
+}
+
+/**
+ * 統一 API fetch 包裝：自動對接自訂後台端點
+ */
+export function apiFetch(path, options) {
+  const base = getHostBase();
+  const url = base ? `${base}${path}` : path;
+  return fetch(url, options);
+}
 
 const DEFAULT_VISITOR = {
   id: 'visitor',

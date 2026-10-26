@@ -8,7 +8,7 @@ REM  遵循 Windows BAT Craftsman Protocol 規範 (CRLF, REM, %~dp0)
 REM ========================================================
 
 set "APP_DIR=%~dp0"
-set "PORT=8085"
+set "PORT=8000"
 set "URL=http://127.0.0.1:%PORT%"
 
 REM 檢查後台是否已有伺服器在執行

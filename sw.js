@@ -1,5 +1,5 @@
 // 奇幻數學島 Service Worker (PWA 離線快取與高效能秒開支援)
-const CACHE_NAME = 'math-island-v2.8.7';
+const CACHE_NAME = 'math-island-v2.9.0';
 
 // 核心靜態資產：涵蓋全年級全學科 800+ 題庫、教具、島嶼腳本、高畫質背景與 SFX 音效
 const STATIC_ASSETS = [

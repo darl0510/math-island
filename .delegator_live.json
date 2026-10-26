@@ -1,21 +1,206 @@
 {
   "active": false,
-  "status": "failed",
+  "status": "completed",
   "project": "math-island",
   "version": "0.0.0",
-  "date": "2026-10-26 15:50:04",
-  "task": "離線 PWA 體驗與 Service Worker 快取效能優化",
-  "step": "❌ 自主 ReAct 未完成",
-  "tokens": 0,
-  "savedUsd": 0.000426,
-  "elapsedSec": 2.02,
+  "date": "2026-10-26 21:11:49",
+  "task": "目標：實裝平板與電腦後台無縫連線方式二升級。目標檔案：server.py、啟動奇幻數學島.bat、js/student.",
+  "step": "✅ 自主 ReAct 完成",
+  "tokens": 1231,
+  "savedUsd": 0.121852,
+  "elapsedSec": 432.3,
   "outputFile": "",
   "model": "qwen3.8-flash-next-iq3_xxs",
-  "preview": "<urlopen error [WinError 10061] 無法連線，因為目標電腦拒絕連線。>",
-  "updatedAt": 1793001004.3595786,
+  "preview": "已完成 3 項修改：(1) server.py 新增 /api/host_info 端點回傳 tablet_url/admin_url/sync_endpoint 等完整連線資訊，port 統一 8000；(2) 啟動奇幻數學島.bat 將 PORT 從 8085 改為 8000；(3) js/student.js 新增 getHostBase()（讀取 URL ?host= 參數或 localStorage）與 apiFetch() 統一包裝函式。尚未完成：student.js 內既有 fetch('/api/...') 呼叫尚未全部替換為 apiFetch()；admin.html 與 js/admin.js 尚未加入平板直連 QR Code 產生與網址一鍵複製 UI。建議下一輪繼續完成這些剩餘修改。",
+  "updatedAt": 1793020309.4548132,
   "workspace": "C:\\Users\\達爾\\projects\\math-island",
-  "toolEvents": [],
-  "modifiedFiles": [],
-  "iterations": 1,
-  "finalAnswer": ""
+  "toolEvents": [
+    {
+      "type": "tool_end",
+      "iteration": 1,
+      "tool": "list_dir",
+      "args": {
+        "path": "."
+      },
+      "ok": true,
+      "output_preview": "[DIR]  .agents/\n[FILE] .delegator_live.json (669B)\n[DIR]  .git/\n[FILE] .gitignore (250B)\n[FILE] .nojekyll (0B)\n[FILE] AGENTS.md (12120B)\n[FILE] PROJECT_HANDOVER.md (15948B)\n[FILE] README.md (6957B)\n[DIR]  __pycache__/\n[FILE] admin.html (12615B)\n[FILE] airmentor_web_dashboard.html (34052B)\n[FILE] architecture_config.json (1779B)\n[FILE] architecture_dashboard.html (139488B)\n[FILE] architecture_data.js (7425B)\n[DIR]  assets/\n[FILE] auto_backup.py (35201B)\n[DIR]  backups/\n[DIR]  css/\n[DIR]  data/\n[DIR]  docs/\n[FILE] index.html (14463B)\n[DIR]  js/\n[FILE] local_tokens_ledger.json (22790B)\n[FILE] manifest.json (609B)\n[FILE] manifest.webmanifest (609B)\n[FILE] scan_architecture.py (25816B)\n[DIR]  scripts/\n[FILE] server.py (11637B)\n[FILE] sw.js (6249B)\n[FILE] sw.min.js (1206B)\n[FILE] sw.min.js.map (1159B)\n[FILE] token_data.js (266275B)\n[FILE] token_data.json (133107B)\n[FILE] token_storage.json (345851B)\n[DIR]  tools/\n[FILE] 一鍵推送GitHub版本.bat (1057B)\n[FILE] 啟動奇幻數學島.bat (1666B)\n[FILE] 查看架構看板.bat (969B)",
+      "thought": "先查看工作區結構，了解現有檔案佈局。",
+      "ts": 1793019884.8104045
+    },
+    {
+      "type": "tool_end",
+      "iteration": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "server.py",
+        "start_line": 1,
+        "end_line": 100
+      },
+      "ok": true,
+      "output_preview": "1\timport http.server\n2\timport socketserver\n3\timport socket\n4\timport os\n5\timport sys\n6\timport json\n7\timport urllib.parse\n8\timport uuid\n9\tfrom datetime import datetime\n10\t\n11\tPORT = 8000\n12\tDATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), \"data\", \"admin_store.json\")\n13\t\n14\tdef get_local_ip():\n15\t    try:\n16\t        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n17\t        s.connect((\"8.8.8.8\", 80))\n18\t        ip = s.getsockname()[0]\n19\t        s.close()\n20\t        return ip\n21\t    except Exception:\n22\t        return \"127.0.0.1\"\n23\t\n24\tdef load_store():\n25\t    if not os.path.exists(DATA_FILE):\n26\t        return {\"students\": [], \"records\": []}\n27\t    try:\n28\t        with open(DATA_FILE, \"r\", encoding=\"utf-8\") as f:\n29\t            return json.load(f)\n30\t    except Exception:\n31\t        return {\"students\": [], \"records\": []}\n32\t\n33\tdef save_store(data):\n34\t    os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)\n35\t    temp_file = DATA_FILE + \".tmp\"\n36\t    with open(temp_file, \"w\", encoding=\"utf-8\") as f:\n37\t        json.dump(data, f, ensure_ascii=False, indent=2)\n38\t    os.replace(temp_file, DATA_FILE)\n39\t\n40\tclass Handler(http.server.SimpleHTTPRequestHandler",
+      "thought": "先讀取 server.py 了解現有端點與 port 設定。",
+      "ts": 1793019909.8918858
+    },
+    {
+      "type": "tool_end",
+      "iteration": 3,
+      "tool": "read_file",
+      "args": {
+        "path": "server.py",
+        "start_line": 100,
+        "end_line": 200
+      },
+      "ok": true,
+      "output_preview": "100\t\n101\t        if path == '/api/students':\n102\t            body = self._read_json_body()\n103\t            name = (body.get('name') or '').strip()\n104\t            if not name:\n105\t                return self._send_json(400, {\"success\": False, \"error\": \"Name is required\"})\n106\t            \n107\t            store = load_store()\n108\t            student = {\n109\t                \"id\": f\"kid_{uuid.uuid4().hex[:8]}\",\n110\t                \"name\": name,\n111\t                \"avatar\": body.get('avatar', '🌟'),\n112\t                \"created_at\": datetime.now().isoformat(timespec='seconds')\n113\t            }\n114\t            store.setdefault(\"students\", []).append(student)\n115\t            save_store(store)\n116\t            return self._send_json(201, {\"success\": True, \"student\": student})\n117\t\n118\t        if path == '/api/records':\n119\t            body = self._read_json_body()\n120\t            student_id = body.get('student_id')\n121\t            if not student_id:\n122\t                return self._send_json(400, {\"success\": False, \"error\": \"student_id is required\"})\n123\t            \n124\t            store = load_store()\n125\t            record = {\n126\t                \"id\": f\"rec_{uuid.uuid4().hex[:8]}\",\n12",
+      "thought": "繼續讀取 server.py 剩餘部分。",
+      "ts": 1793019977.833041
+    },
+    {
+      "type": "tool_end",
+      "iteration": 4,
+      "tool": "read_file",
+      "args": {
+        "path": "server.py",
+        "start_line": 200,
+        "end_line": 300
+      },
+      "ok": true,
+      "output_preview": "200\t        path = parsed.path\n201\t\n202\t        if path == '/api/students':\n203\t            body = self._read_json_body()\n204\t            kid = body.get('id')\n205\t            if not kid:\n206\t                return self._send_json(400, {\"success\": False, \"error\": \"Student id is required\"})\n207\t            \n208\t            name = (body.get('name') or '').strip()\n209\t            avatar = body.get('avatar')\n210\t            \n211\t            store = load_store()\n212\t            found = False\n213\t            for s in store.get(\"students\", []):\n214\t                if s.get(\"id\") == kid:\n215\t                    if name:\n216\t                        s[\"name\"] = name\n217\t                    if avatar:\n218\t                        s[\"avatar\"] = avatar\n219\t                    s[\"updated_at\"] = datetime.now().isoformat(timespec='seconds')\n220\t                    found = True\n221\t                    break\n222\t            \n223\t            if not found:\n224\t                return self._send_json(404, {\"success\": False, \"error\": \"Student not found\"})\n225\t            \n226\t            save_store(store)\n227\t            return self._send_json(200, {\"success\": True, \"message\": \"Student updated\"})\n228\t\n229\t",
+      "thought": "繼續讀取 server.py 剩餘部分。",
+      "ts": 1793019992.4435425
+    },
+    {
+      "type": "tool_end",
+      "iteration": 5,
+      "tool": "read_file",
+      "args": {
+        "path": "server.py",
+        "start_line": 280,
+        "end_line": 320
+      },
+      "ok": true,
+      "output_preview": "280\t    os.chdir(os.path.dirname(os.path.abspath(__file__)))\n281\t    local_ip = get_local_ip()\n282\t    for port in range(PORT, PORT + 20):\n283\t        try:\n284\t            with socketserver.TCPServer((\"0.0.0.0\", port), Handler) as httpd:\n285\t                print(f\"[OK] 奇幻數學島伺服器啟動完成！\")\n286\t                print(f\"  💻 電腦端本機網址: http://localhost:{port}\")\n287\t                print(f\"  📱 平板/手機區網網址 (同 WiFi): http://{local_ip}:{port}\")\n288\t                print(f\"  ⚙️ 後台管理中心: http://localhost:{port}/admin.html\")\n289\t                sys.stdout.flush()\n290\t                httpd.serve_forever()\n291\t                break\n292\t        except OSError:\n293\t            continue\n",
+      "thought": "繼續讀取 server.py 最後部分。",
+      "ts": 1793020002.649828
+    },
+    {
+      "type": "tool_end",
+      "iteration": 6,
+      "tool": "read_file",
+      "args": {
+        "path": "啟動奇幻數學島.bat",
+        "start_line": 1,
+        "end_line": 100
+      },
+      "ok": true,
+      "output_preview": "1\t@echo off\n2\tchcp 65001 >nul 2>nul\n3\ttitle 奇幻數學島大冒險 (小學全年級 108 課綱)\n4\t\n5\tREM ========================================================\n6\tREM  奇幻數學島大冒險 - Windows 原生獨立應用啟動器\n7\tREM  遵循 Windows BAT Craftsman Protocol 規範 (CRLF, REM, %~dp0)\n8\tREM ========================================================\n9\t\n10\tset \"APP_DIR=%~dp0\"\n11\tset \"PORT=8085\"\n12\tset \"URL=http://127.0.0.1:%PORT%\"\n13\t\n14\tREM 檢查後台是否已有伺服器在執行\n15\tnetstat -ano | findstr \":%PORT% \" >nul 2>nul\n16\tif errorlevel 1 (\n17\t    REM 啟動本地輕量 Python HTTP 伺服器\n18\t    start /b \"\" python \"%APP_DIR%server.py\" >nul 2>nul\n19\t    REM 等待伺服器就緒\n20\t    timeout /t 2 >nul 2>nul\n21\t)\n22\t\n23\tREM 探測 Chrome 或 Edge 瀏覽器並以 --app 獨立無網址列視窗啟動\n24\tset \"CHROME_PATH=C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\"\n25\tset \"CHROME_PATH_X86=C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\"\n26\tset \"EDGE_PATH=C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\"\n27\tset \"EDGE_PATH_64=C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe\"\n28\t\n29\tif exist \"%CHROME_PATH%\" (\n30\t    start \"\" \"%CHROME_PATH%\" --app=\"%URL%\" --window-size=1200,820\n31\t    exit /b 0\n32\t)\n33\tif exist \"%CHROME_PATH_X86%\" (\n34\t    start \"\" \"%CHROME_PATH_X86%\" --app=\"%URL%\" --w",
+      "thought": "現在讀取啟動奇幻數學島.bat。",
+      "ts": 1793020027.0049248
+    },
+    {
+      "type": "tool_end",
+      "iteration": 7,
+      "tool": "edit_file",
+      "args": {
+        "path": "啟動奇幻數學島.bat",
+        "old_text": "set \"PORT=8085\"\nset \"URL=http://127.0.0.1:%PORT%\"",
+        "new_text": "set \"PORT=8000\"\nset \"URL=http://127.0.0.1:%PORT%\""
+      },
+      "ok": true,
+      "output_preview": "編輯完成 (1 處)",
+      "thought": "bat 檔案 port=8085 與 server.py port=8000 不一致，先修正 bat 檔案統一 port=8000。",
+      "ts": 1793020068.6145282
+    },
+    {
+      "type": "tool_end",
+      "iteration": 8,
+      "tool": "edit_file",
+      "args": {
+        "path": "server.py",
+        "old_text": "        if path == '/api/info':\n            return self._send_json(200, {\n                \"success\": True,\n                \"server_time\": datetime.now().isoformat(),\n                \"local_ip\": get_local_ip(),\n                \"port\": self.server.server_address[1]\n            })",
+        "new_text": "        if path == '/api/info':\n            return self._send_json(200, {\n                \"success\": True,\n                \"server_time\": datetime.now().isoformat(),\n                \"local_ip\": get_local_ip(),\n                \"port\": self.server.server_address[1]\n            })\n\n        if path == '/api/host_info':\n            local_ip = get_local_ip()\n            port = self.server.server_address[1]\n            return self._send_json(200, {\n                \"success\": True,\n                \"server_time\": datetime.now().isoformat(),\n                \"local_ip\": local_ip,\n                \"port\": port,\n                \"tablet_url\": f\"http://{local_ip}:{port}\",\n                \"admin_url\": f\"http://{local_ip}:{port}/admin.html\",\n                \"sync_endpoint\": f\"http://{local_ip}:{port}/api/sync_progress\",\n                \"students_endpoint\": f\"http://{local_ip}:{port}/api/students\",\n                \"records_endpoint\": f\"http://{local_ip}:{port}/api/records\"\n            })"
+      },
+      "ok": true,
+      "output_preview": "編輯完成 (1 處)",
+      "thought": "現在在 server.py 新增 /api/host_info 端點，提供平板直連資訊。",
+      "ts": 1793020112.6255765
+    },
+    {
+      "type": "tool_end",
+      "iteration": 9,
+      "tool": "read_file",
+      "args": {
+        "path": "js/student.js",
+        "start_line": 1,
+        "end_line": 100
+      },
+      "ok": true,
+      "output_preview": "1\t/**\n2\t * js/student.js\n3\t * 奇幻數學島 前台學童身分管理與歷程/成績自動回傳模組 (v2.8.1)\n4\t * 支援專用 URL 鎖定 (?kid=xxx)、多學童切換、離線暫存隊列與伺服器雙軌同步\n5\t */\n6\t\n7\timport { getCurrentSubject, getCurrentGrade } from './state.js';\n8\timport { showToast } from './ui.js';\n9\timport { audio } from './audio.js';\n10\t\n11\tconst STORAGE_KEY_CURRENT = 'fantasy_math_current_student';\n12\tconst STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';\n13\tconst STORAGE_KEY_PENDING = 'fantasy_math_pending_records';\n14\tconst STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';\n15\t\n16\tconst DEFAULT_VISITOR = {\n17\t  id: 'visitor',\n18\t  name: '冒險小勇士',\n19\t  avatar: '🦊',\n20\t  isDefault: true\n21\t};\n22\t\n23\tconst AVATAR_OPTIONS = ['🦊', '🦁', '🐼', '🦄', '🐰', '🚀', '🦖', '👑', '🐬', '🐱', '⭐', '🌈'];\n24\t\n25\tlet currentStudent = null;\n26\tlet isLocked = false;\n27\tlet cachedStudents = [];\n28\t\n29\t/**\n30\t * 讀取本機快取的學童清單\n31\t */\n32\texport function getLocalStudents() {\n33\t  try {\n34\t    const raw = localStorage.getItem(STORAGE_KEY_STUDENTS);\n35\t    if (raw) {\n36\t      const parsed = JSON.parse(raw);\n37\t      if (Array.isArray(parsed) && parsed.length > 0) return parsed;\n38\t    }\n39\t  } catch (e) {\n40\t    console.warn('[Student] 讀取本機學童快取失敗:', e);\n41\t  }\n42\t  return [DEF",
+      "thought": "現在讀取 js/student.js 了解現有上傳邏輯。",
+      "ts": 1793020145.1426253
+    },
+    {
+      "type": "tool_end",
+      "iteration": 10,
+      "tool": "read_file",
+      "args": {
+        "path": "js/student.js",
+        "start_line": 100,
+        "end_line": 200
+      },
+      "ok": true,
+      "output_preview": "100\t * 若當前登入學童尚無任何通關紀錄，且本機有歷史遊玩進度，自動補登初始成績\n101\t */\n102\texport function autoClaimLocalProgressIfEmpty(student) {\n103\t  if (!student || !student.id || student.id === 'visitor') return;\n104\t\n105\t  const STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';\n106\t  let existingRecords = [];\n107\t  try {\n108\t    const raw = localStorage.getItem(STORAGE_KEY_RECORDS);\n109\t    if (raw) existingRecords = JSON.parse(raw);\n110\t  } catch (e) {}\n111\t\n112\t  let pendingRecords = [];\n113\t  try {\n114\t    const raw = localStorage.getItem(STORAGE_KEY_PENDING);\n115\t    if (raw) pendingRecords = JSON.parse(raw);\n116\t  } catch (e) {}\n117\t\n118\t  const hasAnyRecord = [...existingRecords, ...pendingRecords].some(r => r.student_id === student.id);\n119\t  if (hasAnyRecord) return; // 已經有紀錄，無需重複補登\n120\t\n121\t  const newRecords = [];\n122\t  for (let i = 0; i < localStorage.length; i++) {\n123\t    const key = localStorage.key(i);\n124\t    if (!key || (!key.includes('progress') && !key.includes('fantasy'))) continue;\n125\t\n126\t    let subject = 'math';\n127\t    let grade = 1;\n128\t    if (key === 'fantasy-math-island-progress-v1') {\n129\t      subject = 'math';\n130\t      grade = 1;\n131\t    } else {\n132\t      const matchMath = ",
+      "thought": "繼續讀取 student.js 了解上傳與同步邏輯。",
+      "ts": 1793020168.4810066
+    },
+    {
+      "type": "tool_end",
+      "iteration": 11,
+      "tool": "read_file",
+      "args": {
+        "path": "js/student.js",
+        "start_line": 200,
+        "end_line": 300
+      },
+      "ok": true,
+      "output_preview": "200\t    if (res.ok) {\n201\t      const data = await res.json();\n202\t      if (data.success && Array.isArray(data.students)) {\n203\t        // 伺服器名單 + 訪客模式\n204\t        const merged = [DEFAULT_VISITOR, ...data.students.filter(s => s.id !== 'visitor')];\n205\t        saveLocalStudents(merged);\n206\t        \n207\t        // 若當前有 kid 參數且匹配，刷新名稱頭像\n208\t        if (isLocked && currentStudent) {\n209\t          const matched = merged.find(s => s.id === currentStudent.id);\n210\t          if (matched) {\n211\t            currentStudent.name = matched.name;\n212\t            currentStudent.avatar = matched.avatar;\n213\t            updateStudentPillUI();\n214\t          }\n215\t        }\n216\t        return merged;\n217\t      }\n218\t    }\n219\t  } catch (err) {\n220\t    console.info('[Student] 後台伺服器未運行或處於離線狀態，使用本機快取');\n221\t  }\n222\t  return cachedStudents;\n223\t}\n224\t\n225\t/**\n226\t * 新增學童\n227\t */\n228\texport async function addNewStudent({ name, avatar }) {\n229\t  const cleanName = (name || '').trim();\n230\t  if (!cleanName) return null;\n231\t\n232\t  const newStudent = {\n233\t    id: `kid_${Date.now().toString(36)}`,\n234\t    name: cleanName,\n235\t    avatar: avatar || '🌟',\n236\t    created_at: new Date().toISOString()\n237\t  };\n2",
+      "thought": "繼續讀取 student.js 了解同步與上傳邏輯。",
+      "ts": 1793020200.8118691
+    },
+    {
+      "type": "tool_end",
+      "iteration": 12,
+      "tool": "read_file",
+      "args": {
+        "path": "js/student.js",
+        "start_line": 300,
+        "end_line": 400
+      },
+      "ok": true,
+      "output_preview": "300\t        headers: { 'Content-Type': 'application/json' },\n301\t        body: JSON.stringify(record)\n302\t      });\n303\t      if (res.ok) {\n304\t        successCount++;\n305\t      } else {\n306\t        remaining.push(record);\n307\t      }\n308\t    } catch (e) {\n309\t      remaining.push(record);\n310\t    }\n311\t  }\n312\t\n313\t  savePendingRecords(remaining);\n314\t  if (successCount > 0) {\n315\t    console.log(`[StudentSync] 成功補傳 ${successCount} 筆離線成績至後台！`);\n316\t    showToast(`已自動補傳 ${successCount} 筆離線學習成績！`, '📡', 2600);\n317\t  }\n318\t}\n319\t\n320\t/**\n321\t * 儲存單筆戰績至本地 admin records (確保純前端/離線時不漏失)\n322\t */\n323\tfunction saveSingleRecordToLocal(record) {\n324\t  try {\n325\t    const raw = localStorage.getItem(STORAGE_KEY_RECORDS);\n326\t    let records = raw ? JSON.parse(raw) : [];\n327\t    if (!Array.isArray(records)) records = [];\n328\t    const exists = records.some(r => \n329\t      r.id === record.id || \n330\t      (r.student_id === record.student_id && r.subject === record.subject && r.grade === record.grade && r.level_id === record.level_id && r.timestamp === record.timestamp)\n331\t    );\n332\t    if (!exists) {\n333\t      records.unshift(record);\n334\t      localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stri",
+      "thought": "繼續讀取 student.js 了解 flushPendingRecords 與 syncProgress 邏輯。",
+      "ts": 1793020228.3288956
+    },
+    {
+      "type": "tool_end",
+      "iteration": 13,
+      "tool": "edit_file",
+      "args": {
+        "path": "js/student.js",
+        "old_text": "const STORAGE_KEY_CURRENT = 'fantasy_math_current_student';\nconst STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';\nconst STORAGE_KEY_PENDING = 'fantasy_math_pending_records';\nconst STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';",
+        "new_text": "const STORAGE_KEY_CURRENT = 'fantasy_math_current_student';\nconst STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';\nconst STORAGE_KEY_PENDING = 'fantasy_math_pending_records';\nconst STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';\nconst STORAGE_KEY_HOST = 'fantasy_math_host_url';\n\n/**\n * 取得自訂後台基礎 URL（優先級：URL ?host= 參數 > localStorage > 相對路徑）\n */\nexport function getHostBase() {\n  const params = new URLSearchParams(window.location.search);\n  const urlHost = params.get('host');\n  if (urlHost) {\n    try { localStorage.setItem(STORAGE_KEY_HOST, urlHost); } catch (e) {}\n    return urlHost.replace(/\\/+$/, '');\n  }\n  try {\n    const saved = localStorage.getItem(STORAGE_KEY_HOST);\n    if (saved) return saved.replace(/\\/+$/, '');\n  } catch (e) {}\n  return '';\n}\n\n/**\n * 統一 API fetch 包裝：自動對接自訂後台端點\n */\nexport function apiFetch(path, options) {\n  const base = getHostBase();\n  const url = base ? `${base}${path}` : path;\n  return fetch(url, options);\n}"
+      },
+      "ok": true,
+      "output_preview": "編輯完成 (1 處)",
+      "thought": "只剩 3 輪，必須立即行動。先在 student.js 開頭加入自訂後台端點 helper 函數。",
+      "ts": 1793020286.3361323
+    }
+  ],
+  "modifiedFiles": [
+    "啟動奇幻數學島.bat",
+    "server.py",
+    "js/student.js"
+  ],
+  "iterations": 14,
+  "finalAnswer": "已完成 3 項修改：(1) server.py 新增 /api/host_info 端點回傳 tablet_url/admin_url/sync_endpoint 等完整連線資訊，port 統一 8000；(2) 啟動奇幻數學島.bat 將 PORT 從 8085 改為 8000；(3) js/student.js 新增 getHostBase()（讀取 URL ?host= 參數或 localStorage）與 apiFetch() 統一包裝函式。尚未完成：student.js 內既有 fetch('/api/...') 呼叫尚未全部替換為 apiFetch()；admin.html 與 js/admin.js 尚未加入平板直連 QR Code 產生與網址一鍵複製 UI。建議下一輪繼續完成這些剩餘修改。"
 }
