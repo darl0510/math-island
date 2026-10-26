@@ -69,7 +69,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2.9.1" />
+  <link rel="stylesheet" href="css/style.css?v=2.9.2" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>" />
   <!-- PWA Progressive Web App 配置 -->
   <link rel="manifest" href="manifest.webmanifest" />
@@ -89,7 +89,7 @@
       <span class="brand-star" aria-hidden="true">✦</span>
       <span id="brand-subject-title">奇幻數學島</span>
       <span class="brand-sub" id="brand-sub-text">大冒險</span>
-      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.9.1">v2.9.1</span>
+      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.9.2">v2.9.2</span>
       <span id="offline-badge" class="offline-badge hidden" title="目前處於離線狀態，題庫與教具已全量離線快取，暢玩無阻">⚡ 離線模式</span>
     </div>
 
@@ -133,6 +133,7 @@
           <!-- 動態載入學童 -->
         </div>
         <div class="student-dropdown-actions" style="display: flex; flex-direction: column; gap: 4px;">
+          <button id="tablet-qr-quick-btn" class="student-quick-action-btn" type="button" style="border-color: #10b981; color: #059669; background: rgba(16, 185, 129, 0.08); font-weight: 700;">📱 平板直連 QR Code</button>
           <button id="sync-student-quick-btn" class="student-quick-action-btn" type="button" style="border-color: #38bdf8; color: #0284c7; background: rgba(56, 189, 248, 0.08); font-weight: 700;">📤 上傳/同步進度</button>
           <button id="add-student-quick-btn" class="student-quick-action-btn" type="button">➕ 新增小勇士</button>
           <a href="admin.html" target="_blank" class="student-quick-action-btn" style="text-align: center; text-decoration: none; display: block; border-color: #a855f7; color: #8e44ad; background: rgba(168, 85, 247, 0.08);">⚙️ 後台管理中心</a>
@@ -170,6 +171,15 @@
               </div>
               <span id="tts-status-badge" class="tools-status-badge is-active">開啟中</span>
             </button>
+            <!-- 📱 平板直連 QR Code -->
+            <button id="tools-tablet-qr-btn" class="tools-menu-item" type="button" role="menuitem">
+              <span class="tools-item-icon">📱</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">平板直連 QR Code</span>
+                <span class="tools-item-desc">手機平板掃碼同步連線</span>
+              </div>
+            </button>
+
             <a href="admin.html" target="_blank" class="tools-menu-item admin-menu-item" id="admin-nav-item" role="menuitem">
               <span class="tools-item-icon">⚙️</span>
               <div class="tools-item-info">
@@ -239,6 +249,7 @@
     <div class="noscript">請開啟 JavaScript 才能遊玩奇幻數學島大冒險。</div>
   </noscript>
 
+  <script src="js/qrcode.min.js"></script>
   <script type="module" src="js/main.js"></script>
   <script>
     if ('serviceWorker' in navigator) {

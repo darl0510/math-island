@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-26 (v2.9.1 版)  
+> **最後更新時間**：2026-10-26 (v2.9.2 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,7 +10,7 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.9.1】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.9.2】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
 python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "全年級全學科互動答題動效與連續答對 Combo 獎勵激勵系統"
@@ -56,11 +56,11 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
+- [x] **遊戲前端主介面平板直連 QR Code 產生器實裝** (回應使用者反饋，於遊戲主介面 `index.html` 之頂部身分膠囊下拉選單新增【📱 平板直連 QR Code】、更多工具 (🛠️) 新增【📱 平板直連 QR Code】項目，並於【📤 冒險進度同步】彈窗內直接增設【📱 顯示平板直連 QR Code】直通鈕；`js/student.js` 實裝 `showTabletQRDialog`，自動探測局域網 IP、一鍵生成離線向量 SVG QR Code、身分鎖定專屬網址與一鍵複製；`node --check` 100% 綠燈通過) (v2.9.2)
 - [x] **平板直連 QR Code 產生器與全域 apiFetch 串接實裝** (於 `admin.html` 與 `js/admin.js` 實裝【📱 平板直連 QR Code】功能，支援自動探測區域網 IP (`/api/host_info`)、身分鎖定下拉選單、手動 Host 微調、純離線 SVG 向量 QR Code 生成 (`qrcode.min.js`) 與一鍵複製專屬直連網址；於學童名冊卡片新增【📱 掃碼直連】捷徑；並將 `js/student.js` 中所有原生 `fetch('/api/...')` 呼叫全面切換為 `apiFetch()`，徹底暢通平板透過區域網 IP 或自訂 Host 上傳答題歷程；自檢與語法檢查 100% 綠燈通過) (v2.9.1)
 - [x] **平板與跨設備進度同步上傳系統實裝** (徹底解決孩子在平板遊玩而電腦後台抓不到真實戰績的問題。於前端 `index.html` 與 `js/student.js` 實裝【📤 上傳/同步進度】功能，支援「進度推進自動背景上傳」與「一鍵產生平板進度碼 (Base64 UTF-8)」；`server.py` 擴充 `POST /api/sync_progress`、綁定 `0.0.0.0` 支援 WiFi 區域網路平板直連自動同步；後台 `admin.html` 與 `js/admin.js` 實裝【📥 匯入平板進度碼】彈窗，貼上代碼 1 秒內無縫帶入真實關卡星數與得分；自檢通過 100% 綠燈) (v2.8.7)
 - [x] **學童既有歷史進度一鍵補登與自動認領系統** (解決學童登入後後台顯示為空白 0 紀錄的問題。於 `js/admin.js` 學童卡片新增【📥 補登本機進度】按鈕與無紀錄溫馨引導，支援智慧掃描全學科、全年級本機星星與最佳成績，一鍵轉換為該學童的歷史通關戰績；`js/student.js` 實裝 `autoClaimLocalProgressIfEmpty`，首頁切換或登入具名小勇士時若無紀錄自動認領本機累積進度，後台數字即刻秒點亮；`node --check` 100% 綠燈通過) (v2.8.6)
 - [x] **科目切換收合下拉選單與頂部全域單列零折行 RWD 重構** (將長排 6 科目膠囊收合成緊湊下拉膠囊 `subject-pill-container`，音效/語音讀題完整整合進 `tools-dropdown-menu`。全域導覽列精煉為【Logo + 科目 + 年級 + 身分 + 工具】單列常駐零折行架構，手機與小視窗 502px/390px 下文字壓蓋問題 100% 徹底根除；多選單互斥關閉健全流暢，瀏覽器多尺寸實測通過，`node --check` 100% 綠燈) (v2.8.5)
-- [x] **頂部導覽列 RWD 響應式優化與更多工具收合選單實裝** (重構 `index.html`、`css/style.css`、`js/main.js` 與 `js/student.js`，將原本佔據 450px 的 8 個右側按鈕精簡為常駐 2 快捷(🎵/🔊) + 1 更多工具收合按鈕(🛠️)。次要工具（⚙️後台、📊海報、🏅徽章、ㄅ注音、📲PWA、🍎iOS）整合於預設收合的毛玻璃下拉選單中，淨省 310px 水平空間，徹底解決桌機/筆電 1100px 寬度下 6 大科目膠囊被年級與身分膠囊覆蓋擠壓的問題；全螢幕支援 1100px、800px 雙層架構與 390px 手機寬度；瀏覽器多尺寸實測通過，`node --check` 100% 綠燈) (v2.8.4)
 <details><summary>過往已完成歷史任務</summary>
 - [x] **全域注音標示系統實裝** (建立 5,324 字注音辭典 `js/zhuyin-data.js` 與 `js/zhuyin.js`、題目/提示/選項預設 `<ruby><rt>` 注音標註、防洩題防禦、頂部導覽列 `ㄅ` 開關按鈕與 localStorage 偏好記憶、`node --check` 與瀏覽器實測 100% 綠燈) (v2.5.6)
 

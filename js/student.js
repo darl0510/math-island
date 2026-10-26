@@ -655,6 +655,22 @@ export async function initStudentProfile() {
     showProgressSyncDialog();
   });
 
+  const tabletQrQuickBtn = document.getElementById('tablet-qr-quick-btn');
+  tabletQrQuickBtn?.addEventListener('click', () => {
+    closeStudentDropdown();
+    showTabletQRDialog();
+  });
+
+  const toolsTabletQrBtn = document.getElementById('tools-tablet-qr-btn');
+  toolsTabletQrBtn?.addEventListener('click', () => {
+    const toolsMenu = document.getElementById('tools-dropdown-menu');
+    if (toolsMenu) {
+      toolsMenu.classList.add('hidden');
+      toolsMenu.setAttribute('hidden', '');
+    }
+    showTabletQRDialog();
+  });
+
   document.addEventListener('click', (e) => {
     const menu = document.getElementById('student-dropdown-menu');
     if (menu && !menu.contains(e.target) && e.target !== studentBtn) {
@@ -794,6 +810,9 @@ export function showProgressSyncDialog() {
           <button id="direct-upload-btn" type="button" class="student-modal-confirm" style="background: #3b82f6; width: 100%;">
             📤 立即連線上傳至電腦後台
           </button>
+          <button id="open-qr-from-sync-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #10b981, #059669); width: 100%;">
+            📱 顯示平板直連 QR Code (免手動打字)
+          </button>
           <button id="copy-sync-token-btn" type="button" class="student-modal-confirm" style="background: #8b5cf6; width: 100%;">
             📋 複製平板進度同步碼 (跨設備/離線用)
           </button>
@@ -819,10 +838,16 @@ export function showProgressSyncDialog() {
   const cancelBtn = modal.querySelector('#close-sync-modal-btn');
   const uploadBtn = modal.querySelector('#direct-upload-btn');
   const copyBtn = modal.querySelector('#copy-sync-token-btn');
+  const openQrBtn = modal.querySelector('#open-qr-from-sync-btn');
   const applyBtn = modal.querySelector('#apply-sync-token-btn');
   const pasteInput = modal.querySelector('#paste-sync-input');
 
   const closeModal = () => modal.remove();
+
+  openQrBtn?.addEventListener('click', () => {
+    closeModal();
+    showTabletQRDialog(student);
+  });
 
   closeBtn.addEventListener('click', closeModal);
   cancelBtn.addEventListener('click', closeModal);
@@ -878,3 +903,182 @@ export function showProgressSyncDialog() {
     }
   });
 }
+
+/**
+ * 彈出【📱 平板掃碼直連冒險島】專屬對話框
+ */
+export async function showTabletQRDialog(student = getCurrentStudent()) {
+  audio.playSfx('click', 0.4);
+  const existingModal = document.getElementById('tablet-qr-dialog-modal');
+  if (existingModal) existingModal.remove();
+
+  // 1. 探測後台 Host
+  let hostUrl = getHostBase();
+  let localIp = '';
+  try {
+    const res = await apiFetch('/api/host_info', { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && data.local_ip) {
+        localIp = data.local_ip;
+        if (!hostUrl || hostUrl.includes('localhost') || hostUrl.includes('127.0.0.1')) {
+          hostUrl = `http://${data.local_ip}:${data.port || 8000}`;
+        }
+      }
+    }
+  } catch (e) {}
+
+  if (!hostUrl) {
+    hostUrl = window.location.origin;
+  }
+
+  // 2. 計算目標連結
+  function buildDirectUrl(targetHost, targetKid) {
+    try {
+      const u = new URL(window.location.pathname.replace(/\/admin\.html$/, '') || '/', targetHost);
+      if (!u.pathname.endsWith('.html') && !u.pathname.endsWith('/')) {
+        u.pathname += '/index.html';
+      } else if (u.pathname.endsWith('/')) {
+        u.pathname += 'index.html';
+      }
+      if (targetKid && targetKid !== 'visitor') {
+        u.searchParams.set('kid', targetKid);
+      }
+      u.searchParams.set('host', targetHost);
+      return u.href;
+    } catch (e) {
+      return `${targetHost.replace(/\/+$/, '')}/index.html?${targetKid && targetKid !== 'visitor' ? `kid=${encodeURIComponent(targetKid)}&` : ''}host=${encodeURIComponent(targetHost)}`;
+    }
+  }
+
+  let directUrl = buildDirectUrl(hostUrl, student.id);
+
+  const modal = document.createElement('div');
+  modal.id = 'tablet-qr-dialog-modal';
+  modal.className = 'student-modal-overlay';
+  modal.innerHTML = `
+    <div class="student-modal-card" style="max-width: 480px; text-align: center;">
+      <div class="student-modal-header">
+        <span class="student-modal-icon">📱</span>
+        <h3>平板掃碼直連冒險島</h3>
+        <button class="student-modal-close" type="button" aria-label="關閉">✕</button>
+      </div>
+
+      <div class="student-modal-body" style="font-size: 0.9rem; padding-top: 0.5rem;">
+        <!-- 當前挑戰者標籤 -->
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.6rem 0.9rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.5rem;">${student.avatar || '🦊'}</span>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; font-size: 0.95rem; color: #f8fafc;">${student.name || '冒險小勇士'}</div>
+              <div style="color: #38bdf8; font-size: 0.78rem;">${student.id && student.id !== 'visitor' ? '🔒 專屬身分鎖定' : '🎒 自由訪客模式'}</div>
+            </div>
+          </div>
+          <span style="font-size: 0.78rem; color: #34d399; font-weight: 700;">${localIp ? `📡 LAN: ${localIp}` : '🌐 本機/線上'}</span>
+        </div>
+
+        <!-- QR Code 白底卡片 -->
+        <div style="background: #ffffff; padding: 1.25rem; border-radius: 14px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.4); margin: 0.25rem auto 0.75rem; border: 4px solid #38bdf8;">
+          <div id="front-qr-container" style="min-width: 200px; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+            <!-- QR Code -->
+          </div>
+          <div style="margin-top: 8px; font-size: 0.82rem; font-weight: 800; color: #0f172a; background: #e0f2fe; padding: 3px 10px; border-radius: 999px;">
+            📷 使用平板相機掃描直開遊戲
+          </div>
+        </div>
+
+        <!-- 伺服器 Host 輸入框 (可手動調整) -->
+        <div style="text-align: left; margin-bottom: 0.6rem;">
+          <label style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 3px;">
+            後台主機網址 (若平板無法掃入請確認此 IP 與電腦同網段)：
+          </label>
+          <input type="text" id="front-qr-host-input" value="${hostUrl}" style="width: 100%; padding: 6px 8px; font-size: 0.8rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #f8fafc;" />
+        </div>
+
+        <!-- 專屬網址與複製 -->
+        <div style="display: flex; gap: 6px; margin-bottom: 0.75rem;">
+          <input type="text" id="front-qr-url-input" readonly value="${directUrl}" style="flex: 1; padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #38bdf8; background: rgba(15, 23, 42, 0.8); color: #38bdf8;" />
+          <button id="front-qr-copy-btn" type="button" style="padding: 6px 14px; background: #38bdf8; color: #0f172a; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; white-space: nowrap;">
+            📋 複製
+          </button>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 10px; text-align: left; font-size: 0.78rem; color: #34d399; line-height: 1.4;">
+          ✨ <strong>貼心提示</strong>：平板請連線至與本電腦相同的 <strong>Wi-Fi</strong>。掃描後答題星星將即時自動回傳至本機！
+        </div>
+      </div>
+
+      <div class="student-modal-actions" style="margin-top: 0.75rem;">
+        <button id="close-front-qr-btn" class="student-modal-cancel" type="button" style="width: 100%;">關閉</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const container = modal.querySelector('#front-qr-container');
+  const hostInput = modal.querySelector('#front-qr-host-input');
+  const urlInput = modal.querySelector('#front-qr-url-input');
+  const copyBtn = modal.querySelector('#front-qr-copy-btn');
+  const closeBtn = modal.querySelector('.student-modal-close');
+  const cancelBtn = modal.querySelector('#close-front-qr-btn');
+
+  function renderQR(url) {
+    if (!container) return;
+    container.innerHTML = '';
+    try {
+      if (typeof qrcode === 'function') {
+        const qr = qrcode(0, 'M');
+        qr.addData(url);
+        qr.make();
+        container.innerHTML = qr.createSvgTag(5, 4);
+        const svg = container.querySelector('svg');
+        if (svg) {
+          svg.style.display = 'block';
+          svg.style.maxWidth = '200px';
+          svg.style.maxHeight = '200px';
+          svg.style.width = '100%';
+          svg.style.height = 'auto';
+        }
+        return;
+      }
+    } catch (err) {
+      console.warn('[QR] 本地生成異常:', err);
+    }
+    const img = document.createElement('img');
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=4&data=${encodeURIComponent(url)}`;
+    img.alt = 'QR Code';
+    img.style.width = '200px';
+    img.style.height = '200px';
+    container.appendChild(img);
+  }
+
+  renderQR(directUrl);
+
+  const closeModal = () => modal.remove();
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  hostInput.addEventListener('input', () => {
+    const newHost = hostInput.value.trim() || window.location.origin;
+    directUrl = buildDirectUrl(newHost, student.id);
+    urlInput.value = directUrl;
+    renderQR(directUrl);
+  });
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(urlInput.value).then(() => {
+      showToast('📋 已複製平板直連網址！', '✨', 2400);
+      copyBtn.textContent = '✅ 已複製！';
+      setTimeout(() => copyBtn.textContent = '📋 複製', 2000);
+    }).catch(() => {
+      prompt('請手動複製此專屬網址：', urlInput.value);
+    });
+  });
+}
+
+window.showTabletQRDialog = showTabletQRDialog;
+
