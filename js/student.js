@@ -719,7 +719,7 @@ export function packStudentProgressData(student = getCurrentStudent()) {
 }
 
 /**
- * 產生進度同步碼字串 (Base64 UTF-8 相容)
+ * 產生進度同步碼字串 (Base64 UTF-8 相容 - 完整版)
  */
 export function generateSyncTokenString(student = getCurrentStudent()) {
   const data = packStudentProgressData(student);
@@ -729,15 +729,85 @@ export function generateSyncTokenString(student = getCurrentStudent()) {
 }
 
 /**
- * 解析進度同步碼字串
+ * 產生超輕量進度代碼 (專為 QR Code 與秒級相機識別設計，僅數百字元)
+ */
+export function generateCompactSyncToken(student = getCurrentStudent()) {
+  let records = [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_RECORDS);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        records = parsed.filter(r => r.student_id === student.id);
+      }
+    }
+  } catch (e) {}
+
+  const SUB_MAP = { math: 'm', english: 'e', chinese: 'c', natural: 'n', social: 's', final: 'f' };
+  const rList = records.map(r => [
+    SUB_MAP[r.subject] || (r.subject ? r.subject[0] : 'm'),
+    Number(r.grade) || 1,
+    Number(r.level_id) || 1,
+    Number(r.score) || 100,
+    Number(r.stars) || 3,
+    Number(r.duration_seconds) || 30
+  ]);
+
+  const compact = {
+    v: 1,
+    id: student.id,
+    name: student.name,
+    avatar: student.avatar || '🦊',
+    ts: Date.now(),
+    r: rList
+  };
+
+  const jsonStr = JSON.stringify(compact);
+  const b64 = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+  return `FMS1_${b64}`;
+}
+
+/**
+ * 解析任意版本進度同步碼字串 (相容 FMS1_ 輕量矩陣與 FMP1_ 完整版)
  */
 export function parseSyncTokenString(tokenStr) {
-  if (!tokenStr || !tokenStr.startsWith('FMP1_')) {
-    throw new Error('無效的進度同步碼格式（需為 FMP1_ 開頭）');
+  if (!tokenStr) throw new Error('同步碼為空');
+  tokenStr = tokenStr.trim();
+
+  if (tokenStr.startsWith('FMS1_')) {
+    const b64 = tokenStr.slice(5).trim();
+    const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    const compact = JSON.parse(jsonStr);
+    const SUB_MAP_REV = { m: 'math', e: 'english', c: 'chinese', n: 'natural', s: 'social', f: 'final' };
+    const records = (compact.r || []).map(item => ({
+      id: `rec_${compact.id}_${item[0]}_${item[1]}_${item[2]}`,
+      student_id: compact.id,
+      student_name: compact.name,
+      subject: SUB_MAP_REV[item[0]] || 'math',
+      grade: item[1],
+      level_id: item[2],
+      level_title: `關卡 ${item[2]}`,
+      score: item[3],
+      stars: item[4],
+      duration_seconds: item[5],
+      errors: [],
+      timestamp: new Date(compact.ts || Date.now()).toISOString()
+    }));
+    return {
+      version: 'FMS1',
+      student: { id: compact.id, name: compact.name, avatar: compact.avatar },
+      records: records,
+      progress: {}
+    };
   }
-  const b64 = tokenStr.slice(5).trim();
-  const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-  return JSON.parse(jsonStr);
+
+  if (tokenStr.startsWith('FMP1_')) {
+    const b64 = tokenStr.slice(5).trim();
+    const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    return JSON.parse(jsonStr);
+  }
+
+  throw new Error('無效的進度同步碼格式（需為 FMS1_ 或 FMP1_ 開頭）');
 }
 
 /**
@@ -807,21 +877,24 @@ export function showProgressSyncDialog() {
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <button id="direct-upload-btn" type="button" class="student-modal-confirm" style="background: #3b82f6; width: 100%;">
-            📤 立即連線上傳至電腦後台
-          </button>
-          <button id="open-qr-from-sync-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #10b981, #059669); width: 100%;">
-            📱 顯示平板直連 QR Code (免手動打字)
+          <button id="export-progress-qr-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #10b981, #059669); width: 100%; font-weight: 800; font-size: 0.95rem; padding: 10px 14px;">
+            📱 產生【進度同步 QR Code】(手機相機一掃直接入帳)
           </button>
           <button id="copy-sync-token-btn" type="button" class="student-modal-confirm" style="background: #8b5cf6; width: 100%;">
-            📋 複製平板進度同步碼 (跨設備/離線用)
+            📋 複製平板進度代碼 (可貼至後台或發給 AI 更新)
+          </button>
+          <button id="direct-upload-btn" type="button" class="student-modal-confirm" style="background: #3b82f6; width: 100%;">
+            📤 區域網立即連線上傳 (電腦有開 server.py 時用)
+          </button>
+          <button id="open-qr-from-sync-btn" type="button" class="student-modal-confirm" style="background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #38bdf8; width: 100%;">
+            🔗 平板直連遊戲入口 QR Code
           </button>
         </div>
 
         <div style="margin-top: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-top: 0.75rem;">
           <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 4px;">或從其他設備匯入進度碼：</div>
           <div style="display: flex; gap: 6px;">
-            <input type="text" id="paste-sync-input" placeholder="貼上 FMP1_ 開頭的同步碼..." style="flex: 1; padding: 6px 8px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #475569; background: #0f172a; color: #f8fafc;" />
+            <input type="text" id="paste-sync-input" placeholder="貼上 FMS1_ 或 FMP1_ 同步碼..." style="flex: 1; padding: 6px 8px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #475569; background: #0f172a; color: #f8fafc;" />
             <button id="apply-sync-token-btn" type="button" style="padding: 6px 12px; background: #10b981; border: none; border-radius: 4px; color: #fff; font-weight: 700; cursor: pointer;">匯入</button>
           </div>
         </div>
@@ -838,11 +911,17 @@ export function showProgressSyncDialog() {
   const cancelBtn = modal.querySelector('#close-sync-modal-btn');
   const uploadBtn = modal.querySelector('#direct-upload-btn');
   const copyBtn = modal.querySelector('#copy-sync-token-btn');
+  const exportQrBtn = modal.querySelector('#export-progress-qr-btn');
   const openQrBtn = modal.querySelector('#open-qr-from-sync-btn');
   const applyBtn = modal.querySelector('#apply-sync-token-btn');
   const pasteInput = modal.querySelector('#paste-sync-input');
 
   const closeModal = () => modal.remove();
+
+  exportQrBtn?.addEventListener('click', () => {
+    closeModal();
+    showProgressExportQRDialog(student);
+  });
 
   openQrBtn?.addEventListener('click', () => {
     closeModal();
@@ -1080,5 +1159,149 @@ export async function showTabletQRDialog(student = getCurrentStudent()) {
   });
 }
 
+/**
+ * 彈出【📱 進度同步 QR Code (帶進度相機掃碼入帳)】專屬對話框
+ */
+export function showProgressExportQRDialog(student = getCurrentStudent()) {
+  audio.playSfx('click', 0.4);
+  const existingModal = document.getElementById('progress-export-qr-modal');
+  if (existingModal) existingModal.remove();
+
+  const compactToken = generateCompactSyncToken(student);
+  const pack = packStudentProgressData(student);
+  const passes = pack.records.length;
+  const stars = pack.records.reduce((acc, r) => acc + (r.stars || 0), 0);
+
+  // 組裝後台直連匯入網址
+  let importUrl = '';
+  try {
+    let p = window.location.pathname;
+    if (p.endsWith('/index.html')) {
+      p = p.replace(/\/index\.html$/, '/admin.html');
+    } else if (p.endsWith('/')) {
+      p = p + 'admin.html';
+    } else {
+      p = p + '/admin.html';
+    }
+    const u = new URL(p, window.location.origin);
+    u.searchParams.set('import_token', compactToken);
+    importUrl = u.href;
+  } catch (e) {
+    importUrl = `${window.location.origin}/admin.html?import_token=${encodeURIComponent(compactToken)}`;
+  }
+
+  const modal = document.createElement('div');
+  modal.id = 'progress-export-qr-modal';
+  modal.className = 'student-modal-overlay';
+  modal.innerHTML = `
+    <div class="student-modal-card" style="max-width: 480px; text-align: center;">
+      <div class="student-modal-header">
+        <span class="student-modal-icon">📱</span>
+        <h3>帶進度同步 QR Code</h3>
+        <button class="student-modal-close" type="button" aria-label="關閉">✕</button>
+      </div>
+
+      <div class="student-modal-body" style="font-size: 0.9rem; padding-top: 0.5rem;">
+        <!-- 當前孩子戰績資訊 -->
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.6rem 0.9rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.5rem;">${student.avatar || '🦊'}</span>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; font-size: 0.95rem; color: #f8fafc;">${student.name} 的最新進度</div>
+              <div style="color: #fbbf24; font-size: 0.78rem;">⭐ 累計 ${stars} 顆星 ｜ 🎮 通關 ${passes} 場</div>
+            </div>
+          </div>
+          <span style="font-size: 0.78rem; color: #34d399; font-weight: 700; background: rgba(16, 185, 129, 0.15); padding: 3px 8px; border-radius: 6px;">可供掃描入帳</span>
+        </div>
+
+        <!-- QR Code 白底卡片 -->
+        <div style="background: #ffffff; padding: 1.25rem; border-radius: 14px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.4); margin: 0.25rem auto 0.75rem; border: 4px solid #10b981;">
+          <div id="export-qr-container" style="min-width: 200px; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+            <!-- QR Code -->
+          </div>
+          <div style="margin-top: 8px; font-size: 0.85rem; font-weight: 800; color: #065f46; background: #d1fae5; padding: 4px 12px; border-radius: 999px;">
+            📷 手機相機一掃，點開立即同步入帳！
+          </div>
+        </div>
+
+        <!-- 同步代碼文字與一鍵複製 -->
+        <div style="text-align: left; margin-bottom: 0.6rem;">
+          <label style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 3px;">
+            進度同步代碼 (可複製貼到對話中給 AI 或貼至後台)：
+          </label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="export-qr-token-input" readonly value="${compactToken}" style="flex: 1; padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #10b981; background: rgba(15, 23, 42, 0.8); color: #34d399;" />
+            <button id="export-qr-copy-token-btn" type="button" style="padding: 6px 14px; background: #10b981; color: #ffffff; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; white-space: nowrap;">
+              📋 複製代碼
+            </button>
+          </div>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 10px; text-align: left; font-size: 0.78rem; color: #34d399; line-height: 1.4;">
+          💡 <strong>兩種同步玩法</strong>：<br/>
+          1. <strong>手機相機掃碼</strong>：拿家長手機相機照這個 QR Code，點開連結後台自動秒速入帳！<br/>
+          2. <strong>給 AI 更新</strong>：點【複製代碼】在對話框貼給我，我直接為您更新進度與戰績！
+        </div>
+      </div>
+
+      <div class="student-modal-actions" style="margin-top: 0.75rem;">
+        <button id="close-export-qr-btn" class="student-modal-cancel" type="button" style="width: 100%;">關閉</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const container = modal.querySelector('#export-qr-container');
+  const tokenInput = modal.querySelector('#export-qr-token-input');
+  const copyBtn = modal.querySelector('#export-qr-copy-token-btn');
+  const closeBtn = modal.querySelector('.student-modal-close');
+  const cancelBtn = modal.querySelector('#close-export-qr-btn');
+
+  // 生成 QR Code
+  try {
+    if (typeof qrcode === 'function') {
+      const qr = qrcode(0, 'M');
+      qr.addData(importUrl);
+      qr.make();
+      container.innerHTML = qr.createSvgTag(5, 4);
+      const svg = container.querySelector('svg');
+      if (svg) {
+        svg.style.display = 'block';
+        svg.style.maxWidth = '200px';
+        svg.style.maxHeight = '200px';
+        svg.style.width = '100%';
+        svg.style.height = 'auto';
+      }
+    }
+  } catch (err) {
+    const img = document.createElement('img');
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=4&data=${encodeURIComponent(importUrl)}`;
+    img.alt = 'QR Code';
+    img.style.width = '200px';
+    img.style.height = '200px';
+    container.appendChild(img);
+  }
+
+  const closeModal = () => modal.remove();
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(tokenInput.value).then(() => {
+      showToast('📋 已複製進度代碼！可在對話框貼給 AI 或貼至後台！', '✨', 3000);
+      copyBtn.textContent = '✅ 已複製！';
+      setTimeout(() => copyBtn.textContent = '📋 複製代碼', 2000);
+    }).catch(() => {
+      prompt('請手動複製此進度代碼：', tokenInput.value);
+    });
+  });
+}
+
 window.showTabletQRDialog = showTabletQRDialog;
+window.showProgressExportQRDialog = showProgressExportQRDialog;
+
 

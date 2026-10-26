@@ -103,10 +103,11 @@ const SUBJECT_NAMES = {
 const AVATAR_OPTIONS = ['🦊', '🦁', '🐼', '🐰', '🦄', '🐯', '🐨', '🦉', '🐱', '🐶', '🚀', '🌟'];
 
 // 初始化
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   setupTabs();
   setupEventListeners();
-  loadData();
+  await loadData();
+  checkUrlImportToken();
 });
 
 // 分頁切換
@@ -1138,79 +1139,158 @@ window.openImportTokenModal = function(targetStudentId = null, targetStudentName
     }
 
     try {
-      if (!rawVal.startsWith('FMP1_')) {
-        throw new Error('同步碼格式不正確，開頭必須是 FMP1_');
-      }
-      const b64 = rawVal.slice(5).trim();
-      const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-      const parsed = JSON.parse(jsonStr);
-
-      const records = parsed.records || [];
-      const studentInfo = parsed.student || {};
-      const kid = targetStudentId || studentInfo.id;
-      const kidName = (targetStudent ? targetStudent.name : studentInfo.name) || '小勇士';
-
-      if (!kid) {
-        throw new Error('無法識別學童身分 ID');
-      }
-
-      // 1. 同步寫入 progress 到此電腦 localStorage
-      if (parsed.progress) {
-        Object.entries(parsed.progress).forEach(([k, v]) => {
-          try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
-        });
-      }
-
-      // 2. 轉換與去重 records
-      const existingKeys = new Set(state.records.map(r => `${r.student_id}_${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`));
-      let importedCount = 0;
-      let totalStars = 0;
-      const newRecs = [];
-
-      records.forEach(r => {
-        const uKey = `${kid}_${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`;
-        if (!existingKeys.has(uKey)) {
-          const rec = {
-            ...r,
-            id: `rec_sync_${kid}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
-            student_id: kid,
-            student_name: kidName
-          };
-          newRecs.push(rec);
-          existingKeys.add(uKey);
-          importedCount++;
-          totalStars += (r.stars || 0);
-        }
-      });
-
-      // 3. 合併至狀態與本機儲存
-      state.records = [...newRecs, ...state.records];
-      saveLocalRecords(state.records);
-
-      // 4. 若伺服器在線，整包 POST /api/sync_progress
-      if (state.isServerOnline) {
-        try {
-          await fetch(`${API_BASE}/api/sync_progress`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              student: { id: kid, name: kidName, avatar: targetStudent ? targetStudent.avatar : studentInfo.avatar },
-              records: newRecs
-            })
-          });
-        } catch (e) {}
-      }
-
-      showToast(`🎉 成功同步【${kidName}】平板進度！匯入 ${importedCount} 關真實戰績（⭐ ${totalStars} 顆星）！`);
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = '匯入處理中...';
+      await importSyncTokenData(rawVal, targetStudentId);
       closeModal();
-      renderAll();
     } catch (err) {
       alert(`解析同步碼失敗：${err.message}`);
+    } finally {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = '確認匯入並同步';
     }
   });
 
   setTimeout(() => textarea.focus(), 100);
 };
+
+// 獨立全量進度同步碼解析與匯入 (支援 FMS1_ 輕量矩陣與 FMP1_ 完整版)
+async function importSyncTokenData(rawVal, targetStudentId = null) {
+  rawVal = (rawVal || '').trim();
+  if (!rawVal) throw new Error('同步碼為空');
+
+  let parsed = null;
+  if (rawVal.startsWith('FMS1_')) {
+    const b64 = rawVal.slice(5).trim();
+    const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    const compact = JSON.parse(jsonStr);
+    const SUB_MAP_REV = { m: 'math', e: 'english', c: 'chinese', n: 'natural', s: 'social', f: 'final' };
+    const records = (compact.r || []).map(item => ({
+      id: `rec_${compact.id}_${item[0]}_${item[1]}_${item[2]}`,
+      student_id: compact.id,
+      student_name: compact.name,
+      subject: SUB_MAP_REV[item[0]] || 'math',
+      grade: item[1],
+      level_id: item[2],
+      level_title: `關卡 ${item[2]}`,
+      score: item[3],
+      stars: item[4],
+      duration_seconds: item[5],
+      errors: [],
+      timestamp: new Date(compact.ts || Date.now()).toISOString()
+    }));
+    parsed = {
+      version: 'FMS1',
+      student: { id: compact.id, name: compact.name, avatar: compact.avatar },
+      records: records,
+      progress: {}
+    };
+  } else if (rawVal.startsWith('FMP1_')) {
+    const b64 = rawVal.slice(5).trim();
+    const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    parsed = JSON.parse(jsonStr);
+  } else {
+    throw new Error('未知的同步碼格式，需以 FMS1_ 或 FMP1_ 開頭');
+  }
+
+  const records = parsed.records || [];
+  const studentInfo = parsed.student || {};
+  const kid = targetStudentId || studentInfo.id;
+  const kidName = studentInfo.name || '小勇士';
+
+  if (!kid) {
+    throw new Error('無法識別學童身分 ID');
+  }
+
+  // 1. 若該學童不在本機名冊，自動加進名冊！
+  let existingStudent = state.students.find(s => s.id === kid);
+  if (!existingStudent) {
+    existingStudent = {
+      id: kid,
+      name: kidName,
+      avatar: studentInfo.avatar || '🦊',
+      created_at: new Date().toISOString()
+    };
+    state.students.unshift(existingStudent);
+    saveLocalStudents(state.students);
+    updateStudentFilterDropdown();
+  }
+
+  // 2. 同步寫入 progress 到此電腦 localStorage
+  if (parsed.progress) {
+    Object.entries(parsed.progress).forEach(([k, v]) => {
+      try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+    });
+  }
+
+  // 3. 轉換與去重 records
+  const existingKeys = new Set(state.records.map(r => `${r.student_id}_${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`));
+  let importedCount = 0;
+  let totalStars = 0;
+  const newRecs = [];
+
+  records.forEach(r => {
+    const uKey = `${kid}_${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`;
+    if (!existingKeys.has(uKey)) {
+      const rec = {
+        ...r,
+        id: `rec_sync_${kid}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+        student_id: kid,
+        student_name: kidName
+      };
+      newRecs.push(rec);
+      existingKeys.add(uKey);
+      importedCount++;
+      totalStars += (r.stars || 0);
+    }
+  });
+
+  // 4. 合併至狀態與本機儲存
+  state.records = [...newRecs, ...state.records];
+  saveLocalRecords(state.records);
+
+  // 5. 若伺服器在線，整包 POST /api/sync_progress
+  if (state.isServerOnline) {
+    try {
+      await fetch(`${API_BASE}/api/sync_progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student: { id: kid, name: kidName, avatar: studentInfo.avatar },
+          records: newRecs
+        })
+      });
+    } catch (e) {}
+  }
+
+  showToast(`🎉 成功同步【${kidName}】平板進度！匯入 ${importedCount} 關真實戰績（⭐ ${totalStars} 顆星）！`, '🏆', 3500);
+  renderAll();
+  return { importedCount, totalStars, kidName };
+}
+
+// 檢查網址是否有 import_token 參數（由手機相機掃碼直連帶入）
+async function checkUrlImportToken() {
+  let token = null;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    token = params.get('import_token');
+    if (!token && window.location.hash.includes('import_token=')) {
+      const hashQuery = window.location.hash.split('?')[1] || window.location.hash.replace(/^#/, '');
+      token = new URLSearchParams(hashQuery).get('import_token');
+    }
+  } catch (e) {}
+
+  if (token) {
+    try {
+      await importSyncTokenData(token);
+      // 清除網址參數，避免每次重整都重複彈窗
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    } catch (err) {
+      showToast(`❌ 掃碼自動同步失敗：${err.message}`, '⚠️', 4000);
+    }
+  }
+}
 
 // ==========================================
 // 📱 平板直連 QR Code 模態視窗與網址生成
