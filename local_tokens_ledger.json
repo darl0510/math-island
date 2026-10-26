@@ -1,7 +1,21 @@
 {
-  "totalTokens": 542519,
-  "totalSavedUsdEst": 1.07,
+  "totalTokens": 546819,
+  "totalSavedUsdEst": 1.0786,
   "sessions": [
+    {
+      "id": "sess_1792981881720",
+      "task": "英文島選項語音順序 100% 鏡像畫面打亂 ✕ 徹底防洩題與正解先念根治",
+      "version": "v2.6.1",
+      "executor": "cloud-first (local-offline fallback)",
+      "hermes_status": "offline",
+      "promptTokens": 3100,
+      "completionTokens": 1200,
+      "totalTokens": 4300,
+      "savedUsdEst": 0.0086,
+      "status": "passed",
+      "note": "提前隨機化打亂選項並存於 question.currentOptions，使 playQuestionAudio、卡片朗讀鈕、自動 TTS、頂部鈕與鍵盤 R 鍵 100% 依畫面選項 1/2/3 順序播放，嚴禁直接讀題庫 raw[0] 首位答案，徹底根絕暴雷破梗。",
+      "timestamp": "2026-10-26T02:31:21.720214+00:00"
+    },
     {
       "id": "sess_1792981374248",
       "task": "平板與中窄螢幕頂部導覽列 RWD 響應式系統重構 ✕ 根除直向折行擠壓",
