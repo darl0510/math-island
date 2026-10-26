@@ -46,7 +46,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 b 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 b 開頭呢？",
         "hint": "小蟲蟲 bug 開頭是 b 喔！",
         "explanation": "bug 以 b 音 開頭，hug 以 h 音 開頭，mug 以 m 音 開頭。",
         "answer": "bug",
@@ -170,7 +170,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /n/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 n 的發音 開頭呢？",
         "hint": "捕蟲網 net 開頭是 n 喔！",
         "explanation": "net 以 /n/ 開頭，pen 以 /p/ 開頭，hen 以 h 音 開頭。",
         "answer": "net",
@@ -294,7 +294,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /k/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 k 的發音 開頭呢？",
         "hint": "小貓咪 cat 開頭是 c 發 /k/ 音喔！",
         "explanation": "cat 以 /k/ 開頭，hat 以 h 音 開頭，mat 以 m 音 開頭。",
         "answer": "cat",
@@ -416,7 +416,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /p/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 p 的發音 開頭呢？",
         "hint": "小豬 pig 開頭是 p 喔！",
         "explanation": "pig 以 /p/ 開頭，big 以 b 音 開頭，dig 以 d 音 開頭。",
         "answer": "pig",
@@ -528,7 +528,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 m 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 m 開頭呢？",
         "hint": "拖把 mop 開頭是 m 喔！",
         "explanation": "mop 以 m 音 開頭，top 以 /t/ 開頭，hop 以 h 音 開頭。",
         "answer": "mop",
@@ -648,7 +648,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /r/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 r 的發音 開頭呢？",
         "hint": "地毯 rug 開頭是 r 喔！",
         "explanation": "rug 以 /r/ 開頭，mug 以 m 音 開頭，bug 以 b 音 開頭。",
         "answer": "rug",
@@ -765,7 +765,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /sh/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 sh 的發音 開頭呢？",
         "hint": "大船 ship 開頭是 sh 喔！",
         "explanation": "ship 以 /sh/ 開頭，fish 以 /f/ 開頭，dish 以 d 音 開頭。",
         "answer": "ship",
@@ -877,7 +877,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /ch/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 ch 的發音 開頭呢？",
         "hint": "薯條 chip 開頭是 ch 喔！",
         "explanation": "chip 以 /ch/ 開頭，ship 以 /sh/ 開頭，thin 以 /th/ 開頭。",
         "answer": "chip",
@@ -995,7 +995,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /th/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 th 的發音 開頭呢？",
         "hint": "瘦瘦的 thin 開頭是 th 喔！",
         "explanation": "thin 以 /th/ 開頭，chip 以 /ch/ 開頭，ship 以 /sh/ 開頭。",
         "answer": "thin",
@@ -1107,7 +1107,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /bl/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 bl 的發音 開頭呢？",
         "hint": "黑色 black 開頭是 bl 喔！",
         "explanation": "black 以 /bl/ 開頭，clock 以 /cl/ 開頭，class 以 /cl/ 開頭。",
         "answer": "black",
@@ -1219,7 +1219,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：哪個單字以 /st/ 開頭？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：哪個單字以 st 的發音 開頭呢？",
         "hint": "停止 stop 開頭是 st 喔！",
         "explanation": "stop 以 /st/ 開頭，spin 以 /sp/ 開頭，spot 以 /sp/ 開頭。",
         "answer": "stop",
@@ -1555,7 +1555,7 @@
       },
       {
         "prompt": "[英文] 🔤 看圖選顏色：🔴 是什麼顏色？",
-        "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
+        "speak": "看圖選顏色：🔴 是什麼顏色呢？",
         "hint": "紅色就是 red 喔！",
         "explanation": "🔴 是 red（紅色），不是 blue 或 green。",
         "answer": "red",
@@ -1673,7 +1673,7 @@
       },
       {
         "prompt": "[英文] 🔤 看圖選單字：👩 是誰？",
-        "speak": "看圖選單字：請看中間的圖片，選出正確的英文單字喔！",
+        "speak": "看圖選單字：請看圖片，這是什麼英文單字呢？",
         "hint": "媽媽在英文叫 mom 喔！",
         "explanation": "👩 是 mom（媽媽），不是 dad（爸爸）或 hand（手）。",
         "answer": "mom",

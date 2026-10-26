@@ -285,16 +285,19 @@ class AudioManager {
 
   async speakSequence(texts, { style, gap = 90 } = {}) {
     if (!this.ttsOn) return;
-    const parts = texts.map((text) => String(text || '').trim()).filter(Boolean);
+    const parts = (texts || []).map((item) => {
+      if (typeof item === 'object' && item !== null) return item;
+      return String(item || '').trim();
+    }).filter(item => typeof item === 'object' ? Boolean(item.text) : Boolean(item));
     if (!parts.length) return;
 
     this.stopSpeech();
     const token = this.speechToken;
     this.duck();
     try {
-      for (const text of parts) {
+      for (const part of parts) {
         if (token !== this.speechToken) break;
-        await this.playSpeechPart(text, style);
+        await this.playSpeechPart(part, style);
         if (token !== this.speechToken) break;
         if (gap > 0) await new Promise((resolve) => setTimeout(resolve, gap));
       }
@@ -306,7 +309,16 @@ class AudioManager {
     }
   }
 
-  async playSpeechPart(text, style) {
+  async playSpeechPart(part, style) {
+    const text = typeof part === 'object' && part !== null ? part.text : part;
+    const lang = typeof part === 'object' && part !== null ? part.lang : undefined;
+
+    // 若指定為非中文（如 en-US 美語）或純英文單字，直接採用瀏覽器原生語音引擎
+    if (lang && !lang.startsWith('zh')) {
+      await this.browserSpeak(text, lang);
+      return;
+    }
+
     try {
       const url = await this.fetchSpeech(text, style);
       const audio = new Audio(url);
@@ -318,14 +330,16 @@ class AudioManager {
         audio.play().catch(resolve);
       });
     } catch {
-      await this.browserSpeak(text);
+      await this.browserSpeak(text, lang);
     }
   }
 
   browserSpeak(text, langOverride) {
     return new Promise((resolve) => {
       if (typeof window === 'undefined' || !('speechSynthesis' in window)) return resolve();
-      const clean = String(text || '').trim();
+      const rawText = typeof text === 'object' && text !== null ? text.text : text;
+      const rawLang = typeof text === 'object' && text !== null ? text.lang : langOverride;
+      const clean = String(rawText || '').trim();
       if (!clean) return resolve();
 
       // 智慧偵測文本主體語言：
@@ -335,7 +349,7 @@ class AudioManager {
       const isPureEnglish = /^[a-zA-Z0-9\s\.\,\!\?\'\-\_\:\/\(\)]+$/.test(clean) && /[a-zA-Z]/.test(clean);
       const hasChinese = /[\u4e00-\u9fff\u3105-\u312f]/.test(clean);
 
-      let targetLang = langOverride;
+      let targetLang = rawLang;
       if (!targetLang) {
         if (isPureEnglish) targetLang = 'en-US';
         else if (hasChinese) targetLang = 'zh-TW';
@@ -365,6 +379,57 @@ class AudioManager {
       window.speechSynthesis.speak(utterance);
       setTimeout(resolve, Math.min(20_000, 2000 + clean.length * 200));
     });
+  }
+
+  /* 英語島專用：以標準美語發音朗讀單字或字母 */
+  speakEnglish(text, rate = 0.85) {
+    if (!this.ttsOn) return;
+    this.stopSpeech();
+    return this.browserSpeak(text, 'en-US');
+  }
+
+  /* 題幹與選項朗讀建構器：支援雙軌多語系無縫讀題 */
+  buildQuestionSpeechSequence(question) {
+    if (!question) return [];
+    let promptText = question.speak || question.prompt || '';
+    // 將音標 /p/ 轉換為平易近人的 "p 的發音"
+    promptText = promptText.replace(/\/([a-zA-Z]+)\//g, '$1 的發音');
+    // 去除 [英文] 🔤 等內部標籤
+    promptText = promptText.replace(/^\[.*?\]\s*[\uD800-\uDBFF][\uDC00-\uDFFF]?\s*/g, '');
+    promptText = promptText.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}]/gu, ''); // 去除 emoji 避免語音引擎亂唸
+    promptText = promptText.replace(/[「『]([a-zA-Z]+)[」』]/g, '$1');
+
+    const sequence = [{ text: promptText.trim(), lang: 'zh-TW' }];
+
+    const options = Array.isArray(question.options) ? question.options : [];
+    // 若選項為純英文字詞（例如 pig, big, dig），依序加入「選項一 pig、選項二 big、選項三 dig」
+    const areEnglishOptions = options.length > 0 && options.every(opt => /^[a-zA-Z\s\-]+$/.test(String(opt).trim()));
+
+    if (areEnglishOptions) {
+      const numberLabels = ['選項一', '選項二', '選項三', '選項四'];
+      options.forEach((opt, idx) => {
+        const label = numberLabels[idx] || `選項 ${idx + 1}`;
+        sequence.push({ text: label, lang: 'zh-TW' });
+        sequence.push({ text: String(opt).trim(), lang: 'en-US' });
+      });
+    } else {
+      // 若選項非純英文，但題幹中有單一英文字詞（如 pin 的結尾音是什麼），在問句後額外唸一次該單字
+      const promptWords = promptText.match(/\b[a-zA-Z]{2,}\b/g) || [];
+      if (promptWords.length === 1 && !/是什麼意思/.test(promptText)) {
+        const keyWord = promptWords[0];
+        sequence.push({ text: '單字是', lang: 'zh-TW' });
+        sequence.push({ text: keyWord, lang: 'en-US' });
+      }
+    }
+
+    return sequence;
+  }
+
+  /* 智慧播放題目與選項語音 */
+  playQuestionAudio(question) {
+    if (!question || !this.ttsOn) return;
+    const sequence = this.buildQuestionSpeechSequence(question);
+    return this.speakSequence(sequence, { gap: 120 });
   }
 
   async warmup() {

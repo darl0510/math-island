@@ -20,26 +20,17 @@ def fix_english_question(q):
             else:
                 visual['text'] = f"{ans[0]} _ _" if len(ans) > 1 else '?'
 
-    # 2. 修正 speak 語音讀題 (改為適合台灣小學生的親切中文發音引導，不劇透答案)
-    # 如果 prompt 是「看圖選單字：...是什麼？」
-    if '看圖選單字' in prompt or '看圖' in prompt:
-        # 提取 prompt 中的主體（例如 emoji 或描述）
-        match = re.search(r'：(.*?)(?:是|\?)', prompt)
-        target = match.group(1).strip() if match else '圖片'
-        q['speak'] = f"看圖選單字：請看中間的圖片，選出正確的英文單字喔！"
-    elif '是什麼意思' in prompt:
-        match = re.search(r'([a-zA-Z\s_\-]+)\s*是什麼意思', prompt)
+    # 2. 修正 speak 語音讀題 (親切雙語引導，發音真實題目內容)
+    p = re.sub(r'^\[.*?\]\s*[\U00010000-\U0010ffff]?[ \t]*', '', prompt)
+    p = re.sub(r'/([a-zA-Z]+)/', r'\1 的發音', p)
+    if '看圖選單字' in p:
+        q['speak'] = '看圖選單字：請看圖片，這是什麼英文單字呢？'
+    elif '是什麼意思' in p:
+        match = re.search(r'([a-zA-Z\s_\-]+)\s*是什麼意思', p)
         word = match.group(1).strip() if match else ans
         q['speak'] = f"請問 {word} 是什麼意思呢？"
-    elif '開頭音' in prompt or '開頭字母' in prompt:
-        q['speak'] = f"看圖選出正確的開頭發音喔！"
-    elif '押韻' in prompt:
-        q['speak'] = f"聽一聽，哪一個單字的尾音有押韻呢？"
-    elif '聽一聽' in prompt or '哪一個是' in prompt:
-        q['speak'] = f"仔細聽，選出正確的選項喔！"
     else:
-        # 一般題目：直接使用中文 prompt 作為朗讀，避免英文讀題直接爆出答案
-        clean_prompt = prompt.replace('？', '呢？')
+        clean_prompt = p.rstrip('？? ') + '呢？'
         q['speak'] = clean_prompt
 
     return q

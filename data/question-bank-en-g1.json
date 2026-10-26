@@ -8,7 +8,7 @@
     "1": [
       {
         "prompt": "「apple」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「apple」的開頭音是哪一個字母呢？",
         "hint": "把 apple 慢慢唸出來，聽聽第一個音。",
         "explanation": "apple 的開頭音是 /a/，字母 A。Aa 可以組成 apple、ant、ax。",
         "answer": "A",
@@ -28,7 +28,7 @@
       },
       {
         "prompt": "哪一個單字和 apple 的開頭音一樣？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "哪一個單字和 apple 的開頭音一樣呢？",
         "hint": "apple 開頭是 a，找一個同樣以 a 開頭的單字。",
         "explanation": "ant 以 a 開頭；cat 開頭是 c，ball 開頭是 b。",
         "answer": "ant",
@@ -145,7 +145,7 @@
       },
       {
         "prompt": "「bag」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「bag」的開頭音是哪一個字母呢？",
         "hint": "bag 第一個字母是 b，不是中間的 a。",
         "explanation": "bag 以 b 開頭：b-a-g。",
         "answer": "b",
@@ -166,7 +166,7 @@
     "2": [
       {
         "prompt": "「ball」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「ball」的開頭音是哪一個字母呢？",
         "hint": "把 ball 唸慢一點，第一個音就是 b。",
         "explanation": "ball 的開頭音是 /b/，字母 B。Bb 可以組成 ball、bear、bus。",
         "answer": "B",
@@ -185,7 +185,7 @@
       },
       {
         "prompt": "哪一個單字和 bee 的開頭音一樣？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "哪一個單字和 bee 的開頭音一樣呢？",
         "hint": "bee 開頭是 b，找同樣以 b 開頭的單字。",
         "explanation": "book 以 b 開頭；cat 是 c，dog 是 d。",
         "answer": "book",
@@ -302,7 +302,7 @@
       },
       {
         "prompt": "ball、bell、bed 三個單字的開頭音相同嗎？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "ball、bell、bed 三個單字的開頭音相同嗎呢？",
         "hint": "三個單字的第一個音都是同一個字母。",
         "explanation": "ball、bell、bed 都以 b 開頭，所以開頭音相同。",
         "answer": "相同",
@@ -325,7 +325,7 @@
     "3": [
       {
         "prompt": "「cat」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「cat」的開頭音是哪一個字母呢？",
         "hint": "把 cat 唸慢一點，第一個音就是 c。",
         "explanation": "cat 的開頭音是 /k/，字母 C。Cc 可以組成 cat、cup、car。",
         "answer": "C",
@@ -344,7 +344,7 @@
       },
       {
         "prompt": "哪一個單字和 cup 的開頭音一樣？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "哪一個單字和 cup 的開頭音一樣呢？",
         "hint": "cup 開頭是 c，找同樣以 c 開頭的單字。",
         "explanation": "cake 以 c 開頭；dog 是 d，bed 是 b。",
         "answer": "cake",
@@ -461,7 +461,7 @@
       },
       {
         "prompt": "cat、cup、coat 三個單字的開頭音都是哪個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "cat、cup、coat 三個單字的開頭音都是哪個字母呢？",
         "hint": "三個單字的第一個字母是同一個。",
         "explanation": "cat、cup、coat 都以 c 開頭。",
         "answer": "c",
@@ -484,7 +484,7 @@
     "4": [
       {
         "prompt": "「dog」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「dog」的開頭音是哪一個字母呢？",
         "hint": "把 dog 唸慢一點，第一個音就是 d。",
         "explanation": "dog 的開頭音是 /d/，字母 D。Dd 可以組成 dog、duck、door。",
         "answer": "D",
@@ -503,7 +503,7 @@
       },
       {
         "prompt": "哪一個單字和 drum 的開頭音一樣？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "哪一個單字和 drum 的開頭音一樣呢？",
         "hint": "drum 開頭是 d，找同樣以 d 開頭的單字。",
         "explanation": "duck 以 d 開頭；cake 是 c，bed 是 b。",
         "answer": "duck",
@@ -620,7 +620,7 @@
       },
       {
         "prompt": "dog、duck、door 三個單字的開頭音相同嗎？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "dog、duck、door 三個單字的開頭音相同嗎呢？",
         "hint": "三個單字的第一個音都是同一個字母。",
         "explanation": "dog、duck、door 都以 d 開頭，所以開頭音相同。",
         "answer": "相同",
@@ -664,7 +664,7 @@
       },
       {
         "prompt": "哪一個單字和 hat 押韻（結尾相同）？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 hat 押韻（結尾相同）呢？",
         "hint": "找一個也是 -at 結尾的單字。",
         "explanation": "bat 和 hat 都以 -at 結尾，所以押韻；cup、dog 結尾不同。",
         "answer": "bat",
@@ -762,7 +762,7 @@
       },
       {
         "prompt": "哪一個單字和 sat 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 sat 押韻呢？",
         "hint": "sat 是 -at 家族，找同樣結尾的單字。",
         "explanation": "hat 和 sat 都以 -at 結尾；bed 是 -ed，pig 是 -ig。",
         "answer": "hat",
@@ -784,7 +784,7 @@
       },
       {
         "prompt": "「hat」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「hat」的開頭音是哪一個字母呢？",
         "hint": "hat 第一個字母是 h，不是中間的 a。",
         "explanation": "hat 以 h 開頭：h-a-t。",
         "answer": "h",
@@ -826,7 +826,7 @@
       },
       {
         "prompt": "哪一個單字和 bed 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 bed 押韻呢？",
         "hint": "找一個也是 -ed 結尾的單字。",
         "explanation": "red 和 bed 都以 -ed 結尾，所以押韻；pen 是 -en，big 是 -ig。",
         "answer": "red",
@@ -924,7 +924,7 @@
       },
       {
         "prompt": "哪一個單字和 wet 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 wet 押韻呢？",
         "hint": "wet 是 -et 家族，找同樣結尾的單字。",
         "explanation": "jet 和 wet 都以 -et 結尾；leg 是 -eg，pen 是 -en。",
         "answer": "jet",
@@ -990,7 +990,7 @@
       },
       {
         "prompt": "哪一個單字和 pig 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 pig 押韻呢？",
         "hint": "找一個也是 -ig 結尾的單字。",
         "explanation": "big 和 pig 都以 -ig 結尾，所以押韻；pin 是 -in，pen 是 -en。",
         "answer": "big",
@@ -1088,7 +1088,7 @@
       },
       {
         "prompt": "哪一個單字和 sit 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 sit 押韻呢？",
         "hint": "sit 是 -it 家族，找同樣結尾的單字。",
         "explanation": "kit 和 sit 都以 -it 結尾；sat 是 -at，cut 是 -ut。",
         "answer": "kit",
@@ -1110,7 +1110,7 @@
       },
       {
         "prompt": "six、sit、pin 三個單字的開頭音相同嗎？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "six、sit、pin 三個單字的開頭音相同嗎呢？",
         "hint": "six 和 sit 開頭一樣，但 pin 開頭是 p。",
         "explanation": "six、sit 以 s 開頭，pin 以 p 開頭，所以三個不完全相同。",
         "answer": "不同",
@@ -1154,7 +1154,7 @@
       },
       {
         "prompt": "哪一個單字和 hot 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 hot 押韻呢？",
         "hint": "找一個也是 -ot 結尾的單字。",
         "explanation": "pot 和 hot 都以 -ot 結尾，所以押韻；pen 是 -en，bed 是 -ed。",
         "answer": "pot",
@@ -1252,7 +1252,7 @@
       },
       {
         "prompt": "哪一個單字和 log 押韻？",
-        "speak": "聽一聽，哪一個單字的尾音有押韻呢？",
+        "speak": "哪一個單字和 log 押韻呢？",
         "hint": "log 是 -og 家族，找同樣結尾的單字。",
         "explanation": "fog 和 log 都以 -og 結尾；fan 是 -an，fox 是 -ox。",
         "answer": "fog",
@@ -2506,7 +2506,7 @@
       },
       {
         "prompt": "「hen」的開頭音是哪一個字母？",
-        "speak": "看圖選出正確的開頭發音喔！",
+        "speak": "「hen」的開頭音是哪一個字母呢？",
         "hint": "母雞的英文第一個字母。",
         "explanation": "hen 以 h 開頭：h-e-n。",
         "answer": "h",

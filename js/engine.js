@@ -186,7 +186,11 @@ function renderLevelShell(session) {
   screen.querySelector('[data-action="speak"]').addEventListener('click', () => {
     const question = session.questions[session.index];
     audio.playSfx('click', 0.4);
-    audio.speak(question.speak || question.prompt);
+    if (typeof audio.playQuestionAudio === 'function') {
+      audio.playQuestionAudio(question);
+    } else {
+      audio.speak(question.speak || question.prompt);
+    }
   });
   screen.querySelector('[data-action="speak-hint"]').addEventListener('click', () => {
     const question = session.questions[session.index];
@@ -230,19 +234,46 @@ function renderQuestion(session) {
     button.dataset.value = String(option);
     button.style.animationDelay = `${index * 70}ms`;
     const emoji = optionEmojis(question, option);
+    const isEnglishWord = /^[a-zA-Z\s\-]+$/.test(String(option).trim());
     button.innerHTML = `
       <span class="answer-index">${index + 1}</span>
       ${emoji ? `<span class="answer-emoji">${escapeHtml(emoji)}</span>` : ''}
       <span class="answer-label">${toZhuyinRuby(option, question)}</span>
+      ${isEnglishWord ? `<button type="button" class="opt-audio-btn" title="聽發音" aria-label="聽 ${escapeHtml(option)} 的發音">🔊</button>` : ''}
     `;
     button.addEventListener('click', () => chooseAnswer(session, option, button));
+
+    const optAudio = button.querySelector('.opt-audio-btn');
+    if (optAudio) {
+      optAudio.addEventListener('click', (e) => {
+        e.stopPropagation();
+        optAudio.classList.add('is-speaking');
+        button.classList.add('is-speaking');
+        if (typeof audio.speakEnglish === 'function') {
+          audio.speakEnglish(option);
+        } else {
+          audio.speak(option);
+        }
+        setTimeout(() => {
+          optAudio.classList.remove('is-speaking');
+          button.classList.remove('is-speaking');
+        }, 700);
+      });
+    }
+
     answerGrid.appendChild(button);
   });
 
   updateProgress(session);
   document.getElementById('level-live').textContent = question.prompt;
 
-  if (audio.ttsOn) later(session, () => audio.speak(question.speak || question.prompt), 420);
+  if (audio.ttsOn) later(session, () => {
+    if (typeof audio.playQuestionAudio === 'function') {
+      audio.playQuestionAudio(question);
+    } else {
+      audio.speak(question.speak || question.prompt);
+    }
+  }, 420);
   prefetchUpcoming(session);
 }
 
@@ -497,7 +528,11 @@ function handleKey(session, event) {
   if (event.key === 'h' || event.key === 'H') showHint(session, true);
   if (event.key === 'r' || event.key === 'R') {
     const question = session.questions[session.index];
-    audio.speak(question.speak || question.prompt);
+    if (typeof audio.playQuestionAudio === 'function') {
+      audio.playQuestionAudio(question);
+    } else {
+      audio.speak(question.speak || question.prompt);
+    }
   }
 }
 

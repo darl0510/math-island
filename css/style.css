@@ -122,12 +122,19 @@ body[data-screen="home"] #global-bar {
   font-weight: 800;
   font-size: clamp(17px, 2.2vw, 23px);
   letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#brand-subject-title {
+  white-space: nowrap;
 }
 
 .brand-star {
   color: var(--yellow);
   font-size: 1.1em;
   animation: twinkle 2.2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
 .brand-sub {
@@ -137,6 +144,8 @@ body[data-screen="home"] #global-bar {
   background: var(--yellow);
   color: #6a3b00;
   letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brand-version {
@@ -150,6 +159,8 @@ body[data-screen="home"] #global-bar {
   font-family: var(--font-display);
   border: 1px solid rgba(90, 60, 140, 0.18);
   transition: all 0.35s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 body[data-screen="home"] .brand-version {
@@ -161,6 +172,7 @@ body[data-screen="home"] .brand-version {
 .bar-actions {
   display: flex;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .bar-btn {
@@ -1297,6 +1309,46 @@ body[data-screen="home"] .screen.active {
 
 .answer-label {
   line-height: 1.15;
+}
+
+.opt-audio-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #d9ccf1;
+  background: #fdfcff;
+  color: #6c5ce7;
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  z-index: 2;
+  padding: 0;
+  box-shadow: 0 2px 5px rgba(108, 92, 231, 0.1);
+}
+
+.opt-audio-btn:hover {
+  transform: scale(1.15);
+  background: #6c5ce7;
+  color: #fff;
+  border-color: #5846db;
+}
+
+.opt-audio-btn:active,
+.opt-audio-btn.is-speaking {
+  transform: scale(0.92);
+  background: #fd79a8;
+  color: #fff;
+  border-color: #e84393;
+}
+
+.answer-btn.is-speaking {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.25), 0 7px 0 #5846db;
 }
 
 .answer-btn.correct {

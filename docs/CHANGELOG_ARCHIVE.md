@@ -119,6 +119,35 @@
 ---
 
 
+### 【v2.5.0 版】🛡️ 英文島答案防洩漏全面修復 ✕ 跨科目期末綜合挑戰島關卡規劃與規則串接 📅 2026-10-25
+
+1. **英文島答案防洩漏機制 (`js/engine.js` & `question-bank-en-*.json`)**：
+   - 核心防洩題：在 `optionEmojis()` 加入題幹與視覺教具圖示比對過濾，凡與題幹或教具相同的 Emoji 在作答前嚴禁渲染在按鈕上。
+   - 題庫清洗：全數清除 `question-bank-en-g1.json`、`g2.json`、`g3.json` 共 306 處干擾性 `optionEmojis`，修正 `ax` 斧頭教具洩題，回歸真實英文單字與發音測驗。
+2. **跨科目期末綜合挑戰島關卡規劃 (`js/levels/island_defs_challenge.js`)**：
+   - 橫跨國小一至三年級，每學年規劃 4 大期末素養島嶼（4 島 × 4 關 = 16 關，共 48 關）。
+   - 小一（素養起步、生活探索、思維進階、期末總魔王）、小二（乘風啟航、度量冰川、乘法烈焰、星河大魔王）、小三（算術神殿、幾何修辭、分數閱讀、時空終極星盤）。
+3. **跨學科題庫生成 (`data/question-bank-challenge-g{1,2,3}.json`)**：
+   - 透過 `scripts/generate_challenge_banks.py` 精選數學 (2題)、英文 (2題)、國語 (2題) 融合成 6 題跨學科考卷，共 288 題，標註學科徽章。
+4. **規則串接與成就系統 (`js/state.js` & `js/badges.js` & `js/main.js`)**：
+   - 解鎖規則：三大核心科目（數英中）需各完成 2 關且累計達 18 顆星方可解鎖該年級期末挑戰島；未達標點擊膠囊彈出友善引導。
+   - 新增 `challenge_master`「全科全能王」成就徽章。
+   - 驗證通過：`test_144_levels.mjs` (144關)、`test_state_cross_subject.mjs` (持久化5測試)、`test_challenge_levels.mjs` (48挑戰關) 100% PASS。
+
+1. **英語島專屬教具 (`js/visuals.js`)**：
+   - 實裝 `englishPhonics` 字母自然發音卡：支援大小寫字母跳動卡、標準音標/自然發音標籤、範例單字與美語發音互動。
+   - 實裝 `englishSpelling` 單字拼讀積木：支援母音（暖橙）、子音（蔚藍）與神秘缺字（金黃閃爍）色彩區隔與點擊發音。
+   - 實裝 `englishVisual` 智慧派發器：整合圖片單字題、拼讀填空題與字母發音題，防洩題與美化繪本排版。
+   - 修正前版 `chinese` 重複宣告之 ESM 語法異常，統一為 `strokeOrderVisual`。
+2. **視覺樣式適配 (`css/style.css`)**：
+   - 補齊 `.english-visual-wrap`、`.english-letter-tile`、`.english-spelling-stage` 等微動效與手機直向斷點。
+3. **版本同步與安全備份**：
+   - `python scripts/bump_version.py 2.4.9` 一鍵同步版本標籤，建立 `backup_v2.4.9_2026-10-25_221422.zip` 還原節點。
+
+---
+
+
+
 ### 【v2.4.6 版】🏮 國語島動態注音卡與生字米字格教具響應式優化 ✕ 多字自適應群組 ✕ 點擊雙軌語音互動 📅 2026-10-25
 
 1. **生字米字格教具全面升級 (`js/visuals.js`)**：

@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-26 (v2.5.8 版)  
+> **最後更新時間**：2026-10-26 (v2.5.9 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,7 +10,7 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.5.8】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.5.9】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
 python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "實裝跨領域綜合素養成果分享海報與家長成績單報表功能，完成後 node --check 自檢"
@@ -56,11 +56,11 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
+- [x] **英文島題目朗讀選項雙軌音效 ✕ 消除無關 Apple 發音教具 ✕ 選項獨立點讀實裝** (根治英文島聽一聽題目未念選項問題：在 `js/audio.js` 實裝 `playQuestionAudio` 與雙語 `buildQuestionSpeechSequence`，中英無縫切換依序朗讀「題目 + 選項一/二/三」；在 `js/engine.js` 為英文選項增設獨立 `🔊` 點讀按鈕；修復 `js/visuals.js` 中 `englishPhonics` 預設為 `'a'` 導致 23 題 (如 pin 結尾音、hug 結尾音等) 莫名冒出 `apple` 發音卡片之問題，回歸單字學習卡與 `📌 pin` 單字發音鈕；清洗全題庫 88 處「仔細聽，選出正確的選項喔！」假朗讀文本，回歸真實題目朗讀) (v2.5.9)
 - [x] **國語注音跑版根治 ✕ 筆順部首零洩題 ✕ 英文聽聽看防暴雷與題幹本地化修復** (移除 CSS 衝突 `.phonetic-card` 窄盒覆寫、實裝專屬注音拼讀算式卡 `ㄈ + ㄡ = ❓` 杜絕生字擠壓垂直換行；修復小二國語筆順/部首題 `visual.character` 洩漏正解與 `注音：ㄅㄚ` 側邊暴雷問題，改為規則引導卡與正解注音徹底遮蔽；根除英文島 `🔊 聽聽看 (bug)` 按鈕標籤與發音直接送分問題，改為朗讀題幹單字；全面修正英文島中間答案圖示 `🥤` 洩露中文選項問題，並將 `What is this?` 等 20 題英文題幹本地化為親切雙語引導，100% 通過 144 關測試) (v2.5.8)
 - [x] **英文國語防洩題全面修復 ✕ 語音裝置智慧中英雙軌升級 ✕ 國語筆順多元題型重構** (修復英文教具常態洩題與發音朗讀錯誤、清洗 172 題英文題庫直接給答案的提示、重構小二筆順島出題消除每題答案相同問題、升級 `js/audio.js` 智慧雙軌語音與 voices 預載、重構 `js/texts.js` 分科讚美詞庫消除跨科稱讚數學小達人問題) (v2.5.7)
 - [x] **全域注音標示系統實裝** (建立 5,324 字注音辭典 `js/zhuyin-data.js` 與 `js/zhuyin.js`、題目/提示/選項預設 `<ruby><rt>` 注音標註、防洩題防禦、頂部導覽列 `ㄅ` 開關按鈕與 localStorage 偏好記憶、`node --check` 與瀏覽器實測 100% 綠燈) (v2.5.6)
 - [x] **奇幻自然科學島小三 16 關自然探索關卡題庫建置與整合** (完成 `data/question-bank-science-g3.json` 128 題小三自然科學題庫、建立 `js/levels/island_defs_science_g3.js` 4 島 16 關定義、在 `js/levels/index.js` 與 `js/grades.js` 註冊小三自然領域，`node --check` 自檢全綠燈) (v2.5.5)
-- [x] **奇幻自然科學島小二 16 關自然進階探索關卡題庫建置** (完成 `data/question-bank-science-g2.json` 128 題自然探索題庫、建置 `js/levels/island_defs_science_g2.js` 4 島 16 關定義) (v2.5.4)
 - [x] **奇幻自然科學島註冊與小一 16 關自然探索關卡題庫建置** (完成小一 128 題自然探索題庫與關卡定義掛載) (v2.5.3)
 <details><summary>過往已完成歷史任務</summary>
 - [x] **跨科目期末綜合挑戰島 UI 地圖與通關獎盃動畫實裝** (建立 `js/trophy.js` 通關金盃頒發盛典模組) (v2.5.1)
@@ -75,6 +75,19 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 </details>
 
 ## 🌟 近期重大功能更新歷程 (Version Changelog)
+
+### 【v2.5.9 版】🔊 英文島題目朗讀選項雙軌音效 ✕ 根除無關 Apple 發音教具 ✕ 選項獨立點讀實裝 📅 2026-10-26
+
+1. **題目朗讀雙語無縫朗讀選項與音標轉化 (`js/audio.js` & `js/engine.js` & `data/question-bank-*.json`)**：
+   - 根治「聽一聽題目沒念選項三個單字」：實裝 `playQuestionAudio` 與雙語佇列 `buildQuestionSpeechSequence`。在遇到聽力或純英文選項題時，中英無縫切換依序朗讀「題幹問句 + 選項一 pig + 選項二 big + 選項三 dig」，且純英文單字以 `en-US` 原生美語發音。
+   - 轉化音標發音：自動將題幹 `/p/`、`/sh/` 轉化為「p 的發音」、「sh 的發音」，杜絕語音引擎念「斜線 p 斜線」或吞音。
+   - 清洗題庫 88 處敷衍的「仔細聽，選出正確的選項喔！」假朗讀字串，回歸真實清晰的題目問句。
+2. **選項卡片獨立點讀發音功能 (`js/engine.js` & `css/style.css`)**：
+   - 為所有英文字詞選項按鈕右側增設獨立 `🔊` 點讀鈕（`.opt-audio-btn`）。
+   - 支援 `e.stopPropagation()` 獨立試聽發音，點擊喇叭僅播放該單字的美語標準發音並帶有可愛縮放反饋，不觸發作答；讓小朋友在做聽力題時可隨意單獨重聽任何一個選項，完全掌控答題節奏。
+3. **徹底根除無關 Apple 發音教具冒出問題 (`js/visuals.js`)**：
+   - 徹底移除 `englishPhonics` 內無字母時盲目 fallback 為 `'a'` 導致任何結尾音/字族題目都跳出「A a apple 聽發音」的重大 Bug。
+   - 優化 `englishVisual` 智慧派發器：結尾音/開頭音等字彙理解題目（如 `pin 的結尾音是什麼？`）正確導流至單字卡，展示 `📌 pin` 圖文，並提供專屬「🔊 聽單字 (pin)」與「🔊 聽題目朗讀」按鈕。
 
 ### 【v2.5.7 版】🛡️ 英文國語防洩題全面修復 ✕ 語音裝置智慧雙軌升級 ✕ 國語筆順多元題型重構 📅 2026-10-26
 
@@ -102,31 +115,6 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 3. **通關聯動與導覽列狀態 (`js/engine.js` & `js/main.js`)**：
    - 在第 16 關或期末挑戰島通關時，自動觸發金盃頒發盛典；頂部科目膠囊精準呈現 18⭐ 解鎖門檻與星星計數。
    - 全年級 144 + 48 = 192 關卡自動化測試與 `node --check` 自檢全數通過。
-
-### 【v2.5.0 版】🛡️ 英文島答案防洩漏全面修復 ✕ 跨科目期末綜合挑戰島關卡規劃與規則串接 📅 2026-10-25
-
-1. **英文島答案防洩漏機制 (`js/engine.js` & `question-bank-en-*.json`)**：
-   - 核心防洩題：在 `optionEmojis()` 加入題幹與視覺教具圖示比對過濾，凡與題幹或教具相同的 Emoji 在作答前嚴禁渲染在按鈕上。
-   - 題庫清洗：全數清除 `question-bank-en-g1.json`、`g2.json`、`g3.json` 共 306 處干擾性 `optionEmojis`，修正 `ax` 斧頭教具洩題，回歸真實英文單字與發音測驗。
-2. **跨科目期末綜合挑戰島關卡規劃 (`js/levels/island_defs_challenge.js`)**：
-   - 橫跨國小一至三年級，每學年規劃 4 大期末素養島嶼（4 島 × 4 關 = 16 關，共 48 關）。
-   - 小一（素養起步、生活探索、思維進階、期末總魔王）、小二（乘風啟航、度量冰川、乘法烈焰、星河大魔王）、小三（算術神殿、幾何修辭、分數閱讀、時空終極星盤）。
-3. **跨學科題庫生成 (`data/question-bank-challenge-g{1,2,3}.json`)**：
-   - 透過 `scripts/generate_challenge_banks.py` 精選數學 (2題)、英文 (2題)、國語 (2題) 融合成 6 題跨學科考卷，共 288 題，標註學科徽章。
-4. **規則串接與成就系統 (`js/state.js` & `js/badges.js` & `js/main.js`)**：
-   - 解鎖規則：三大核心科目（數英中）需各完成 2 關且累計達 18 顆星方可解鎖該年級期末挑戰島；未達標點擊膠囊彈出友善引導。
-   - 新增 `challenge_master`「全科全能王」成就徽章。
-   - 驗證通過：`test_144_levels.mjs` (144關)、`test_state_cross_subject.mjs` (持久化5測試)、`test_challenge_levels.mjs` (48挑戰關) 100% PASS。
-
-1. **英語島專屬教具 (`js/visuals.js`)**：
-   - 實裝 `englishPhonics` 字母自然發音卡：支援大小寫字母跳動卡、標準音標/自然發音標籤、範例單字與美語發音互動。
-   - 實裝 `englishSpelling` 單字拼讀積木：支援母音（暖橙）、子音（蔚藍）與神秘缺字（金黃閃爍）色彩區隔與點擊發音。
-   - 實裝 `englishVisual` 智慧派發器：整合圖片單字題、拼讀填空題與字母發音題，防洩題與美化繪本排版。
-   - 修正前版 `chinese` 重複宣告之 ESM 語法異常，統一為 `strokeOrderVisual`。
-2. **視覺樣式適配 (`css/style.css`)**：
-   - 補齊 `.english-visual-wrap`、`.english-letter-tile`、`.english-spelling-stage` 等微動效與手機直向斷點。
-3. **版本同步與安全備份**：
-   - `python scripts/bump_version.py 2.4.9` 一鍵同步版本標籤，建立 `backup_v2.4.9_2026-10-25_221422.zip` 還原節點。
 
 ---
 

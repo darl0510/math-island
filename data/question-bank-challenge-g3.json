@@ -58,7 +58,7 @@
       },
       {
         "prompt": "[英文] 🔤 聽一聽：「My name is Lily.」name 的拼字是哪一個？",
-        "speak": "仔細聽，選出正確的選項喔！",
+        "speak": "聽一聽：「My name is Lily.」name 的拼字是哪一個呢？",
         "hint": "name 結尾有 e，a 發長音",
         "explanation": "name 是 a_e 結構，a 發長音 /eɪ/。",
         "answer": "name",

@@ -1948,7 +1948,10 @@ export function englishPhonics(visual = {}, question = null) {
     }
   }
 
-  if (!letter) letter = 'a';
+  // 嚴禁無字母時盲目預設為 'a'（杜絕所有題目莫名出現 apple 聽發音之重大 Bug）
+  if (!letter) {
+    return englishVisual(visual, question);
+  }
   const phonicsInfo = PHONICS_SOUND_MAP[letter] || {
     ipa: `/${letter}/`,
     name: 'Letter Phonics',
@@ -2164,9 +2167,12 @@ export function englishVisual(visual = {}, question = null) {
     return englishSpelling(visual, question);
   }
 
-  // 2. 若題目問字母、開頭音、結尾音、發音 -> 字母發音卡
-  if (/開頭音|結尾音|開頭字母|母音字母|自然發音|發音是哪一個/.test(prompt) || (question && /^[a-zA-Z]$/.test(String(question.answer).trim()))) {
-    return englishPhonics(visual, question);
+  // 2. 若為明確的字母自然發音卡（如指定 letter 或答案為單一字母之字母題）
+  const isLetterPhonics = visual.type === 'englishPhonics' || visual.type === 'phonicsCard' || visual.type === 'letterPhonics' || Boolean(visual.letter) ||
+    (question && /^[a-zA-Z]$/.test(String(question.answer).trim()) && /開頭字母|母音字母|哪一個字母/.test(prompt));
+  if (isLetterPhonics) {
+    const phonicsEl = englishPhonics(visual, question);
+    if (phonicsEl) return phonicsEl;
   }
 
   // 3. 圖片單字學習卡 (Vocabulary Picture Card)
@@ -2230,26 +2236,30 @@ export function englishVisual(visual = {}, question = null) {
     targetEnglishWord = text.replace(/[^a-zA-Z]/g, '');
   }
 
-  // 朗讀按鈕：若有題幹單字，清楚標示為題幹發音；否則一律使用題目朗讀，絕不透露正解！
+  // 朗讀按鈕區：包含題目完整語音朗讀（含選項發音）及題幹單字發音鈕
   const actionsRow = node('div', 'english-actions-row');
-  if (targetEnglishWord && targetEnglishWord.toLowerCase() !== cleanAnsLower) {
-    const speakBtn = node('button', 'english-listen-btn', `🔊 聽題目單字 (${targetEnglishWord})`);
-    speakBtn.type = 'button';
-    speakBtn.addEventListener('click', () => {
-      speakBtn.classList.add('is-speaking');
-      speakEnglish(targetEnglishWord);
-      setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
-    });
-    actionsRow.appendChild(speakBtn);
-  } else {
-    const speakBtn = node('button', 'english-listen-btn', `🔊 聽題目朗讀`);
-    speakBtn.type = 'button';
-    speakBtn.addEventListener('click', () => {
-      speakBtn.classList.add('is-speaking');
+  const speakBtn = node('button', 'english-listen-btn', `🔊 聽題目朗讀`);
+  speakBtn.type = 'button';
+  speakBtn.addEventListener('click', () => {
+    speakBtn.classList.add('is-speaking');
+    if (audio && typeof audio.playQuestionAudio === 'function') {
+      audio.playQuestionAudio(question);
+    } else {
       speakText(question?.speak || prompt);
-      setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
+    }
+    setTimeout(() => speakBtn.classList.remove('is-speaking'), 800);
+  });
+  actionsRow.appendChild(speakBtn);
+
+  if (targetEnglishWord && targetEnglishWord.toLowerCase() !== cleanAnsLower) {
+    const wordBtn = node('button', 'english-listen-btn word-listen-btn', `🔊 聽單字 (${targetEnglishWord})`);
+    wordBtn.type = 'button';
+    wordBtn.addEventListener('click', () => {
+      wordBtn.classList.add('is-speaking');
+      speakEnglish(targetEnglishWord);
+      setTimeout(() => wordBtn.classList.remove('is-speaking'), 800);
     });
-    actionsRow.appendChild(speakBtn);
+    actionsRow.appendChild(wordBtn);
   }
   wrap.appendChild(actionsRow);
 

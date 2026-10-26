@@ -1,7 +1,21 @@
 {
-  "totalTokens": 531019,
-  "totalSavedUsdEst": 1.047,
+  "totalTokens": 538619,
+  "totalSavedUsdEst": 1.062,
   "sessions": [
+    {
+      "id": "sess_1792981064625",
+      "task": "英文島題目朗讀選項雙軌音效 ✕ 消除無關 Apple 發音教具 ✕ 選項獨立點讀實裝",
+      "version": "v2.5.9",
+      "executor": "cloud-first (local-offline fallback)",
+      "hermes_status": "offline",
+      "promptTokens": 5200,
+      "completionTokens": 2400,
+      "totalTokens": 7600,
+      "savedUsdEst": 0.0152,
+      "status": "passed",
+      "note": "實裝 playQuestionAudio 與雙語音效序列，聽力題自動朗讀選項；選項按鈕增設獨立 🔊 點讀發音按鈕；徹底修復 englishPhonics 盲目 fallback 至 letter a 冒出 apple 之問題；清洗 88 處 dummy speak。",
+      "timestamp": "2026-10-26T02:17:44.625144+00:00"
+    },
     {
       "id": "sess_1792946964928",
       "task": "國語注音跑版修復 ✕ 筆順部首零洩題 ✕ 英文聽聽看防暴雷與題幹本地化",
