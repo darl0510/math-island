@@ -373,8 +373,11 @@ function renderStudents() {
         ` : ''}
 
         <div class="student-card-actions">
-          <button type="button" class="btn-card primary" onclick="importLocalProgressToStudent('${student.id}', '${escapeHtml(student.name)}')" title="將本機先前已獲取的通關星星與最高分直接補登給此學童">
-            📥 補登本機進度
+          <button type="button" class="btn-card primary" style="background: linear-gradient(135deg, #8b5cf6, #6366f1); border-color: #7c3aed; color: #fff; font-weight: 700;" onclick="openImportTokenModal('${student.id}', '${escapeHtml(student.name)}')" title="貼上孩子在平板複製的進度碼，瞬間帶入平板真實戰績">
+            📥 匯入平板進度
+          </button>
+          <button type="button" class="btn-card" onclick="importLocalProgressToStudent('${student.id}', '${escapeHtml(student.name)}')" title="將此台電腦先前已獲取的通關星星補登給此學童">
+            💻 補登電腦進度
           </button>
           <button type="button" class="btn-card copy-link" onclick="copyStudentLink('${student.id}', '${escapeHtml(student.name)}')">
             📋 複製專屬連結
@@ -1046,3 +1049,144 @@ window.importLocalProgressToStudent = async function(studentId, studentName) {
   showToast(`🎉 成功為「${studentName}」補登 ${importedCount} 關歷史戰績（累計 ${totalStarsImported} 顆星）！`);
   renderAll();
 };
+
+// 📥 彈出【匯入平板進度同步碼】對話框
+window.openImportTokenModal = function(targetStudentId = null, targetStudentName = '') {
+  const existing = document.getElementById('admin-import-token-modal');
+  if (existing) existing.remove();
+
+  const targetStudent = targetStudentId ? state.students.find(s => s.id === targetStudentId) : null;
+  const targetLabel = targetStudent ? `【${targetStudent.avatar || '🌟'} ${targetStudent.name}】` : '指定或代碼中的學童';
+
+  const modal = document.createElement('div');
+  modal.id = 'admin-import-token-modal';
+  modal.className = 'modal-backdrop active';
+  modal.innerHTML = `
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <span class="modal-icon">📥</span>
+        <h3>匯入孩子平板的真實遊玩進度</h3>
+        <button id="import-token-modal-close" class="modal-close-btn" type="button">✕</button>
+      </div>
+      <div class="modal-body" style="font-size: 0.9rem;">
+        <div style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 1rem; color: #c084fc;">
+          <strong>🎯 準備匯入至：${targetLabel}</strong>
+          <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+            在孩子平板的遊戲首頁，點頂部小勇士膠囊 ➔【📤 上傳/同步進度】➔【📋 複製平板進度同步碼】，將代碼貼在下方即可！
+          </div>
+        </div>
+
+        <label style="font-weight: 700; display: block; margin-bottom: 6px;" for="token-textarea-input">請在下方貼上進度同步碼 (以 FMP1_ 開頭)：</label>
+        <textarea id="token-textarea-input" class="search-input" rows="4" placeholder="在此處貼上 FMP1_ 開頭的進度同步碼..." style="width: 100%; border-radius: 6px; font-family: monospace; font-size: 0.82rem; padding: 8px; box-sizing: border-box; resize: vertical;"></textarea>
+
+        <div style="margin-top: 1rem; background: rgba(15, 23, 42, 0.6); padding: 10px 12px; border-radius: 6px; border-left: 3px solid #38bdf8; font-size: 0.8rem; color: var(--text-dim);">
+          <strong style="color: #38bdf8;">💡 零手動自動同步技巧 (同 WiFi 局域網)：</strong><br/>
+          若電腦有啟動 <code>python server.py</code>，讓孩子平板連上 <code>http://[此電腦IP]:8000/?kid=${targetStudentId || 'xxx'}</code>，孩子只要過關就會 100% 自動推播到後台，完全不用手動貼代碼！
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 8px;">
+        <button id="import-token-cancel-btn" type="button" class="btn-cancel">取消</button>
+        <button id="import-token-confirm-btn" type="button" class="btn-primary" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);">
+          ✨ 解析並立即同步
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const closeBtn = modal.querySelector('#import-token-modal-close');
+  const cancelBtn = modal.querySelector('#import-token-cancel-btn');
+  const confirmBtn = modal.querySelector('#import-token-confirm-btn');
+  const textarea = modal.querySelector('#token-textarea-input');
+
+  const closeModal = () => modal.remove();
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  confirmBtn.addEventListener('click', async () => {
+    const rawVal = (textarea.value || '').trim();
+    if (!rawVal) {
+      alert('請先貼上進度同步碼喔！');
+      textarea.focus();
+      return;
+    }
+
+    try {
+      if (!rawVal.startsWith('FMP1_')) {
+        throw new Error('同步碼格式不正確，開頭必須是 FMP1_');
+      }
+      const b64 = rawVal.slice(5).trim();
+      const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+      const parsed = JSON.parse(jsonStr);
+
+      const records = parsed.records || [];
+      const studentInfo = parsed.student || {};
+      const kid = targetStudentId || studentInfo.id;
+      const kidName = (targetStudent ? targetStudent.name : studentInfo.name) || '小勇士';
+
+      if (!kid) {
+        throw new Error('無法識別學童身分 ID');
+      }
+
+      // 1. 同步寫入 progress 到此電腦 localStorage
+      if (parsed.progress) {
+        Object.entries(parsed.progress).forEach(([k, v]) => {
+          try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+        });
+      }
+
+      // 2. 轉換與去重 records
+      const existingKeys = new Set(state.records.map(r => `${r.student_id}_${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`));
+      let importedCount = 0;
+      let totalStars = 0;
+      const newRecs = [];
+
+      records.forEach(r => {
+        const uKey = `${kid}_${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`;
+        if (!existingKeys.has(uKey)) {
+          const rec = {
+            ...r,
+            id: `rec_sync_${kid}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+            student_id: kid,
+            student_name: kidName
+          };
+          newRecs.push(rec);
+          existingKeys.add(uKey);
+          importedCount++;
+          totalStars += (r.stars || 0);
+        }
+      });
+
+      // 3. 合併至狀態與本機儲存
+      state.records = [...newRecs, ...state.records];
+      saveLocalRecords(state.records);
+
+      // 4. 若伺服器在線，整包 POST /api/sync_progress
+      if (state.isServerOnline) {
+        try {
+          await fetch(`${API_BASE}/api/sync_progress`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              student: { id: kid, name: kidName, avatar: targetStudent ? targetStudent.avatar : studentInfo.avatar },
+              records: newRecs
+            })
+          });
+        } catch (e) {}
+      }
+
+      showToast(`🎉 成功同步【${kidName}】平板進度！匯入 ${importedCount} 關真實戰績（⭐ ${totalStars} 顆星）！`);
+      closeModal();
+      renderAll();
+    } catch (err) {
+      alert(`解析同步碼失敗：${err.message}`);
+    }
+  });
+
+  setTimeout(() => textarea.focus(), 100);
+};
+

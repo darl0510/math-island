@@ -11,6 +11,7 @@ import { audio } from './audio.js';
 const STORAGE_KEY_CURRENT = 'fantasy_math_current_student';
 const STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';
 const STORAGE_KEY_PENDING = 'fantasy_math_pending_records';
+const STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';
 
 const DEFAULT_VISITOR = {
   id: 'visitor',
@@ -317,11 +318,33 @@ export async function flushPendingRecords() {
 }
 
 /**
- * 關卡過關結算回傳後台 (具離線隊列容錯)
+ * 儲存單筆戰績至本地 admin records (確保純前端/離線時不漏失)
+ */
+function saveSingleRecordToLocal(record) {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_RECORDS);
+    let records = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(records)) records = [];
+    const exists = records.some(r => 
+      r.id === record.id || 
+      (r.student_id === record.student_id && r.subject === record.subject && r.grade === record.grade && r.level_id === record.level_id && r.timestamp === record.timestamp)
+    );
+    if (!exists) {
+      records.unshift(record);
+      localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(records));
+    }
+  } catch (e) {
+    console.warn('[Student] 儲存本機戰績失敗:', e);
+  }
+}
+
+/**
+ * 關卡過關結算回傳後台 (具離線隊列容錯 ✕ 進度推進自動上傳)
  */
 export async function uploadLevelRecord({ level, score, stars, durationSeconds, errors }) {
   const student = getCurrentStudent();
   const record = {
+    id: `rec_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
     student_id: student.id,
     student_name: student.name,
     subject: getCurrentSubject(),
@@ -335,6 +358,10 @@ export async function uploadLevelRecord({ level, score, stars, durationSeconds, 
     timestamp: new Date().toISOString()
   };
 
+  // 1. 保全於本地 admin records 存檔
+  saveSingleRecordToLocal(record);
+
+  // 2. 自動嘗試背景推進上傳 (自動同步)
   try {
     const res = await fetch('/api/records', {
       method: 'POST',
@@ -343,10 +370,12 @@ export async function uploadLevelRecord({ level, score, stars, durationSeconds, 
     });
     if (res.ok) {
       console.log('[StudentSync] 成績已即時成功上傳後台:', record);
+      // 自動補發剩餘離線隊列
+      flushPendingRecords();
       return { success: true, offline: false };
     }
   } catch (e) {
-    // 網路中斷或後台未開
+    // 伺服器離線或處於純 GitHub Pages 靜態環境
   }
 
   // 離線降級：暫存隊列
@@ -593,10 +622,232 @@ export async function initStudentProfile() {
     showAddStudentDialog();
   });
 
+  const syncQuickBtn = document.getElementById('sync-student-quick-btn');
+  syncQuickBtn?.addEventListener('click', () => {
+    closeStudentDropdown();
+    showProgressSyncDialog();
+  });
+
   document.addEventListener('click', (e) => {
     const menu = document.getElementById('student-dropdown-menu');
     if (menu && !menu.contains(e.target) && e.target !== studentBtn) {
       closeStudentDropdown();
+    }
+  });
+}
+
+/**
+ * 打包當前學童在本地的所有進度與戰績
+ */
+export function packStudentProgressData(student = getCurrentStudent()) {
+  let records = [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_RECORDS);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        records = parsed.filter(r => r.student_id === student.id);
+      }
+    }
+  } catch (e) {}
+
+  const progressMap = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && (k.includes('progress') || k.includes('fantasy'))) {
+      try {
+        progressMap[k] = JSON.parse(localStorage.getItem(k));
+      } catch (e) {}
+    }
+  }
+
+  return {
+    version: 'v2.8.7',
+    type: 'FANTASY_MATH_SYNC_TOKEN',
+    timestamp: new Date().toISOString(),
+    student: {
+      id: student.id,
+      name: student.name,
+      avatar: student.avatar
+    },
+    progress: progressMap,
+    records: records
+  };
+}
+
+/**
+ * 產生進度同步碼字串 (Base64 UTF-8 相容)
+ */
+export function generateSyncTokenString(student = getCurrentStudent()) {
+  const data = packStudentProgressData(student);
+  const jsonStr = JSON.stringify(data);
+  const b64 = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+  return `FMP1_${b64}`;
+}
+
+/**
+ * 解析進度同步碼字串
+ */
+export function parseSyncTokenString(tokenStr) {
+  if (!tokenStr || !tokenStr.startsWith('FMP1_')) {
+    throw new Error('無效的進度同步碼格式（需為 FMP1_ 開頭）');
+  }
+  const b64 = tokenStr.slice(5).trim();
+  const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(b64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+  return JSON.parse(jsonStr);
+}
+
+/**
+ * 向後台伺服器整包上傳最新進度
+ */
+export async function uploadStudentProgressToServer(student = getCurrentStudent(), notify = true) {
+  const payload = packStudentProgressData(student);
+  try {
+    const res = await fetch('/api/sync_progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (notify) {
+        showToast(`🎉 進度上傳成功！已同步 ${data.imported_count || payload.records.length} 筆戰績至後台！`, '☁️', 3000);
+      }
+      return { success: true };
+    }
+  } catch (e) {
+    // 伺服器離線或純 GitHub Pages
+  }
+
+  if (notify) {
+    showToast('📡 伺服器離線中，請使用【複製進度同步碼】帶入後台！', 'ℹ️', 3500);
+  }
+  return { success: false };
+}
+
+/**
+ * 彈出【冒險進度同步與雲端上傳中心】對話框
+ */
+export function showProgressSyncDialog() {
+  audio.playSfx('click', 0.4);
+  const existingModal = document.getElementById('sync-progress-modal');
+  if (existingModal) existingModal.remove();
+
+  const student = getCurrentStudent();
+  const tokenStr = generateSyncTokenString(student);
+  const pack = packStudentProgressData(student);
+  const passes = pack.records.length;
+  const stars = pack.records.reduce((acc, r) => acc + (r.stars || 0), 0);
+
+  const modal = document.createElement('div');
+  modal.id = 'sync-progress-modal';
+  modal.className = 'student-modal-overlay';
+  modal.innerHTML = `
+    <div class="student-modal-card" style="max-width: 480px;">
+      <div class="student-modal-header">
+        <span class="student-modal-icon">☁️</span>
+        <h3>冒險進度同步與雲端上傳</h3>
+        <button class="student-modal-close" type="button" aria-label="關閉">✕</button>
+      </div>
+      <div class="student-modal-body" style="font-size: 0.9rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; background: rgba(15, 23, 42, 0.6); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.75rem;">
+          <span style="font-size: 2rem;">${student.avatar || '🦊'}</span>
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem;">${student.name}</div>
+            <div style="color: #94a3b8; font-size: 0.8rem;">本機累計：${passes} 場通關 ｜ ⭐ ${stars} 顆榮譽星星</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 10px; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #34d399;">
+          <span>🔄</span>
+          <span><strong>自動推進上傳已啟動</strong>：每次過關獲得星星時自動背景推播同步</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button id="direct-upload-btn" type="button" class="student-modal-confirm" style="background: #3b82f6; width: 100%;">
+            📤 立即連線上傳至電腦後台
+          </button>
+          <button id="copy-sync-token-btn" type="button" class="student-modal-confirm" style="background: #8b5cf6; width: 100%;">
+            📋 複製平板進度同步碼 (跨設備/離線用)
+          </button>
+        </div>
+
+        <div style="margin-top: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-top: 0.75rem;">
+          <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 4px;">或從其他設備匯入進度碼：</div>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="paste-sync-input" placeholder="貼上 FMP1_ 開頭的同步碼..." style="flex: 1; padding: 6px 8px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #475569; background: #0f172a; color: #f8fafc;" />
+            <button id="apply-sync-token-btn" type="button" style="padding: 6px 12px; background: #10b981; border: none; border-radius: 4px; color: #fff; font-weight: 700; cursor: pointer;">匯入</button>
+          </div>
+        </div>
+      </div>
+      <div class="student-modal-actions" style="margin-top: 0.75rem;">
+        <button id="close-sync-modal-btn" class="student-modal-cancel" type="button" style="width: 100%;">關閉</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const closeBtn = modal.querySelector('.student-modal-close');
+  const cancelBtn = modal.querySelector('#close-sync-modal-btn');
+  const uploadBtn = modal.querySelector('#direct-upload-btn');
+  const copyBtn = modal.querySelector('#copy-sync-token-btn');
+  const applyBtn = modal.querySelector('#apply-sync-token-btn');
+  const pasteInput = modal.querySelector('#paste-sync-input');
+
+  const closeModal = () => modal.remove();
+
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  uploadBtn.addEventListener('click', async () => {
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = '連線上傳中...';
+    await uploadStudentProgressToServer(student, true);
+    uploadBtn.disabled = false;
+    uploadBtn.textContent = '📤 立即連線上傳至電腦後台';
+  });
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(tokenStr).then(() => {
+      showToast('📋 已複製平板進度碼！請至電腦後台點【貼上進度碼】匯入！', '✨', 3200);
+      copyBtn.textContent = '✅ 已成功複製！';
+      setTimeout(() => copyBtn.textContent = '📋 複製平板進度同步碼 (跨設備/離線用)', 2000);
+    }).catch(() => {
+      prompt('請手動複製以下進度代碼：', tokenStr);
+    });
+  });
+
+  applyBtn.addEventListener('click', () => {
+    const val = (pasteInput.value || '').trim();
+    if (!val) {
+      showToast('請先貼上進度同步碼！', '✏️', 2000);
+      return;
+    }
+    try {
+      const parsed = parseSyncTokenString(val);
+      if (parsed && parsed.records) {
+        // 寫入本地 admin records
+        const localRecs = JSON.parse(localStorage.getItem(STORAGE_KEY_RECORDS) || '[]');
+        const merged = [...parsed.records, ...localRecs.filter(lr => !parsed.records.some(pr => pr.id === lr.id))];
+        localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(merged));
+
+        // 寫入 progress
+        if (parsed.progress) {
+          Object.entries(parsed.progress).forEach(([k, v]) => {
+            localStorage.setItem(k, JSON.stringify(v));
+          });
+        }
+
+        showToast(`🎉 成功匯入學童【${parsed.student?.name || '小勇士'}】進度！`, '🌟', 3000);
+        closeModal();
+        setTimeout(() => window.location.reload(), 1000);
+      }
+    } catch (err) {
+      alert(`匯入失敗：${err.message}`);
     }
   });
 }

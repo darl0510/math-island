@@ -1,5 +1,6 @@
 import http.server
 import socketserver
+import socket
 import os
 import sys
 import json
@@ -9,6 +10,16 @@ from datetime import datetime
 
 PORT = 8000
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "admin_store.json")
+
+def get_local_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except Exception:
+        return "127.0.0.1"
 
 def load_store():
     if not os.path.exists(DATA_FILE):
@@ -60,6 +71,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         query = urllib.parse.parse_qs(parsed.query)
+
+        if path == '/api/info':
+            return self._send_json(200, {
+                "success": True,
+                "server_time": datetime.now().isoformat(),
+                "local_ip": get_local_ip(),
+                "port": self.server.server_address[1]
+            })
 
         if path == '/api/students':
             store = load_store()
@@ -120,6 +139,59 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             store.setdefault("records", []).append(record)
             save_store(store)
             return self._send_json(201, {"success": True, "record": record})
+
+        if path == '/api/sync_progress':
+            body = self._read_json_body()
+            student = body.get('student', {})
+            records = body.get('records', [])
+            kid = student.get('id') or body.get('student_id')
+            name = student.get('name') or body.get('student_name', '小勇士')
+            avatar = student.get('avatar') or body.get('avatar', '🌟')
+
+            if not kid:
+                return self._send_json(400, {"success": False, "error": "student id is required"})
+
+            store = load_store()
+            # 確保學童存在於名冊
+            existing_students = store.setdefault("students", [])
+            matched = next((s for s in existing_students if s.get('id') == kid), None)
+            if not matched:
+                existing_students.append({
+                    "id": kid,
+                    "name": name,
+                    "avatar": avatar,
+                    "created_at": datetime.now().isoformat(timespec='seconds')
+                })
+            else:
+                if name: matched['name'] = name
+                if avatar: matched['avatar'] = avatar
+
+            # 匯入紀錄 (去重)
+            existing_records = store.setdefault("records", [])
+            existing_set = {
+                f"{r.get('student_id')}_{r.get('subject')}_{r.get('grade')}_{r.get('level_id')}"
+                for r in existing_records
+            }
+
+            imported_count = 0
+            for r in records:
+                key = f"{r.get('student_id', kid)}_{r.get('subject', 'math')}_{r.get('grade', 1)}_{r.get('level_id')}"
+                if key not in existing_set:
+                    if not r.get('id'):
+                        r['id'] = f"rec_{uuid.uuid4().hex[:8]}"
+                    r['student_id'] = kid
+                    r['student_name'] = name
+                    existing_records.append(r)
+                    existing_set.add(key)
+                    imported_count += 1
+
+            save_store(store)
+            return self._send_json(200, {
+                "success": True,
+                "message": f"成功同步學童「{name}」共 {imported_count} 筆新戰績",
+                "imported_count": imported_count,
+                "total_records": len(existing_records)
+            })
 
         self._send_json(404, {"success": False, "error": "Endpoint not found"})
 
@@ -206,10 +278,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    local_ip = get_local_ip()
     for port in range(PORT, PORT + 20):
         try:
-            with socketserver.TCPServer(("127.0.0.1", port), Handler) as httpd:
-                print(f"[OK] 奇幻數學島伺服器啟動於: http://127.0.0.1:{port}")
+            with socketserver.TCPServer(("0.0.0.0", port), Handler) as httpd:
+                print(f"[OK] 奇幻數學島伺服器啟動完成！")
+                print(f"  💻 電腦端本機網址: http://localhost:{port}")
+                print(f"  📱 平板/手機區網網址 (同 WiFi): http://{local_ip}:{port}")
+                print(f"  ⚙️ 後台管理中心: http://localhost:{port}/admin.html")
                 sys.stdout.flush()
                 httpd.serve_forever()
                 break
