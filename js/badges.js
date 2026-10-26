@@ -76,6 +76,21 @@ export const BADGE_DEFINITIONS = [
     },
   },
   {
+    id: 'social_explorer',
+    name: '地理小博士',
+    category: '科目',
+    icon: '🧭',
+    description: '在奇幻社會島累積獲得 10 顆星',
+    check: (summary) => {
+      const s = summary.subjects.social?.totalStars || 0;
+      return {
+        current: Math.min(10, s),
+        target: 10,
+        unlocked: s >= 10,
+      };
+    },
+  },
+  {
     id: 'perfect_striker',
     name: '三星滿貫',
     category: '技巧',
@@ -225,7 +240,7 @@ function saveSeenBadges(badgeIds) {
 
 function loadAllRawStates() {
   const states = [];
-  const subjects = ['math', 'english', 'chinese', 'science', 'challenge'];
+  const subjects = ['math', 'english', 'chinese', 'science', 'social', 'challenge'];
   const grades = [1, 2, 3];
   for (const sub of subjects) {
     for (const g of grades) {

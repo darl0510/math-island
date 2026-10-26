@@ -274,12 +274,68 @@ export const SCIENCE_GRADES = [
   },
 ];
 
-/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島 / 奇幻自然島 / 期末綜合挑戰島」時在此掛上該科年級表即可 */
+/* 奇幻社會島年級表：小一至小三 16 關社會領域（4 島 × 4 關） */
+export const SOCIAL_GRADES = [
+  {
+    id: 1,
+    name: '一年級',
+    shortName: '小一',
+    icon: '🧭',
+    badge: '台灣小一 · 108 課綱生活與社會啟蒙',
+    title: '奇幻社會島 · 一年級',
+    subtitle: '4 座社會人文探索島嶼 · 16 個家鄉生活與公民探索關卡 · 探索美麗寶島',
+    age: '適合 6–7 歲',
+    questionBankUrl: 'data/question-bank-social-g3.json',
+    islands: [
+      { id: 1, name: '家鄉地理探索島', theme: 'forest', color: '#3fae6a', emoji: '🗺️', blurb: '地圖四要素與指北針方位、五大地形特徵、河川水庫水資源、氣候四季與防颱防震。' },
+      { id: 2, name: '生活產業與交通島', theme: 'ocean', color: '#2b9cdb', emoji: '🏘️', blurb: '老街先民開拓史、農林漁牧綠色豐收、工商業與觀光工廠、陸海空現代交通網絡。' },
+      { id: 3, name: '多元文化傳承島', theme: 'cloud', color: '#8d7bf0', emoji: '🏮', blurb: '傳統節慶文化、原住民族與客家新住民多元共融、古蹟建築與地方廟會藝陣。' },
+      { id: 4, name: '現代公民榮譽島', theme: 'space', color: '#443f9a', emoji: '🏛️', blurb: '家庭校園民主生活、社區公僕與守望相助隊、垃圾分類環境永續、小公民榮譽殿。' },
+    ],
+  },
+  {
+    id: 2,
+    name: '二年級',
+    shortName: '小二',
+    icon: '🧭',
+    badge: '台灣小二 · 108 課綱生活與社區探索',
+    title: '奇幻社會島 · 二年級',
+    subtitle: '4 座社會人文探索島嶼 · 16 個家鄉生活與社區文化關卡 · 探索美麗寶島',
+    age: '適合 7–8 歲',
+    questionBankUrl: 'data/question-bank-social-g3.json',
+    islands: [
+      { id: 1, name: '家鄉地理探索島', theme: 'forest', color: '#3fae6a', emoji: '🗺️', blurb: '地圖四要素與指北針方位、五大地形特徵、河川水庫水資源、氣候四季與防颱防震。' },
+      { id: 2, name: '生活產業與交通島', theme: 'ocean', color: '#2b9cdb', emoji: '🏘️', blurb: '老街先民開拓史、農林漁牧綠色豐收、工商業與觀光工廠、陸海空現代交通網絡。' },
+      { id: 3, name: '多元文化傳承島', theme: 'cloud', color: '#8d7bf0', emoji: '🏮', blurb: '傳統節慶文化、原住民族與客家新住民多元共融、古蹟建築與地方廟會藝陣。' },
+      { id: 4, name: '現代公民榮譽島', theme: 'space', color: '#443f9a', emoji: '🏛️', blurb: '家庭校園民主生活、社區公僕與守望相助隊、垃圾分類環境永續、小公民榮譽殿。' },
+    ],
+  },
+  {
+    id: 3,
+    name: '三年級',
+    shortName: '小三',
+    icon: '🧭',
+    badge: '台灣小三 · 108 課綱社會領域',
+    title: '奇幻社會島 · 三年級',
+    subtitle: '4 座社會人文探索島嶼 · 16 個家鄉地理、台灣文化與生活公民關卡 · 探索美麗寶島',
+    age: '適合 8–9 歲',
+    questionBankUrl: 'data/question-bank-social-g3.json',
+    islands: [
+      { id: 1, name: '家鄉地理探索島', theme: 'forest', color: '#3fae6a', emoji: '🗺️', blurb: '地圖四要素與指北針方位、五大地形特徵、河川水庫水資源、氣候四季與防颱防震。' },
+      { id: 2, name: '生活產業與交通島', theme: 'ocean', color: '#2b9cdb', emoji: '🏘️', blurb: '老街先民開拓史、農林漁牧綠色豐收、工商業與觀光工廠、陸海空現代交通網絡。' },
+      { id: 3, name: '多元文化傳承島', theme: 'cloud', color: '#8d7bf0', emoji: '🏮', blurb: '傳統節慶文化、原住民族與客家新住民多元共融、古蹟建築與地方廟會藝陣。' },
+      { id: 4, name: '現代公民榮譽島', theme: 'space', color: '#443f9a', emoji: '🏛️', blurb: '家庭校園民主生活、社區公僕與守望相助隊、垃圾分類環境永續、小公民榮譽殿。' },
+    ],
+  },
+];
+
+/* 科目 → 年級字典：新增「奇幻英文島 / 奇幻國語島 / 奇幻自然島 / 奇幻社會島 / 期末綜合挑戰島」時在此掛上該科年級表即可 */
 export const SUBJECT_GRADES = {
   math: GRADES,
   english: ENGLISH_GRADES,
   chinese: CHINESE_GRADES,
   science: SCIENCE_GRADES,
+  social: SOCIAL_GRADES,
   challenge: CHALLENGE_GRADES,
 };
 

@@ -39,6 +39,15 @@ export const SUBJECT_PRAISES = {
     '哇！觀察得真仔細！',
     '太神了！完全正確！',
   ],
+  social: [
+    '答對了！你好棒！',
+    '太厲害了！完全正確！',
+    '家鄉探索大師！',
+    '好聰明喔！答對了！',
+    '地理地圖通！太強了！',
+    '公民素養一級棒！',
+    '觀察入微好敏銳！',
+  ],
   challenge: [
     '答對了！你好棒！',
     '太厲害了！完全正確！',
@@ -75,6 +84,7 @@ export const SPEECH_FIXED = [
   ...SUBJECT_PRAISES.english,
   ...SUBJECT_PRAISES.chinese,
   ...SUBJECT_PRAISES.science,
+  ...SUBJECT_PRAISES.social,
   ...SUBJECT_PRAISES.challenge,
 ];
 
