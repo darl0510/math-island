@@ -195,8 +195,7 @@ body[data-screen="home"] .bar-btn {
 }
 
 body[data-screen="home"] #home-btn {
-  visibility: hidden;
-  pointer-events: none;
+  display: none;
 }
 
 .bar-btn:hover {
@@ -2857,37 +2856,32 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
 
 .start-adventure.is-soon { opacity: 0.72; cursor: not-allowed; filter: saturate(0.55); }
 
-/* === 📱 平板與中窄螢幕頂部導覽列 RWD 響應式系統 === */
-@media (max-width: 1200px) {
+/* === 📱 全裝置頂部導覽列 RWD 響應式系統 (含 6 大科目徹底防擠壓) === */
+
+/* 1. 大筆電與中型螢幕 (1041px ~ 1320px) */
+@media (max-width: 1320px) {
   #global-bar {
     padding: 0 16px;
     gap: 10px;
   }
   .brand {
-    font-size: 18px;
+    font-size: 19px;
     gap: 6px;
   }
   .brand-version {
-    display: none; /* 平板與中窄螢幕隱藏版號徽章，騰出 60px 核心導覽空間 */
+    display: none; /* 隱藏版號標籤省下 65px */
   }
-  .subject-capsules {
-    gap: 6px;
+  .subject-capsule-stars {
+    display: none; /* 6 科目常態展示圖示+簡稱，隱藏星星省下 180px */
   }
   .subject-capsule {
-    padding: 6px 10px;
-    font-size: 13px;
+    padding: 6px 11px;
+    font-size: 13.5px;
     gap: 5px;
-  }
-  .grade-pill-container {
-    margin-left: 4px;
   }
   .grade-dropdown-btn {
-    padding: 6px 11px;
+    padding: 6px 10px;
     font-size: 0.88rem;
-    gap: 5px;
-  }
-  .bar-actions {
-    gap: 6px;
   }
   .bar-btn {
     width: 42px;
@@ -2897,63 +2891,46 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
   }
 }
 
+/* 2. 平板橫向與小型筆電 (861px ~ 1040px) */
 @media (max-width: 1040px) {
   #global-bar {
     padding: 0 12px;
     gap: 8px;
+    height: 64px;
+  }
+  :root {
+    --header-height: 64px;
   }
   .brand {
     font-size: 16px;
     gap: 5px;
   }
   .brand-star {
-    display: none;
+    display: none; /* 隱藏裝飾星星省空間 */
   }
   .brand-sub {
-    font-size: 0.6em;
-    padding: 2px 7px;
+    display: none; /* 隱藏大冒險徽章 */
   }
   .subject-capsules {
     gap: 5px;
-  }
-  .subject-capsule {
-    padding: 5px 8px;
-    font-size: 12.5px;
-  }
-  .subject-capsule-stars {
-    font-size: 11px;
-  }
-  .grade-dropdown-btn {
-    padding: 5px 9px;
-    font-size: 0.82rem;
-  }
-  .bar-actions {
-    gap: 5px;
-  }
-  .bar-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
-    border-radius: 12px;
-  }
-}
-
-@media (max-width: 860px) {
-  .brand-sub {
-    display: none; /* 860px 以下隱藏「小二篇」，避免與年級膠囊重複 */
-  }
-  .subject-capsules {
     overflow-x: auto;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
-    padding: 4px 2px;
   }
   .subject-capsules::-webkit-scrollbar {
     display: none;
   }
-  .subject-capsule-stars {
-    display: none; /* 窄螢幕精簡星星數字，讓 5 科膠囊平順展示 */
+  .subject-capsule {
+    padding: 5px 9px;
+    font-size: 12.5px;
+    gap: 4px;
+  }
+  .subject-capsule-icon {
+    font-size: 15px;
+  }
+  .grade-dropdown-btn {
+    padding: 5px 8px;
+    font-size: 0.82rem;
   }
   .bar-actions {
     gap: 4px;
@@ -2961,15 +2938,115 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
   .bar-btn {
     width: 36px;
     height: 36px;
-    font-size: 16px;
-    border-radius: 10px;
+    font-size: 17px;
+    border-radius: 11px;
   }
 }
 
-@media (max-width: 680px) {
-  .subject-capsule { padding: 6px 9px; }
-  .subject-capsule-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .subject-capsule-icon { font-size: 19px; }
+/* 3. 平板直向與手機端 (<= 860px)：雙層架構徹底根除 6 大科目擠壓 */
+@media (max-width: 860px) {
+  :root {
+    --header-height: 96px;
+  }
+  #global-bar {
+    height: auto;
+    min-height: 96px;
+    flex-wrap: wrap;
+    padding: 6px 12px 4px;
+    gap: 4px;
+    align-content: center;
+  }
+  #home-btn {
+    order: 1;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    border-radius: 9px;
+  }
+  .brand {
+    order: 2;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 15px;
+  }
+  #brand-subject-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .brand-star,
+  .brand-sub,
+  .brand-version {
+    display: none;
+  }
+  .grade-pill-container {
+    order: 3;
+    margin-left: auto;
+  }
+  .grade-dropdown-btn {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    gap: 3px;
+  }
+  .bar-actions {
+    order: 4;
+    gap: 4px;
+  }
+  .bar-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    border-radius: 9px;
+  }
+
+  /* 第二層：科目膠囊獨立橫向列 */
+  .subject-capsules {
+    order: 5;
+    flex: 0 0 100%;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 2px 4px;
+    gap: 6px;
+  }
+  .subject-capsules::-webkit-scrollbar {
+    display: none;
+  }
+  .subject-capsule {
+    padding: 5px 10px;
+    font-size: 12.5px;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .subject-capsule-name {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-size: 12.5px;
+  }
+  .subject-capsule-stars {
+    display: none;
+  }
+}
+
+/* 5. 超窄手機 (<= 380px) 微調 */
+@media (max-width: 380px) {
+  .brand {
+    font-size: 13.5px;
+  }
+  .bar-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  .grade-dropdown-btn {
+    padding: 3px 5px;
+    font-size: 0.74rem;
+  }
 }
 
 /* === 🎒 年級切換膠囊與多冒險年級樣式 === */
