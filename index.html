@@ -69,7 +69,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=2.8.4" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>" />
   <!-- PWA Progressive Web App 配置 -->
   <link rel="manifest" href="manifest.webmanifest" />
@@ -89,7 +89,7 @@
       <span class="brand-star" aria-hidden="true">✦</span>
       <span id="brand-subject-title">奇幻數學島</span>
       <span class="brand-sub" id="brand-sub-text">大冒險</span>
-      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.8.3">v2.8.3</span>
+      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.8.4">v2.8.4</span>
       <span id="offline-badge" class="offline-badge hidden" title="目前處於離線狀態，題庫與教具已全量離線快取，暢玩無阻">⚡ 離線模式</span>
     </div>
 
@@ -132,30 +132,79 @@
       </div>
     </div>
     <div class="bar-actions">
-      <a href="admin.html" target="_blank" class="bar-btn admin-nav-btn" aria-label="開啟後台管理系統" title="開啟獨立後台管理中心 (admin.html)" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-        <span>⚙️</span>
-      </a>
-      <button id="pwa-install-btn" class="bar-btn pwa-install-btn hidden" type="button" aria-label="安裝應用程式" title="安裝奇幻數學島至桌面或主螢幕">
-        <span>📲</span>
-      </button>
-      <button id="report-btn" class="bar-btn report-btn" type="button" aria-label="查看跨領域素養海報與成績單" title="查看跨領域素養成果海報與家長成績單">
-        <span>📊</span>
-      </button>
-      <button id="badges-btn" class="bar-btn badges-btn" type="button" aria-label="查看學習徽章" title="查看榮譽學習徽章館">
-        <span class="badge-btn-wrap">🏅<span class="badge-count-pill" id="badge-count-pill">0</span></span>
-      </button>
-      <button id="zhuyin-btn" class="bar-btn zhuyin-btn" type="button" aria-pressed="true" aria-label="開關注音標示" title="開關注音標示 (ㄅㄆㄇ)">
-        <span class="zhuyin-btn-icon">ㄅ</span>
-      </button>
-      <button id="ios-guide-btn" class="bar-btn ios-guide-btn hidden" type="button" aria-label="iOS 聲音排查指引" title="iOS 聲音與靜音鍵排查指引">
-        <span>🍎</span>
-      </button>
-      <button id="music-btn" class="bar-btn music-btn" type="button" aria-pressed="true" aria-label="開關音樂">
+      <!-- 快捷音效與語音控制 (日常最常點選，常駐保留) -->
+      <button id="music-btn" class="bar-btn music-btn" type="button" aria-pressed="true" aria-label="開關音樂" title="開關背景音樂">
         <span>🎵</span>
       </button>
-      <button id="tts-btn" class="bar-btn tts-btn" type="button" aria-pressed="true" aria-label="開關語音讀題">
+      <button id="tts-btn" class="bar-btn tts-btn" type="button" aria-pressed="true" aria-label="開關語音讀題" title="開關語音讀題">
         <span>🔊</span>
       </button>
+
+      <!-- 更多工具收合下拉選單 (預設收起，大幅釋放導覽列空間以利 RWD 排版) -->
+      <div class="tools-pill-container" id="tools-pill-container">
+        <button id="tools-dropdown-btn" class="bar-btn tools-dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false" title="更多工具與設定">
+          <span>🛠️</span>
+          <span id="tools-badge-dot" class="tools-badge-dot hidden" hidden aria-hidden="true"></span>
+        </button>
+        <div id="tools-dropdown-menu" class="tools-dropdown-menu hidden" hidden role="menu" aria-label="更多工具與系統設定">
+          <div class="tools-dropdown-header">
+            <span>🛠️ 冒險工具與設定</span>
+          </div>
+          <div class="tools-dropdown-list">
+            <a href="admin.html" target="_blank" class="tools-menu-item admin-menu-item" id="admin-nav-item" role="menuitem">
+              <span class="tools-item-icon">⚙️</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">後台管理中心</span>
+                <span class="tools-item-desc">學童名單維護與學習歷程</span>
+              </div>
+              <span class="tools-item-ext">↗</span>
+            </a>
+
+            <button id="report-btn" class="tools-menu-item" type="button" role="menuitem">
+              <span class="tools-item-icon">📊</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">成果海報與成績單</span>
+                <span class="tools-item-desc">跨領域素養圖表與證書</span>
+              </div>
+            </button>
+
+            <button id="badges-btn" class="tools-menu-item" type="button" role="menuitem">
+              <span class="tools-item-icon">🏅</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">學習榮譽徽章館</span>
+                <span class="tools-item-desc">收集年級冒險榮譽徽章</span>
+              </div>
+              <span class="badge-count-pill" id="badge-count-pill">0</span>
+            </button>
+
+            <button id="zhuyin-btn" class="tools-menu-item" type="button" role="menuitem" aria-pressed="true">
+              <span class="tools-item-icon zhuyin-icon">ㄅ</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">國語注音標示</span>
+                <span class="tools-item-desc">國小低年級注音輔助</span>
+              </div>
+              <span id="zhuyin-status-badge" class="tools-status-badge is-active">開啟中</span>
+            </button>
+
+            <button id="pwa-install-btn" class="tools-menu-item pwa-install-item hidden" hidden type="button" role="menuitem">
+              <span class="tools-item-icon">📲</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">安裝到桌面 App</span>
+                <span class="tools-item-desc">支援離線快取免網路秒開</span>
+              </div>
+              <span class="tools-tag-pill">PWA</span>
+            </button>
+
+            <button id="ios-guide-btn" class="tools-menu-item ios-guide-item hidden" hidden type="button" role="menuitem">
+              <span class="tools-item-icon">🍎</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">iOS 聲音排查指引</span>
+                <span class="tools-item-desc">靜音切換與 Safari 聲音指南</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 

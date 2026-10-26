@@ -314,7 +314,10 @@ function renderStudentDropdownList() {
 export function closeStudentDropdown() {
   const menu = document.getElementById('student-dropdown-menu');
   const btn = document.getElementById('student-dropdown-btn');
-  if (menu) menu.classList.add('hidden');
+  if (menu) {
+    menu.classList.add('hidden');
+    menu.setAttribute('hidden', '');
+  }
   if (btn) btn.setAttribute('aria-expanded', 'false');
 }
 
@@ -335,8 +338,17 @@ export function toggleStudentDropdown() {
 
   const isOpen = !menu.classList.contains('hidden');
   if (!isOpen) {
+    const gradeMenu = document.getElementById('grade-dropdown-menu');
+    gradeMenu?.classList.add('hidden');
+    gradeMenu?.setAttribute('hidden', '');
+    document.getElementById('grade-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+    const toolsMenu = document.getElementById('tools-dropdown-menu');
+    toolsMenu?.classList.add('hidden');
+    toolsMenu?.setAttribute('hidden', '');
+    document.getElementById('tools-dropdown-btn')?.setAttribute('aria-expanded', 'false');
     renderStudentDropdownList();
     menu.classList.remove('hidden');
+    menu.removeAttribute('hidden');
     btn.setAttribute('aria-expanded', 'true');
     audio.playSfx('click', 0.3);
   } else {

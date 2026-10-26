@@ -167,10 +167,22 @@ function init() {
 
   function syncBadgesCount() {
     const pill = document.getElementById('badge-count-pill');
+    const toolsDot = document.getElementById('tools-badge-dot');
+    const count = getUnlockedBadgeCount();
     if (pill) {
-      const count = getUnlockedBadgeCount();
       pill.textContent = String(count);
       pill.classList.toggle('has-badges', count > 0);
+    }
+    if (toolsDot) {
+      if (count > 0) {
+        toolsDot.textContent = String(count);
+        toolsDot.classList.remove('hidden');
+        toolsDot.removeAttribute('hidden');
+      } else {
+        toolsDot.textContent = '';
+        toolsDot.classList.add('hidden');
+        toolsDot.setAttribute('hidden', '');
+      }
     }
   }
 
@@ -187,26 +199,39 @@ function init() {
   syncBadgesCount();
 
   if (gradeBtn && gradeMenu) {
+    const setGradeMenuOpen = (open) => {
+      gradeMenu.classList.toggle('hidden', !open);
+      if (open) gradeMenu.removeAttribute('hidden');
+      else gradeMenu.setAttribute('hidden', '');
+      gradeBtn.setAttribute('aria-expanded', String(open));
+    };
+
     gradeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isOpen = !gradeMenu.classList.contains('hidden');
-      gradeMenu.classList.toggle('hidden', isOpen);
-      gradeBtn.setAttribute('aria-expanded', String(!isOpen));
+      const willOpen = gradeMenu.classList.contains('hidden');
+      setGradeMenuOpen(willOpen);
+      // 互斥關閉更多工具與學童選單
+      const toolsMenu = document.getElementById('tools-dropdown-menu');
+      toolsMenu?.classList.add('hidden');
+      toolsMenu?.setAttribute('hidden', '');
+      document.getElementById('tools-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+      const studentMenu = document.getElementById('student-dropdown-menu');
+      studentMenu?.classList.add('hidden');
+      studentMenu?.setAttribute('hidden', '');
+      document.getElementById('student-dropdown-btn')?.setAttribute('aria-expanded', 'false');
       audio.playSfx('click', 0.3);
     });
 
     document.addEventListener('click', (e) => {
       if (!gradeMenu.contains(e.target) && e.target !== gradeBtn) {
-        gradeMenu.classList.add('hidden');
-        gradeBtn.setAttribute('aria-expanded', 'false');
+        setGradeMenuOpen(false);
       }
     });
 
     gradeMenu.querySelectorAll('.grade-dropdown-item').forEach(item => {
       item.addEventListener('click', async () => {
         const targetGrade = Number(item.dataset.grade);
-        gradeMenu.classList.add('hidden');
-        gradeBtn.setAttribute('aria-expanded', 'false');
+        setGradeMenuOpen(false);
         if (targetGrade > 3) {
           showToast('該年級冒險島擴充準備中，即將啟航！', '🚀');
           audio.playSfx('click', 0.4);
@@ -223,6 +248,49 @@ function init() {
         showToast(`已切換至 ${getGradeConfig(targetGrade, getCurrentSubject()).name}！`, '🎒');
         if (document.body.dataset.screen === 'home') renderHome();
         else openMap();
+      });
+    });
+  }
+
+  // 更多工具收合下拉選單初始化
+  const toolsBtn = document.getElementById('tools-dropdown-btn');
+  const toolsMenu = document.getElementById('tools-dropdown-menu');
+
+  if (toolsBtn && toolsMenu) {
+    const setToolsMenuOpen = (open) => {
+      toolsMenu.classList.toggle('hidden', !open);
+      if (open) toolsMenu.removeAttribute('hidden');
+      else toolsMenu.setAttribute('hidden', '');
+      toolsBtn.setAttribute('aria-expanded', String(open));
+    };
+
+    toolsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = toolsMenu.classList.contains('hidden');
+      setToolsMenuOpen(willOpen);
+      // 互斥關閉年級與學童選單
+      gradeMenu?.classList.add('hidden');
+      gradeMenu?.setAttribute('hidden', '');
+      gradeBtn?.setAttribute('aria-expanded', 'false');
+      const studentMenu = document.getElementById('student-dropdown-menu');
+      studentMenu?.classList.add('hidden');
+      studentMenu?.setAttribute('hidden', '');
+      document.getElementById('student-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+      audio.playSfx('click', 0.3);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!toolsMenu.contains(e.target) && e.target !== toolsBtn) {
+        setToolsMenuOpen(false);
+      }
+    });
+
+    // 點擊功能選項後自動收合（注音開關除外）
+    toolsMenu.querySelectorAll('.tools-menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        if (item.id !== 'zhuyin-btn') {
+          setToolsMenuOpen(false);
+        }
       });
     });
   }
@@ -333,6 +401,11 @@ function syncZhuyinButton() {
   zhuyinButton.classList.toggle('is-off', !on);
   zhuyinButton.setAttribute('aria-pressed', String(on));
   zhuyinButton.title = on ? '關關注音標示 (目前開啟)' : '開啟注音標示 (目前關閉)';
+  const statusBadge = document.getElementById('zhuyin-status-badge');
+  if (statusBadge) {
+    statusBadge.textContent = on ? '開啟中' : '已關閉';
+    statusBadge.className = 'tools-status-badge ' + (on ? 'is-active' : 'is-muted');
+  }
 }
 
 window.addEventListener('resize', () => {

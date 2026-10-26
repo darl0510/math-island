@@ -75,6 +75,11 @@ img {
   border: 0;
 }
 
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
 .noscript {
   position: fixed;
   inset: 0;
@@ -3372,6 +3377,205 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
 .student-quick-action-btn:hover {
   background: #54a0ff;
   color: #fff;
+}
+
+/* === 🛠️ 更多工具與設定下拉選單 (預設收合以極致優化導覽列空間與 RWD) === */
+.tools-pill-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tools-dropdown-btn {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tools-badge-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(255, 71, 87, 0.45);
+  animation: pulseOffline 2.5s ease-in-out infinite;
+}
+
+.tools-badge-dot.hidden {
+  display: none !important;
+}
+
+.tools-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(45, 24, 76, 0.22);
+  border: 2px solid #ffd93d;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+  width: 270px;
+  max-width: calc(100vw - 24px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: dropMenuPop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tools-dropdown-menu.hidden {
+  display: none !important;
+}
+
+.tools-dropdown-header {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #5a3c8c;
+  padding: 6px 10px 6px;
+  border-bottom: 1.5px dashed rgba(106, 80, 153, 0.16);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tools-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tools-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  color: #2b144e;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tools-menu-item:hover {
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.18), rgba(255, 107, 107, 0.08));
+  color: #5a3c8c;
+  transform: translateX(3px);
+}
+
+.tools-menu-item:active {
+  transform: scale(0.98);
+}
+
+.tools-item-icon {
+  font-size: 1.25rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tools-item-icon.zhuyin-icon {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #7c3aed;
+}
+
+.tools-item-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.tools-item-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #2b144e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tools-item-desc {
+  font-size: 0.7rem;
+  color: #7b6a96;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tools-status-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.tools-status-badge.is-active {
+  background: #2ed573;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(46, 213, 115, 0.35);
+}
+
+.tools-status-badge.is-muted {
+  background: #dfe4ea;
+  color: #747d8c;
+}
+
+.tools-tag-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #ffd93d, #ff9f43);
+  color: #5a2e00;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.tools-item-ext {
+  font-size: 0.85rem;
+  color: #a4b0be;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.tools-menu-item.hidden {
+  display: none !important;
 }
 
 /* === 新增學童彈窗 === */
