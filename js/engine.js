@@ -9,6 +9,7 @@ import { shuffle as shuffleArray } from './utils.js';
 import { escapeHtml } from './ui.js';
 import { showTrophyModal } from './trophy.js';
 import { toZhuyinRuby } from './zhuyin.js';
+import { uploadLevelRecord, getCurrentStudent } from './student.js';
 
 import { PRAISE, ENCOURAGE, getSubjectPraise } from './texts.js';
 
@@ -32,6 +33,8 @@ export function startLevel(level, { onExit } = {}) {
     started: false,
     keyHandler: null,
     timers: [],
+    errors: [],
+    startTime: Date.now(),
   };
   activeSession = session;
   session.questions = buildQuestions(level);
@@ -344,6 +347,13 @@ function chooseAnswer(session, value, button) {
 
   session.mistakes += 1;
   session.perQuestion += 1;
+  session.errors = session.errors || [];
+  session.errors.push({
+    prompt: question.prompt || '',
+    chosen: value,
+    answer: question.answer,
+    explanation: question.explanation || ''
+  });
   button.classList.add('wrong');
   button.disabled = true;
   audio.playSfx('wrong', 0.55);
@@ -449,6 +459,24 @@ function finishLevel(session) {
   const overlay = document.createElement('div');
   overlay.className = 'result-overlay';
 
+  const currentStudent = getCurrentStudent();
+  const durationSeconds = Math.round((Date.now() - (session.startTime || Date.now())) / 1000);
+  const score = Math.round((correct / Math.max(1, session.questions.length)) * 100);
+
+  uploadLevelRecord({
+    level,
+    score,
+    stars,
+    durationSeconds,
+    errors: session.errors || []
+  }).then(res => {
+    const statusEl = overlay.querySelector('.result-sync-status');
+    if (statusEl) {
+      statusEl.textContent = res && res.offline ? '⚡ 離線暫存（連線自動同步）' : '✓ 已同步至學習歷程';
+      statusEl.style.color = res && res.offline ? '#f39c12' : '#00b894';
+    }
+  }).catch(() => {});
+
   const newBadgesMarkup = newBadges.length > 0 ? `
     <div class="result-new-badges">
       ${newBadges.map((b) => `
@@ -471,6 +499,10 @@ function finishLevel(session) {
       <div class="result-emoji" aria-hidden="true">${stars === 3 ? '🏆' : stars === 2 ? '🌟' : '🎖️'}</div>
       <h2>${stars === 3 ? '完美通關！' : stars === 2 ? '太棒了！通關！' : '過關囉！'}</h2>
       <div class="result-stars">${starsMarkup(stars)}</div>
+      <div class="result-student-tag">
+        <span>${currentStudent.avatar || '🦊'} ${escapeHtml(currentStudent.name || '冒險小勇士')}</span>
+        <span class="result-sync-status">📡 成績同步中...</span>
+      </div>
       <p class="result-line">答對 <strong>${correct}</strong> 題${mistakes ? `，再加油一點就三顆星囉！` : '，完全沒有失誤！'}</p>
       ${result.stars > result.previousStars ? '<p class="result-new">刷新紀錄！</p>' : ''}
       ${newBadgesMarkup}

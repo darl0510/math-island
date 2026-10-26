@@ -1,7 +1,20 @@
 {
-  "totalTokens": 560765,
-  "totalSavedUsdEst": 1.1063,
+  "totalTokens": 565035,
+  "totalSavedUsdEst": 1.1148,
   "sessions": [
+    {
+      "id": "sess_1793005350475",
+      "task": "前台學童專用身分鎖定與過關成績自動回傳後台 (v2.8.1)",
+      "version": "v2.8.1",
+      "executor": "Cloud-First (Local 8080 Offline Fallback)",
+      "promptTokens": 2450,
+      "completionTokens": 1820,
+      "totalTokens": 4270,
+      "savedUsdEst": 0.00854,
+      "status": "passed",
+      "note": "實裝 js/student.js，支援 URL 專屬鎖定 ?kid=xxx、頂部身分切換膠囊、快速新增學童彈窗、過關自動上傳 /api/records、離線隊列暫存與線上自動補傳。node --check 全綠燈。",
+      "timestamp": "2026-10-26T17:02:30.475195"
+    },
     {
       "id": "sess_1792912712671",
       "task": "方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳)",

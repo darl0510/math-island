@@ -11,6 +11,7 @@ import { loadQuestionBank } from './question-bank.js';
 import { showBadgesModal, getUnlockedBadgeCount } from './badges.js';
 import { isZhuyinEnabled, toggleZhuyin } from './zhuyin.js';
 import { showReportModal } from './poster.js';
+import { initStudentProfile } from './student.js';
 
 const musicButton = document.getElementById('music-btn');
 const ttsButton = document.getElementById('tts-btn');
@@ -232,6 +233,7 @@ function init() {
   syncAudioButtons();
   syncZhuyinButton();
   setupPWAAndOffline();
+  initStudentProfile();
 
   badgesButton?.addEventListener('click', () => {
     showBadgesModal();

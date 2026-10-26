@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>奇幻數學島 ✦ 後台管理中心 (Admin Dashboard)</title>
+  <meta name="description" content="奇幻數學島大冒險 - 後台管理中心，支援學童名冊增修、專屬身分鎖定連結、學習歷程即時看板、弱點分析與成績報表匯出。" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- 頂部全域導航列 -->
+  <header class="admin-navbar">
+    <div class="brand-section">
+      <span class="brand-icon">🏝️</span>
+      <h1 class="brand-title">
+        奇幻數學島
+        <span class="brand-tag">後台管理中心</span>
+      </h1>
+    </div>
+
+    <div class="navbar-actions">
+      <div id="connection-status" class="status-badge">
+        <span class="status-dot"></span> 偵測連線中...
+      </div>
+      <button id="refresh-btn" class="nav-action-btn" type="button" title="重新整理資料">
+        🔄 重新整頓
+      </button>
+      <a href="index.html" class="nav-action-btn game-btn" title="返回冒險遊戲前端">
+        🎮 返回遊戲首頁
+      </a>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="admin-container">
+    
+    <!-- 分頁導航列 -->
+    <nav class="tab-navigation" aria-label="後台模組導航">
+      <button class="tab-btn active" data-tab="students" type="button">
+        👥 學童名冊與專屬連結
+      </button>
+      <button class="tab-btn" data-tab="records" type="button">
+        📊 學習歷程即時看板
+      </button>
+      <button class="tab-btn" data-tab="weakness" type="button">
+        🎯 弱點章節統計分析
+      </button>
+      <button class="tab-btn" data-tab="export" type="button">
+        📥 成績報表與備份匯出
+      </button>
+    </nav>
+
+    <!-- 全局總覽指標 (四色卡片) -->
+    <section class="stats-grid" aria-label="全域總覽指標">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">🎒</div>
+        <div class="stat-info">
+          <span class="stat-label">註冊冒險小勇士</span>
+          <span class="stat-value" id="stat-total-students">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">🎮</div>
+        <div class="stat-info">
+          <span class="stat-label">累計通關場次</span>
+          <span class="stat-value" id="stat-total-records">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">🎯</div>
+        <div class="stat-info">
+          <span class="stat-label">全體平均得分</span>
+          <span class="stat-value" id="stat-avg-score">0 分</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24;">⭐</div>
+        <div class="stat-info">
+          <span class="stat-label">獲取榮譽星星總計</span>
+          <span class="stat-value" id="stat-total-stars">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分頁 1：學童名單管理 -->
+    <section id="tab-students" class="tab-pane active" aria-labelledby="學童名單管理">
+      <div class="pane-header">
+        <div class="pane-title">
+          <span>👥</span> 冒險小勇士名冊
+        </div>
+        <div class="pane-actions">
+          <input type="text" id="student-search" class="search-input" placeholder="🔍 搜尋小勇士姓名或 ID..." />
+          <button id="add-student-btn" class="btn-primary" type="button">
+            ➕ 新增小勇士
+          </button>
+        </div>
+      </div>
+
+      <div id="students-grid" class="students-grid">
+        <!-- 動態載入學童卡片 -->
+      </div>
+    </section>
+
+    <!-- 分頁 2：學習歷程即時看板 -->
+    <section id="tab-records" class="tab-pane" aria-labelledby="學習歷程即時看板">
+      <div class="pane-header">
+        <div class="pane-title">
+          <span>📊</span> 闖關學習歷程動態流
+        </div>
+        <div class="pane-actions">
+          <select id="filter-student" class="filter-select">
+            <option value="all">全部學童</option>
+          </select>
+          <select id="filter-subject" class="filter-select">
+            <option value="all">全部科目</option>
+            <option value="math">奇幻數學島</option>
+            <option value="english">魔法英文島</option>
+            <option value="chinese">博學國語島</option>
+            <option value="natural">自然探索島</option>
+            <option value="social">人文生活社會島</option>
+            <option value="final">期末挑戰金盃</option>
+          </select>
+          <select id="filter-grade" class="filter-select">
+            <option value="all">全部年級</option>
+            <option value="1">一年級</option>
+            <option value="2">二年級</option>
+            <option value="3">三年級</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 篩選後指標 -->
+      <div class="stats-grid" style="margin-bottom: 1.5rem;">
+        <div class="stat-card" style="padding: 0.9rem 1.1rem;">
+          <div class="stat-icon" style="font-size: 1.2rem; width: 38px; height: 38px;">🕹️</div>
+          <div class="stat-info">
+            <span class="stat-label">此條件場次</span>
+            <span class="stat-value" id="rec-stat-count" style="font-size: 1.3rem;">0</span>
+          </div>
+        </div>
+        <div class="stat-card" style="padding: 0.9rem 1.1rem;">
+          <div class="stat-icon" style="font-size: 1.2rem; width: 38px; height: 38px;">📈</div>
+          <div class="stat-info">
+            <span class="stat-label">平均答對率</span>
+            <span class="stat-value" id="rec-stat-avg" style="font-size: 1.3rem;">0 分</span>
+          </div>
+        </div>
+        <div class="stat-card" style="padding: 0.9rem 1.1rem;">
+          <div class="stat-icon" style="font-size: 1.2rem; width: 38px; height: 38px;">🌟</div>
+          <div class="stat-info">
+            <span class="stat-label">三星完美通關</span>
+            <span class="stat-value" id="rec-stat-3stars" style="font-size: 1.3rem;">0 次</span>
+          </div>
+        </div>
+        <div class="stat-card" style="padding: 0.9rem 1.1rem;">
+          <div class="stat-icon" style="font-size: 1.2rem; width: 38px; height: 38px;">⏱️</div>
+          <div class="stat-info">
+            <span class="stat-label">作答總時長</span>
+            <span class="stat-value" id="rec-stat-time" style="font-size: 1.3rem;">0 分鐘</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 歷程詳細資料表 -->
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>時間</th>
+                <th>學童</th>
+                <th>科目</th>
+                <th>年級</th>
+                <th>關卡</th>
+                <th>得分</th>
+                <th>星數</th>
+                <th>耗時</th>
+                <th>錯題分析</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody">
+              <!-- 動態載入歷程列 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分頁 3：弱點章節統計分析 -->
+    <section id="tab-weakness" class="tab-pane" aria-labelledby="弱點章節統計分析">
+      <div class="pane-header">
+        <div class="pane-title">
+          <span>🎯</span> 學習弱點章節與高頻錯題分析
+        </div>
+      </div>
+
+      <div id="weakness-content">
+        <!-- 動態載入弱點分析 -->
+      </div>
+    </section>
+
+    <!-- 分頁 4：成績報表與備份匯出 -->
+    <section id="tab-export" class="tab-pane" aria-labelledby="成績報表與備份匯出">
+      <div class="pane-header">
+        <div class="pane-title">
+          <span>📥</span> 學習歷程數據與備份匯出中心
+        </div>
+      </div>
+
+      <div class="export-grid">
+        <div class="export-card">
+          <div class="export-icon">👥</div>
+          <div class="export-title">學童名冊總覽 (CSV)</div>
+          <div class="export-desc">
+            匯出包含學童編號、姓名、頭像、累計星數、通關數與專屬一鍵鎖定連結。已內嵌 UTF-8 BOM，微軟 Excel 點開絕不亂碼。
+          </div>
+          <button id="export-students-csv" class="btn-primary" type="button" style="width: 100%;">
+            📄 下載學童名冊 CSV
+          </button>
+        </div>
+
+        <div class="export-card">
+          <div class="export-icon">📊</div>
+          <div class="export-title">完整作答歷程明細 (CSV)</div>
+          <div class="export-desc">
+            匯出每一次闖關的詳細記錄，包含學童、科目、年級、關卡標題、得分、星星數、作答秒數與錯題數。適合教師進行學期統計。
+          </div>
+          <button id="export-records-csv" class="btn-primary" type="button" style="width: 100%;">
+            📈 下載完整歷程 CSV
+          </button>
+        </div>
+
+        <div class="export-card">
+          <div class="export-icon">💾</div>
+          <div class="export-title">系統全量資料庫 (JSON)</div>
+          <div class="export-desc">
+            將所有學童與闖關歷程資料完整打包為 JSON 格式，可直接用於跨伺服器轉移、版本保存或日常智慧備份。
+          </div>
+          <button id="export-json-backup" class="btn-primary" type="button" style="width: 100%;">
+            💾 下載完整 JSON 備份
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 新增 / 編輯學童彈窗 -->
+  <div id="student-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="modal-title" class="modal-title">➕ 新增冒險小勇士</div>
+        <button id="student-modal-close" class="modal-close" type="button" aria-label="關閉彈窗">✕</button>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="student-name-input">冒險小勇士姓名</label>
+        <input type="text" id="student-name-input" class="form-input" placeholder="例如：小明、小華..." maxlength="12" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">選擇專屬吉祥物頭像</label>
+        <div id="modal-avatar-list" class="avatar-selector">
+          <!-- 動態載入 12 種頭像 -->
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="modal-cancel-btn" class="nav-action-btn" type="button">取消</button>
+        <button id="modal-save-btn" class="btn-primary" type="button">儲存小勇士</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 錯題詳細檢視彈窗 -->
+  <div id="error-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="error-modal-title">
+    <div class="modal-content" style="max-width: 540px;">
+      <div class="modal-header">
+        <div id="error-modal-title" class="modal-title">🔍 錯題明細檢視</div>
+        <button id="error-modal-close" class="modal-close" type="button" aria-label="關閉彈窗">✕</button>
+      </div>
+      <div id="error-modal-body">
+        <!-- 動態載入錯題明細 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 訊息容器 -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

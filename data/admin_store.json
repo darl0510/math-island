@@ -1,0 +1,11 @@
+{
+  "students": [
+    {
+      "id": "kid_demo",
+      "name": "試玩勇者",
+      "avatar": "🦁",
+      "created_at": "2026-10-26T16:50:00"
+    }
+  ],
+  "records": []
+}

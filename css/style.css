@@ -2918,7 +2918,8 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
     font-size: 13.5px;
     gap: 5px;
   }
-  .grade-dropdown-btn {
+  .grade-dropdown-btn,
+  .student-dropdown-btn {
     padding: 6px 10px;
     font-size: 0.88rem;
   }
@@ -2967,9 +2968,13 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
   .subject-capsule-icon {
     font-size: 15px;
   }
-  .grade-dropdown-btn {
+  .grade-dropdown-btn,
+  .student-dropdown-btn {
     padding: 5px 8px;
     font-size: 0.82rem;
+  }
+  #student-btn-name {
+    max-width: 65px;
   }
   .bar-actions {
     gap: 4px;
@@ -3022,10 +3027,18 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
     order: 3;
     margin-left: auto;
   }
-  .grade-dropdown-btn {
+  .student-pill-container {
+    order: 3;
+    margin-left: 4px;
+  }
+  .grade-dropdown-btn,
+  .student-dropdown-btn {
     padding: 4px 8px;
     font-size: 0.8rem;
     gap: 3px;
+  }
+  #student-btn-name {
+    max-width: 50px;
   }
   .bar-actions {
     order: 4;
@@ -3082,9 +3095,13 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
     height: 30px;
     font-size: 14px;
   }
-  .grade-dropdown-btn {
+  .grade-dropdown-btn,
+  .student-dropdown-btn {
     padding: 3px 5px;
     font-size: 0.74rem;
+  }
+  #student-btn-name {
+    display: none;
   }
 }
 
@@ -3189,6 +3206,355 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
 .grade-dropdown-item.is-selected {
   background: #ffd93d;
   color: #33245a;
+  font-weight: 800;
+}
+
+/* === 學童專用身分膠囊 === */
+.student-pill-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+.student-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #54a0ff;
+  color: #1e3799;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(84, 160, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.student-dropdown-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(84, 160, 255, 0.4);
+  background: #f0f7ff;
+}
+
+#student-btn-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-lock-icon {
+  font-size: 0.85rem;
+  margin-left: 2px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+.student-arrow {
+  font-size: 0.8rem;
+  color: #54a0ff;
+  transition: transform 0.2s ease;
+}
+
+.student-dropdown-btn[aria-expanded="true"] .student-arrow {
+  transform: rotate(180deg);
+}
+
+.student-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(30, 55, 153, 0.25);
+  border: 2px solid #54a0ff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1000;
+  min-width: 200px;
+  backdrop-filter: blur(12px);
+  animation: dropMenuPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.student-dropdown-menu.hidden {
+  display: none !important;
+}
+
+.student-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #576574;
+  padding: 4px 6px 6px;
+  border-bottom: 1.5px dashed #c8d6e5;
+}
+
+.student-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: #222f3e;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.student-item:hover {
+  background: #f0f7ff;
+  color: #0984e3;
+  transform: translateX(3px);
+}
+
+.student-item.is-selected {
+  background: #e1f0ff;
+  color: #0984e3;
+  font-weight: 800;
+}
+
+.student-item-avatar {
+  font-size: 1.2rem;
+}
+
+.student-item-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-item-check {
+  color: #00b894;
+  font-weight: 900;
+}
+
+.student-dropdown-actions {
+  padding-top: 6px;
+  border-top: 1px solid #f1f2f6;
+}
+
+.student-quick-action-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1.5px dashed #54a0ff;
+  background: rgba(84, 160, 255, 0.08);
+  color: #0984e3;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.student-quick-action-btn:hover {
+  background: #54a0ff;
+  color: #fff;
+}
+
+/* === 新增學童彈窗 === */
+.student-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 35, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeInModal 0.2s ease;
+}
+
+.student-modal-card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  border: 3px solid #54a0ff;
+  max-width: 420px;
+  width: 100%;
+  padding: 24px;
+  animation: scaleUpModal 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleUpModal {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.student-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.student-modal-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #1e3799;
+  font-weight: 800;
+  flex: 1;
+}
+
+.student-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #8395a7;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.15s;
+}
+
+.student-modal-close:hover {
+  color: #ee5253;
+}
+
+.student-modal-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #33245a;
+  margin-bottom: 8px;
+  margin-top: 12px;
+}
+
+.student-avatar-picker {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.avatar-opt-btn {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 1.6rem;
+  padding: 6px 2px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.avatar-opt-btn:hover {
+  transform: scale(1.15);
+  border-color: #54a0ff;
+  background: #f0f7ff;
+}
+
+.avatar-opt-btn.is-selected {
+  border-color: #54a0ff;
+  background: #e1f0ff;
+  box-shadow: 0 0 0 3px rgba(84, 160, 255, 0.35);
+  transform: scale(1.12);
+}
+
+.student-name-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 2px solid #c8d6e5;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #222f3e;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.student-name-input:focus {
+  border-color: #54a0ff;
+  box-shadow: 0 0 0 3px rgba(84, 160, 255, 0.2);
+}
+
+.student-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.student-modal-cancel {
+  flex: 1;
+  padding: 11px;
+  border-radius: 14px;
+  border: 1.5px solid #c8d6e5;
+  background: #f1f2f6;
+  color: #576574;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.student-modal-cancel:hover {
+  background: #dfe4ea;
+}
+
+.student-modal-confirm {
+  flex: 2;
+  padding: 11px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #54a0ff, #2e86de);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(46, 134, 222, 0.35);
+  transition: all 0.2s ease;
+}
+
+.student-modal-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(46, 134, 222, 0.45);
+}
+
+/* 關卡結算卡片中的學童同步標籤 */
+.result-student-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(84, 160, 255, 0.12);
+  border: 1.5px solid rgba(84, 160, 255, 0.35);
+  color: #1e3799;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 6px 0 12px 0;
+}
+.result-sync-status {
+  font-size: 0.8rem;
+  color: #00b894;
   font-weight: 800;
 }
 
