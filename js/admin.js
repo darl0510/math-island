@@ -366,8 +366,16 @@ function renderStudents() {
             <span class="metric-item-label">平均得分</span>
           </div>
         </div>
+        ${passes === 0 ? `
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: var(--radius-sm); padding: 6px 10px; margin: -4px 0 10px 0; text-align: center; font-size: 0.78rem; color: #38bdf8;">
+            💡 孩子之前已有遊玩？點下方【📥 補登本機進度】即可認領
+          </div>
+        ` : ''}
 
         <div class="student-card-actions">
+          <button type="button" class="btn-card primary" onclick="importLocalProgressToStudent('${student.id}', '${escapeHtml(student.name)}')" title="將本機先前已獲取的通關星星與最高分直接補登給此學童">
+            📥 補登本機進度
+          </button>
           <button type="button" class="btn-card copy-link" onclick="copyStudentLink('${student.id}', '${escapeHtml(student.name)}')">
             📋 複製專屬連結
           </button>
@@ -912,3 +920,129 @@ function formatDate(d) {
 // 暴露全域給 HTML 按鈕呼叫
 window.openStudentModal = openStudentModal;
 window.confirmDeleteStudent = confirmDeleteStudent;
+
+// 📥 一鍵補登/認領本機歷史進度至指定學童
+window.importLocalProgressToStudent = async function(studentId, studentName) {
+  let importedCount = 0;
+  let totalStarsImported = 0;
+  const newRecords = [];
+
+  const existingKeys = new Set(
+    state.records
+      .filter(r => r.student_id === studentId)
+      .map(r => `${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`)
+  );
+
+  // 1. 掃描本機 localStorage 中所有進度存檔 (數學小一至小六、英文、國語、自然、社會等)
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key || (!key.includes('progress') && !key.includes('fantasy'))) continue;
+
+    let subject = 'math';
+    let grade = 1;
+
+    if (key === 'fantasy-math-island-progress-v1') {
+      subject = 'math';
+      grade = 1;
+    } else {
+      const matchMath = key.match(/fantasy-math-island-progress-g(\d+)-v1/);
+      if (matchMath) {
+        subject = 'math';
+        grade = parseInt(matchMath[1], 10);
+      } else {
+        const matchOther = key.match(/fantasy-island-progress-([a-z]+)-g(\d+)-v1/);
+        if (matchOther) {
+          subject = matchOther[1];
+          grade = parseInt(matchOther[2], 10);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const data = JSON.parse(raw);
+      const starsMap = data.stars || {};
+      const bestMap = data.best || {};
+
+      for (const [lvlStr, stars] of Object.entries(starsMap)) {
+        const levelId = parseInt(lvlStr, 10);
+        const starNum = parseInt(stars, 10);
+        if (!levelId || !starNum || starNum <= 0) continue;
+
+        const uniqueKey = `${subject}_${grade}_${levelId}`;
+        if (existingKeys.has(uniqueKey)) continue;
+
+        const score = bestMap[levelId] || (starNum === 3 ? 100 : (starNum === 2 ? 80 : 60));
+        const rec = {
+          id: `rec_hist_${studentId}_${subject}_g${grade}_l${levelId}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+          student_id: studentId,
+          student_name: studentName,
+          subject: subject,
+          grade: grade,
+          level_id: levelId,
+          level_title: `第 ${levelId} 關`,
+          score: score,
+          stars: starNum,
+          duration_seconds: 60,
+          errors: [],
+          timestamp: new Date().toISOString()
+        };
+
+        newRecords.push(rec);
+        existingKeys.add(uniqueKey);
+        importedCount++;
+        totalStarsImported += starNum;
+      }
+    } catch (e) {
+      console.warn('[Admin] 讀取本機進度失敗:', key, e);
+    }
+  }
+
+  // 2. 認領既有訪客紀錄 (visitor records)
+  const localRecs = getLocalRecords();
+  localRecs.forEach(r => {
+    if (r.student_id === 'visitor') {
+      const uniqueKey = `${r.subject || 'math'}_${r.grade || 1}_${r.level_id}`;
+      if (!existingKeys.has(uniqueKey)) {
+        const cloned = {
+          ...r,
+          id: `rec_claim_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+          student_id: studentId,
+          student_name: studentName
+        };
+        newRecords.push(cloned);
+        existingKeys.add(uniqueKey);
+        importedCount++;
+        totalStarsImported += (r.stars || 0);
+      }
+    }
+  });
+
+  if (importedCount === 0) {
+    alert(`此瀏覽器目前沒有發現新的未認領本機過關紀錄。\n\n提示：\n1. 若孩子是在另一台電腦或手機平板遊玩，請在該設備打開此後台網址進行補登。\n2. 若孩子已經登入專屬帳號，只需在冒險中過關結算一局，成績便會自動傳送至後台！`);
+    return;
+  }
+
+  // 3. 儲存最新 records
+  state.records = [...newRecords, ...state.records];
+  saveLocalRecords(state.records);
+
+  // 4. 若後端伺服器在線，嘗試批次同步至後端
+  if (state.isServerOnline) {
+    for (const r of newRecords) {
+      try {
+        await fetch(`${API_BASE}/api/records`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(r)
+        });
+      } catch (e) {}
+    }
+  }
+
+  showToast(`🎉 成功為「${studentName}」補登 ${importedCount} 關歷史戰績（累計 ${totalStarsImported} 顆星）！`);
+  renderAll();
+};

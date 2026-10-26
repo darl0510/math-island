@@ -86,8 +86,106 @@ export function setCurrentStudent(student, notify = true) {
     console.warn('[Student] 儲存當前學童失敗:', e);
   }
   updateStudentPillUI();
+
+  // 若當前登入為具名學童，且本機已有歷史進度存檔，自動為其補登初始歷程
+  autoClaimLocalProgressIfEmpty(currentStudent);
+
   if (notify) {
     showToast(`歡迎挑戰者：${currentStudent.avatar} ${currentStudent.name}！`, '🎒', 2200);
+  }
+}
+
+/**
+ * 若當前登入學童尚無任何通關紀錄，且本機有歷史遊玩進度，自動補登初始成績
+ */
+export function autoClaimLocalProgressIfEmpty(student) {
+  if (!student || !student.id || student.id === 'visitor') return;
+
+  const STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';
+  let existingRecords = [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_RECORDS);
+    if (raw) existingRecords = JSON.parse(raw);
+  } catch (e) {}
+
+  let pendingRecords = [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_PENDING);
+    if (raw) pendingRecords = JSON.parse(raw);
+  } catch (e) {}
+
+  const hasAnyRecord = [...existingRecords, ...pendingRecords].some(r => r.student_id === student.id);
+  if (hasAnyRecord) return; // 已經有紀錄，無需重複補登
+
+  const newRecords = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key || (!key.includes('progress') && !key.includes('fantasy'))) continue;
+
+    let subject = 'math';
+    let grade = 1;
+    if (key === 'fantasy-math-island-progress-v1') {
+      subject = 'math';
+      grade = 1;
+    } else {
+      const matchMath = key.match(/fantasy-math-island-progress-g(\d+)-v1/);
+      if (matchMath) {
+        subject = 'math';
+        grade = parseInt(matchMath[1], 10);
+      } else {
+        const matchOther = key.match(/fantasy-island-progress-([a-z]+)-g(\d+)-v1/);
+        if (matchOther) {
+          subject = matchOther[1];
+          grade = parseInt(matchOther[2], 10);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const data = JSON.parse(raw);
+      const starsMap = data.stars || {};
+      const bestMap = data.best || {};
+
+      for (const [lvlStr, stars] of Object.entries(starsMap)) {
+        const levelId = parseInt(lvlStr, 10);
+        const starNum = parseInt(stars, 10);
+        if (!levelId || !starNum || starNum <= 0) continue;
+
+        const score = bestMap[levelId] || (starNum === 3 ? 100 : (starNum === 2 ? 80 : 60));
+        newRecords.push({
+          id: `rec_init_${student.id}_${subject}_g${grade}_l${levelId}`,
+          student_id: student.id,
+          student_name: student.name,
+          subject: subject,
+          grade: grade,
+          level_id: levelId,
+          level_title: `第 ${levelId} 關`,
+          score: score,
+          stars: starNum,
+          duration_seconds: 60,
+          errors: [],
+          timestamp: new Date().toISOString()
+        });
+      }
+    } catch (e) {}
+  }
+
+  if (newRecords.length > 0) {
+    const merged = [...newRecords, ...existingRecords];
+    try {
+      localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(merged));
+    } catch (e) {}
+
+    const mergedPending = [...newRecords, ...pendingRecords];
+    try {
+      localStorage.setItem(STORAGE_KEY_PENDING, JSON.stringify(mergedPending));
+    } catch (e) {}
+
+    console.log(`[Student] 已自動將本機 ${newRecords.length} 關歷史進度綁定至【${student.name}】！`);
   }
 }
 
