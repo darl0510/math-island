@@ -1229,10 +1229,16 @@ export function showProgressExportQRDialog(student = getCurrentStudent()) {
           <label style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 3px;">
             進度同步代碼 (可複製貼到對話中給 AI 或貼至後台)：
           </label>
-          <div style="display: flex; gap: 6px;">
+          <div style="display: flex; gap: 6px; margin-bottom: 6px;">
             <input type="text" id="export-qr-token-input" readonly value="${compactToken}" style="flex: 1; padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #10b981; background: rgba(15, 23, 42, 0.8); color: #34d399;" />
             <button id="export-qr-copy-token-btn" type="button" style="padding: 6px 14px; background: #10b981; color: #ffffff; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; white-space: nowrap;">
               📋 複製代碼
+            </button>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="export-qr-url-input" readonly value="${importUrl}" style="flex: 1; padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #3b82f6; background: rgba(15, 23, 42, 0.8); color: #38bdf8;" />
+            <button id="export-qr-copy-url-btn" type="button" style="padding: 6px 14px; background: #3b82f6; color: #ffffff; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; white-space: nowrap;">
+              🔗 複製網址
             </button>
           </div>
         </div>
@@ -1254,7 +1260,9 @@ export function showProgressExportQRDialog(student = getCurrentStudent()) {
 
   const container = modal.querySelector('#export-qr-container');
   const tokenInput = modal.querySelector('#export-qr-token-input');
+  const urlInput = modal.querySelector('#export-qr-url-input');
   const copyBtn = modal.querySelector('#export-qr-copy-token-btn');
+  const copyUrlBtn = modal.querySelector('#export-qr-copy-url-btn');
   const closeBtn = modal.querySelector('.student-modal-close');
   const cancelBtn = modal.querySelector('#close-export-qr-btn');
 
@@ -1297,6 +1305,16 @@ export function showProgressExportQRDialog(student = getCurrentStudent()) {
       setTimeout(() => copyBtn.textContent = '📋 複製代碼', 2000);
     }).catch(() => {
       prompt('請手動複製此進度代碼：', tokenInput.value);
+    });
+  });
+
+  copyUrlBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText(urlInput.value).then(() => {
+      showToast('🔗 已複製完整同步網址！傳至電腦瀏覽器點開即秒速入帳！', '✨', 3000);
+      copyUrlBtn.textContent = '✅ 已複製！';
+      setTimeout(() => copyUrlBtn.textContent = '🔗 複製網址', 2000);
+    }).catch(() => {
+      prompt('請手動複製此完整網址：', urlInput.value);
     });
   });
 }

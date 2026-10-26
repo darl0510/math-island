@@ -1281,15 +1281,101 @@ async function checkUrlImportToken() {
   } catch (e) {}
 
   if (token) {
+    const lastKey = `imported_${token.slice(0, 30)}`;
+    const alreadyProcessed = sessionStorage.getItem(lastKey);
+
     try {
-      await importSyncTokenData(token);
-      // 清除網址參數，避免每次重整都重複彈窗
-      const cleanUrl = window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
+      const res = await importSyncTokenData(token);
+      sessionStorage.setItem(lastKey, 'true');
+
+      // 💡 絕對不要清空 URL 上的 import_token！保留完整網址讓使用者可以複製轉發到 LINE 或電腦
+      if (!alreadyProcessed) {
+        showImportSuccessModal(res, token);
+      }
     } catch (err) {
       showToast(`❌ 掃碼自動同步失敗：${err.message}`, '⚠️', 4000);
     }
   }
+}
+
+// 掃碼入帳成功後的便捷轉傳對話框 (支援一鍵複製短代碼與完整網址)
+function showImportSuccessModal(res, token) {
+  const existing = document.getElementById('scan-success-share-modal');
+  if (existing) existing.remove();
+
+  const fullUrl = window.location.href;
+  const modal = document.createElement('div');
+  modal.id = 'scan-success-share-modal';
+  modal.className = 'modal-overlay active';
+  modal.innerHTML = `
+    <div class="modal-content" style="max-width: 480px; text-align: center; border: 2px solid #10b981;">
+      <div class="modal-header">
+        <span class="modal-icon" style="font-size: 1.5rem;">🎉</span>
+        <h3 style="color: #34d399; font-size: 1.15rem; margin: 0; font-weight: 800;">手機掃碼成功！戰績已即時入帳</h3>
+        <button id="scan-share-close-btn" class="modal-close" type="button">✕</button>
+      </div>
+
+      <div class="modal-body" style="font-size: 0.9rem; text-align: left; padding-top: 0.5rem;">
+        <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 0.85rem;">
+          <div style="font-weight: 800; font-size: 1rem; color: #f8fafc;">
+            🎒 小勇士：${res?.kidName || '挑戰者'}
+          </div>
+          <div style="color: #34d399; font-size: 0.85rem; margin-top: 3px;">
+            ⭐ 累計星數：${res?.totalStars || 0} 顆星 ｜ 🎮 通關場次：${res?.importedCount || 0} 場
+          </div>
+        </div>
+
+        <div style="font-size: 0.82rem; color: #94a3b8; line-height: 1.5; margin-bottom: 0.75rem;">
+          💡 <strong>成績已在您手機後台同步完成！</strong><br/>
+          若您需要將此進度<strong>傳至電腦</strong>或<strong>貼給 AI 更新</strong>，請點下方一鍵複製：
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button id="copy-share-token-btn" type="button" class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); font-weight: 700; padding: 9px 14px; width: 100%;">
+            📋 一鍵複製進度代碼 (最適合貼給 AI 或 LINE)
+          </button>
+          <button id="copy-share-url-btn" type="button" class="btn-primary" style="background: #3b82f6; font-weight: 700; padding: 9px 14px; width: 100%;">
+            🔗 一鍵複製完整同步網址 (傳至電腦點開即入帳)
+          </button>
+        </div>
+
+        <div style="margin-top: 0.75rem; font-size: 0.75rem; color: #64748b; background: rgba(15, 23, 42, 0.6); padding: 6px 10px; border-radius: 6px;">
+          網址中已完整保留 <code>?import_token=...</code>，直接複製手機網址列貼至 LINE 也 100% 帶有全部成績！
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 0.75rem;">
+        <button id="scan-share-confirm-btn" type="button" class="btn-primary" style="width: 100%; background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; color: #38bdf8;">
+          好的，查看手機後台
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const closeModal = () => modal.remove();
+  modal.querySelector('#scan-share-close-btn')?.addEventListener('click', closeModal);
+  modal.querySelector('#scan-share-confirm-btn')?.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  modal.querySelector('#copy-share-token-btn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(token).then(() => {
+      showToast('📋 已複製進度代碼！可在 LINE 貼上傳給電腦或直接發給 AI！', '✨', 3200);
+    }).catch(() => {
+      prompt('請手動複製進度代碼：', token);
+    });
+  });
+
+  modal.querySelector('#copy-share-url-btn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      showToast('🔗 已複製完整同步網址！傳至電腦瀏覽器點開即秒速入帳！', '✨', 3200);
+    }).catch(() => {
+      prompt('請手動複製完整同步網址：', fullUrl);
+    });
+  });
 }
 
 // ==========================================
