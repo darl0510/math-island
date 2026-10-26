@@ -3,19 +3,75 @@ import { getGradeConfig } from './grades.js';
 import { SUBJECTS, getSubjectConfig, isSubjectReady, getSubjectSpeechLang } from './subjects.js';
 import { syncGradeLevels } from './levels/index.js';
 import { loadQuestionBankForGrade } from './question-bank.js';
-import { audio } from './audio.js';
+import { audio, isIOSDevice } from './audio.js';
 import { renderHome, openMap } from './map.js';
 import { hasActiveSession, teardownSession, exitLevel } from './engine.js';
 import { setScreen, showToast } from './ui.js';
 import { loadQuestionBank } from './question-bank.js';
 import { showBadgesModal, getUnlockedBadgeCount } from './badges.js';
 import { isZhuyinEnabled, toggleZhuyin } from './zhuyin.js';
+import { showReportModal } from './poster.js';
 
 const musicButton = document.getElementById('music-btn');
 const ttsButton = document.getElementById('tts-btn');
 const zhuyinButton = document.getElementById('zhuyin-btn');
+const iosGuideButton = document.getElementById('ios-guide-btn');
 const homeButton = document.getElementById('home-btn');
 const badgesButton = document.getElementById('badges-btn');
+const reportButton = document.getElementById('report-btn');
+const pwaInstallButton = document.getElementById('pwa-install-btn');
+const offlineBadge = document.getElementById('offline-badge');
+
+/* ===== PWA 安裝提示與離線狀態即時感知 ===== */
+function setupPWAAndOffline() {
+  let deferredInstallPrompt = null;
+
+  // 攔截瀏覽器 PWA 原生安裝提示
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (pwaInstallButton) {
+      pwaInstallButton.classList.remove('hidden');
+    }
+  });
+
+  pwaInstallButton?.addEventListener('click', async () => {
+    audio.playSfx('click', 0.4);
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    if (outcome === 'accepted') {
+      showToast('感謝安裝奇幻數學島！', '🎉', 2400);
+    }
+    deferredInstallPrompt = null;
+    pwaInstallButton.classList.add('hidden');
+  });
+
+  window.addEventListener('appinstalled', () => {
+    if (pwaInstallButton) pwaInstallButton.classList.add('hidden');
+    showToast('奇幻數學島已成功安裝到桌面！', '🌟', 3000);
+  });
+
+  // 網路狀態變更監聽
+  function updateOnlineStatus(isOnline) {
+    if (offlineBadge) {
+      offlineBadge.classList.toggle('hidden', isOnline);
+    }
+    if (!isOnline) {
+      showToast('進入離線探索模式，所有題庫與教具隨時暢玩！', '⚡', 3200);
+    } else {
+      showToast('網路連線已恢復！', '🟢', 2000);
+    }
+  }
+
+  window.addEventListener('offline', () => updateOnlineStatus(false));
+  window.addEventListener('online', () => updateOnlineStatus(true));
+
+  // 初始載入時狀態同步
+  if (!navigator.onLine && offlineBadge) {
+    offlineBadge.classList.remove('hidden');
+  }
+}
 
 /* ===== 頂部科目膠囊 (方案 A：多科目切換大廳) ===== */
 function syncSubjectUI(subjectId = getCurrentSubject()) {
@@ -175,10 +231,16 @@ function init() {
   renderHome();
   syncAudioButtons();
   syncZhuyinButton();
+  setupPWAAndOffline();
 
   badgesButton?.addEventListener('click', () => {
     showBadgesModal();
   });
+
+  reportButton?.addEventListener('click', () => {
+    showReportModal();
+  });
+  window.showReportModal = showReportModal;
 
   zhuyinButton?.addEventListener('click', () => {
     const on = toggleZhuyin();
@@ -217,9 +279,26 @@ function init() {
     audio.playMusic('title');
   });
 
-  window.addEventListener('pointerdown', () => {
+  if (iosGuideButton) {
+    if (isIOSDevice()) {
+      iosGuideButton.classList.remove('hidden');
+      iosGuideButton.addEventListener('click', () => {
+        audio.playSfx('click', 0.4);
+        audio.showIOSAudioGuideModal();
+      });
+      // iOS 設備在使用者進入首頁後，若未看過提示則溫馨引導
+      setTimeout(() => {
+        audio.checkIOSAudioGuide();
+      }, 1800);
+    }
+  }
+
+  const unlockAudio = () => {
     audio.unlock();
-  }, { once: true });
+  };
+  window.addEventListener('pointerdown', unlockAudio, { once: true });
+  window.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+  window.addEventListener('click', unlockAudio, { once: true });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && hasActiveSession()) exitLevel();
@@ -264,6 +343,8 @@ async function boot() {
   syncGradeLevels(grade);
   await loadQuestionBankForGrade(grade, getCurrentSubject());
   await audio.loadStaticManifest();
+  // 全面預載音訊池 (SFX 及主主題 BGM)
+  audio.preloadAllAudio();
   init();
 }
 

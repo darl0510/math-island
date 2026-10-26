@@ -260,29 +260,35 @@ export function unlockedLevel() {
 
 /* ===== 跨科目全年級 144 關進度持久化匯總 API ===== */
 
-export function getAllSubjectsSummary() {
-  const grades = [1, 2, 3];
+export function getAllSubjectsSummary(targetGrade = null) {
+  const grades = targetGrade ? [Number(targetGrade)] : [1, 2, 3];
+  const activeSubjects = SUBJECTS.filter((sub) => sub.ready);
+  const maxTotalLevels = activeSubjects.length * (targetGrade ? 16 : 48);
+  const maxTotalStars = maxTotalLevels * 3;
+
   const summary = {
+    targetGrade: targetGrade ? Number(targetGrade) : null,
     totalStars: 0,
-    maxTotalStars: 144 * 3, // 432
+    maxTotalStars,
     completedLevels: 0,
-    maxTotalLevels: 144,
+    maxTotalLevels,
     percentage: 0,
     subjects: {},
   };
 
-  const coreSubjects = SUBJECTS.filter((sub) => !sub.isChallenge);
-  for (const sub of coreSubjects) {
+  for (const sub of activeSubjects) {
     const sId = sub.id;
+    const subMaxLevels = targetGrade ? 16 : 48;
     const subSummary = {
       name: sub.name,
       shortName: sub.shortName,
       icon: sub.icon,
       color: sub.color,
+      isChallenge: Boolean(sub.isChallenge),
       totalStars: 0,
-      maxStars: 48 * 3, // 144
+      maxStars: subMaxLevels * 3,
       completedLevels: 0,
-      maxLevels: 48,
+      maxLevels: subMaxLevels,
       grades: {},
     };
 
@@ -306,7 +312,7 @@ export function getAllSubjectsSummary() {
     summary.completedLevels += subSummary.completedLevels;
   }
 
-  summary.percentage = Math.round((summary.completedLevels / summary.maxTotalLevels) * 100);
+  summary.percentage = maxTotalLevels > 0 ? Math.round((summary.completedLevels / summary.maxTotalLevels) * 100) : 0;
   return summary;
 }
 

@@ -3,6 +3,7 @@ import { completedCount, totalStars, getCurrentGrade, getCurrentSubject } from '
 import { escapeHtml, launchConfetti, fireworks } from './ui.js';
 import { showBadgesModal } from './badges.js';
 import { getGradeConfig } from './grades.js';
+import { showReportModal } from './poster.js';
 
 const GRADE_TITLES = {
   1: {
@@ -110,6 +111,9 @@ export function showTrophyModal({
         <button class="big-btn trophy-claim-btn" type="button" id="trophy-claim-btn">
           <span>🏆 榮耀領取金盃</span>
         </button>
+        <button class="secondary-btn trophy-report-btn" type="button" id="trophy-report-btn">
+          <span>📜 素養成果海報與成績單</span>
+        </button>
         <button class="secondary-btn trophy-badges-btn" type="button" id="trophy-badges-btn">
           <span>🏅 查看榮譽徽章</span>
         </button>
@@ -138,6 +142,12 @@ export function showTrophyModal({
 
   modal.querySelector('.trophy-close-btn').addEventListener('click', close);
   modal.querySelector('#trophy-claim-btn').addEventListener('click', close);
+  modal.querySelector('#trophy-report-btn').addEventListener('click', () => {
+    close();
+    setTimeout(() => {
+      showReportModal({ grade });
+    }, 300);
+  });
   modal.querySelector('#trophy-badges-btn').addEventListener('click', () => {
     close();
     setTimeout(() => {

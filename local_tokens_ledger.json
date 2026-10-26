@@ -1,90 +1,7 @@
 {
-  "totalTokens": 554342,
-  "totalSavedUsdEst": 1.0936,
+  "totalTokens": 560765,
+  "totalSavedUsdEst": 1.1063,
   "sessions": [
-    {
-      "id": "sess_1792987100000",
-      "task": "頂部導覽列 RWD 響應式雙層架構優化 ✕ 徹底根治 6 大科目在平板與手機端擠壓問題",
-      "version": "v2.7.1",
-      "executor": "cloud-first (user-directed visual iteration)",
-      "hermes_status": "offline",
-      "promptTokens": 1800,
-      "completionTokens": 700,
-      "totalTokens": 2500,
-      "savedUsdEst": 0.0050,
-      "status": "passed",
-      "note": "重構 860px 斷點雙層導覽列佈局，Row 1 專注品牌與功能鍵，Row 2 為 6 大科目平滑滾動膠囊列；首頁隱藏 Home 鈕；實測 1280px/1024px/768px/430px/375px 五大視窗零擠壓。",
-      "timestamp": "2026-10-26T03:58:30.000000+00:00"
-    },
-    {
-      "id": "sess_1792982845000",
-      "task": "建置全新科目『🧭 奇幻社會島 (Social)』小三 16 關卡定義與 128 題台灣地理文化公民題庫",
-      "version": "v2.7.0",
-      "executor": "cloud-first (local-offline fallback)",
-      "hermes_status": "offline",
-      "promptTokens": 3400,
-      "completionTokens": 1400,
-      "totalTokens": 4800,
-      "savedUsdEst": 0.0096,
-      "status": "passed",
-      "note": "全新建立奇幻社會島 (Social) 小三四大島嶼 16 關卡定義，並生成 128 題 108 課綱台灣地理、產業交通、傳統文化、現代公民素養題庫，更新 subjects、grades、badges 與 Service Worker 快取，全數通過 node --check 自檢。",
-      "timestamp": "2026-10-26T02:48:45.000000+00:00"
-    },
-    {
-      "id": "sess_1792981881720",
-      "task": "英文島選項語音順序 100% 鏡像畫面打亂 ✕ 徹底防洩題與正解先念根治",
-      "version": "v2.6.1",
-      "executor": "cloud-first (local-offline fallback)",
-      "hermes_status": "offline",
-      "promptTokens": 3100,
-      "completionTokens": 1200,
-      "totalTokens": 4300,
-      "savedUsdEst": 0.0086,
-      "status": "passed",
-      "note": "提前隨機化打亂選項並存於 question.currentOptions，使 playQuestionAudio、卡片朗讀鈕、自動 TTS、頂部鈕與鍵盤 R 鍵 100% 依畫面選項 1/2/3 順序播放，嚴禁直接讀題庫 raw[0] 首位答案，徹底根絕暴雷破梗。",
-      "timestamp": "2026-10-26T02:31:21.720214+00:00"
-    },
-    {
-      "id": "sess_1792981374248",
-      "task": "平板與中窄螢幕頂部導覽列 RWD 響應式系統重構 ✕ 根除直向折行擠壓",
-      "version": "v2.6.0",
-      "executor": "cloud-first (local-offline fallback)",
-      "hermes_status": "offline",
-      "promptTokens": 2800,
-      "completionTokens": 1100,
-      "totalTokens": 3900,
-      "savedUsdEst": 0.0078,
-      "status": "passed",
-      "note": "為 .grade-dropdown-btn, #grade-btn-text, .brand, .bar-actions 注入 white-space: nowrap 與 flex-shrink: 0；實裝 1200px / 1040px / 860px / 680px 四階梯式平滑 RWD 斷點，徹底根除平板下文字變三行直排問題。",
-      "timestamp": "2026-10-26T02:22:54.248834+00:00"
-    },
-    {
-      "id": "sess_1792981064625",
-      "task": "英文島題目朗讀選項雙軌音效 ✕ 消除無關 Apple 發音教具 ✕ 選項獨立點讀實裝",
-      "version": "v2.5.9",
-      "executor": "cloud-first (local-offline fallback)",
-      "hermes_status": "offline",
-      "promptTokens": 5200,
-      "completionTokens": 2400,
-      "totalTokens": 7600,
-      "savedUsdEst": 0.0152,
-      "status": "passed",
-      "note": "實裝 playQuestionAudio 與雙語音效序列，聽力題自動朗讀選項；選項按鈕增設獨立 🔊 點讀發音按鈕；徹底修復 englishPhonics 盲目 fallback 至 letter a 冒出 apple 之問題；清洗 88 處 dummy speak。",
-      "timestamp": "2026-10-26T02:17:44.625144+00:00"
-    },
-    {
-      "id": "sess_1792946964928",
-      "task": "國語注音跑版修復 ✕ 筆順部首零洩題 ✕ 英文聽聽看防暴雷與題幹本地化",
-      "version": "v2.5.8",
-      "executor": "cloud-first (local-offline fallback)",
-      "promptTokens": 4800,
-      "completionTokens": 2200,
-      "totalTokens": 7000,
-      "savedUsdEst": 0.014,
-      "status": "passed",
-      "note": "CSS duplicate .phonetic-card 移除並重構拼讀算式卡；修復小二國語筆順/部首 character 洩題與注音暴雷；重構英文朗讀按鈕防洩題與中間圖示防洩題，20 題英文題幹本地化。144 關測試全數 PASS。",
-      "timestamp": "2026-10-25T16:49:24.928381+00:00"
-    },
     {
       "id": "sess_1792912712671",
       "task": "方案 A 多科目切換大廳架構升級 (頂部科目膠囊、en-US 美語語音引擎、多科進度獨立記帳)",
@@ -566,15 +483,76 @@
       "status": "failed",
       "note": "ReAct autonomous: iterations=1 tools=0 modified=[]",
       "timestamp": "2026-10-26T10:36:04.079709"
+    },
+    {
+      "id": "sess_1792989351228",
+      "task": "驗收全科目 (數、英、國、自、社、挑戰) 小三全滿貫 96 關卡資料與雙軌語音，完成後 node --check 自檢",
+      "promptTokens": 220,
+      "completionTokens": 0,
+      "totalTokens": 220,
+      "savedUsdEst": 0.00044,
+      "status": "passed",
+      "note": "小三全滿貫 6 科目 96 關卡資料與雙軌語音驗收全部通過，node --check 56 個檔案語法自檢全綠燈",
+      "timestamp": "2026-10-26T12:35:51.228703"
+    },
+    {
+      "id": "sess_1792991522207",
+      "task": "實裝跨領域綜合素養成果分享海報與家長成績單報表功能 (Canvas 繪製/下載/總結全科星數)",
+      "promptTokens": 217,
+      "completionTokens": 0,
+      "totalTokens": 217,
+      "savedUsdEst": 0.000434,
+      "status": "failed",
+      "note": "ReAct autonomous: iterations=1 tools=0 modified=[]",
+      "timestamp": "2026-10-26T13:12:02.207759"
+    },
+    {
+      "id": "sess_1792993732501",
+      "task": "實裝跨領域綜合素養成果分享海報與家長成績單報表功能 (Canvas 繪製/下載/總結全科星數)",
+      "promptTokens": 217,
+      "completionTokens": 0,
+      "totalTokens": 217,
+      "savedUsdEst": 0.000434,
+      "status": "failed",
+      "note": "ReAct autonomous: iterations=1 tools=0 modified=[]",
+      "timestamp": "2026-10-26T13:48:52.501764"
+    },
+    {
+      "id": "sess_1792999456558",
+      "task": "實裝音訊資源全面預載與 iOS 靜音模式自動提示引導",
+      "promptTokens": 211,
+      "completionTokens": 0,
+      "totalTokens": 211,
+      "savedUsdEst": 0.000422,
+      "status": "failed",
+      "note": "ReAct autonomous: iterations=1 tools=0 modified=[]",
+      "timestamp": "2026-10-26T15:24:16.558634"
+    },
+    {
+      "timestamp": "2026-10-26T07:27:30.017349+00:00",
+      "date": "2026-10-26",
+      "project": "math-island",
+      "version": "0.4.37",
+      "tokens": 45,
+      "savedUsd": 9e-05,
+      "modelName": "claude-code-local-8080",
+      "delegator": "Claude-Code-Autonomous-Worker"
+    },
+    {
+      "id": "sess_1793001004358",
+      "task": "離線 PWA 體驗與 Service Worker 快取效能優化",
+      "promptTokens": 213,
+      "completionTokens": 0,
+      "totalTokens": 213,
+      "savedUsdEst": 0.000426,
+      "status": "failed",
+      "note": "ReAct autonomous: iterations=1 tools=0 modified=[]",
+      "timestamp": "2026-10-26T15:50:04.358313"
     }
   ],
-  "updatedAt": "2026-10-26T10:36:04.079719",
+  "updatedAt": "2026-10-26T15:50:04.358321",
   "lastStatus": "failed",
   "lastNote": "ReAct autonomous: iterations=1 tools=0 modified=[]",
-  "lastPassedAt": "2026-10-25T23:44:15.265075",
-  "hermes_status": {
-    "online": true,
-    "checkedAt": "2026-10-25T21:46:00.000000",
-    "mode": "cloud-directed"
-  }
+  "lastPassedAt": "2026-10-26T12:39:07.867117",
+  "hermes_status": "offline"
 }

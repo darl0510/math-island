@@ -89,7 +89,8 @@
       <span class="brand-star" aria-hidden="true">✦</span>
       <span id="brand-subject-title">奇幻數學島</span>
       <span class="brand-sub" id="brand-sub-text">大冒險</span>
-      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.7.1">v2.7.1</span>
+      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.7.5">v2.7.5</span>
+      <span id="offline-badge" class="offline-badge hidden" title="目前處於離線狀態，題庫與教具已全量離線快取，暢玩無阻">⚡ 離線模式</span>
     </div>
 
     <!-- 頂部科目膠囊：由 js/subjects.js 註冊表渲染，新增科目零硬編碼 -->
@@ -109,11 +110,20 @@
       </div>
     </div>
     <div class="bar-actions">
+      <button id="pwa-install-btn" class="bar-btn pwa-install-btn hidden" type="button" aria-label="安裝應用程式" title="安裝奇幻數學島至桌面或主螢幕">
+        <span>📲</span>
+      </button>
+      <button id="report-btn" class="bar-btn report-btn" type="button" aria-label="查看跨領域素養海報與成績單" title="查看跨領域素養成果海報與家長成績單">
+        <span>📊</span>
+      </button>
       <button id="badges-btn" class="bar-btn badges-btn" type="button" aria-label="查看學習徽章" title="查看榮譽學習徽章館">
         <span class="badge-btn-wrap">🏅<span class="badge-count-pill" id="badge-count-pill">0</span></span>
       </button>
       <button id="zhuyin-btn" class="bar-btn zhuyin-btn" type="button" aria-pressed="true" aria-label="開關注音標示" title="開關注音標示 (ㄅㄆㄇ)">
         <span class="zhuyin-btn-icon">ㄅ</span>
+      </button>
+      <button id="ios-guide-btn" class="bar-btn ios-guide-btn hidden" type="button" aria-label="iOS 聲音排查指引" title="iOS 聲音與靜音鍵排查指引">
+        <span>🍎</span>
       </button>
       <button id="music-btn" class="bar-btn music-btn" type="button" aria-pressed="true" aria-label="開關音樂">
         <span>🎵</span>

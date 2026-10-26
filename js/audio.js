@@ -5,6 +5,16 @@ const TTS_STYLE = '台灣口音（中華民國國語），親切、活潑、溫�
 const TTS_VOICE = 'Aoede';
 const MAX_CACHE = 120;
 
+export function isIOSDevice() {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPad|iPhone|iPod/.test(ua);
+  const isIPadOS = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  return isIOS || isIPadOS;
+}
+
+const COMMON_SFX = ['click', 'correct', 'wrong', 'levelup', 'whoosh'];
+
 class AudioManager {
   constructor() {
     this.musicOn = getState().musicOn !== false;
@@ -25,6 +35,9 @@ class AudioManager {
     this.unlocked = false;
     this.onMusicChange = null;
     this.onTtsChange = null;
+    this.sfxPool = new Map();
+    this.preloaded = false;
+    this.audioContext = null;
 
     this.cachedVoices = [];
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -45,11 +58,61 @@ class AudioManager {
     }
   }
 
+  async unlockAudioContext() {
+    if (typeof window === 'undefined') return;
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      if (!this.audioContext) {
+        this.audioContext = new AudioContextClass();
+      }
+      if (this.audioContext.state === 'suspended') {
+        await this.audioContext.resume();
+      }
+      // 播放極短 0.001s 靜音 buffer 徹底解鎖 iOS 音訊輸出硬體
+      const buffer = this.audioContext.createBuffer(1, 1, 22050);
+      const source = this.audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(this.audioContext.destination);
+      source.start(0);
+    } catch (e) {
+      /* 容錯略過 */
+    }
+  }
+
   unlock() {
     this.unlocked = true;
+    this.unlockAudioContext().catch(() => {});
     if (!this.musicOn) return;
     if (this.currentTheme) this.playMusic(this.currentTheme, true);
     else this.playMusic('title');
+  }
+
+  /* 音訊資源全面預載池化：即開即玩，0 秒卡頓 */
+  async preloadAllAudio() {
+    if (this.preloaded || typeof window === 'undefined') return;
+    this.preloaded = true;
+
+    // 1. 預載常用 SFX 音效池 (每個音效預建 2 個實例供多軌重疊播放)
+    for (const name of COMMON_SFX) {
+      const pool = [];
+      for (let i = 0; i < 2; i++) {
+        const audio = new Audio(`${BASE}/sfx/${name}.mp3`);
+        audio.preload = 'auto';
+        try {
+          audio.load();
+        } catch {}
+        pool.push(audio);
+      }
+      this.sfxPool.set(name, pool);
+    }
+
+    // 2. 預載主選單 BGM
+    try {
+      const titleBgm = new Audio(`${BASE}/music/title.mp3`);
+      titleBgm.preload = 'auto';
+      titleBgm.load();
+    } catch {}
   }
 
   toggleMusic(force) {
@@ -166,9 +229,128 @@ class AudioManager {
   }
 
   playSfx(name, volume = 0.65) {
-    const audio = new Audio(`${BASE}/sfx/${name}.mp3`);
-    audio.volume = volume;
-    audio.play().catch(() => {});
+    let pool = this.sfxPool.get(name);
+    if (!pool) {
+      pool = [];
+      this.sfxPool.set(name, pool);
+    }
+    // 尋找空閒的音效通道實例
+    let audioInstance = pool.find(a => a.paused || a.ended);
+    if (!audioInstance) {
+      if (pool.length < 4) {
+        audioInstance = new Audio(`${BASE}/sfx/${name}.mp3`);
+        audioInstance.preload = 'auto';
+        pool.push(audioInstance);
+      } else {
+        // 若超出上限，復用第一個
+        audioInstance = pool[0];
+      }
+    }
+    try {
+      audioInstance.volume = volume;
+      audioInstance.currentTime = 0;
+      audioInstance.play().catch(() => {});
+    } catch {}
+  }
+
+  /* iOS 靜音模式自動提示引導與排查彈窗 */
+  showIOSAudioGuideModal() {
+    if (typeof document === 'undefined') return;
+    const existing = document.getElementById('ios-audio-guide-overlay');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'ios-audio-guide-overlay';
+    overlay.className = 'ios-guide-overlay';
+    overlay.innerHTML = `
+      <div class="ios-guide-modal" role="dialog" aria-modal="true" aria-labelledby="ios-guide-title">
+        <button class="round-back ios-guide-close" type="button" aria-label="關閉提示">✕</button>
+        <div class="ios-guide-header">
+          <span class="ios-guide-icon" aria-hidden="true">🍎</span>
+          <div>
+            <h2 id="ios-guide-title">iOS 聲音與朗讀提示</h2>
+            <p class="ios-guide-sub">iPhone / iPad 聽不到聲音時的 3 步排查</p>
+          </div>
+        </div>
+
+        <div class="ios-guide-steps">
+          <div class="ios-step-card">
+            <div class="step-num">1</div>
+            <div class="step-icon">🔕 ➔ 🔔</div>
+            <div class="step-content">
+              <strong>檢查 iPhone 機身側邊靜音撥片</strong>
+              <p>若側邊開關露出<span class="highlight-orange">橘色</span>代表處於「靜音模式」，請撥向螢幕方向開啟鈴聲！（iPhone 15 Pro/16 請確認動作按鈕未靜音）</p>
+            </div>
+          </div>
+
+          <div class="ios-step-card">
+            <div class="step-num">2</div>
+            <div class="step-icon">📱</div>
+            <div class="step-content">
+              <strong>iPad 檢查控制中心靜音鈴鐺</strong>
+              <p>從螢幕右上角向下滑動打開「控制中心」，確認鈴鐺圖示沒有斜線。</p>
+            </div>
+          </div>
+
+          <div class="ios-step-card">
+            <div class="step-num">3</div>
+            <div class="step-icon">🔊</div>
+            <div class="step-content">
+              <strong>調高媒體與鈴聲音量</strong>
+              <p>按壓機身側邊音量「+」鍵，建議音量調整在 50% 以上。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ios-guide-actions">
+          <button class="ios-test-btn" type="button" id="ios-test-sound">
+            <span>🎵 測試播放聲音</span>
+          </button>
+          <button class="big-btn ios-confirm-btn" type="button" id="ios-dismiss-guide">我知道了</button>
+        </div>
+        <div class="ios-guide-footer">
+          <label class="ios-never-again">
+            <input type="checkbox" id="ios-never-prompt" />
+            <span>不再主動顯示此提示</span>
+          </label>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const close = () => {
+      const never = overlay.querySelector('#ios-never-prompt')?.checked;
+      if (never) {
+        try { localStorage.setItem('math_island_ios_audio_dismissed', 'true'); } catch {}
+      }
+      overlay.remove();
+    };
+
+    overlay.querySelector('.ios-guide-close')?.addEventListener('click', close);
+    overlay.querySelector('#ios-dismiss-guide')?.addEventListener('click', close);
+    overlay.querySelector('#ios-test-sound')?.addEventListener('click', () => {
+      this.unlock();
+      this.playSfx('correct', 0.9);
+      if (this.ttsOn) {
+        this.speak('聲音測試成功！奇幻數學島大冒險歡迎你！');
+      }
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+  }
+
+  /* 智慧檢查是否需要引導 iOS 使用者 */
+  checkIOSAudioGuide(force = false) {
+    if (!isIOSDevice()) return;
+    if (!force) {
+      try {
+        if (localStorage.getItem('math_island_ios_audio_dismissed') === 'true') return;
+      } catch {}
+    }
+    this.showIOSAudioGuideModal();
   }
 
   playJingle(name, volume = 0.5) {
