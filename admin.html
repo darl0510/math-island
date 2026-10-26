@@ -28,6 +28,9 @@
       <div id="connection-status" class="status-badge">
         <span class="status-dot"></span> 偵測連線中...
       </div>
+      <button id="tablet-connect-btn" class="nav-action-btn" type="button" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #059669; color: #fff; font-weight: 700;" title="產生平板掃碼直連 QR Code 與專屬網址">
+        📱 平板直連 QR Code
+      </button>
       <button id="refresh-btn" class="nav-action-btn" type="button" title="重新整理資料">
         🔄 重新整頓
       </button>
@@ -294,9 +297,75 @@
     </div>
   </div>
 
+  <!-- 平板直連 QR Code 與網址彈窗 -->
+  <div id="tablet-qr-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="tablet-qr-modal-title">
+    <div class="modal-content" style="max-width: 520px; text-align: center;">
+      <div class="modal-header">
+        <div id="tablet-qr-modal-title" class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+          <span>📱</span> 平板掃碼直連冒險島
+        </div>
+        <button id="tablet-qr-modal-close" class="modal-close" type="button" aria-label="關閉彈窗">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding-top: 0.5rem;">
+        <!-- 目標學童選擇 -->
+        <div class="form-group" style="text-align: left; margin-bottom: 0.9rem;">
+          <label class="form-label" for="qr-target-student">鎖定冒險小勇士身分：</label>
+          <select id="qr-target-student" class="form-input" style="font-weight: 600;">
+            <option value="">🎒 自由登入 / 訪客模式</option>
+          </select>
+        </div>
+
+        <!-- 伺服器主機網址 (自動偵測 LAN IP) -->
+        <div class="form-group" style="text-align: left; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <label class="form-label" for="qr-server-host" style="margin-bottom: 0;">後台主機網址 (Host IP)：</label>
+            <span id="qr-lan-status" style="font-size: 0.78rem; color: #34d399; font-weight: 600;">📡 局域網已連線</span>
+          </div>
+          <input type="text" id="qr-server-host" class="form-input" placeholder="例如：http://192.168.1.100:8000" />
+          <div style="font-size: 0.78rem; color: var(--text-dim); margin-top: 4px;">
+            💡 平板必須與本電腦處於【同一 Wi-Fi 或熱點】方可連線。
+          </div>
+        </div>
+
+        <!-- QR Code 視覺展示卡片 -->
+        <div class="qr-display-card" style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-md); display: inline-flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.4); margin: 0.5rem auto 1rem; border: 4px solid #38bdf8;">
+          <div id="qr-canvas-container" style="min-width: 200px; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+            <!-- 動態渲染 QR Code (SVG/Canvas/IMG) -->
+          </div>
+          <div id="qr-student-badge" style="margin-top: 10px; font-size: 0.88rem; font-weight: 800; color: #0f172a; background: #e0f2fe; padding: 4px 12px; border-radius: 999px;">
+            🎒 自由登入模式
+          </div>
+        </div>
+
+        <!-- 完整直連網址顯示與複製 -->
+        <div class="form-group" style="text-align: left; margin-bottom: 0.75rem;">
+          <label class="form-label" for="qr-full-url">平板直連專屬網址：</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="qr-full-url" class="form-input" readonly style="background: rgba(15, 23, 42, 0.8); color: #38bdf8; font-size: 0.85rem;" />
+            <button id="qr-copy-url-btn" type="button" class="btn-primary" style="white-space: nowrap; padding: 0 14px; font-weight: 700;">
+              📋 複製
+            </button>
+          </div>
+        </div>
+
+        <!-- 底部輔助按鈕 -->
+        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 0.75rem;">
+          <a id="qr-open-link-btn" href="#" target="_blank" class="nav-action-btn" style="text-decoration: none; font-size: 0.85rem; padding: 6px 14px;">
+            🚀 在電腦瀏覽器試開
+          </a>
+          <button id="qr-modal-close-btn" class="nav-action-btn" type="button" style="font-size: 0.85rem; padding: 6px 14px;">
+            關閉
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast 訊息容器 -->
   <div id="toast-container" class="toast-container"></div>
 
+  <script src="js/qrcode.min.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

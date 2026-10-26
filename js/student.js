@@ -223,7 +223,7 @@ export function autoClaimLocalProgressIfEmpty(student) {
 export async function syncStudentsFromServer() {
   cachedStudents = getLocalStudents();
   try {
-    const res = await fetch('/api/students', { cache: 'no-store' });
+    const res = await apiFetch('/api/students', { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.students)) {
@@ -265,7 +265,7 @@ export async function addNewStudent({ name, avatar }) {
 
   // 嘗試送往後端
   try {
-    const res = await fetch('/api/students', {
+    const res = await apiFetch('/api/students', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: cleanName, avatar: newStudent.avatar })
@@ -322,7 +322,7 @@ export async function flushPendingRecords() {
 
   for (const record of pending) {
     try {
-      const res = await fetch('/api/records', {
+      const res = await apiFetch('/api/records', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(record)
@@ -390,7 +390,7 @@ export async function uploadLevelRecord({ level, score, stars, durationSeconds, 
 
   // 2. 自動嘗試背景推進上傳 (自動同步)
   try {
-    const res = await fetch('/api/records', {
+    const res = await apiFetch('/api/records', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(record)
@@ -730,7 +730,7 @@ export function parseSyncTokenString(tokenStr) {
 export async function uploadStudentProgressToServer(student = getCurrentStudent(), notify = true) {
   const payload = packStudentProgressData(student);
   try {
-    const res = await fetch('/api/sync_progress', {
+    const res = await apiFetch('/api/sync_progress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

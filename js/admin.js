@@ -83,6 +83,11 @@ const state = {
     mode: 'create', // 'create' | 'edit'
     studentId: null,
     selectedAvatar: '🦊'
+  },
+  hostInfo: {
+    localIp: '',
+    port: 8000,
+    hostUrl: ''
   }
 };
 
@@ -205,6 +210,9 @@ function setupEventListeners() {
   document.getElementById('error-modal')?.addEventListener('click', (e) => {
     if (e.target.id === 'error-modal') closeErrorModal();
   });
+
+  // 平板直連 QR Code 彈窗與事件綁定
+  initTabletQRModal();
 }
 
 // 載入資料 (雙軌支援：伺服器在線 vs GitHub Pages / 離線 LocalStorage)
@@ -239,6 +247,16 @@ async function loadData() {
       saveLocalStudents(state.students);
       saveLocalRecords(state.records);
 
+      // 自動探測本機伺服器局域網 Host 資訊
+      try {
+        const resHost = await fetch(`${API_BASE}/api/host_info`).then(r => r.json());
+        if (resHost.success && resHost.local_ip) {
+          state.hostInfo.localIp = resHost.local_ip;
+          state.hostInfo.port = resHost.port || 8000;
+          state.hostInfo.hostUrl = `http://${resHost.local_ip}:${resHost.port || 8000}`;
+        }
+      } catch (e) {}
+
       if (statusBadge) {
         statusBadge.className = 'status-badge';
         statusBadge.innerHTML = '<span class="status-dot"></span> 伺服器在線 (同步中)';
@@ -252,6 +270,7 @@ async function loadData() {
   // 2. 伺服器離線或處於 GitHub Pages，自動降級為本地 LocalStorage 模式
   if (!serverSuccess) {
     state.isServerOnline = false;
+    state.hostInfo.hostUrl = window.location.origin;
     state.students = getLocalStudents().filter(s => s.id !== 'visitor');
     if (state.students.length === 0) {
       state.students = [
@@ -378,6 +397,9 @@ function renderStudents() {
           </button>
           <button type="button" class="btn-card" onclick="importLocalProgressToStudent('${student.id}', '${escapeHtml(student.name)}')" title="將此台電腦先前已獲取的通關星星補登給此學童">
             💻 補登電腦進度
+          </button>
+          <button type="button" class="btn-card" style="background: rgba(16, 185, 129, 0.15); border-color: #10b981; color: #34d399; font-weight: 700;" onclick="openTabletQRModal('${student.id}', '${escapeHtml(student.name)}')" title="查看此學童專屬的平板直連 QR Code 與網址">
+            📱 掃碼直連
           </button>
           <button type="button" class="btn-card copy-link" onclick="copyStudentLink('${student.id}', '${escapeHtml(student.name)}')">
             📋 複製專屬連結
@@ -1189,4 +1211,192 @@ window.openImportTokenModal = function(targetStudentId = null, targetStudentName
 
   setTimeout(() => textarea.focus(), 100);
 };
+
+// ==========================================
+// 📱 平板直連 QR Code 模態視窗與網址生成
+// ==========================================
+
+function initTabletQRModal() {
+  const modal = document.getElementById('tablet-qr-modal');
+  const closeBtn = document.getElementById('tablet-qr-modal-close');
+  const closeBtn2 = document.getElementById('qr-modal-close-btn');
+  const copyBtn = document.getElementById('qr-copy-url-btn');
+  const studentSelect = document.getElementById('qr-target-student');
+  const hostInput = document.getElementById('qr-server-host');
+
+  if (closeBtn) closeBtn.addEventListener('click', closeTabletQRModal);
+  if (closeBtn2) closeBtn2.addEventListener('click', closeTabletQRModal);
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeTabletQRModal();
+    });
+  }
+
+  if (studentSelect) {
+    studentSelect.addEventListener('change', () => {
+      updateTabletQRModal();
+    });
+  }
+
+  if (hostInput) {
+    hostInput.addEventListener('input', () => {
+      state.hostInfo.hostUrl = hostInput.value.trim();
+      updateTabletQRModal();
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const fullUrlInput = document.getElementById('qr-full-url');
+      if (fullUrlInput && fullUrlInput.value) {
+        navigator.clipboard.writeText(fullUrlInput.value).then(() => {
+          showToast('📋 已複製平板直連專屬網址！');
+        }).catch(() => {
+          prompt('請複製此專屬網址：', fullUrlInput.value);
+        });
+      }
+    });
+  }
+
+  // 頂部導航列「📱 平板直連 QR Code」按鈕
+  document.getElementById('tablet-connect-btn')?.addEventListener('click', () => {
+    openTabletQRModal();
+  });
+}
+
+function openTabletQRModal(targetStudentId = null, targetStudentName = null) {
+  const modal = document.getElementById('tablet-qr-modal');
+  if (!modal) return;
+
+  // 1. 填入學童下拉選單
+  const studentSelect = document.getElementById('qr-target-student');
+  if (studentSelect) {
+    let html = '<option value="">🎒 自由登入 / 訪客模式</option>';
+    state.students.forEach(s => {
+      html += `<option value="${s.id}">${s.avatar} ${escapeHtml(s.name)}</option>`;
+    });
+    studentSelect.innerHTML = html;
+    if (targetStudentId) {
+      studentSelect.value = targetStudentId;
+    } else {
+      studentSelect.value = '';
+    }
+  }
+
+  // 2. 填入 Host IP 輸入框
+  const hostInput = document.getElementById('qr-server-host');
+  const defaultHost = state.hostInfo.hostUrl || (window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
+    ? (state.hostInfo.localIp ? `http://${state.hostInfo.localIp}:${state.hostInfo.port || 8000}` : window.location.origin)
+    : window.location.origin);
+  
+  if (hostInput) {
+    if (!hostInput.value) {
+      hostInput.value = defaultHost;
+    }
+    state.hostInfo.hostUrl = hostInput.value.trim();
+  }
+
+  // 3. 顯示連線狀態
+  const lanStatus = document.getElementById('qr-lan-status');
+  if (lanStatus) {
+    if (state.isServerOnline && state.hostInfo.localIp) {
+      lanStatus.textContent = `📡 局域網已連線 (${state.hostInfo.localIp})`;
+      lanStatus.style.color = '#34d399';
+    } else {
+      lanStatus.textContent = '🌐 外部或本機連線';
+      lanStatus.style.color = '#38bdf8';
+    }
+  }
+
+  updateTabletQRModal();
+  modal.classList.add('active');
+}
+
+function closeTabletQRModal() {
+  document.getElementById('tablet-qr-modal')?.classList.remove('active');
+}
+
+function updateTabletQRModal() {
+  const studentSelect = document.getElementById('qr-target-student');
+  const hostInput = document.getElementById('qr-server-host');
+  const fullUrlInput = document.getElementById('qr-full-url');
+  const openLinkBtn = document.getElementById('qr-open-link-btn');
+  const badge = document.getElementById('qr-student-badge');
+
+  const selectedKid = studentSelect ? studentSelect.value : '';
+  const currentHost = (hostInput ? hostInput.value.trim() : '') || window.location.origin;
+
+  // 計算目標 URL
+  let targetUrl = '';
+  try {
+    const base = new URL(window.location.pathname.replace(/\/admin\.html$/, '') + '/index.html', currentHost);
+    if (selectedKid) {
+      base.searchParams.set('kid', selectedKid);
+    }
+    base.searchParams.set('host', currentHost);
+    targetUrl = base.href;
+  } catch (e) {
+    targetUrl = `${currentHost.replace(/\/+$/, '')}/index.html?${selectedKid ? `kid=${encodeURIComponent(selectedKid)}&` : ''}host=${encodeURIComponent(currentHost)}`;
+  }
+
+  if (fullUrlInput) fullUrlInput.value = targetUrl;
+  if (openLinkBtn) openLinkBtn.href = targetUrl;
+
+  // 更新徽章提示
+  if (badge) {
+    if (selectedKid) {
+      const s = state.students.find(item => item.id === selectedKid);
+      badge.textContent = s ? `🔒 鎖定小勇士：${s.avatar} ${s.name}` : `🔒 鎖定小勇士 (${selectedKid})`;
+      badge.style.background = '#fef3c7';
+      badge.style.color = '#92400e';
+    } else {
+      badge.textContent = '🎒 自由登入 / 訪客模式';
+      badge.style.background = '#e0f2fe';
+      badge.style.color = '#0369a1';
+    }
+  }
+
+  // 渲染 QR Code
+  renderQRCode(targetUrl);
+}
+
+function renderQRCode(targetUrl) {
+  const container = document.getElementById('qr-canvas-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  try {
+    if (typeof qrcode === 'function') {
+      const qr = qrcode(0, 'M');
+      qr.addData(targetUrl);
+      qr.make();
+      container.innerHTML = qr.createSvgTag(5, 4);
+      const svg = container.querySelector('svg');
+      if (svg) {
+        svg.style.display = 'block';
+        svg.style.maxWidth = '210px';
+        svg.style.maxHeight = '210px';
+        svg.style.width = '100%';
+        svg.style.height = 'auto';
+        svg.style.borderRadius = '8px';
+      }
+      return;
+    }
+  } catch (err) {
+    console.warn('[QR] 本地 QR Code 生成異常，切換至備援 API:', err);
+  }
+
+  // 雙軌降級：外部 API
+  const img = document.createElement('img');
+  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=4&data=${encodeURIComponent(targetUrl)}`;
+  img.alt = 'QR Code';
+  img.style.width = '200px';
+  img.style.height = '200px';
+  img.style.borderRadius = '8px';
+  container.appendChild(img);
+}
+
+window.openTabletQRModal = openTabletQRModal;
+window.closeTabletQRModal = closeTabletQRModal;
+
 
