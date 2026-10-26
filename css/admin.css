@@ -122,6 +122,12 @@ body {
   border-color: rgba(244, 63, 94, 0.3);
 }
 
+.status-badge.local-mode {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
 .status-dot {
   width: 8px;
   height: 8px;

@@ -5,8 +5,70 @@
 
 const API_BASE = window.location.origin;
 
+// LocalStorage 離線與 GitHub Pages 雙軌相容儲存鍵 (與 student.js 一致)
+const STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';
+const STORAGE_KEY_PENDING = 'fantasy_math_pending_records';
+const STORAGE_KEY_RECORDS = 'fantasy_math_admin_records';
+
+function getLocalStudents() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_STUDENTS);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {
+    console.warn('[Admin] 讀取本地學童快取失敗:', e);
+  }
+  return [
+    { id: 'kid_star_01', name: '探索小勇士', avatar: '🦊', created_at: new Date().toISOString() }
+  ];
+}
+
+function saveLocalStudents(list) {
+  try {
+    localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(list));
+  } catch (e) {
+    console.warn('[Admin] 儲存本地學童快取失敗:', e);
+  }
+}
+
+function getLocalRecords() {
+  let records = [];
+  try {
+    const rawSaved = localStorage.getItem(STORAGE_KEY_RECORDS);
+    if (rawSaved) {
+      const parsed = JSON.parse(rawSaved);
+      if (Array.isArray(parsed)) records = parsed;
+    }
+  } catch (e) {}
+
+  try {
+    const rawPending = localStorage.getItem(STORAGE_KEY_PENDING);
+    if (rawPending) {
+      const pending = JSON.parse(rawPending);
+      if (Array.isArray(pending)) {
+        pending.forEach(p => {
+          if (!p.id) p.id = `rec_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
+          if (!records.some(r => r.id === p.id || (r.timestamp === p.timestamp && r.student_id === p.student_id))) {
+            records.push(p);
+          }
+        });
+      }
+    }
+  } catch (e) {}
+  return records;
+}
+
+function saveLocalRecords(records) {
+  try {
+    localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(records));
+  } catch (e) {}
+}
+
 // 狀態快取
 const state = {
+  isServerOnline: false,
   students: [],
   records: [],
   currentTab: 'students',
@@ -145,37 +207,70 @@ function setupEventListeners() {
   });
 }
 
-// 載入資料
+// 載入資料 (雙軌支援：伺服器在線 vs GitHub Pages / 離線 LocalStorage)
 async function loadData() {
   const statusBadge = document.getElementById('connection-status');
+  let serverSuccess = false;
+
+  // 1. 若處於本地伺服器或自定義環境，嘗試發送 API
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+
     const [resStudents, resRecords] = await Promise.all([
-      fetch(`${API_BASE}/api/students`).then(r => r.json()),
-      fetch(`${API_BASE}/api/records`).then(r => r.json())
+      fetch(`${API_BASE}/api/students`, { signal: controller.signal }).then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+      fetch(`${API_BASE}/api/records`, { signal: controller.signal }).then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
     ]);
+    clearTimeout(timeoutId);
 
     if (resStudents.success && resRecords.success) {
+      state.isServerOnline = true;
       state.students = resStudents.students || [];
       state.records = resRecords.records || [];
-      
+      serverSuccess = true;
+
+      // 同步最新名冊至本地快取
+      saveLocalStudents(state.students);
+      saveLocalRecords(state.records);
+
       if (statusBadge) {
         statusBadge.className = 'status-badge';
-        statusBadge.innerHTML = '<span class="status-dot"></span> 伺服器在線';
+        statusBadge.innerHTML = '<span class="status-dot"></span> 伺服器在線 (同步中)';
+        statusBadge.title = '後端 server.py 連線正常，資料即時保存至伺服器';
       }
-      
-      updateStudentFilterDropdown();
-      renderAll();
-    } else {
-      throw new Error('API 返回異常');
     }
   } catch (err) {
-    console.warn('[Admin] 無法連線至伺服器 API:', err);
-    if (statusBadge) {
-      statusBadge.className = 'status-badge offline';
-      statusBadge.innerHTML = '<span class="status-dot"></span> 離線或無法連線';
-    }
-    showToast('⚠️ 無法連線至後端伺服器，請確認 server.py 正在執行');
+    serverSuccess = false;
   }
+
+  // 2. 伺服器離線或處於 GitHub Pages，自動降級為本地 LocalStorage 模式
+  if (!serverSuccess) {
+    state.isServerOnline = false;
+    state.students = getLocalStudents().filter(s => s.id !== 'visitor');
+    if (state.students.length === 0) {
+      state.students = [
+        { id: 'kid_star_01', name: '探索小勇士', avatar: '🦊', created_at: new Date().toISOString() }
+      ];
+      saveLocalStudents(state.students);
+    }
+    state.records = getLocalRecords();
+
+    const isGithub = window.location.hostname.includes('github.io');
+    if (statusBadge) {
+      statusBadge.className = 'status-badge local-mode';
+      statusBadge.innerHTML = `<span class="status-dot"></span> ${isGithub ? 'GitHub Pages 本地模式' : '本地離線儲存模式'}`;
+      statusBadge.title = '目前處於瀏覽器 LocalStorage 本地儲存模式，新增與成績皆保存在本機瀏覽器！';
+    }
+  }
+
+  updateStudentFilterDropdown();
+  renderAll();
 }
 
 function renderAll() {
@@ -535,72 +630,116 @@ async function handleSaveStudent() {
 
   const avatar = state.modal.selectedAvatar;
 
-  try {
-    if (state.modal.mode === 'create') {
-      const res = await fetch(`${API_BASE}/api/students`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, avatar })
-      }).then(r => r.json());
+  // 1. 若伺服器在線，優先嘗試 API 同步
+  if (state.isServerOnline) {
+    try {
+      if (state.modal.mode === 'create') {
+        const res = await fetch(`${API_BASE}/api/students`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, avatar })
+        }).then(r => r.json());
 
-      if (res.success) {
-        showToast(`🎉 成功新增小勇士「${escapeHtml(name)}」！`);
-        closeStudentModal();
-        await loadData();
+        if (res.success) {
+          showToast(`🎉 成功新增小勇士「${escapeHtml(name)}」！`);
+          closeStudentModal();
+          await loadData();
+          return;
+        } else {
+          alert(res.error || '新增失敗');
+          return;
+        }
       } else {
-        alert(res.error || '新增失敗');
+        // 編輯
+        const res = await fetch(`${API_BASE}/api/students`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: state.modal.studentId, name, avatar })
+        }).then(r => r.json());
+
+        if (res.success) {
+          showToast(`✅ 已更新小勇士「${escapeHtml(name)}」資料！`);
+          closeStudentModal();
+          await loadData();
+          return;
+        } else {
+          alert(res.error || '更新失敗');
+          return;
+        }
       }
-    } else {
-      // 編輯
-      const res = await fetch(`${API_BASE}/api/students`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: state.modal.studentId, name, avatar })
-      }).then(r => r.json());
-
-      if (res.success) {
-        showToast(`✅ 已更新小勇士「${escapeHtml(name)}」資料！`);
-        closeStudentModal();
-        await loadData();
-      } else {
-        alert(res.error || '更新失敗');
+    } catch (err) {
+      console.warn('[Admin] 伺服器連線中斷，自動降級至本地儲存模式:', err);
+      state.isServerOnline = false;
+      const statusBadge = document.getElementById('connection-status');
+      if (statusBadge) {
+        statusBadge.className = 'status-badge local-mode';
+        statusBadge.innerHTML = '<span class="status-dot"></span> 本地離線儲存模式';
       }
     }
-  } catch (err) {
-    console.error('儲存學童出錯:', err);
-    alert('無法與伺服器通訊，請確認 server.py 正在運行');
   }
+
+  // 2. 本地 LocalStorage 儲存模式 (GitHub Pages / 離線備援)
+  if (state.modal.mode === 'create') {
+    const newStudent = {
+      id: `kid_${Date.now().toString(36)}_${Math.random().toString(36).substring(2, 6)}`,
+      name,
+      avatar,
+      created_at: new Date().toISOString()
+    };
+    state.students.push(newStudent);
+    saveLocalStudents(state.students);
+    showToast(`🎉 成功新增小勇士「${escapeHtml(name)}」（本地儲存）！`);
+  } else {
+    const idx = state.students.findIndex(s => s.id === state.modal.studentId);
+    if (idx !== -1) {
+      state.students[idx].name = name;
+      state.students[idx].avatar = avatar;
+      saveLocalStudents(state.students);
+      showToast(`✅ 已更新小勇士「${escapeHtml(name)}」資料（本地儲存）！`);
+    }
+  }
+
+  closeStudentModal();
+  updateStudentFilterDropdown();
+  renderAll();
 }
 
-// 刪除學童確認
+// 刪除學童確認 (雙軌支援)
 async function confirmDeleteStudent(studentId, studentName) {
   const confirmed = confirm(`確定要刪除冒險小勇士「${studentName}」嗎？\n此動作將一併清除該學童的專屬識別資料。`);
   if (!confirmed) return;
 
-  try {
-    const res = await fetch(`${API_BASE}/api/students?id=${encodeURIComponent(studentId)}`, {
-      method: 'DELETE'
-    }).then(r => r.json());
+  if (state.isServerOnline) {
+    try {
+      const res = await fetch(`${API_BASE}/api/students?id=${encodeURIComponent(studentId)}`, {
+        method: 'DELETE'
+      }).then(r => r.json());
 
-    if (res.success) {
-      showToast(`🗑️ 已刪除學童「${studentName}」`);
-      await loadData();
-    } else {
-      alert(res.error || '刪除失敗');
+      if (res.success) {
+        showToast(`🗑️ 已刪除學童「${studentName}」`);
+        await loadData();
+        return;
+      }
+    } catch (err) {
+      console.warn('[Admin] 伺服器刪除失敗，降級為本地刪除:', err);
+      state.isServerOnline = false;
     }
-  } catch (err) {
-    console.error('刪除學童出錯:', err);
-    alert('無法刪除學童，請檢查網路連線');
   }
+
+  // 本地模式刪除
+  state.students = state.students.filter(s => s.id !== studentId);
+  saveLocalStudents(state.students);
+  showToast(`🗑️ 已刪除學童「${studentName}」（本地儲存）`);
+  updateStudentFilterDropdown();
+  renderAll();
 }
 
-// 複製專屬連結
+// 複製專屬連結 (保全 GitHub Pages 子路徑)
 window.copyStudentLink = function(studentId, studentName) {
-  const url = `${window.location.origin}/index.html?kid=${encodeURIComponent(studentId)}`;
+  const url = new URL(`index.html?kid=${encodeURIComponent(studentId)}`, window.location.href).href;
   navigator.clipboard.writeText(url).then(() => {
     showToast(`📋 已複製「${studentName}」的專屬鎖定連結！`);
   }).catch(() => {
-    // 降級使用 prompt
     prompt('請手動複製此專屬連結：', url);
   });
 };
@@ -661,7 +800,7 @@ function exportStudentsCSV() {
     const sRecords = state.records.filter(r => r.student_id === s.id);
     const passes = sRecords.length;
     const stars = sRecords.reduce((acc, r) => acc + (r.stars || 0), 0);
-    const link = `${window.location.origin}/index.html?kid=${s.id}`;
+    const link = new URL(`index.html?kid=${encodeURIComponent(s.id)}`, window.location.href).href;
     return [
       `"${s.id}"`,
       `"${s.avatar || '🦊'}"`,

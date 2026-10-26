@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-26 (v2.8.2 版)  
+> **最後更新時間**：2026-10-26 (v2.8.3 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,7 +10,7 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v2.8.2】你好！請繼續推進奇幻數學島大冒險開發。
+【v2.8.3】你好！請繼續推進奇幻數學島大冒險開發。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
 python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --react --max-iterations 12 -t "全年級全學科互動答題動效與連續答對 Combo 獎勵激勵系統"
@@ -56,11 +56,11 @@ python scripts/brain_delegator.py -w "C:\Users\達爾\projects\math-island" --re
 
 ### 🌟 近期已完成核心里程碑 (Recent Done - 保留最新 5 項)
 
+- [x] **後台管理系統 GitHub Pages 與離線 LocalStorage 雙軌備援實裝** (全面升級 `js/admin.js` 與 `css/admin.css`，實裝伺服器在線/本地離線雙軌自動平滑切換。在 GitHub Pages 等靜態託管環境下自動降級為 LocalStorage 本地儲存模式，免除後端依賴即可直接新增、編輯、刪除學童小勇士；支援動態相對路徑 `new URL` 保全 GitHub Pages 子目錄專屬鎖定連結 `?kid=xxx`；`node --check` 語法自檢 100% 綠燈) (v2.8.3)
 - [x] **建置獨立後台管理介面 admin.html** (實裝 `admin.html`、`css/admin.css`、`js/admin.js`，支援學童名單增修與編輯、12 種冒險吉祥物頭像選取、一鍵複製身分鎖定連結 `?kid=xxx`、學習歷程即時動態流、錯題明細查看、弱點章節統計分析、Excel 專用 UTF-8 BOM CSV 與全量 JSON 備份匯出；`server.py` 擴充 `PUT /api/students` 與 `DELETE /api/records`，前端 `index.html` 雙向快捷跳轉) (v2.8.2)
 - [x] **前台學童專用身分鎖定與過關成績自動回傳後台** (實裝 `js/student.js` 模組、URL 專屬參數 `?kid=xxx` 身分鎖定、頂部導覽列挑戰者身分膠囊、快速新增小勇士彈窗、過關結算自動上傳後台 `POST /api/records`、離線隊列暫存與在線自動補傳機制) (v2.8.1)
 - [x] **輕量後端資料層與學童歷程 REST API 基礎建置** (於 `server.py` 實裝 `/api/students` 與 `/api/records` 極簡 REST API，支援學童 CRUD 與遊戲紀錄持久化儲存於 `data/admin_store.json`) (v2.8.0)
 - [x] **離線 PWA 體驗與 Service Worker 快取效能優化** (升級 `sw.js` 72 項全量跨學科題庫、教具、島嶼腳本、SFX 音效與島嶼背景圖預快取，實裝 Stale-While-Revalidate 快取策略達成毫秒級離線秒開；實裝 PWA 桌面安裝引導提示與在線/離線狀態即時感知標籤) (v2.7.5)
-- [x] **音訊資源全面預載與 iOS 靜音模式自動提示引導** (實裝 SFX 音效池預載池化、AudioContext 解鎖無聲激發、iOS 設備精準探測、專屬聲音排查彈窗與測試播放按鈕，徹底根治 iOS 設備實體鍵靜音問題) (v2.7.4)
 <details><summary>過往已完成歷史任務</summary>
 - [x] **全域注音標示系統實裝** (建立 5,324 字注音辭典 `js/zhuyin-data.js` 與 `js/zhuyin.js`、題目/提示/選項預設 `<ruby><rt>` 注音標註、防洩題防禦、頂部導覽列 `ㄅ` 開關按鈕與 localStorage 偏好記憶、`node --check` 與瀏覽器實測 100% 綠燈) (v2.5.6)
 
