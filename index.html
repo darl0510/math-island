@@ -69,7 +69,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2.8.4" />
+  <link rel="stylesheet" href="css/style.css?v=2.8.5" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>" />
   <!-- PWA Progressive Web App 配置 -->
   <link rel="manifest" href="manifest.webmanifest" />
@@ -89,12 +89,19 @@
       <span class="brand-star" aria-hidden="true">✦</span>
       <span id="brand-subject-title">奇幻數學島</span>
       <span class="brand-sub" id="brand-sub-text">大冒險</span>
-      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.8.4">v2.8.4</span>
+      <span class="brand-version" id="brand-version-badge" title="系統版本：v2.8.5">v2.8.5</span>
       <span id="offline-badge" class="offline-badge hidden" title="目前處於離線狀態，題庫與教具已全量離線快取，暢玩無阻">⚡ 離線模式</span>
     </div>
 
-    <!-- 頂部科目膠囊：由 js/subjects.js 註冊表渲染，新增科目零硬編碼 -->
-    <nav class="subject-capsules" id="subject-capsules" aria-label="科目切換"></nav>
+    <!-- 頂部科目切換膠囊 (可收合下拉選單，告別長排佔用空間) -->
+    <div class="subject-pill-container" id="subject-pill-container">
+      <button id="subject-dropdown-btn" class="subject-dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false" title="點擊切換冒險科目">
+        <span id="subject-btn-icon">🧮</span>
+        <span id="subject-btn-text">數學島</span>
+        <span class="subject-arrow">▾</span>
+      </button>
+      <div id="subject-dropdown-menu" class="subject-dropdown-menu hidden" hidden role="menu" aria-label="選擇冒險科目"></div>
+    </div>
 
     <!-- 年級快速切換膠囊 -->
     <div class="grade-pill-container" id="grade-pill-container">
@@ -103,7 +110,7 @@
         <span id="grade-btn-text">一年級</span>
         <span class="grade-arrow">▾</span>
       </button>
-      <div id="grade-dropdown-menu" class="grade-dropdown-menu hidden">
+      <div id="grade-dropdown-menu" class="grade-dropdown-menu hidden" hidden>
         <button class="grade-dropdown-item" data-grade="1">🍎 一年級 (16 關)</button>
         <button class="grade-dropdown-item" data-grade="2">🌟 二年級 (16 關)</button>
         <button class="grade-dropdown-item" data-grade="3">🚀 三年級 (16 關)</button>
@@ -118,7 +125,7 @@
         <span id="student-lock-icon" class="student-lock-icon hidden" title="已透過專屬連結鎖定身分">🔒</span>
         <span class="student-arrow">▾</span>
       </button>
-      <div id="student-dropdown-menu" class="student-dropdown-menu hidden">
+      <div id="student-dropdown-menu" class="student-dropdown-menu hidden" hidden>
         <div class="student-dropdown-header">
           <span>🎒 選擇挑戰者</span>
         </div>
@@ -132,17 +139,9 @@
       </div>
     </div>
     <div class="bar-actions">
-      <!-- 快捷音效與語音控制 (日常最常點選，常駐保留) -->
-      <button id="music-btn" class="bar-btn music-btn" type="button" aria-pressed="true" aria-label="開關音樂" title="開關背景音樂">
-        <span>🎵</span>
-      </button>
-      <button id="tts-btn" class="bar-btn tts-btn" type="button" aria-pressed="true" aria-label="開關語音讀題" title="開關語音讀題">
-        <span>🔊</span>
-      </button>
-
-      <!-- 更多工具收合下拉選單 (預設收起，大幅釋放導覽列空間以利 RWD 排版) -->
+      <!-- 更多工具收合下拉選單 (預設收起，整合聲音、語音、後台、海報、徽章、注音、PWA、iOS 等完整功能) -->
       <div class="tools-pill-container" id="tools-pill-container">
-        <button id="tools-dropdown-btn" class="bar-btn tools-dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false" title="更多工具與設定">
+        <button id="tools-dropdown-btn" class="bar-btn tools-dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false" title="冒險工具與系統設定">
           <span>🛠️</span>
           <span id="tools-badge-dot" class="tools-badge-dot hidden" hidden aria-hidden="true"></span>
         </button>
@@ -151,6 +150,25 @@
             <span>🛠️ 冒險工具與設定</span>
           </div>
           <div class="tools-dropdown-list">
+            <!-- 🎵 背景音樂切換 -->
+            <button id="music-btn" class="tools-menu-item" type="button" role="menuitem" aria-pressed="true">
+              <span class="tools-item-icon">🎵</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">背景音樂</span>
+                <span class="tools-item-desc">冒險歡樂背景旋律</span>
+              </div>
+              <span id="music-status-badge" class="tools-status-badge is-active">開啟中</span>
+            </button>
+
+            <!-- 🔊 語音讀題切換 -->
+            <button id="tts-btn" class="tools-menu-item" type="button" role="menuitem" aria-pressed="true">
+              <span class="tools-item-icon">🔊</span>
+              <div class="tools-item-info">
+                <span class="tools-item-title">語音讀題</span>
+                <span class="tools-item-desc">真人語音讀題輔助</span>
+              </div>
+              <span id="tts-status-badge" class="tools-status-badge is-active">開啟中</span>
+            </button>
             <a href="admin.html" target="_blank" class="tools-menu-item admin-menu-item" id="admin-nav-item" role="menuitem">
               <span class="tools-item-icon">⚙️</span>
               <div class="tools-item-info">

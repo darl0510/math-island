@@ -74,7 +74,7 @@ function setupPWAAndOffline() {
   }
 }
 
-/* ===== 頂部科目膠囊 (方案 A：多科目切換大廳) ===== */
+/* ===== 頂部科目切換膠囊 (可收合下拉選單，告別長排佔用空間) ===== */
 function syncSubjectUI(subjectId = getCurrentSubject()) {
   const config = getSubjectConfig(subjectId);
   const titleEl = document.getElementById('brand-subject-title');
@@ -82,41 +82,59 @@ function syncSubjectUI(subjectId = getCurrentSubject()) {
   document.body.dataset.subject = String(config.id);
   audio.setSpeechLang(getSubjectSpeechLang(config.id));
 
-  document.querySelectorAll('.subject-capsule').forEach((capsule) => {
-    const sId = capsule.dataset.subject;
-    const isActive = sId === String(config.id);
-    capsule.classList.toggle('is-selected', isActive);
-    capsule.setAttribute('aria-pressed', String(isActive));
-    const isChallenge = sId === 'challenge';
-    const unlocked = !isChallenge || isChallengeUnlocked(getCurrentGrade());
-    capsule.classList.toggle('is-locked-challenge', isChallenge && !unlocked);
-    const badge = capsule.querySelector('.subject-capsule-stars');
-    if (badge) {
-      if (isChallenge && !unlocked) {
-        badge.textContent = '🔒18⭐';
-      } else {
-        const stars = subjectProgress(sId, getCurrentGrade()).stars;
-        badge.textContent = stars > 0 ? `⭐${stars}` : '';
-      }
-    }
+  // 同步膠囊按鈕圖示與簡稱
+  const iconEl = document.getElementById('subject-btn-icon');
+  const textEl = document.getElementById('subject-btn-text');
+  if (iconEl) iconEl.textContent = config.icon;
+  if (textEl) textEl.textContent = config.shortName + '島';
+
+  // 同步下拉選單項目選中狀態
+  document.querySelectorAll('.subject-dropdown-item').forEach((item) => {
+    const sId = item.dataset.subject;
+    const isSelected = sId === String(config.id);
+    item.classList.toggle('is-selected', isSelected);
+    item.setAttribute('aria-pressed', String(isSelected));
   });
 }
 
-function renderSubjectCapsules() {
-  const bar = document.getElementById('subject-capsules');
-  if (!bar) return;
-  bar.innerHTML = SUBJECTS.map((subject) => `
-      <button class="subject-capsule ${subject.ready ? '' : 'is-soon'}" type="button" data-subject="${subject.id}" aria-pressed="false" aria-label="${subject.shortName} ${subject.name}" title="${subject.name} · ${subject.tagline}" style="--subject-color:${subject.color}">
-        <span class="subject-capsule-icon" aria-hidden="true">${subject.icon}</span>
-        <span class="subject-capsule-name">${subject.shortName}</span>
-        <span class="subject-capsule-stars"></span>
-      </button>`).join('');
+function renderSubjectDropdown() {
+  const menu = document.getElementById('subject-dropdown-menu');
+  if (!menu) return;
+  menu.innerHTML = `
+    <div class="subject-dropdown-header">
+      <span>🎒 選擇冒險科目</span>
+    </div>
+    <div class="subject-dropdown-list">
+      ${SUBJECTS.map((subject) => {
+        const isChallenge = subject.id === 'challenge';
+        const unlocked = !isChallenge || isChallengeUnlocked(getCurrentGrade());
+        const stars = subjectProgress(subject.id, getCurrentGrade()).stars;
+        return `
+          <button class="subject-dropdown-item ${subject.ready ? '' : 'is-soon'} ${subject.id === getCurrentSubject() ? 'is-selected' : ''}" type="button" data-subject="${subject.id}" role="menuitem" title="${subject.name} · ${subject.tagline}">
+            <span class="subject-dropdown-icon">${subject.icon}</span>
+            <div class="subject-dropdown-info">
+              <span class="subject-dropdown-title">${subject.brandTitle}</span>
+              <span class="subject-dropdown-desc">${subject.tagline}</span>
+            </div>
+            ${isChallenge && !unlocked ? '<span class="subject-dropdown-lock">🔒18⭐</span>' : (stars > 0 ? `<span class="subject-dropdown-stars">⭐${stars}</span>` : '')}
+          </button>
+        `;
+      }).join('')}
+    </div>
+  `;
 
-  bar.querySelectorAll('.subject-capsule').forEach((capsule) => {
-    capsule.addEventListener('click', async () => {
-      const targetSubject = capsule.dataset.subject;
+  menu.querySelectorAll('.subject-dropdown-item').forEach((item) => {
+    item.addEventListener('click', async () => {
+      const targetSubject = item.dataset.subject;
       const config = getSubjectConfig(targetSubject);
-      audio.playSfx('click', 0.4);
+      const subjectMenu = document.getElementById('subject-dropdown-menu');
+      const subjectBtn = document.getElementById('subject-dropdown-btn');
+      if (subjectMenu) {
+        subjectMenu.classList.add('hidden');
+        subjectMenu.setAttribute('hidden', '');
+      }
+      if (subjectBtn) subjectBtn.setAttribute('aria-expanded', 'false');
+
       if (targetSubject === getCurrentSubject()) {
         showToast(`目前在 ${config.name}：${config.tagline}`, config.icon);
         return;
@@ -128,11 +146,11 @@ function renderSubjectCapsules() {
         return;
       }
 
+      audio.playSfx('whoosh', 0.5);
       setCurrentSubject(targetSubject);
       syncSubjectUI(targetSubject);
 
       if (isSubjectReady(targetSubject)) {
-        audio.playSfx('whoosh', 0.5);
         syncGradeLevels(getCurrentGrade(), targetSubject);
         await loadQuestionBankForGrade(getCurrentGrade(), targetSubject);
         showToast(`已切換至 ${config.name}！`, config.icon);
@@ -193,7 +211,38 @@ function init() {
   window.__syncGradeUI = syncGradeUI;
   window.__syncBadgesUI = syncBadgesCount;
 
-  renderSubjectCapsules();
+  // 科目切換膠囊按鈕
+  const subjectBtn = document.getElementById('subject-dropdown-btn');
+  const subjectMenu = document.getElementById('subject-dropdown-menu');
+
+  function setSubjectMenuOpen(open) {
+    if (!subjectMenu) return;
+    subjectMenu.classList.toggle('hidden', !open);
+    if (open) subjectMenu.removeAttribute('hidden');
+    else subjectMenu.setAttribute('hidden', '');
+    subjectBtn?.setAttribute('aria-expanded', String(open));
+  }
+
+  if (subjectBtn && subjectMenu) {
+    subjectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = subjectMenu.classList.contains('hidden');
+      setSubjectMenuOpen(willOpen);
+      // 互斥關閉其他選單
+      setGradeMenuOpen(false);
+      closeStudentDropdown();
+      setToolsMenuOpen(false);
+      audio.playSfx('click', 0.3);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!subjectMenu.contains(e.target) && e.target !== subjectBtn) {
+        setSubjectMenuOpen(false);
+      }
+    });
+  }
+
+  renderSubjectDropdown();
   syncSubjectUI();
   syncGradeUI();
   syncBadgesCount();
@@ -210,7 +259,8 @@ function init() {
       e.stopPropagation();
       const willOpen = gradeMenu.classList.contains('hidden');
       setGradeMenuOpen(willOpen);
-      // 互斥關閉更多工具與學童選單
+      // 互斥關閉科目、更多工具與學童選單
+      setSubjectMenuOpen(false);
       const toolsMenu = document.getElementById('tools-dropdown-menu');
       toolsMenu?.classList.add('hidden');
       toolsMenu?.setAttribute('hidden', '');
@@ -268,7 +318,8 @@ function init() {
       e.stopPropagation();
       const willOpen = toolsMenu.classList.contains('hidden');
       setToolsMenuOpen(willOpen);
-      // 互斥關閉年級與學童選單
+      // 互斥關閉科目、年級與學童選單
+      setSubjectMenuOpen(false);
       gradeMenu?.classList.add('hidden');
       gradeMenu?.setAttribute('hidden', '');
       gradeBtn?.setAttribute('aria-expanded', 'false');
@@ -285,10 +336,11 @@ function init() {
       }
     });
 
-    // 點擊功能選項後自動收合（注音開關除外）
+    // 點擊功能選項後自動收合（注音、音樂、語音等開關類切換除外）
     toolsMenu.querySelectorAll('.tools-menu-item').forEach(item => {
       item.addEventListener('click', () => {
-        if (item.id !== 'zhuyin-btn') {
+        const isToggle = ['zhuyin-btn', 'music-btn', 'tts-btn'].includes(item.id);
+        if (!isToggle) {
           setToolsMenuOpen(false);
         }
       });
@@ -383,15 +435,27 @@ function init() {
 }
 
 function syncAudioButtons() {
-  musicButton.classList.toggle('is-off', !audio.musicOn);
-  musicButton.setAttribute('aria-pressed', String(audio.musicOn));
-  musicButton.innerHTML = audio.musicOn ? '<span>🎵</span>' : '<span>🔇</span>';
-  musicButton.title = audio.musicOn ? '關閉音樂' : '開啟音樂';
+  if (musicButton) {
+    musicButton.classList.toggle('is-off', !audio.musicOn);
+    musicButton.setAttribute('aria-pressed', String(audio.musicOn));
+    musicButton.title = audio.musicOn ? '關閉背景音樂' : '開啟背景音樂';
+  }
+  const musicBadge = document.getElementById('music-status-badge');
+  if (musicBadge) {
+    musicBadge.textContent = audio.musicOn ? '開啟中' : '已關閉';
+    musicBadge.className = 'tools-status-badge ' + (audio.musicOn ? 'is-active' : 'is-muted');
+  }
 
-  ttsButton.classList.toggle('is-off', !audio.ttsOn);
-  ttsButton.setAttribute('aria-pressed', String(audio.ttsOn));
-  ttsButton.innerHTML = audio.ttsOn ? '<span>🔊</span>' : '<span>🔈</span>';
-  ttsButton.title = audio.ttsOn ? '關閉語音讀題' : '開啟語音讀題';
+  if (ttsButton) {
+    ttsButton.classList.toggle('is-off', !audio.ttsOn);
+    ttsButton.setAttribute('aria-pressed', String(audio.ttsOn));
+    ttsButton.title = audio.ttsOn ? '關閉語音讀題' : '開啟語音讀題';
+  }
+  const ttsBadge = document.getElementById('tts-status-badge');
+  if (ttsBadge) {
+    ttsBadge.textContent = audio.ttsOn ? '開啟中' : '已關閉';
+    ttsBadge.className = 'tools-status-badge ' + (audio.ttsOn ? 'is-active' : 'is-muted');
+  }
 }
 
 function syncZhuyinButton() {

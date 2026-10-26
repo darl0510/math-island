@@ -338,6 +338,10 @@ export function toggleStudentDropdown() {
 
   const isOpen = !menu.classList.contains('hidden');
   if (!isOpen) {
+    const subjectMenu = document.getElementById('subject-dropdown-menu');
+    subjectMenu?.classList.add('hidden');
+    subjectMenu?.setAttribute('hidden', '');
+    document.getElementById('subject-dropdown-btn')?.setAttribute('aria-expanded', 'false');
     const gradeMenu = document.getElementById('grade-dropdown-menu');
     gradeMenu?.classList.add('hidden');
     gradeMenu?.setAttribute('hidden', '');

@@ -2747,10 +2747,10 @@ body[data-screen="home"] .screen.active {
 }
 
 @media (max-width: 680px) {
-  :root { --header-height: 64px; }
+  :root { --header-height: 58px; }
   .brand-sub { display: none; }
-  .bar-btn { width: 42px; height: 42px; border-radius: 14px; font-size: 20px; }
-  .home-content { padding-top: calc(var(--header-height) + 10px); margin-left: 0; width: 100%; padding-left: 22px; padding-right: 22px; }
+  .bar-btn { width: 38px; height: 38px; border-radius: 12px; font-size: 18px; }
+  .home-content { padding-top: calc(var(--header-height) + 26px); margin-left: 0; width: 100%; padding-left: 18px; padding-right: 18px; }
   .home-mascot { display: none; }
   .home-view::before {
     background:
@@ -2900,213 +2900,302 @@ body[data-screen="home"] .subject-capsule.is-soon { color: rgba(255, 248, 232, 0
 
 .start-adventure.is-soon { opacity: 0.72; cursor: not-allowed; filter: saturate(0.55); }
 
-/* === 📱 全裝置頂部導覽列 RWD 響應式系統 (含 6 大科目徹底防擠壓) === */
-
-/* 1. 大筆電與中型螢幕 (1041px ~ 1320px) */
-@media (max-width: 1320px) {
-  #global-bar {
-    padding: 0 16px;
-    gap: 10px;
-  }
-  .brand {
-    font-size: 19px;
-    gap: 6px;
-  }
-  .brand-version {
-    display: none; /* 隱藏版號標籤省下 65px */
-  }
-  .subject-capsule-stars {
-    display: none; /* 6 科目常態展示圖示+簡稱，隱藏星星省下 180px */
-  }
-  .subject-capsule {
-    padding: 6px 11px;
-    font-size: 13.5px;
-    gap: 5px;
-  }
-  .grade-dropdown-btn,
-  .student-dropdown-btn {
-    padding: 6px 10px;
-    font-size: 0.88rem;
-  }
-  .bar-btn {
-    width: 42px;
-    height: 42px;
-    font-size: 20px;
-    border-radius: 13px;
-  }
+/* === 🧮 科目切換膠囊 (可收合下拉選單) === */
+.subject-pill-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+  flex-shrink: 0;
 }
 
-/* 2. 平板橫向與小型筆電 (861px ~ 1040px) */
+.subject-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #2ed573;
+  color: #1b6339;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(46, 213, 115, 0.18);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(46, 213, 115, 0.35);
+  background: #ffffff;
+}
+
+body[data-screen="home"] .subject-dropdown-btn {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+body[data-screen="home"] .subject-dropdown-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: #ffffff;
+}
+
+.subject-arrow {
+  font-size: 0.8rem;
+  color: #2ed573;
+  transition: transform 0.2s ease;
+}
+
+body[data-screen="home"] .subject-arrow {
+  color: #ffffff;
+}
+
+.subject-dropdown-btn[aria-expanded="true"] .subject-arrow {
+  transform: rotate(180deg);
+}
+
+.subject-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(45, 24, 76, 0.22);
+  border: 2px solid #2ed573;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+  width: 290px;
+  max-width: calc(100vw - 20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: dropMenuPop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.subject-dropdown-menu.hidden {
+  display: none !important;
+}
+
+.subject-dropdown-header {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #1b6339;
+  padding: 6px 10px 6px;
+  border-bottom: 1.5px dashed rgba(46, 213, 115, 0.25);
+  margin-bottom: 3px;
+}
+
+.subject-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.subject-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  color: #2b144e;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.subject-dropdown-item:hover {
+  background: rgba(46, 213, 115, 0.12);
+  color: #1b6339;
+  transform: translateX(3px);
+}
+
+.subject-dropdown-item.is-selected {
+  background: #2ed573;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.subject-dropdown-item.is-selected .subject-dropdown-desc {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.subject-dropdown-icon {
+  font-size: 1.25rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.subject-dropdown-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subject-dropdown-desc {
+  font-size: 0.7rem;
+  color: #7b6a96;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subject-dropdown-lock {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #ffa502;
+  color: #ffffff;
+  margin-left: auto;
+}
+
+.subject-dropdown-stars {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ff9f43;
+  margin-left: auto;
+}
+
+.subject-dropdown-item.is-selected .subject-dropdown-stars {
+  color: #ffd93d;
+}
+
+/* === 📱 全裝置頂部導覽列 單列常駐零折行 RWD 系統 === */
+
+/* 1. 中型螢幕與平板橫向 (<= 1040px) */
 @media (max-width: 1040px) {
   #global-bar {
     padding: 0 12px;
-    gap: 8px;
-    height: 64px;
-  }
-  :root {
-    --header-height: 64px;
+    gap: 6px;
+    height: 60px;
+    min-height: 60px;
+    flex-wrap: nowrap;
   }
   .brand {
-    font-size: 16px;
-    gap: 5px;
-  }
-  .brand-star {
-    display: none; /* 隱藏裝飾星星省空間 */
-  }
-  .brand-sub {
-    display: none; /* 隱藏大冒險徽章 */
-  }
-  .subject-capsules {
-    gap: 5px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .subject-capsules::-webkit-scrollbar {
-    display: none;
-  }
-  .subject-capsule {
-    padding: 5px 9px;
-    font-size: 12.5px;
-    gap: 4px;
-  }
-  .subject-capsule-icon {
-    font-size: 15px;
-  }
-  .grade-dropdown-btn,
-  .student-dropdown-btn {
-    padding: 5px 8px;
-    font-size: 0.82rem;
-  }
-  #student-btn-name {
-    max-width: 65px;
-  }
-  .bar-actions {
-    gap: 4px;
-  }
-  .bar-btn {
-    width: 36px;
-    height: 36px;
     font-size: 17px;
-    border-radius: 11px;
-  }
-}
-
-/* 3. 平板直向與手機端 (<= 860px)：雙層架構徹底根除 6 大科目擠壓 */
-@media (max-width: 860px) {
-  :root {
-    --header-height: 96px;
-  }
-  #global-bar {
-    height: auto;
-    min-height: 96px;
-    flex-wrap: wrap;
-    padding: 6px 12px 4px;
     gap: 4px;
-    align-content: center;
-  }
-  #home-btn {
-    order: 1;
-    width: 34px;
-    height: 34px;
-    font-size: 16px;
-    border-radius: 9px;
-  }
-  .brand {
-    order: 2;
-    flex: 1 1 auto;
-    min-width: 0;
-    font-size: 15px;
-  }
-  #brand-subject-title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
   .brand-star,
   .brand-sub,
   .brand-version {
     display: none;
   }
-  .grade-pill-container {
-    order: 3;
-    margin-left: auto;
-  }
-  .student-pill-container {
-    order: 3;
-    margin-left: 4px;
-  }
+  .subject-dropdown-btn,
   .grade-dropdown-btn,
   .student-dropdown-btn {
-    padding: 4px 8px;
+    padding: 5px 9px;
+    font-size: 0.85rem;
+    gap: 4px;
+  }
+  #student-btn-name {
+    max-width: 65px;
+  }
+  .bar-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+}
+
+/* 2. 平板直向與手機端 (<= 680px) */
+@media (max-width: 680px) {
+  #global-bar {
+    padding: 0 8px;
+    gap: 4px;
+    height: 56px;
+    min-height: 56px;
+    flex-wrap: nowrap;
+  }
+  .brand {
+    font-size: 15px;
+    gap: 3px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  #brand-subject-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .subject-pill-container,
+  .grade-pill-container,
+  .student-pill-container {
+    margin-left: 2px;
+  }
+  .subject-dropdown-btn,
+  .grade-dropdown-btn,
+  .student-dropdown-btn {
+    padding: 4px 7px;
     font-size: 0.8rem;
     gap: 3px;
   }
   #student-btn-name {
-    max-width: 50px;
-  }
-  .bar-actions {
-    order: 4;
-    gap: 4px;
+    max-width: 48px;
   }
   .bar-btn {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     font-size: 16px;
-    border-radius: 9px;
-  }
-
-  /* 第二層：科目膠囊獨立橫向列 */
-  .subject-capsules {
-    order: 5;
-    flex: 0 0 100%;
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    padding: 2px 2px 4px;
-    gap: 6px;
-  }
-  .subject-capsules::-webkit-scrollbar {
-    display: none;
-  }
-  .subject-capsule {
-    padding: 5px 10px;
-    font-size: 12.5px;
-    gap: 5px;
-    flex-shrink: 0;
-  }
-  .subject-capsule-name {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip-path: none;
-    font-size: 12.5px;
-  }
-  .subject-capsule-stars {
-    display: none;
+    border-radius: 10px;
   }
 }
 
-/* 5. 超窄手機 (<= 380px) 微調 */
-@media (max-width: 380px) {
+/* 3. 超窄手機 (<= 400px) 微調 */
+@media (max-width: 400px) {
+  #global-bar {
+    padding: 0 4px;
+    gap: 3px;
+  }
   .brand {
     font-size: 13.5px;
   }
-  .bar-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-  }
+  .subject-dropdown-btn,
   .grade-dropdown-btn,
   .student-dropdown-btn {
     padding: 3px 5px;
     font-size: 0.74rem;
+    gap: 2px;
   }
   #student-btn-name {
     display: none;
+  }
+  .bar-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
   }
 }
 
