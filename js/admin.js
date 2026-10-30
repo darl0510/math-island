@@ -205,6 +205,11 @@ function setupEventListeners() {
   document.getElementById('export-students-csv')?.addEventListener('click', exportStudentsCSV);
   document.getElementById('export-records-csv')?.addEventListener('click', exportRecordsCSV);
   document.getElementById('export-json-backup')?.addEventListener('click', exportJSONBackup);
+  
+  const importJsonBtn = document.getElementById('import-json-backup-btn');
+  const importJsonInput = document.getElementById('admin-json-backup-input');
+  importJsonBtn?.addEventListener('click', () => importJsonInput?.click());
+  importJsonInput?.addEventListener('change', handleImportJSONBackup);
 
   // 錯題彈窗
   document.getElementById('error-modal-close')?.addEventListener('click', closeErrorModal);
@@ -882,17 +887,113 @@ function exportRecordsCSV() {
   showToast('📥 學習歷程 CSV 匯出成功！');
 }
 
-// 匯出 JSON 備份
+// 匯出全量 JSON 備份 (包含多學童名冊、闖關戰績與各科進度快照)
 function exportJSONBackup() {
+  const progressMap = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && (k.startsWith('fantasy-math-island-progress') || k.startsWith('fantasy-island-progress'))) {
+        try {
+          progressMap[k] = JSON.parse(localStorage.getItem(k));
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
+
   const data = {
-    version: 'v2.8.2',
+    app: 'fantasy-island-adventure',
+    schemaVersion: '3.0.2',
     exported_at: new Date().toISOString(),
     students: state.students,
-    records: state.records
+    records: state.records,
+    progress: progressMap,
   };
   const jsonStr = JSON.stringify(data, null, 2);
-  downloadFile(jsonStr, `奇幻數學島_後台完整備份_${formatDate(new Date())}.json`, 'application/json');
-  showToast('💾 完整 JSON 備份匯出成功！');
+  downloadFile(jsonStr, `奇幻數學島_後台全科雙軌備份_${formatDate(new Date())}.json`, 'application/json');
+  showToast('💾 完整 JSON 雙軌備份匯出成功！');
+}
+
+// 處理匯入全量 JSON 備份
+function handleImportJSONBackup(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    try {
+      const parsed = JSON.parse(event.target.result);
+      if (!parsed || typeof parsed !== 'object') {
+        throw new Error('檔案內容並非有效的 JSON 格式');
+      }
+
+      let importedStudentsCount = 0;
+      let importedRecordsCount = 0;
+      let importedProgressCount = 0;
+
+      // 1. 匯入學童名單
+      if (Array.isArray(parsed.students)) {
+        parsed.students.forEach((s) => {
+          if (s && s.id && !state.students.some((existing) => existing.id === s.id)) {
+            state.students.push(s);
+            importedStudentsCount++;
+          }
+        });
+        saveLocalStudents(state.students);
+      } else if (parsed.student && parsed.student.id) {
+        if (!state.students.some((existing) => existing.id === parsed.student.id)) {
+          state.students.push(parsed.student);
+          importedStudentsCount++;
+        }
+        saveLocalStudents(state.students);
+      }
+
+      // 2. 匯入闖關戰績 (去重)
+      if (Array.isArray(parsed.records)) {
+        parsed.records.forEach((r) => {
+          if (r && !state.records.some((existing) => existing.id === r.id || (existing.timestamp === r.timestamp && existing.student_id === r.student_id && existing.level_id === r.level_id))) {
+            state.records.push(r);
+            importedRecordsCount++;
+          }
+        });
+        saveLocalRecords(state.records);
+      }
+
+      // 3. 匯入各科進度
+      if (parsed.progress && typeof parsed.progress === 'object') {
+        Object.entries(parsed.progress).forEach(([k, v]) => {
+          try {
+            localStorage.setItem(k, JSON.stringify(v));
+            importedProgressCount++;
+          } catch (e) {}
+        });
+      }
+
+      // 4. 若後台伺服器在線，嘗試推播同步
+      if (state.isServerOnline && parsed.records?.length > 0) {
+        try {
+          await fetch('/api/sync_progress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              student: parsed.student || state.students[0],
+              records: parsed.records,
+            }),
+          });
+        } catch (e) {}
+      }
+
+      renderStudentsTab();
+      renderRecordsTab();
+      renderWeaknessTab();
+      showToast(`🎉 成功匯入備份！同步 ${importedRecordsCount} 筆戰績與 ${importedProgressCount} 個學科節點！`);
+    } catch (err) {
+      alert(`匯入備份失敗：${err.message}`);
+    } finally {
+      e.target.value = '';
+    }
+  };
+  reader.readAsText(file, 'utf-8');
 }
 
 // 下載輔助函式

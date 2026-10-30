@@ -1,4 +1,5 @@
 import { DEFAULT_SUBJECT, SUBJECTS } from './subjects.js';
+import { idbSaveProgress } from './storage-sync.js';
 
 export const TOTAL_LEVELS = 16;
 export const TOTAL_ISLANDS = 4;
@@ -140,6 +141,9 @@ export function saveState(grade = getCurrentGrade(), subject = getCurrentSubject
       ? state
       : load(grade, subject);
     localStorage.setItem(key, JSON.stringify(targetState));
+    if (typeof idbSaveProgress === 'function') {
+      idbSaveProgress(key, targetState);
+    }
   } catch (err) {
     /* 無痕模式或 Quota 超限可能無法寫入，遊戲仍可玩 */
     console.warn('[storage] 進度保存失敗 (可能是無痕模式或空間不足):', err);
@@ -328,8 +332,8 @@ export function exportAllProgress() {
     progress: {},
   };
 
-  const coreSubjects = SUBJECTS.filter((sub) => !sub.isChallenge);
-  for (const sub of coreSubjects) {
+  const activeSubjects = SUBJECTS.filter((sub) => sub.ready);
+  for (const sub of activeSubjects) {
     for (const g of grades) {
       const key = getStorageKey(g, sub.id);
       const snap = snapshot(g, sub.id);
@@ -349,14 +353,17 @@ export function importAllProgress(data) {
   const grades = [1, 2, 3];
   let importedCount = 0;
 
-  const coreSubjects = SUBJECTS.filter((sub) => !sub.isChallenge);
-  for (const sub of coreSubjects) {
+  const activeSubjects = SUBJECTS.filter((sub) => sub.ready);
+  for (const sub of activeSubjects) {
     for (const g of grades) {
       const key = getStorageKey(g, sub.id);
       if (data.progress[key]) {
         const clean = sanitizeProgress(data.progress[key]);
         try {
           localStorage.setItem(key, JSON.stringify(clean));
+          if (typeof idbSaveProgress === 'function') {
+            idbSaveProgress(key, clean);
+          }
           importedCount++;
         } catch (e) {
           console.warn(`[storage] 寫入 ${key} 失敗:`, e);
@@ -452,3 +459,13 @@ export function getChallengeUnlockStatus(grade = getCurrentGrade()) {
 export function isChallengeUnlocked(grade = getCurrentGrade()) {
   return getChallengeUnlockStatus(grade).unlocked;
 }
+
+/* 雙軌存儲與跨年級成果綜合數據重導出 (方便外部模組引用) */
+export {
+  getCrossGradeSummary,
+  createComprehensiveBackup,
+  exportAndDownloadBackup,
+  applyComprehensiveBackup,
+  parseAndValidateBackup,
+  initDualTierStorage,
+} from './storage-sync.js';

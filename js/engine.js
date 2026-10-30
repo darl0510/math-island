@@ -1,4 +1,5 @@
 import { audio } from './audio.js';
+import { applyGentleShake, highlightVisualFocus } from './guidance.js';
 import { completeLevel, isUnlocked, getLevelLockInfo, getCurrentSubject, getCurrentGrade } from './state.js';
 import { renderVisual, renderStoryVisual } from './visuals.js';
 import { clearConfetti, launchConfetti, fireworks, showToast, starsMarkup } from './ui.js';
@@ -12,7 +13,19 @@ import { toZhuyinRuby } from './zhuyin.js';
 import { uploadLevelRecord, getCurrentStudent } from './student.js';
 
 import { PRAISE, ENCOURAGE, getSubjectPraise } from './texts.js';
-import { createComboState, onCorrect, onWrong, renderComboBar, showComboCelebration, showComboBreak, comboSummaryMarkup } from './combo.js';
+import {
+  createComboState,
+  onCorrect,
+  onWrong,
+  renderComboBar,
+  showComboCelebration,
+  showComboBreak,
+  comboSummaryMarkup,
+  calculateQuestionScore,
+  spawnFloatingScore,
+  updateScoreDisplay,
+  clearFloatingScores,
+} from './combo.js';
 
 const THEMES = { 1: 'forest', 2: 'ocean', 3: 'cloud', 4: 'space' };
 
@@ -45,6 +58,9 @@ export function startLevel(level, { onExit } = {}) {
     errors: [],
     startTime: Date.now(),
     combo: createComboState(),
+
+    scorePoints: 0,
+
   };
   activeSession = session;
   session.questions = buildQuestions(level);
@@ -56,6 +72,9 @@ export function startLevel(level, { onExit } = {}) {
       question: session.questions[session.index] || null,
       mistakes: session.mistakes,
       correct: session.correct,
+
+      scorePoints: session.scorePoints || 0,
+
       locked: session.locked,
       finished: session.index >= session.questions.length,
     } : null),
@@ -113,7 +132,11 @@ function beginQuestions(session) {
   session.index = 0;
   session.mistakes = 0;
   session.correct = 0;
+
+  session.scorePoints = 0;
+
   renderLevelShell(session);
+  renderComboBar(session);
   renderQuestion(session);
   session.keyHandler = (event) => handleKey(session, event);
   window.addEventListener('keydown', session.keyHandler);
@@ -164,6 +187,11 @@ function renderLevelShell(session) {
           <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
           <span class="progress-label">1 / ${session.questions.length}</span>
         </div>
+        <div class="level-score-chip" id="level-score-chip" aria-live="polite" title="累計冒險得分">
+          <span class="score-icon" aria-hidden="true">⭐</span>
+          <span class="score-val">${session.scorePoints || 0}</span>
+          <span class="score-unit">分</span>
+        </div>
         <button class="hint-top" type="button" data-action="hint">💡 提示</button>
       </div>
 
@@ -186,8 +214,11 @@ function renderLevelShell(session) {
           <div class="answer-grid" id="answer-grid" role="group" aria-label="答案選項"></div>
           <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
         </article>
-        <div class="buddy" aria-hidden="true">
-          <img src="assets/images/mascot.jpg" alt="" />
+        <div class="buddy" id="mascot-buddy" aria-hidden="true">
+          <div class="buddy-avatar-wrap">
+            <img src="assets/images/mascot.jpg" alt="" class="buddy-img" />
+            <span class="buddy-mood-badge" id="buddy-mood-badge">✨</span>
+          </div>
           <span class="buddy-bubble" id="buddy-bubble">加油！</span>
         </div>
       </div>
@@ -238,7 +269,7 @@ function renderQuestion(session) {
   feedback.innerHTML = '';
   hintBox.hidden = true;
   hintText.innerHTML = toZhuyinRuby(question.hint || '仔細看一看題目。', question);
-  buddy.innerHTML = toZhuyinRuby(pickBuddy(session.index));
+  setBuddyMood('cheer', pickBuddy(session.index));
 
   visualZone.innerHTML = '';
   const visual = renderVisual(question.visual, question) || renderStoryVisual(question, session.level);
@@ -347,7 +378,11 @@ function chooseAnswer(session, value, button) {
     audio.playSfx('correct');
     launchConfetti({ count: 100, y: window.innerHeight * 0.25 });
     showFeedback('correct', `🎉 ${question.explanation || '答對了！'}`, session);
-    setBuddy('太棒了！');
+    if (session.combo && session.combo.count >= 2) {
+      setBuddyMood('combo', `連對 ×${session.combo.count}！太神啦！`);
+    } else {
+      setBuddyMood('correct', '太棒了！答對囉！');
+    }
     const currentSub = question.subject || getCurrentSubject();
     const praise = getSubjectPraise(currentSub);
     audio.speakSequence([praise, question.explanation || '']);
@@ -355,6 +390,13 @@ function chooseAnswer(session, value, button) {
     const newTier = onCorrect(session);
     renderComboBar(session);
     if (newTier) showComboCelebration(session, newTier);
+
+    // ── 得分飛字動效與即時記分 ──
+    const scoreInfo = calculateQuestionScore(session.combo ? session.combo.count : 1);
+    session.scorePoints = (session.scorePoints || 0) + scoreInfo.total;
+    spawnFloatingScore(button, scoreInfo);
+    updateScoreDisplay(session, scoreInfo.total);
+
     offerNext(session);
     return;
   }
@@ -369,9 +411,10 @@ function chooseAnswer(session, value, button) {
     explanation: question.explanation || ''
   });
   button.classList.add('wrong');
+  applyGentleShake(button);
   button.disabled = true;
   audio.playSfx('wrong', 0.55);
-  setBuddy('再想想～');
+  setBuddyMood('think', '再想想～別灰心！');
   // ── Combo 答錯處理 ──
   const comboBreak = onWrong(session);
   renderComboBar(session);
@@ -379,9 +422,11 @@ function chooseAnswer(session, value, button) {
   if (session.perQuestion === 1) {
     showFeedback('gentle', `💛 ${ENCOURAGE[Math.floor(Math.random() * ENCOURAGE.length)]}`, session);
     showHint(session, true);
+    highlightVisualFocus();
   } else {
     session.locked = true;
     revealAnswer(session, question);
+    highlightVisualFocus();
     showFeedback('reveal', `🌈 ${question.explanation || `答案是 ${question.answer}。`}`, session);
     audio.speakSequence(['沒關係，我們一起看。', question.explanation || `答案是 ${question.answer}。`]);
     offerNext(session);
@@ -426,7 +471,7 @@ function showHint(session, speak) {
   hintBox.hidden = false;
   document.getElementById('hint-text').textContent = question.hint || '仔細看一看題目。';
   if (speak) audio.speak(question.hint || '仔細看一看題目。');
-  document.getElementById('buddy-bubble').textContent = '看提示！';
+  setBuddyMood('encourage', '仔細看提示喔！');
 }
 
 function showFeedback(kind, text, session) {
@@ -437,9 +482,43 @@ function showFeedback(kind, text, session) {
   void session;
 }
 
-function setBuddy(text) {
-  const buddy = document.getElementById('buddy-bubble');
-  if (buddy) buddy.innerHTML = toZhuyinRuby(text);
+const BUDDY_MOOD_CONFIG = {
+  idle:       { badge: '🦊', animation: 'mascot-idle', scale: 1 },
+  cheer:      { badge: '✨', animation: 'mascot-bounce', scale: 1.05 },
+  correct:    { badge: '🎉', animation: 'mascot-cheer', scale: 1.15 },
+  combo:      { badge: '🔥', animation: 'mascot-super', scale: 1.25 },
+  think:      { badge: '🤔', animation: 'mascot-think', scale: 0.95 },
+  encourage:  { badge: '💪', animation: 'mascot-gentle', scale: 1 },
+  celebrate:  { badge: '👑', animation: 'mascot-celebrate', scale: 1.3 }
+};
+
+export function setBuddyMood(mood = 'idle', text = null) {
+  const buddyEl = document.getElementById('mascot-buddy');
+  const badgeEl = document.getElementById('buddy-mood-badge');
+  const bubbleEl = document.getElementById('buddy-bubble');
+  const cfg = BUDDY_MOOD_CONFIG[mood] || BUDDY_MOOD_CONFIG.idle;
+
+  if (badgeEl) {
+    badgeEl.textContent = cfg.badge;
+    badgeEl.className = `buddy-mood-badge buddy-badge-${mood} badge-pop`;
+    setTimeout(() => badgeEl.classList.remove('badge-pop'), 400);
+  }
+
+  if (buddyEl) {
+    buddyEl.className = `buddy buddy--${mood}`;
+    buddyEl.style.setProperty('--buddy-scale', cfg.scale);
+  }
+
+  if (text && bubbleEl) {
+    bubbleEl.innerHTML = toZhuyinRuby(text);
+    bubbleEl.classList.remove('bubble-pop');
+    void bubbleEl.offsetWidth; // trigger reflow
+    bubbleEl.classList.add('bubble-pop');
+  }
+}
+
+export function setBuddy(text) {
+  setBuddyMood('cheer', text);
 }
 
 function updateProgress(session) {
@@ -523,6 +602,12 @@ function finishLevel(session) {
       </div>
       <p class="result-line">答對 <strong>${correct}</strong> 題${mistakes ? `，再加油一點就三顆星囉！` : '，完全沒有失誤！'}</p>
       ${result.stars > result.previousStars ? '<p class="result-new">刷新紀錄！</p>' : ''}
+      <div class="result-score-summary">
+        <span class="result-score-label">🏆 本關冒險積分</span>
+        <span class="result-score-value">${session.scorePoints || 0}</span>
+        <span class="result-score-unit">分</span>
+      </div>
+      ${comboSummaryMarkup(session)}
       ${newBadgesMarkup}
       <p class="result-skill">${escapeHtml(level.skill)} ✓</p>
       <div class="result-actions">
@@ -606,6 +691,10 @@ export function teardownSession() {
   activeSession = null;
   audio.stopSpeech();
   window.speechSynthesis?.cancel();
+  document.querySelector('.combo-celebration')?.remove();
+  document.querySelector('.combo-bar')?.remove();
+
+  clearFloatingScores();
 }
 
 export function hasActiveSession() {

@@ -12,6 +12,7 @@ import { showBadgesModal, getUnlockedBadgeCount } from './badges.js';
 import { isZhuyinEnabled, toggleZhuyin } from './zhuyin.js';
 import { showReportModal } from './poster.js';
 import { initStudentProfile } from './student.js';
+import { initDualTierStorage } from './storage-sync.js';
 
 const musicButton = document.getElementById('music-btn');
 const ttsButton = document.getElementById('tts-btn');
@@ -354,6 +355,7 @@ function init() {
   syncZhuyinButton();
   setupPWAAndOffline();
   initStudentProfile();
+  initDualTierStorage();
 
   badgesButton?.addEventListener('click', () => {
     showBadgesModal();

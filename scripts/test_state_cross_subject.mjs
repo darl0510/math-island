@@ -39,12 +39,14 @@ function assert(condition, message) {
 }
 
 // 測試 1: 驗證初始全科目匯總
-console.log('\n--- 測試 1: 初始全科目匯總 (144 關 / 432 星上限) ---');
+console.log('\n--- 測試 1: 初始全科目匯總 (動態科目關卡數與星星上限) ---');
 const initialSummary = stateMod.getAllSubjectsSummary();
+const expectedLevels = Object.keys(initialSummary.subjects).length * 48;
+const expectedStars = expectedLevels * 3;
 assert(initialSummary.totalStars === 0, `初始總星星數為 0 (實際: ${initialSummary.totalStars})`);
-assert(initialSummary.maxTotalStars === 432, `全科最大星星數為 432 (實際: ${initialSummary.maxTotalStars})`);
+assert(initialSummary.maxTotalStars === expectedStars, `全科最大星星數符合預期 (預期: ${expectedStars}, 實際: ${initialSummary.maxTotalStars})`);
 assert(initialSummary.completedLevels === 0, `初始完成關數為 0 (實際: ${initialSummary.completedLevels})`);
-assert(initialSummary.maxTotalLevels === 144, `全科最大關卡數為 144 (實際: ${initialSummary.maxTotalLevels})`);
+assert(initialSummary.maxTotalLevels === expectedLevels, `全科最大關卡數符合預期 (預期: ${expectedLevels}, 實際: ${initialSummary.maxTotalLevels})`);
 assert(Object.keys(initialSummary.subjects).length >= 3, '包含各大科目 (math, english, chinese)');
 
 // 測試 2: 跨科目存儲完全隔離性

@@ -7,6 +7,12 @@
 import { getCurrentSubject, getCurrentGrade } from './state.js';
 import { showToast } from './ui.js';
 import { audio } from './audio.js';
+import {
+  getCrossGradeSummary,
+  exportAndDownloadBackup,
+  parseAndValidateBackup,
+  applyComprehensiveBackup,
+} from './storage-sync.js';
 
 const STORAGE_KEY_CURRENT = 'fantasy_math_current_student';
 const STORAGE_KEY_STUDENTS = 'fantasy_math_students_cache';
@@ -841,6 +847,92 @@ export async function uploadStudentProgressToServer(student = getCurrentStudent(
 /**
  * 彈出【冒險進度同步與雲端上傳中心】對話框
  */
+/**
+ * 彈出備份還原確認與預覽對話框
+ */
+export function showBackupPreviewDialog(validationResult) {
+  const { preview, data } = validationResult;
+  const modal = document.createElement('div');
+  modal.id = 'backup-preview-modal';
+  modal.className = 'student-modal-overlay';
+  modal.style.zIndex = '10001';
+  modal.innerHTML = `
+    <div class="student-modal-card" style="max-width: 440px;">
+      <div class="student-modal-header">
+        <span class="student-modal-icon">📦</span>
+        <h3>確認恢復備份檔案</h3>
+        <button class="student-modal-close" type="button" aria-label="關閉">✕</button>
+      </div>
+      <div class="student-modal-body" style="font-size: 0.9rem;">
+        <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <span style="font-size: 2.2rem;">${preview.studentAvatar}</span>
+            <div>
+              <div style="font-weight: 800; font-size: 1.1rem; color: #f8fafc;">${preview.studentName}</div>
+              <div style="color: #94a3b8; font-size: 0.78rem;">備份時間：${new Date(preview.exportedAt).toLocaleString('zh-TW')}</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; font-size: 0.85rem;">
+            <div style="background: rgba(30, 41, 59, 0.7); padding: 8px; border-radius: 6px;">
+              <div style="color: #94a3b8; font-size: 0.75rem;">榮譽星星</div>
+              <div style="font-weight: 800; font-size: 1.15rem; color: #facc15;">⭐ ${preview.totalStars}</div>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.7); padding: 8px; border-radius: 6px;">
+              <div style="color: #94a3b8; font-size: 0.75rem;">通關關卡</div>
+              <div style="font-weight: 800; font-size: 1.15rem; color: #38bdf8;">🏆 ${preview.totalLevels} 關</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 10px;">
+          請選擇恢復模式：
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button id="btn-merge-restore" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; padding: 11px; text-align: left; display: flex; flex-direction: column; gap: 2px;">
+            <span>✨ 智慧合併 (推薦)</span>
+            <span style="font-size: 0.75rem; font-weight: 400; opacity: 0.9;">保留兩側較高星數、關卡聯集與對戰紀錄，安全無痛</span>
+          </button>
+          <button id="btn-overwrite-restore" type="button" class="student-modal-confirm" style="background: rgba(225, 29, 72, 0.85); font-weight: 800; padding: 11px; text-align: left; display: flex; flex-direction: column; gap: 2px;">
+            <span>⚠️ 完整覆蓋</span>
+            <span style="font-size: 0.75rem; font-weight: 400; opacity: 0.9;">完全以備份檔案內容取代本機進度</span>
+          </button>
+        </div>
+      </div>
+      <div class="student-modal-actions" style="margin-top: 10px;">
+        <button id="btn-cancel-preview" class="student-modal-cancel" type="button" style="width: 100%;">取消</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const closeModal = () => modal.remove();
+  modal.querySelector('.student-modal-close')?.addEventListener('click', closeModal);
+  modal.querySelector('#btn-cancel-preview')?.addEventListener('click', closeModal);
+
+  const executeRestore = async (mode) => {
+    try {
+      modal.querySelector('#btn-merge-restore').disabled = true;
+      modal.querySelector('#btn-overwrite-restore').disabled = true;
+      showToast('正在雙軌寫入 LocalStorage 與 IndexedDB...', '🔄', 2000);
+      const res = await applyComprehensiveBackup(data, mode);
+      closeModal();
+      showToast(`🎉 成功以【${mode === 'merge' ? '智慧合併' : '完整覆蓋'}】恢復進度！共恢復 ${res.restoredKeysCount} 個節點！`, '🌟', 3500);
+      setTimeout(() => window.location.reload(), 1200);
+    } catch (err) {
+      alert(`恢復失敗：${err.message}`);
+      modal.querySelector('#btn-merge-restore').disabled = false;
+      modal.querySelector('#btn-overwrite-restore').disabled = false;
+    }
+  };
+
+  modal.querySelector('#btn-merge-restore')?.addEventListener('click', () => executeRestore('merge'));
+  modal.querySelector('#btn-overwrite-restore')?.addEventListener('click', () => executeRestore('overwrite'));
+}
+
+/**
+ * 彈出【冒險進度同步與雲端上傳中心】對話框
+ */
 export function showProgressSyncDialog() {
   audio.playSfx('click', 0.4);
   const existingModal = document.getElementById('sync-progress-modal');
@@ -848,51 +940,92 @@ export function showProgressSyncDialog() {
 
   const student = getCurrentStudent();
   const tokenStr = generateSyncTokenString(student);
-  const pack = packStudentProgressData(student);
-  const passes = pack.records.length;
-  const stars = pack.records.reduce((acc, r) => acc + (r.stars || 0), 0);
+  const crossSummary = getCrossGradeSummary(student);
+  const rank = crossSummary.masteryRank || { title: '島嶼見習生', icon: '🐣', badgeColor: '#94a3b8' };
 
   const modal = document.createElement('div');
   modal.id = 'sync-progress-modal';
   modal.className = 'student-modal-overlay';
   modal.innerHTML = `
-    <div class="student-modal-card" style="max-width: 480px;">
+    <div class="student-modal-card" style="max-width: 500px;">
       <div class="student-modal-header">
         <span class="student-modal-icon">☁️</span>
-        <h3>冒險進度同步與雲端上傳</h3>
+        <h3>冒險進度同步與雙軌備份中心</h3>
         <button class="student-modal-close" type="button" aria-label="關閉">✕</button>
       </div>
       <div class="student-modal-body" style="font-size: 0.9rem;">
-        <div style="display: flex; align-items: center; gap: 0.75rem; background: rgba(15, 23, 42, 0.6); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.75rem;">
-          <span style="font-size: 2rem;">${student.avatar || '🦊'}</span>
-          <div>
-            <div style="font-weight: 700; font-size: 1.05rem;">${student.name}</div>
-            <div style="color: #94a3b8; font-size: 0.8rem;">本機累計：${passes} 場通關 ｜ ⭐ ${stars} 顆榮譽星星</div>
+        <!-- 學童資訊與全能頭銜卡片 -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(15, 23, 42, 0.7); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 2.2rem;">${student.avatar || '🦊'}</span>
+            <div>
+              <div style="font-weight: 800; font-size: 1.1rem; color: #f8fafc;">${student.name}</div>
+              <div style="color: #94a3b8; font-size: 0.8rem;">本地雙軌儲存中 (LocalStorage ✕ IndexedDB)</div>
+            </div>
+          </div>
+          <span style="font-size: 0.8rem; background: ${rank.badgeColor}22; color: ${rank.badgeColor}; border: 1px solid ${rank.badgeColor}55; padding: 4px 10px; border-radius: 14px; font-weight: 800;">
+            ${rank.icon} ${rank.title}
+          </span>
+        </div>
+
+        <!-- 小學跨年級成果綜合數據面板 -->
+        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 8px; padding: 10px 12px; margin-bottom: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #38bdf8; font-size: 0.85rem;">📊 小學全科跨年級成果綜合統計</span>
+            <span style="font-size: 0.75rem; color: #94a3b8;">全年級共 6 大科目</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; text-align: center; margin-bottom: 8px;">
+            <div style="background: rgba(30, 41, 59, 0.6); padding: 6px 4px; border-radius: 6px;">
+              <div style="font-size: 0.72rem; color: #94a3b8;">總榮譽星數</div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #facc15;">⭐ ${crossSummary.totalStars}</div>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.6); padding: 6px 4px; border-radius: 6px;">
+              <div style="font-size: 0.72rem; color: #94a3b8;">累計通關</div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #38bdf8;">🏆 ${crossSummary.completedLevels} 關</div>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.6); padding: 6px 4px; border-radius: 6px;">
+              <div style="font-size: 0.72rem; color: #94a3b8;">總達成率</div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #4ade80;">🎯 ${crossSummary.overallPercentage}%</div>
+            </div>
+          </div>
+          <!-- 各年級微型膠囊進度 -->
+          <div style="display: flex; gap: 6px; font-size: 0.75rem; color: #cbd5e1;">
+            <div style="flex: 1; background: rgba(51, 65, 85, 0.4); border-radius: 4px; padding: 4px; text-align: center;">小一: ⭐ ${crossSummary.grades[1].totalStars} (${crossSummary.grades[1].completedLevels}關)</div>
+            <div style="flex: 1; background: rgba(51, 65, 85, 0.4); border-radius: 4px; padding: 4px; text-align: center;">小二: ⭐ ${crossSummary.grades[2].totalStars} (${crossSummary.grades[2].completedLevels}關)</div>
+            <div style="flex: 1; background: rgba(51, 65, 85, 0.4); border-radius: 4px; padding: 4px; text-align: center;">小三: ⭐ ${crossSummary.grades[3].totalStars} (${crossSummary.grades[3].completedLevels}關)</div>
           </div>
         </div>
 
-        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 10px; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #34d399;">
-          <span>🔄</span>
-          <span><strong>自動推進上傳已啟動</strong>：每次過關獲得星星時自動背景推播同步</span>
+        <!-- 雲端本地雙軌匯出備份專區 (亮點新功能) -->
+        <div style="margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button id="export-comprehensive-json-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #0284c7, #0369a1); font-weight: 800; font-size: 0.88rem; padding: 9px 8px;">
+              📦 匯出全科 JSON 備份
+            </button>
+            <button id="import-comprehensive-json-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #10b981, #047857); font-weight: 800; font-size: 0.88rem; padding: 9px 8px;">
+              📂 匯入 JSON 備份恢復
+            </button>
+          </div>
+          <input type="file" id="comprehensive-json-file-input" accept=".json,application/json" style="display: none;" />
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <button id="export-progress-qr-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #10b981, #059669); width: 100%; font-weight: 800; font-size: 0.95rem; padding: 10px 14px;">
+          <button id="export-progress-qr-btn" type="button" class="student-modal-confirm" style="background: linear-gradient(135deg, #059669, #047857); width: 100%; font-weight: 800; font-size: 0.92rem; padding: 9px 12px;">
             📱 產生【進度同步 QR Code】(手機相機一掃直接入帳)
           </button>
-          <button id="copy-sync-token-btn" type="button" class="student-modal-confirm" style="background: #8b5cf6; width: 100%;">
+          <button id="copy-sync-token-btn" type="button" class="student-modal-confirm" style="background: #7c3aed; width: 100%; font-size: 0.88rem;">
             📋 複製平板進度代碼 (可貼至後台或發給 AI 更新)
           </button>
-          <button id="direct-upload-btn" type="button" class="student-modal-confirm" style="background: #3b82f6; width: 100%;">
+          <button id="direct-upload-btn" type="button" class="student-modal-confirm" style="background: #2563eb; width: 100%; font-size: 0.88rem;">
             📤 區域網立即連線上傳 (電腦有開 server.py 時用)
           </button>
-          <button id="open-qr-from-sync-btn" type="button" class="student-modal-confirm" style="background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #38bdf8; width: 100%;">
+          <button id="open-qr-from-sync-btn" type="button" class="student-modal-confirm" style="background: rgba(56, 189, 248, 0.12); border: 1px solid #38bdf8; color: #38bdf8; width: 100%; font-size: 0.88rem;">
             🔗 平板直連遊戲入口 QR Code
           </button>
         </div>
 
-        <div style="margin-top: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-top: 0.75rem;">
-          <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 4px;">或從其他設備匯入進度碼：</div>
+        <div style="margin-top: 0.85rem; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-top: 0.75rem;">
+          <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 4px;">或貼上其他設備之文字同步碼：</div>
           <div style="display: flex; gap: 6px;">
             <input type="text" id="paste-sync-input" placeholder="貼上 FMS1_ 或 FMP1_ 同步碼..." style="flex: 1; padding: 6px 8px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #475569; background: #0f172a; color: #f8fafc;" />
             <button id="apply-sync-token-btn" type="button" style="padding: 6px 12px; background: #10b981; border: none; border-radius: 4px; color: #fff; font-weight: 700; cursor: pointer;">匯入</button>
@@ -915,8 +1048,55 @@ export function showProgressSyncDialog() {
   const openQrBtn = modal.querySelector('#open-qr-from-sync-btn');
   const applyBtn = modal.querySelector('#apply-sync-token-btn');
   const pasteInput = modal.querySelector('#paste-sync-input');
+  const exportJsonBtn = modal.querySelector('#export-comprehensive-json-btn');
+  const importJsonBtn = modal.querySelector('#import-comprehensive-json-btn');
+  const jsonFileInput = modal.querySelector('#comprehensive-json-file-input');
 
   const closeModal = () => modal.remove();
+
+  exportJsonBtn?.addEventListener('click', async () => {
+    try {
+      exportJsonBtn.disabled = true;
+      exportJsonBtn.textContent = '📦 正在匯出...';
+      await exportAndDownloadBackup(student);
+      showToast('🎉 已成功匯出全科 JSON 備份檔，並於本地 IndexedDB 雙軌留底！', '📦', 3500);
+      exportJsonBtn.textContent = '✅ 匯出成功！';
+      setTimeout(() => {
+        exportJsonBtn.disabled = false;
+        exportJsonBtn.textContent = '📦 匯出全科 JSON 備份';
+      }, 2000);
+    } catch (e) {
+      alert(`匯出失敗：${e.message}`);
+      exportJsonBtn.disabled = false;
+      exportJsonBtn.textContent = '📦 匯出全科 JSON 備份';
+    }
+  });
+
+  importJsonBtn?.addEventListener('click', () => {
+    jsonFileInput?.click();
+  });
+
+  jsonFileInput?.addEventListener('change', (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const validation = parseAndValidateBackup(event.target.result);
+        if (!validation.valid) {
+          alert(`備份檔案校驗失敗：${validation.error}`);
+          return;
+        }
+        closeModal();
+        showBackupPreviewDialog(validation);
+      } catch (err) {
+        alert(`讀取備份檔案失敗：${err.message}`);
+      } finally {
+        e.target.value = '';
+      }
+    };
+    reader.readAsText(file, 'utf-8');
+  });
 
   exportQrBtn?.addEventListener('click', () => {
     closeModal();
@@ -946,7 +1126,7 @@ export function showProgressSyncDialog() {
     navigator.clipboard.writeText(tokenStr).then(() => {
       showToast('📋 已複製平板進度碼！請至電腦後台點【貼上進度碼】匯入！', '✨', 3200);
       copyBtn.textContent = '✅ 已成功複製！';
-      setTimeout(() => copyBtn.textContent = '📋 複製平板進度同步碼 (跨設備/離線用)', 2000);
+      setTimeout(() => copyBtn.textContent = '📋 複製平板進度代碼 (可貼至後台或發給 AI 更新)', 2000);
     }).catch(() => {
       prompt('請手動複製以下進度代碼：', tokenStr);
     });
@@ -982,7 +1162,6 @@ export function showProgressSyncDialog() {
     }
   });
 }
-
 /**
  * 彈出【📱 平板掃碼直連冒險島】專屬對話框
  */

@@ -1,6 +1,6 @@
 {
-  "totalTokens": 749784,
-  "totalSavedUsdEst": 1.4843,
+  "totalTokens": 749859,
+  "totalSavedUsdEst": 1.4844,
   "sessions": [
     {
       "timestamp": "2026-10-25T08:31:08.279024+00:00",
@@ -559,11 +559,47 @@
       "note": "完成英文拼字防洩題修復、BGM主題解耦與404平滑降級、雲端退位戰情境校正、TTS語音純淨化",
       "model": "cloud-agent-fallback",
       "timestamp": "2026-10-30T21:05:45.356604"
+    },
+    {
+      "id": "sess_1793368851243",
+      "task": "在 js/engine.js 的 handleAnswer 函式中接入 combo.js 的 onCorrect/onWrong/renderComboBar/showComboCelebration/showComboBreak，並在關卡結算 HTML 中插入 comboSummaryMarkup()，完成後自檢驗證",
+      "promptTokens": 40,
+      "completionTokens": 0,
+      "totalTokens": 40,
+      "savedUsdEst": 8e-05,
+      "status": "passed",
+      "note": "純雲端接手優化完成：combo.js 接入 engine.js、連擊階梯與音效中斷動效整合、結算 HTML 插入 comboSummaryMarkup、unit tests 100% 通過",
+      "model": "qwen3.8-flash-next-iq3_xxs",
+      "timestamp": "2026-10-30T22:00:51.243597"
+    },
+    {
+      "id": "sess_1793370626511",
+      "task": "實作小學跨年級成果綜合數據同步與雲端本地雙軌匯出 (支援各科進度跨設備 JSON 匯出備份與本地 IndexedDB/LocalStorage 同步恢復)",
+      "promptTokens": 19,
+      "completionTokens": 0,
+      "totalTokens": 19,
+      "savedUsdEst": 3.8e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-30T22:30:26.511293"
+    },
+    {
+      "id": "sess_1793371512891",
+      "task": "實作【趣味互動階段 1】答題錯誤溫柔引導與視覺教具高亮互動 (選項溫和左右輕晃、溫柔鼓勵語音備援、錯誤解析與教具區域高亮聚焦引導)",
+      "promptTokens": 16,
+      "completionTokens": 0,
+      "totalTokens": 16,
+      "savedUsdEst": 3.2e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-30T22:45:12.891241"
     }
   ],
-  "updatedAt": "2026-10-30T21:11:25.136705",
+  "updatedAt": "2026-10-30T22:45:12.891249",
   "lastStatus": "passed",
-  "lastNote": "完成英文拼字防洩題修復、BGM主題解耦與404平滑降級、雲端退位戰情境校正、TTS語音純淨化",
-  "lastPassedAt": "2026-10-30T21:11:25.136686",
+  "lastNote": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+  "lastPassedAt": "2026-10-30T22:05:14.813360",
   "hermes_status": "offline"
 }
