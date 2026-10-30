@@ -2,7 +2,7 @@ import { audio } from './audio.js';
 import { completeLevel, isUnlocked, getLevelLockInfo, getCurrentSubject, getCurrentGrade } from './state.js';
 import { renderVisual, renderStoryVisual } from './visuals.js';
 import { clearConfetti, launchConfetti, fireworks, showToast, starsMarkup } from './ui.js';
-import { getLevelById } from './levels/index.js';
+import { getLevelById, getIslandByLevel } from './levels/index.js';
 import { checkNewlyUnlockedBadges } from './badges.js';
 import { getBankQuestions } from './question-bank.js';
 import { shuffle as shuffleArray } from './utils.js';
@@ -15,6 +15,14 @@ import { PRAISE, ENCOURAGE, getSubjectPraise } from './texts.js';
 import { createComboState, onCorrect, onWrong, renderComboBar, showComboCelebration, showComboBreak, comboSummaryMarkup } from './combo.js';
 
 const THEMES = { 1: 'forest', 2: 'ocean', 3: 'cloud', 4: 'space' };
+
+export function getLevelTheme(level) {
+  if (!level) return 'forest';
+  if (level.theme) return level.theme;
+  const isl = getIslandByLevel(level.id);
+  if (isl && isl.theme) return isl.theme;
+  return THEMES[level.island] || 'forest';
+}
 
 let activeSession = null;
 
@@ -52,7 +60,7 @@ export function startLevel(level, { onExit } = {}) {
       finished: session.index >= session.questions.length,
     } : null),
   };
-  audio.playMusic(THEMES[level.island] || 'forest', true);
+  audio.playMusic(getLevelTheme(level), true);
   later(session, () => prefetchLevelAudio(session), 350);
   renderIntro(session);
 }
@@ -74,7 +82,7 @@ function renderIntro(session) {
   const { level } = session;
   const screen = document.getElementById('screen-level');
   screen.innerHTML = `
-    <div class="level-view theme-${THEMES[level.island]}">
+    <div class="level-view theme-${getLevelTheme(level)}">
       <div class="intro-overlay">
         <div class="intro-card">
           <button class="round-back" type="button" data-action="exit" aria-label="回地圖">←</button>
@@ -149,7 +157,7 @@ function renderLevelShell(session) {
   const { level } = session;
   const screen = document.getElementById('screen-level');
   screen.innerHTML = `
-    <div class="level-view theme-${THEMES[level.island]}">
+    <div class="level-view theme-${getLevelTheme(level)}">
       <div class="level-topbar">
         <button class="round-back" type="button" data-action="exit" aria-label="回地圖">←</button>
         <div class="level-progress">

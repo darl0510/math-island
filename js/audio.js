@@ -162,6 +162,15 @@ class AudioManager {
     const oldIndex = this.activeChannel;
     this.activeChannel = 1 - this.activeChannel;
     const channel = this.channels[this.activeChannel];
+
+    // 平滑降級機制：若專屬島嶼音樂檔（如 forest/ocean/cloud/space）不存在（404），自動降級播放 title.mp3
+    channel.onerror = () => {
+      if (theme !== 'title') {
+        console.warn(`[audio] 音樂 ${theme}.mp3 載入失敗，平滑降級播放 title.mp3`);
+        this.playMusic('title', restart);
+      }
+    };
+
     channel.src = next;
     channel.currentTime = 0;
     channel.volume = 0;
@@ -176,7 +185,10 @@ class AudioManager {
       this.fadeIn(channel, this.ducked ? 0.05 : this.musicVolume);
       this.fadeOut(oldChannel);
     }).catch(() => {
-      /* 瀏覽器可能阻擋自動播放，等第一次點擊後再試 */
+      /* 瀏覽器可能阻擋自動播放，或資源不存在時平滑降級 */
+      if (theme !== 'title') {
+        this.playMusic('title', restart);
+      }
     });
 
     void oldIndex;
@@ -576,9 +588,10 @@ class AudioManager {
     let promptText = question.speak || question.prompt || '';
     // 將音標 /p/ 轉換為平易近人的 "p 的發音"
     promptText = promptText.replace(/\/([a-zA-Z]+)\//g, '$1 的發音');
-    // 去除 [英文] 🔤 等內部標籤
-    promptText = promptText.replace(/^\[.*?\]\s*[\uD800-\uDBFF][\uDC00-\uDFFF]?\s*/g, '');
-    promptText = promptText.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}]/gu, ''); // 去除 emoji 避免語音引擎亂唸
+    // 去除 [英文] 🔤 等內部標籤（包含所有方括號分類與裝飾 Emoji）
+    promptText = promptText.replace(/\[[^\]]+\]/g, '');
+    promptText = promptText.replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}]/gu, ''); // 去除 emoji 與裝飾符號避免語音引擎亂唸
+    promptText = promptText.replace(/_{2,}/g, '空格'); // 將連續底線轉換為「空格」，避免 TTS 唸出「底線底線」
     promptText = promptText.replace(/[「『]([a-zA-Z]+)[」』]/g, '$1');
 
     const sequence = [{ text: promptText.trim(), lang: 'zh-TW' }];

@@ -1,0 +1,49 @@
+{
+  "project_name": "math-island",
+  "note": "⚡ math-island 專屬備份設定檔 (由專案管控中心一鍵生成)",
+  "extensions": [
+    ".bat",
+    ".css",
+    ".env",
+    ".html",
+    ".jpg",
+    ".js",
+    ".json",
+    ".map",
+    ".md",
+    ".mjs",
+    ".mp3",
+    ".png",
+    ".py",
+    ".ts",
+    ".txt",
+    ".webmanifest"
+  ],
+  "core_extensions": [
+    ".py",
+    ".env",
+    ".bat",
+    ".ts",
+    ".js"
+  ],
+  "exclude_dirs": [
+    "__pycache__",
+    ".git",
+    "backups",
+    "scratch",
+    ".gemini",
+    "node_modules",
+    ".venv",
+    "venv",
+    "dist",
+    "build"
+  ],
+  "exclude_files": [
+    "*.zip",
+    "*.bak",
+    "*.tmp",
+    "*.log"
+  ],
+  "heavy_static": [],
+  "retention_days": 20
+}

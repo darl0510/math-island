@@ -1,16 +1,79 @@
 #!/usr/bin/env python3
-"""bump_version.py – 原子目標：新建單一檔案 scripts/bump_version.py (v0.4.51-A)"""
+# -*- coding: utf-8 -*-
+"""
+bump_version.py
+===============
+一鍵跨檔案版本推進中樞與驗收門禁排程器 (平鋪架構精簡主控層)。
+依據平鋪架構規範，核心檔案改寫與前置門禁驗證已解耦至專責子模組：
+- scripts/version_gatekeeper.py (版號驗證、工作區探測、Git 與 Ledger 門禁)
+- scripts/version_bumpers.py (各檔案版本改寫、Handover 看板自動推進與備份)
+"""
 
 import argparse
-import json
 import os
-import re
 import sys
-from datetime import date
 from pathlib import Path
+from typing import List, Tuple
 
-VERSION_RE = re.compile(r"^\d+\.\d+\.\d+$")
-VERSION_IN_TEXT_RE = re.compile(r"v?\d+\.\d+\.\d+")
+# 確保子模組與根目錄可在任一調用路徑下被正常載入
+_CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+_PARENT_DIR = os.path.dirname(_CURRENT_DIR)
+for _p in (_CURRENT_DIR, _PARENT_DIR):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+# ── 100% Backward-compatible re-exports from decoupled submodules ──────────
+try:
+    from scripts.version_gatekeeper import (
+        VERSION_RE,
+        VERSION_IN_TEXT_RE,
+        detect_workspace,
+        normalize_version,
+        verify_workspace_gate,
+    )
+    from scripts.version_bumpers import (
+        advance_handover_tasks,
+        bump_handover,
+        bump_index_html,
+        bump_package_json,
+        bump_pyproject,
+        bump_sw_js,
+        run_backup,
+    )
+except ModuleNotFoundError:
+    from version_gatekeeper import (  # type: ignore
+        VERSION_RE,
+        VERSION_IN_TEXT_RE,
+        detect_workspace,
+        normalize_version,
+        verify_workspace_gate,
+    )
+    from version_bumpers import (  # type: ignore
+        advance_handover_tasks,
+        bump_handover,
+        bump_index_html,
+        bump_package_json,
+        bump_pyproject,
+        bump_sw_js,
+        run_backup,
+    )
+
+__all__ = [
+    "VERSION_RE",
+    "VERSION_IN_TEXT_RE",
+    "normalize_version",
+    "detect_workspace",
+    "verify_workspace_gate",
+    "bump_package_json",
+    "bump_handover",
+    "advance_handover_tasks",
+    "bump_index_html",
+    "bump_sw_js",
+    "bump_pyproject",
+    "run_backup",
+    "parse_args",
+    "main",
+]
 
 
 def parse_args():
@@ -29,225 +92,27 @@ def parse_args():
     parser.add_argument(
         "--dry-run", action="store_true", help="Print plan only, do not write files"
     )
+    parser.add_argument(
+        "--verify", action="store_true", help="改版前嚴格執行工作區 Git 狀態與自檢門禁檢查"
+    )
+    parser.add_argument(
+        "--force", action="store_true", help="強制改版，忽略未通過門禁警告"
+    )
+    parser.add_argument(
+        "--advance",
+        dest="advance",
+        action="store_true",
+        default=True,
+        help="自動推進 PROJECT_HANDOVER.md 待辦任務與頂部 Prompt (預設啟用)",
+    )
+    parser.add_argument(
+        "--no-advance",
+        dest="advance",
+        action="store_false",
+        help="略過自動推進 PROJECT_HANDOVER.md 待辦任務與頂部 Prompt",
+    )
     return parser.parse_args()
 
-
-def normalize_version(raw: str) -> str:
-    raw = raw.strip()
-    if raw.startswith("v") or raw.startswith("V"):
-        raw = raw[1:]
-    if not VERSION_RE.match(raw):
-        print(f"[ERROR] 無效版號格式: '{raw}'，需符合 ^\\d+\\.\\d+\\.\\d+$", file=sys.stderr)
-        sys.exit(2)
-    return raw
-
-
-def detect_workspace() -> Path:
-    markers = {"package.json", "AGENTS.md", "PROJECT_HANDOVER.md", "pyproject.toml"}
-    current = Path(__file__).resolve().parent
-    while True:
-        for m in markers:
-            if (current / m).is_file():
-                return current
-        parent = current.parent
-        if parent == current:
-            break
-        current = parent
-    return Path.cwd()
-
-
-# ─── package.json ────────────────────────────────────────────────────────────
-
-def bump_package_json(ws: Path, new_ver: str, dry_run: bool) -> tuple:
-    fp = ws / "package.json"
-    if not fp.is_file():
-        return ("SKIP", "package.json", 0)
-    try:
-        data = json.loads(fp.read_text(encoding="utf-8"))
-        old = data.get("version", "")
-        if old == new_ver:
-            return ("SKIP", "package.json", 0)
-        data["version"] = new_ver
-        if not dry_run:
-            fp.write_text(
-                json.dumps(data, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
-        return ("OK", "package.json", 1)
-    except Exception as e:
-        print(f"  [WARN] package.json 處理失敗: {e}", file=sys.stderr)
-        return ("FAIL", "package.json", 0)
-
-
-# ─── PROJECT_HANDOVER.md ─────────────────────────────────────────────────────
-
-def bump_handover(ws: Path, new_ver: str, dry_run: bool) -> tuple:
-    fp = ws / "PROJECT_HANDOVER.md"
-    if not fp.is_file():
-        return ("SKIP", "PROJECT_HANDOVER.md", 0)
-    try:
-        text = fp.read_text(encoding="utf-8")
-        changes = 0
-        today = date.today().isoformat()
-
-        # (a) 最後更新時間行
-        pat_a = re.compile(
-            r"(>\s*\*\*最後更新時間\*\*：)\d{4}-\d{2}-\d{2}\s*\(v?\d+\.\d+\.\d+\s*版\)"
-        )
-        new_a = rf"\g<1>{today} (v{new_ver} 版)"
-        text_new, n = pat_a.subn(new_a, text)
-        if n:
-            text = text_new
-            changes += n
-
-        # (b) Prompt 區塊首行 【vX.Y.Z】你好！
-        pat_b = re.compile(r"【v?\d+\.\d+\.\d+】(你好！)")
-        new_b = rf"【v{new_ver}】\1"
-        text_new, n = pat_b.subn(new_b, text)
-        if n:
-            text = text_new
-            changes += n
-
-        # (c) 標題 ### 🌟 當前版本核心亮點 (Recent Done - vX.Y.Z)
-        pat_c = re.compile(
-            r"(###\s*🌟\s*當前版本核心亮點\s*\(Recent Done\s*-\s*)v?\d+\.\d+\.\d+\)"
-        )
-        new_c = rf"\g<1>v{new_ver})"
-        text_new, n = pat_c.subn(new_c, text)
-        if n:
-            text = text_new
-            changes += n
-
-        # (d) Changelog 章節插入（冪等）
-        changelog_header = "## 🕒 版本更新歷程 (Changelog Archive)"
-        new_section_marker = f"### [v{new_ver}]"
-        if changelog_header in text and new_section_marker not in text:
-            insert_block = (
-                f"\n{new_section_marker} - {today}\n"
-                f"#### 📊 本次 Token 消耗精準量化 (待監工填入)\n"
-            )
-            idx = text.index(changelog_header) + len(changelog_header)
-            text = text[:idx] + insert_block + text[idx:]
-            changes += 1
-
-        if changes == 0:
-            return ("SKIP", "PROJECT_HANDOVER.md", 0)
-        if not dry_run:
-            fp.write_text(text, encoding="utf-8")
-        return ("OK", "PROJECT_HANDOVER.md", changes)
-    except Exception as e:
-        print(f"  [WARN] PROJECT_HANDOVER.md 處理失敗: {e}", file=sys.stderr)
-        return ("FAIL", "PROJECT_HANDOVER.md", 0)
-
-
-# ─── index.html ──────────────────────────────────────────────────────────────
-
-def bump_index_html(ws: Path, new_ver: str, dry_run: bool) -> tuple:
-    fp = ws / "index.html"
-    if not fp.is_file():
-        return ("SKIP", "index.html", 0)
-    try:
-        text = fp.read_text(encoding="utf-8")
-
-        def _repl(m):
-            original = m.group(0)
-            has_v = original.startswith("v") or original.startswith("V")
-            return ("v" if has_v else "") + new_ver
-
-        text_new, n = VERSION_IN_TEXT_RE.subn(_repl, text)
-        if n == 0:
-            return ("SKIP", "index.html", 0)
-        if not dry_run:
-            fp.write_text(text_new, encoding="utf-8")
-        return ("OK", "index.html", n)
-    except Exception as e:
-        print(f"  [WARN] index.html 處理失敗: {e}", file=sys.stderr)
-        return ("FAIL", "index.html", 0)
-
-
-# ─── sw.js ───────────────────────────────────────────────────────────────────
-
-def bump_sw_js(ws: Path, new_ver: str, dry_run: bool) -> tuple:
-    fp = ws / "sw.js"
-    if not fp.is_file():
-        return ("SKIP", "sw.js", 0)
-    try:
-        text = fp.read_text(encoding="utf-8")
-        # 匹配 CACHE_NAME 或 名字-vX.Y.Z 模式中的版號
-        pat = re.compile(r"(CACHE_NAME\s*=\s*[\"'])([^\"']*?)-v(\d+\.\d+\.\d+)([\"'])")
-        pat2 = re.compile(r"([A-Za-z0-9_\-]+)-v(\d+\.\d+\.\d+)")
-
-        def _repl_cache(m):
-            return f"{m.group(1)}{m.group(2)}-v{new_ver}{m.group(4)}"
-
-        def _repl_name(m):
-            return f"{m.group(1)}-v{new_ver}"
-
-        text_new, n1 = pat.subn(_repl_cache, text)
-        text_new, n2 = pat2.subn(_repl_name, text_new)
-        total = n1 + n2
-        if total == 0:
-            return ("SKIP", "sw.js", 0)
-        if not dry_run:
-            fp.write_text(text_new, encoding="utf-8")
-        return ("OK", "sw.js", total)
-    except Exception as e:
-        print(f"  [WARN] sw.js 處理失敗: {e}", file=sys.stderr)
-        return ("FAIL", "sw.js", 0)
-
-
-# ─── pyproject.toml ──────────────────────────────────────────────────────────
-
-def bump_pyproject(ws: Path, new_ver: str, dry_run: bool) -> tuple:
-    fp = ws / "pyproject.toml"
-    if not fp.is_file():
-        return ("SKIP", "pyproject.toml", 0)
-    try:
-        text = fp.read_text(encoding="utf-8")
-        pat = re.compile(r'(version\s*=\s*")(\d+\.\d+\.\d+)(")')
-        new_line = rf"\g<1>{new_ver}\g<3>"
-        text_new, n = pat.subn(new_line, text)
-        if n == 0:
-            return ("SKIP", "pyproject.toml", 0)
-        if not dry_run:
-            fp.write_text(text_new, encoding="utf-8")
-        return ("OK", "pyproject.toml", n)
-    except Exception as e:
-        print(f"  [WARN] pyproject.toml 處理失敗: {e}", file=sys.stderr)
-        return ("FAIL", "pyproject.toml", 0)
-
-
-# ─── auto_backup ─────────────────────────────────────────────────────────────
-
-def run_backup(new_ver: str, modified_files: list, no_backup: bool, dry_run: bool):
-    if no_backup:
-        print("[SKIP] auto_backup (--no-backup)")
-        return
-    if dry_run:
-        print(f"[DRY-RUN] auto_backup.smart_backup(v{new_ver}, {modified_files})")
-        return
-    root = str(Path(__file__).resolve().parent.parent)
-    if root not in sys.path:
-        sys.path.insert(0, root)
-    try:
-        from token_and_backup_toolkit import auto_backup  # type: ignore
-    except ImportError:
-        try:
-            import auto_backup  # type: ignore
-        except ImportError:
-            print("[WARN] auto_backup 模組不可用，跳過備份", file=sys.stderr)
-            return
-    try:
-        auto_backup.smart_backup(
-            version_str=new_ver,
-            modified_files=modified_files,
-            note="bump_version.py 自動改版",
-        )
-    except Exception as e:
-        print(f"[WARN] auto_backup 呼叫失敗: {e}", file=sys.stderr)
-
-
-# ─── main ────────────────────────────────────────────────────────────────────
 
 def main():
     args = parse_args()
@@ -266,8 +131,16 @@ def main():
     if args.dry_run:
         print("  (dry-run mode – 不寫入檔案)")
 
-    results: list[tuple] = []
-    modified_files: list[str] = []
+    gate_ok, gate_msg = verify_workspace_gate(ws, strict=args.verify)
+    if not gate_ok:
+        print(f"  [GATE-FAIL] 驗收門禁阻擋: {gate_msg}")
+        if not args.force:
+            sys.exit(1)
+    else:
+        print(f"  [GATE-PASS] {gate_msg}")
+
+    results: List[Tuple[str, str, int]] = []
+    modified_files: List[str] = []
 
     tasks = [
         ("package.json", bump_package_json),
@@ -285,6 +158,8 @@ def main():
             modified_files.append(fname)
 
     run_backup(new_ver, modified_files, args.no_backup, args.dry_run)
+    if getattr(args, "advance", False):
+        advance_handover_tasks(ws, new_ver, args.dry_run)
 
     ok = sum(1 for s, _, _ in results if s == "OK")
     skip = sum(1 for s, _, _ in results if s == "SKIP")

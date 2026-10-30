@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🏛️ LINE 智慧生活與停車自駕系統 - 平鋪架構與代碼健康度可視化看板</title>
+  <title id="pageTitle">🏛️ LINE 智慧生活設施與停車自駕系統 (APP_9181734) - 平鋪架構與代碼健康度看板</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -1121,7 +1121,7 @@
       <div class="brand-group">
         <div class="brand-icon">🏛️</div>
         <div class="brand-title">
-          <h1>系統平鋪架構 ✕ 代碼健康度可視化看板 <span class="version-tag" id="appVersion">v2.69.43</span></h1>
+          <h1><span id="projTitleText">LINE 智慧生活設施與停車自駕系統 (APP_9181734)</span> ✕ 平鋪架構健康度看板 <span class="version-tag" id="appVersion">v3.75.0</span></h1>
           <div class="brand-sub">Flat Architecture & Anti-Bloat Codebase Health Monitor · 單一真實來源 (SSOT) 視覺化中樞</div>
         </div>
       </div>
@@ -1233,7 +1233,7 @@
     </div>
 
     <!-- 視覺化架構拓撲流程圖 (Architecture Flow) -->
-    <section class="flow-section">
+    <section class="flow-section" style="display:none;">
       <div class="section-header">
         <div class="section-title">
           <span>🧭</span> 系統縱深拓撲流向圖 (Data Flow & Layer Dispatch)
@@ -1289,7 +1289,7 @@
             <div class="topo-layer-name" style="color: #a78bfa;">
               <span>🤖</span> Layer 2: 事件監聽與指令優先級分發層 (Event Handlers & Dispatcher)
             </div>
-            <div class="topo-layer-desc">負責 LINE 訊息解析、非同步背景 Worker、自然語言意圖與 35+ 種指令排程 (解耦子路由全數達標)</div>
+            <div class="topo-layer-desc">負責 math-island 模組、非同步背景 Worker、自然語言意圖與 35+ 種指令排程 (解耦子路由全數達標)</div>
           </div>
           <div class="topo-nodes">
             <div class="topo-node" onclick="showModuleDetail('bot_handlers.py')">
@@ -1640,715 +1640,7 @@
   <!-- 核心資料與互動腳本 -->
   <script>
     // 預載資料快照 (支援直接以 file:// 雙擊開啟時 100% 完整運作)
-    const STATIC_MODULES_DATA = [
-      {
-            "fname": "app.py",
-            "cat": "web_entry",
-            "catName": "🌐 Web 入口與藍圖",
-            "role": "⚡ 主應用後端入口 (Flask)",
-            "lines": 197,
-            "limit": 850,
-            "desc": "純輕量 Web 路由分發入口與藍圖掛載層 (<200行)，嚴守平鋪紅線，嚴禁直接寫入業務邏輯、HTML 或 SQL 操作。",
-            "symbols": [
-                  "app",
-                  "health_check",
-                  "root_index",
-                  "dashboard_view",
-                  "calendar_sync_redirect"
-            ],
-            "governance": "曾從 8,215 行巨石重構至 197 行，設立 TestFlatArchitectureCompliance 嚴守 850 行健康上限！"
-      },
-      {
-            "fname": "ad_routes.py",
-            "cat": "web_entry",
-            "catName": "🌐 Web 入口與藍圖",
-            "role": "📈 商業廣告成效路由藍圖",
-            "lines": 132,
-            "limit": 500,
-            "desc": "專職負責付費名店 0.05s 無縫跳轉追蹤 (/go)、成效即時看板 (/ad_stats)、防偽 Token 驗證與廣告重置 API。",
-            "symbols": [
-                  "ad_bp",
-                  "ad_click_redirect",
-                  "ad_stats_page",
-                  "ad_reset_page"
-            ],
-            "governance": "純業務藍圖隔離，零內嵌 HTML 樣板。"
-      },
-      {
-            "fname": "admin_routes.py",
-            "cat": "web_entry",
-            "catName": "🌐 Web 入口與藍圖",
-            "role": "🛡️ 管理員後台審核藍圖",
-            "lines": 350,
-            "limit": 500,
-            "desc": "專職負責路段匯出、提報視覺化審核/核准/駁回、店家留單狀態、Raw Log 清洗診斷、架構看板與管理者手冊。",
-            "symbols": [
-                  "admin_bp",
-                  "admin_export_slots",
-                  "admin_parking_reports",
-                  "admin_logs_analyzer"
-            ],
-            "governance": "集中管理管理員金鑰 (ADMIN_STATS_KEY) 防護，操作審核安全防禦。"
-      },
-      {
-            "fname": "token_routes.py",
-            "cat": "web_entry",
-            "catName": "🌐 Web 入口與藍圖",
-            "role": "⚡ Token 儀表板與大數據藍圖",
-            "lines": 192,
-            "limit": 500,
-            "desc": "專職負責開發工作台、線上總表、/api/token_sync 雲端多端同步、車友行為大數據、規模里程碑與關鍵字分析。",
-            "symbols": [
-                  "token_bp",
-                  "serve_protected_page",
-                  "token_dashboard_view",
-                  "api_token_sync"
-            ],
-            "governance": "防範商業機密與 Token 數據外洩，多端點同步安全防禦。"
-      },
-      {
-            "fname": "compat.py",
-            "cat": "web_entry",
-            "catName": "🌐 Web 入口與藍圖",
-            "role": "🧩 歷史向後相容導出層 (SSOT)",
-            "lines": 185,
-            "limit": 500,
-            "desc": "專職承接歷史匯出符號 (SSOT)，確保舊單元測試與外部呼叫端 100% 向上相容且不污染主入口行數。",
-            "symbols": [
-                  "ADMIN_STATS_KEY",
-                  "USER_PINNED_LOCATION",
-                  "haversine",
-                  "generate_ics_content"
-            ],
-            "governance": "平鋪重構之無損過渡橋樑，保證零 Breaking Change。"
-      },
-      {
-            "fname": "bot_handlers.py",
-            "cat": "bot_event",
-            "catName": "🤖 監聽與調度",
-            "role": "🤖 LINE Webhook 事件處理中心",
-            "lines": 1193,
-            "limit": 1500,
-            "desc": "專職 Webhook 事件監聽 (FollowEvent, LocationMessage, ImageMessage, PostbackEvent)、非同步背景 Worker 與斷線自癒。",
-            "symbols": [
-                  "handle_text",
-                  "handle_location",
-                  "handle_image",
-                  "handle_postback",
-                  "query_and_reply_worker"
-            ],
-            "governance": "解耦非同步回傳執行緒，避免 LINE 1秒超時 (HTTP 500) 痛點。"
-      },
-      {
-            "fname": "command_router.py",
-            "cat": "bot_event",
-            "catName": "🤖 監聽與調度",
-            "role": "🧩 指令路由分發表核心中心",
-            "lines": 2068,
-            "limit": 3000,
-            "desc": "集中管理全站 35+ 種指令匹配 (Priority 0~99 階梯調度)，整合自然語音意圖與極簡自駕助理反饋。",
-            "symbols": [
-                  "route_command",
-                  "extract_nearby_transit_intent",
-                  "detect_voice_intent",
-                  "COMMAND_REGISTRY"
-            ],
-            "governance": "自 2,999 行解耦為 command_travel 與 command_transit 子模組，瘦身至 2,068 行，達 68.9% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "command_travel.py",
-            "cat": "bot_event",
-            "catName": "🤖 監聽與調度",
-            "role": "🎡 景點與海外特區指令子路由",
-            "lines": 711,
-            "limit": 1000,
-            "desc": "專職處理國道休息站、六大景點、日本自駕、碰運氣與隱藏彩蛋指令調度。",
-            "symbols": [
-                  "handle_highway_hub_menu",
-                  "handle_spot_hub_menu",
-                  "handle_japan_hub_menu",
-                  "handle_lucky_food"
-            ],
-            "governance": "自 command_router 解耦之專責子路由，100% 綠色健康。"
-      },
-      {
-            "fname": "command_transit.py",
-            "cat": "bot_event",
-            "catName": "🤖 監聽與調度",
-            "role": "🧭 多運具與接駁指令子路由",
-            "lines": 392,
-            "limit": 800,
-            "desc": "專職處理去哪裡多運具導航與周邊交通 (YouBike/捷運/公車/計程車) 指令調度。",
-            "symbols": [
-                  "extract_where_to_go_intent",
-                  "handle_where_to_go",
-                  "extract_nearby_transit_intent",
-                  "handle_nearby_transit"
-            ],
-            "governance": "自 command_router 解耦之專責子路由，100% 綠色健康。"
-      },
-      {
-            "fname": "flex_templates.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🎨 LINE Flex 門面門戶 (Facade SSOT)",
-            "lines": 202,
-            "limit": 500,
-            "desc": "統一對外導出門面（從 8,790 行巨石徹底瘦身至 202 行），向下掛載專責領域子模組，100% 零破壞相容。",
-            "symbols": [
-                  "create_parking_bubble",
-                  "create_toilet_bubble",
-                  "build_quick_reply",
-                  "apply_bubble_zoom_mode"
-            ],
-            "governance": "重大里程碑：自 8,790 行巨石重構解耦，單檔瘦身 -97.7%，對外暴露 63 個公開符號！"
-      },
-      {
-            "fname": "flex_core.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "♿ Flex 核心基礎工具 ✕ A11y 縮放",
-            "lines": 328,
-            "limit": 800,
-            "desc": "專職負責全站 Flex 雙軌縮放引擎 (apply_bubble_zoom_mode)、分享連結、收藏 Postback 與費率解析器。",
-            "symbols": [
-                  "apply_bubble_zoom_mode",
-                  "build_line_share_url",
-                  "build_fav_postback_data",
-                  "parse_parking_fee_tier"
-            ],
-            "governance": "提供全站字級切換與共用按鈕構建標準。"
-      },
-      {
-            "fname": "flex_facilities.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🚻 生活應急 ✕ 公廁 ✕ 24H ATM ✕ 美食",
-            "lines": 1151,
-            "limit": 1500,
-            "desc": "專職負責友善公廁、應急 ATM 跨行提款卡片、周邊美食名店與美食盲盒卡片渲染。",
-            "symbols": [
-                  "create_toilet_bubble",
-                  "create_atm_bubble",
-                  "create_restaurant_bubble",
-                  "create_food_box_bubble"
-            ],
-            "governance": "自巨石拆出之獨立生活設施專責子模組。"
-      },
-      {
-            "fname": "flex_transit.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🧭 多運具行程 ✕ YouBike ✕ 接駁小助手",
-            "lines": 957,
-            "limit": 2000,
-            "desc": "專職負責去哪裡雙定位行程規劃導航卡、附近交通工具接駁導引卡片門面。",
-            "symbols": [
-                  "create_where_to_go_bubble",
-                  "create_nearby_transit_bubble",
-                  "create_youbike_stations_bubble",
-                  "create_metro_stations_bubble"
-            ],
-            "governance": "將站點接駁卡片解耦至 flex_transit_stations，瘦身至 957 行，達 47.9% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "flex_transit_stations.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🚲 大眾運具站點接駁卡片",
-            "lines": 802,
-            "limit": 1200,
-            "desc": "專職負責周邊 YouBike 2.0 租借站、捷運/輕軌/台鐵、公車站牌與計程車專線卡片渲染。",
-            "symbols": [
-                  "create_youbike_stations_bubble",
-                  "create_metro_stations_bubble",
-                  "create_bus_transit_bubble",
-                  "create_taxi_bubble"
-            ],
-            "governance": "自 flex_transit 解耦之專責子模組，100% 綠色健康。"
-      },
-      {
-            "fname": "flex_menu.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "📱 動態 Quick Reply 選單 ✕ 會員營運",
-            "lines": 1224,
-            "limit": 2000,
-            "desc": "專職負責動態 Quick Reply 選單、個人收藏中心、VIP 升級與偏遠運具感知。",
-            "symbols": [
-                  "build_quick_reply",
-                  "create_favorites_hub_bubble",
-                  "create_vip_upgrade_bubble",
-                  "create_fulfilled_wishes_bubble"
-            ],
-            "governance": "將新手與版本公告解耦至 flex_announcements，瘦身至 1,224 行，達 61.2% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "flex_announcements.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🔰 新手引導 ✕ 版本公告 ✕ 願望清單",
-            "lines": 783,
-            "limit": 1000,
-            "desc": "專職負責互動式新手引導流程輪播卡、版本升級公告卡與已達成願望清單成果卡片。",
-            "symbols": [
-                  "create_onboarding_carousel",
-                  "create_version_announcement_bubble",
-                  "create_fulfilled_wishes_bubble"
-            ],
-            "governance": "自 flex_menu 解耦之專責子模組，100% 綠色健康。"
-      },
-      {
-            "fname": "flex_travel.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🎡 景點探索 ✕ 國道服務區 ✕ 海外特區",
-            "lines": 1438,
-            "limit": 2500,
-            "desc": "專職負責全台六大景點分類導覽、沖繩/北海道/宇治日本特區與彩蛋卡片門面。",
-            "symbols": [
-                  "create_spot_bubble",
-                  "create_highway_hub_carousel",
-                  "create_japan_hub_carousel",
-                  "create_lucky_hub_bubble"
-            ],
-            "governance": "將國道休息站卡片解耦至 flex_highway，瘦身至 1,438 行，達 57.5% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "flex_highway.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🛣️ 連假國道停車休息站卡片",
-            "lines": 847,
-            "limit": 1200,
-            "desc": "專職負責國道1/3/5號與交流道快充服務區總覽、單站指南與檢索比較卡片渲染。",
-            "symbols": [
-                  "create_highway_hub_carousel",
-                  "create_highway_station_bubble",
-                  "create_highway_stations_carousel"
-            ],
-            "governance": "自 flex_travel 解耦之專責子模組，100% 綠色健康。"
-      },
-      {
-            "fname": "flex_parking.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🅿️ 停車 ✕ 地磁 ✕ 尋車導航 ✕ 釘位卡片",
-            "lines": 1330,
-            "limit": 2500,
-            "desc": "專職負責停車場、即時地磁、回報獎勵卡門面 (全站最高頻核心卡片)。",
-            "symbols": [
-                  "create_parking_bubble",
-                  "create_parking_guide_bubble",
-                  "create_onstreet_bubble",
-                  "create_reminder_bubble"
-            ],
-            "governance": "將釘位尋車鬧鐘卡片解耦至 flex_parking_nav，瘦身至 1,330 行，達 53.2% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "flex_parking_nav.py",
-            "cat": "flex_layer",
-            "catName": "🎨 Flex 卡片層",
-            "role": "🅿️ 車位釘住 ✕ 尋車步行導航 ✕ 鬧鐘",
-            "lines": 1199,
-            "limit": 1500,
-            "desc": "專職負責車位拍照存證柱號卡、釘住車位二合一卡、停車鬧鐘倒數與步行尋車導引卡片渲染。",
-            "symbols": [
-                  "create_parking_photo_card",
-                  "create_pin_location_bubbles",
-                  "build_parking_reminder_bubble",
-                  "build_navigation_guidance_bubble"
-            ],
-            "governance": "自 flex_parking 解耦之專責子模組，100% 綠色健康。"
-      },
-      {
-            "fname": "web_templates.py",
-            "cat": "web_entry",
-            "catName": "🎨 Web 視圖渲染層",
-            "role": "🎨 Web 前端樣板與視圖渲染中心",
-            "lines": 1955,
-            "limit": 2500,
-            "desc": "專職負責車友成就卡、現場提報表單、審核後台、廣告數據看板與 Log 智慧診斷中心之 HTML/CSS/JS 渲染。",
-            "symbols": [
-                  "render_report_parking_form",
-                  "render_admin_parking_reports_page",
-                  "render_ad_stats_page",
-                  "render_log_analyzer_page"
-            ],
-            "governance": "落實「app.py 零內嵌視圖樣板」之神聖殿堂。"
-      },
-      {
-            "fname": "transit_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🚲 大眾接駁服務核心引擎",
-            "lines": 318,
-            "limit": 800,
-            "desc": "專職負責全台 YouBike 2.0 即時在席/車位 (90s快取)、310+ 處捷運/輕軌/台鐵空間推算與縣市適配。",
-            "symbols": [
-                  "get_nearby_youbike_stations",
-                  "get_nearby_rail_stations",
-                  "get_transit_options_summary",
-                  "eval_transit_mode_distances"
-            ],
-            "governance": "收斂捷運半徑為 4.5km，台鐵近距智慧優先推薦。"
-      },
-      {
-            "fname": "geo_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🧭 地理空間幾何與語音意圖分類",
-            "lines": 909,
-            "limit": 1200,
-            "desc": "自然語音意圖分類引擎 (detect_voice_intent)、長距離搭車防呆、Haversine、街景解析、地址階梯式降級解析。",
-            "symbols": [
-                  "haversine",
-                  "resolve_location_smart",
-                  "clean_taiwan_address_candidates",
-                  "extract_taiwan_city"
-            ],
-            "governance": "建構全台 22 縣市標準化感知與動態地標快取 (0ms 命中)。"
-      },
-      {
-            "fname": "city_opendata.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🏙️ 縣市 Open Data 即時車位快取",
-            "lines": 741,
-            "limit": 1000,
-            "desc": "雙北桃中高全台縣市快取與日本沖繩、北海道、京都宇治海外特區庫，含 resolve_japan_poi_smart 0ms POI 引擎。",
-            "symbols": [
-                  "fetch_static_store",
-                  "resolve_japan_poi_smart",
-                  "load_okinawa_store",
-                  "fetch_taipei_realtime_parking"
-            ],
-            "governance": "維護各縣市政府停車在席開放資料介接。"
-      },
-      {
-            "fname": "tdx_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🅿️ 交通部 TDX 地磁檢索服務",
-            "lines": 764,
-            "limit": 1000,
-            "desc": "全台 5,086 處路邊智慧地磁路段檢索、即時在席二級快取 (TTL=60s) 與 OAuth2 Token 防限流保護。",
-            "symbols": [
-                  "get_location_lots",
-                  "fetch_onstreet_by_location",
-                  "get_tdx_token",
-                  "SMART_SLOTS_PATH"
-            ],
-            "governance": "具備本機地磁快取與精確空間索引。"
-      },
-      {
-            "fname": "db_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "💾 SQLite WAL 嵌入式持久化服務",
-            "lines": 1180,
-            "limit": 1500,
-            "desc": "單檔嵌入式 SQLite WAL 模式，支援釘位、提醒、定位、系統設定 (system_settings)、車友偏好高效 ACID 事務。",
-            "symbols": [
-                  "db_save_pinned",
-                  "db_get_pinned",
-                  "db_save_user_zoom_mode",
-                  "get_db_stats",
-                  "init_db_schema"
-            ],
-            "governance": "實測事務寫入 QPS 達 139,000+，零外部資料庫相依。"
-      },
-      {
-            "fname": "reminder_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "⏰ 車位釘住持久化 ✕ 守護排程輪詢",
-            "lines": 738,
-            "limit": 1500,
-            "desc": "倒數排程、Single Scheduler Worker 守護輪詢、日曆鬧鐘、提報審核與費用試算門面。",
-            "symbols": [
-                  "schedule_parking_reminder",
-                  "cancel_parking_reminder",
-                  "save_pinned_location",
-                  "approve_parking_report"
-            ],
-            "governance": "將計費規則與提報審核解耦至 parking_fee 與 parking_report，瘦身至 738 行，達 49.2% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "parking_fee_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "💰 停車費自訂計費規則與試算",
-            "lines": 296,
-            "limit": 800,
-            "desc": "專職自訂計費規則模板解析 (時租/每日上限/平假日差別費率/計次) 與費用精確試算引擎。",
-            "symbols": [
-                  "parse_custom_rate_rule",
-                  "calculate_parking_fee"
-            ],
-            "governance": "自 reminder_service 解耦之專責服務，100% 綠色健康。"
-      },
-      {
-            "fname": "parking_report_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "📢 車友現地提報 ✕ 管理員審核",
-            "lines": 352,
-            "limit": 800,
-            "desc": "專職車友現地路況/車位提報持久化、管理員審核核准/駁回與測試資料清洗隔離。",
-            "symbols": [
-                  "load_user_parking_reports",
-                  "save_user_parking_report",
-                  "approve_parking_report",
-                  "reject_parking_report"
-            ],
-            "governance": "自 reminder_service 解耦之專責服務，100% 綠色健康。"
-      },
-      {
-            "fname": "ad_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "📈 商業廣告閉環服務 ✕ 簽約上架",
-            "lines": 1002,
-            "limit": 1500,
-            "desc": "支援廣告輪播、曝光權重、留單狀態扭轉 (update_lead_status)、大數據持久化保護與一鍵簽約門面。",
-            "symbols": [
-                  "record_ad_impression",
-                  "normalize_ad_store_name",
-                  "get_ad_stats_overview",
-                  "sign_ad_contract"
-            ],
-            "governance": "將雲端同步與行為大數據解耦至 cloud_stats_sync 與 user_analytics，瘦身至 1,002 行，達 66.8% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "cloud_stats_sync.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "☁️ 雲端永久持久化 ✕ Gist/JSONBin",
-            "lines": 437,
-            "limit": 800,
-            "desc": "專職對接 GitHub Gist 與 JSONBin 雲端永久持久化雙向增量合併與非同步防抖推送。",
-            "symbols": [
-                  "get_cloud_provider_status",
-                  "init_and_pull_cloud_stats",
-                  "trigger_async_cloud_push",
-                  "merge_stats_data"
-            ],
-            "governance": "自 ad_service 解耦之專責服務，100% 綠色健康。"
-      },
-      {
-            "fname": "user_analytics_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "📊 車友行為大數據持久化保護",
-            "lines": 133,
-            "limit": 500,
-            "desc": "專職提供標準 7 大維度初始基底、安全讀取與保護全域 fan_scale 指標的大數據持久化服務。",
-            "symbols": [
-                  "get_default_analytics_data",
-                  "load_user_analytics",
-                  "save_user_analytics"
-            ],
-            "governance": "自 ad_service 解耦之專責服務，100% 綠色健康。"
-      },
-      {
-            "fname": "keyword_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🔍 搜尋關鍵字安全日誌 ✕ 脫敏",
-            "lines": 482,
-            "limit": 800,
-            "desc": "隱私脫敏 (手機/車牌/個資自動抹除)、SQLite WAL 非同步記錄 (3,000+ QPS)、Zero-Hit 未命中熱門排行分析。",
-            "symbols": [
-                  "log_keyword_search_async",
-                  "mask_sensitive_text",
-                  "get_top_zero_hit_keywords"
-            ],
-            "governance": "獨立 keyword_analytics.db 資料庫，保護使用者個資隱私。"
-      },
-      {
-            "fname": "highway_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🛣️ 連假國道停車休息站 ✕ 外援專區",
-            "lines": 634,
-            "limit": 800,
-            "desc": "專職國道1/3/5號指標服務區與重點交流道外援站、GPS 最近距離推算、模糊搜尋與塞車避坑指引。",
-            "symbols": [
-                  "HIGHWAY_SERVICE_AREAS",
-                  "get_highway_stations_by_route",
-                  "get_nearby_highway_stops",
-                  "search_highway_stations"
-            ],
-            "governance": "長途返鄉連假車友最實用導引庫。"
-      },
-      {
-            "fname": "cockpit_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "⚡ Antigravity Cockpit 配額直連",
-            "lines": 620,
-            "limit": 800,
-            "desc": "專職對接 Google 官方 retrieveUserQuotaSummary 端點與本機 authorized 快取 (100% 官方真實每週/5h 百分比與秒級倒數)。",
-            "symbols": [
-                  "fetch_google_official_quota",
-                  "load_cockpit_cached_accounts",
-                  "sync_cockpit_to_dashboard"
-            ],
-            "governance": "與 Google 官方配額毫秒級對齊，告別猜測。"
-      },
-      {
-            "fname": "log_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "📋 日誌智慧分析 ✕ 錯誤經驗知識庫",
-            "lines": 651,
-            "limit": 1000,
-            "desc": "專職 Raw Log 正則清洗、自動過濾健康雜訊、雙軌轉發 (TeeCapture)、安全匯出 API 與 URL 防禦門面。",
-            "symbols": [
-                  "clean_raw_log_entry",
-                  "filter_benign_logs",
-                  "extract_error_fingerprint",
-                  "append_error_knowledge"
-            ],
-            "governance": "將錯誤知識庫解耦至 error_knowledge_service，瘦身至 651 行，達 65.1% 🟢 綠色健康水位！"
-      },
-      {
-            "fname": "error_knowledge_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🗄️ 錯誤經驗知識庫 ✕ AI Prompt 引擎",
-            "lines": 272,
-            "limit": 500,
-            "desc": "專職將線上錯誤增量沉澱至 error_knowledge.json、錯誤指紋狀態流轉與 AI 修復 Prompt 自動生成。",
-            "symbols": [
-                  "load_error_knowledge",
-                  "save_error_knowledge",
-                  "record_analyzed_logs",
-                  "generate_ai_fix_prompt"
-            ],
-            "governance": "自 log_service 解耦之專責服務，100% 綠色健康。"
-      },
-      {
-            "fname": "spot_service.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🎡 全台六大自駕景點探索引擎",
-            "lines": 281,
-            "limit": 800,
-            "desc": "風景爬山、遊樂園、親子休閒、室內觀光工廠、老街商圈、觀光夜市等 6 大類別自駕景點感知探測。",
-            "symbols": [
-                  "load_spot_stores",
-                  "get_nearby_spots_by_category",
-                  "search_spot_by_name"
-            ],
-            "governance": "專職特色景點資料庫檢索與過濾。"
-      },
-      {
-            "fname": "bot_state.py",
-            "cat": "service",
-            "catName": "⚡ 核心服務引擎",
-            "role": "🧠 核心共用狀態中心 (SSOT)",
-            "lines": 334,
-            "limit": 500,
-            "desc": "集中管理記憶體暫態快取 (USER_PINNED_LOCATION, USER_ZOOM_MODE, PARKING_REMINDERS) 與 Lock，配置 TCP Keep-Alive。",
-            "symbols": [
-                  "get_user_effective_location",
-                  "get_user_zoom_mode",
-                  "USER_PINNED_LOCATION",
-                  "USER_ZOOM_MODE"
-            ],
-            "governance": "多執行緒安全鎖保護，高併發 0 競爭死鎖。"
-      },
-      {
-            "fname": "auto_backup.py",
-            "cat": "toolkit",
-            "catName": "🛠️ 運維自動化工具",
-            "role": "💾 三層智慧備份分流架構",
-            "lines": 727,
-            "limit": 1000,
-            "desc": "支援資料專屬備份、排除巨型 GeoJSON 之輕量版本備份 (<0.2s) 與跨主版號全量備份，動態載入 backup_config.json。",
-            "symbols": [
-                  "smart_backup",
-                  "check_and_trim_handover",
-                  "rotate_backups_by_quota"
-            ],
-            "governance": "改版必備份自動化防護盾牌。"
-      },
-      {
-            "fname": "deploy_to_github.py",
-            "cat": "toolkit",
-            "catName": "🛠️ 運維自動化工具",
-            "role": "🚀 GitHub 一鍵安全自動化部署中樞",
-            "lines": 220,
-            "limit": 500,
-            "desc": "自動解析版號、強制預檢阻斷 .env / OAuth 憑證 / SQLite 資料庫，一鍵乾淨同步推送到 GitHub 觸發 Render 自動構建。",
-            "symbols": [
-                  "deploy_release_to_github",
-                  "validate_pre_push_security",
-                  "extract_current_version"
-            ],
-            "governance": "資安紅線哨兵，杜絕任何敏感金鑰外洩。"
-      },
-      {
-            "fname": "package_toolkit.py",
-            "cat": "toolkit",
-            "catName": "🛠️ 運維自動化工具",
-            "role": "📦 工具鏈跨專案封裝工具",
-            "lines": 288,
-            "limit": 500,
-            "desc": "封裝 Token 儀表板、備份腳本、自動化手冊至可獨立分發套件 (嚴格限制僅在修改儀表板核心組件時執行)。",
-            "symbols": [
-                  "package_toolkit",
-                  "find_file"
-            ],
-            "governance": "節約 Token 鐵律守護。"
-      },
-      {
-            "fname": "sync_projects.py",
-            "cat": "toolkit",
-            "catName": "🛠️ 運維自動化工具",
-            "role": "🌐 跨專案工具鏈同步 ✕ 新專案佈署",
-            "lines": 413,
-            "limit": 600,
-            "desc": "單一真實來源 (SSOT) 守護，區分共用組件覆蓋與專案獨享保護，支援 --sync, --init, --add, --list。",
-            "symbols": [
-                  "sync_all_managed_projects",
-                  "init_new_project_with_toolkit"
-            ],
-            "governance": "跨專案一鍵秒級同步最新開發工具鏈。"
-      },
-      {
-            "fname": "scan_tokens.py",
-            "cat": "toolkit",
-            "catName": "🛠️ 運維自動化工具",
-            "role": "📊 本機 Token 自動掃描與記帳器",
-            "lines": 913,
-            "limit": 1200,
-            "desc": "常駐背景掃描本機對話日誌，提供本地 API 端點、自動計算 5h 滑動窗口與自動喚起 token_dashboard.html。",
-            "symbols": [
-                  "scan_antigravity_logs",
-                  "run_token_server",
-                  "compute_sliding_window_usage"
-            ],
-            "governance": "提供 Antigravity 跨對話 Token 統計第一手數據。"
-      },
-      {
-            "fname": "cleanup_service.py",
-            "cat": "toolkit",
-            "catName": "🛠️ 運維自動化工具",
-            "role": "🧹 專案冗餘檔案掃描與安全清理",
-            "lines": 218,
-            "limit": 500,
-            "desc": "專職掃描與安全清理過期備份、SQLite損毀轉儲、臨時測試檔與快取，嚴守白名單與防穿越防護。",
-            "symbols": [
-                  "scan_redundant_files",
-                  "clean_redundant_files",
-                  "format_file_size"
-            ],
-            "governance": "防範任何核心代碼或資料庫誤刪，零外部依賴。"
-      }
-];
+    const STATIC_MODULES_DATA = (window.ARCHITECTURE_LIVE_DATA && window.ARCHITECTURE_LIVE_DATA.modules) ? window.ARCHITECTURE_LIVE_DATA.modules : [];
 
     let currentFilter = 'all';
     let currentSearch = '';
@@ -2587,6 +1879,18 @@
       throw new Error(`無法連線至 ${endpoint}`);
     }
 
+    function applyProjectIdentity(name, version) {
+      if (name) {
+        document.title = `🏛️ ${name} - 平鋪架構與代碼健康度看板`;
+        const projTitleEl = document.getElementById('projTitleText');
+        if (projTitleEl) projTitleEl.innerText = name;
+      }
+      if (version) {
+        const verEl = document.getElementById('appVersion');
+        if (verEl) verEl.innerText = version;
+      }
+    }
+
     // 即時重新掃描資料 (支援後端 Flask 模式與 scan_architecture 微服務 5055 模式)
     async function refreshLiveData(silent = false) {
       const btn = document.getElementById('btnRefreshScan');
@@ -2597,11 +1901,11 @@
       }
 
       try {
-        const res = await callApi('/api/architecture_stats');
+        const res = await callApi('/api/projects/math-island/architecture_stats');
         const data = await res.json();
         if (data && data.modules) {
           modulesData = data.modules;
-          if (data.version) document.getElementById('appVersion').innerText = data.version;
+          applyProjectIdentity(data.project_name, data.version);
           if (data.app_lines !== undefined) {
             document.getElementById('appLinesVal').innerText = data.app_lines;
             const appLimit = data.entrypoint_limit || 850;
@@ -2953,6 +2257,9 @@
 
     // 初始化渲染
     window.addEventListener('DOMContentLoaded', () => {
+      if (typeof window !== 'undefined' && window.ARCHITECTURE_LIVE_DATA) {
+        applyProjectIdentity(window.ARCHITECTURE_LIVE_DATA.project_name, window.ARCHITECTURE_LIVE_DATA.version);
+      }
       renderCategoryTabs();
       renderModules();
       // 靜默嘗試自動連線即時微服務以獲取最新行數 (若微服務已啟動則秒級無縫更新)
@@ -2994,7 +2301,7 @@
       document.querySelectorAll('[data-portal-path]').forEach(el => {
         const path = el.getAttribute('data-portal-path');
         const reqKey = el.getAttribute('data-req-key') === 'true';
-        const base = mode === 'local' ? 'http://127.0.0.1:5000' : 'https://tw-parking-linebot.onrender.com';
+        const base = mode === 'local' ? 'http://127.0.0.1:5000' : 'https://math-island 模組';
         const finalUrl = base + path + (reqKey ? keyParam : '');
         
         const urlDisplay = el.querySelector('.portal-item-url');

@@ -321,8 +321,8 @@ export const island3 = {
     {
       id: 10,
       island: 3,
-      title: '森林退位戰',
-      emoji: '🌳',
+      title: '雲端退位戰',
+      emoji: '☁️',
       skill: '20 以內退位減法',
       intro: '先從十裡面拿掉一些，再把剩下的一加回來，退位減法一點都不難。',
       makeQuestions(count = 6) {

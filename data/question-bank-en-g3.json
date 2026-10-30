@@ -26,8 +26,8 @@
         }
       },
       {
-        "prompt": "聽一聽：「My name is Lily.」name 的拼字是哪一個？",
-        "speak": "聽一聽：「My name is Lily.」name 的拼字是哪一個呢？",
+        "prompt": "聽一聽：「My ______ is Lily.」空格處的單字拼字是哪一個？",
+        "speak": "聽一聽：My name is Lily. 空格處的單字拼字是哪一個呢？",
         "hint": "觀察母音組合與結尾結構，找出符合發音規則的單字！",
         "explanation": "name 是 a_e 結構，a 發長音 /eɪ/。",
         "answer": "name",
