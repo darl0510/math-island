@@ -795,34 +795,34 @@
   to { opacity: 1; }
 }
 
-/* 答對：小勇士滿版投影衝擊 */
+/* 答對：小勇士滿版投影衝擊 (持久穩定展現英雄威風) */
 .combat-hero-attacker {
   position: absolute;
   left: 6%;
-  bottom: 10%;
-  height: min(290px, 40vh);
+  bottom: 8%;
+  height: min(320px, 46vh);
   z-index: 2;
   pointer-events: none;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.45));
-  animation: heroCombatLunge 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5));
+  animation: heroCombatLunge 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes heroCombatLunge {
   0% {
     opacity: 0;
-    transform: translate3d(-50px, 35px, 0) scale(0.75);
+    transform: translate3d(-60px, 35px, 0) scale(0.75);
   }
-  30% {
+  18% {
     opacity: 1;
     transform: translate3d(15px, -10px, 0) scale(1.08);
   }
-  75% {
-    opacity: 0.95;
-    transform: translate3d(25px, -15px, 0) scale(1.05);
+  80% {
+    opacity: 1;
+    transform: translate3d(20px, -12px, 0) scale(1.06);
   }
   100% {
     opacity: 0;
-    transform: translate3d(50px, -25px, 0) scale(1.15);
+    transform: translate3d(40px, -20px, 0) scale(1.1);
   }
 }
 
@@ -843,34 +843,34 @@
   top: 15%;
 }
 
-/* 答錯：小怪物滿版前撲反擊 */
+/* 答錯：小怪物滿版前撲反擊 (持久震懾反擊效果) */
 .combat-monster-counter {
   position: absolute;
-  right: 10%;
-  top: 16%;
-  height: min(260px, 36vh);
+  right: 8%;
+  top: 14%;
+  height: min(290px, 42vh);
   z-index: 2;
   pointer-events: none;
-  filter: drop-shadow(0 15px 35px rgba(239, 68, 68, 0.4));
-  animation: monsterCombatLunge 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  filter: drop-shadow(0 15px 35px rgba(239, 68, 68, 0.45));
+  animation: monsterCombatLunge 1.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
 }
 
 @keyframes monsterCombatLunge {
   0% {
     opacity: 0;
-    transform: translate3d(50px, -30px, 0) scale(0.65);
+    transform: translate3d(60px, -30px, 0) scale(0.65);
   }
-  30% {
+  18% {
     opacity: 1;
     transform: translate3d(-20px, 15px, 0) scale(1.2);
   }
-  70% {
-    opacity: 0.9;
-    transform: translate3d(-15px, 10px, 0) scale(1.1);
+  80% {
+    opacity: 1;
+    transform: translate3d(-15px, 12px, 0) scale(1.15);
   }
   100% {
     opacity: 0;
-    transform: translate3d(-50px, 35px, 0) scale(1.25);
+    transform: translate3d(-35px, 25px, 0) scale(1.2);
   }
 }
 
@@ -979,3 +979,9 @@
   object-fit: cover;
   border-radius: 18px;
 }
+
+.combat-vfx-strike.anim-spin-circle { animation-duration: 1.5s; }
+.combat-vfx-strike.anim-crescent { animation-duration: 1.4s; }
+.combat-vfx-strike.anim-slime-splat { animation-duration: 1.5s; }
+.combat-vfx-strike.anim-claw-strike { animation-duration: 1.4s; }
+.combat-vfx-strike.anim-shockwave { animation-duration: 1.4s; }

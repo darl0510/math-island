@@ -1035,7 +1035,7 @@ export function spawnActionParticles(container, colors = ['#fbbf24', '#f472b6', 
         p.x += p.vx;
         p.y += p.vy;
         p.vy += 0.26;
-        p.alpha *= 0.94;
+        p.alpha *= 0.965;
         p.rot += p.vrot;
         ctx.save();
         ctx.globalAlpha = p.alpha;
@@ -1222,15 +1222,15 @@ export function triggerCombatAttackEffect(options = {}) {
   // 4. 爆發技能粒子
   spawnActionParticles(overlay, skill.colors, 28);
 
-  // 5. 750ms 後自動安全淡出清理
+  // 5. 1500ms 後自動安全淡出清理 (整體呈現約 1.75s 飽滿持久度)
   setTimeout(() => {
     try {
       if (overlay.parentNode) {
         overlay.classList.add('combat-fade-out');
-        setTimeout(() => overlay.remove(), 180);
+        setTimeout(() => overlay.remove(), 260);
       }
     } catch {}
-  }, 750);
+  }, 1500);
 }
 
 /**
@@ -1301,13 +1301,13 @@ export function triggerCombatCounterAttackEffect(options = {}) {
   // 6. 爆發反擊黏液粒子
   spawnActionParticles(overlay, colors, 26);
 
-  // 7. 780ms 後自動安全清理
+  // 7. 1500ms 後自動安全清理 (整體呈現約 1.75s 飽滿持久度)
   setTimeout(() => {
     try {
       if (overlay.parentNode) {
         overlay.classList.add('combat-fade-out');
-        setTimeout(() => overlay.remove(), 180);
+        setTimeout(() => overlay.remove(), 260);
       }
     } catch {}
-  }, 780);
+  }, 1500);
 }
