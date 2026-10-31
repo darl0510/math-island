@@ -1622,7 +1622,10 @@ export function showCharacterSelectDialog(isFirstTime = false) {
         <div class="char-grid-container">
           ${filteredChars.map(c => `
             <div class="char-card ${selectedChar.id === c.id ? 'is-selected' : ''}" data-char-id="${c.id}">
-              <span class="char-badge-tag">${c.gender === 'girl' ? '👑 公主' : '⚔️ 勇士'}</span>
+              <span class="char-badge-tag ${c.gender === 'girl' ? 'is-girl' : 'is-boy'}">
+                <span class="char-badge-ico">${c.gender === 'girl' ? '👑' : '⚔️'}</span>
+                <span class="char-badge-txt">${c.gender === 'girl' ? '公主' : '勇士'}</span>
+              </span>
               <div class="char-avatar-wrapper">
                 <img src="${c.image}" alt="${c.name}" class="char-avatar-img" />
               </div>

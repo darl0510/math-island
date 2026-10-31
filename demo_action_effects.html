@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>奇幻數學島 — 10大角色專屬技能庫 ✕ 形象精準對應 ✕ 三階敵方反擊實機系統</title>
+  <title>奇幻數學島 — 10大角色專屬技能庫 ✕ 純淨零邊界透明感 ✕ 夢幻群蝶身後飛出系統</title>
   <style>
     :root {
       --bg-dark: #0b1120;
@@ -162,7 +162,9 @@
       pointer-events: none;
     }
 
-    /* 特效圖層 (100% 零殘留透明去背) */
+    /* ══════════════════════════════════════════════════
+       極致零殘留透明光感 (強制徑向羽化遮罩，徹底杜絕任何方形邊框)
+       ══════════════════════════════════════════════════ */
     .vfx-layer {
       position: absolute;
       pointer-events: none;
@@ -170,13 +172,93 @@
       transform: scale(0.2);
       transition: none;
       mix-blend-mode: screen;
+      /* 核心防框線防線：強制柔和邊緣漸變羽化遮罩，杜絕任何圖片物理裁切線 */
+      -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
+      mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
     }
 
     /* ══════════════════════════════════════════════════
-       精準對應特效強化圖層 (聖盾光罩、貫穿雷射、地裂震撼、極光天幕)
+       夢幻群蝶自身後飛出系統 (Dreamy Fluttering Butterfly Swarm)
+       ══════════════════════════════════════════════════ */
+    .butterfly-swarm-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4; /* 起飛於公主身後 (z-index: 4, 公主 z-index: 5) */
+      overflow: hidden;
+    }
+
+    .dreamy-butterfly {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      pointer-events: none;
+      animation: flutterFly 1.7s cubic-bezier(0.25, 0.9, 0.35, 1) forwards;
+    }
+
+    @keyframes flutterFly {
+      0% {
+        opacity: 0;
+        transform: translate(var(--startX), var(--startY)) scale(0.15) rotate(0deg);
+        z-index: 4;
+      }
+      20% {
+        opacity: 1;
+        transform: translate(calc(var(--startX) + (var(--targetX) - var(--startX)) * 0.35), calc(var(--startY) + (var(--targetY) - var(--startY)) * 0.35 - 30px)) scale(var(--scale)) rotate(15deg);
+        z-index: 6; /* 飛升掠過公主身前 */
+      }
+      70% {
+        opacity: 0.95;
+        transform: translate(calc(var(--startX) + (var(--targetX) - var(--startX)) * 0.75), calc(var(--startY) + (var(--targetY) - var(--startY)) * 0.75 - 50px)) scale(calc(var(--scale) * 1.15)) rotate(-15deg);
+        z-index: 6;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--targetX), var(--targetY)) scale(calc(var(--scale) * 1.4)) rotate(25deg);
+        z-index: 6;
+      }
+    }
+
+    .butterfly-body {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 10px var(--color)) drop-shadow(0 0 18px rgba(255, 255, 255, 0.7));
+    }
+
+    .butterfly-wing {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: wingFlap 0.16s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+
+    @keyframes wingFlap {
+      0% { transform: scaleX(1); }
+      100% { transform: scaleX(0.22); }
+    }
+
+    .butterfly-core-glow {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 12px var(--color), 0 0 20px #ffffff;
+    }
+
+    /* ══════════════════════════════════════════════════
+       無框有機自然流光 (聖盾光罩、貫穿雷射、地裂震撼、天幕極光)
        ══════════════════════════════════════════════════ */
 
-    /* 1. 全身聖光守護防護光罩 (完整包覆全身) */
+    /* 1. 全身聖光守護防護光罩 (柔和羽化光球) */
     .dome-shield-wrap {
       position: absolute;
       width: 330px;
@@ -190,6 +272,8 @@
       align-items: center;
       justify-content: center;
       transition: none;
+      -webkit-mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
+      mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
     }
 
     .dome-shield-sphere {
@@ -225,7 +309,7 @@
       100% { opacity: 0; transform: scale(1.22); }
     }
 
-    /* 2. 貫穿全屏的高速雷霆光束 (橫向穿透) */
+    /* 2. 貫穿全屏的高速雷霆光束 */
     .thrust-beam-layer {
       position: absolute;
       left: 45%;
@@ -251,7 +335,7 @@
       100% { opacity: 0; transform: translateY(-50%) scaleX(1.2); }
     }
 
-    /* 3. 地面震撼碎裂光環 (腳底破地而起) */
+    /* 3. 地面震撼碎裂光環 */
     .ground-crack-layer {
       position: absolute;
       bottom: 25px;
@@ -276,24 +360,38 @@
       100% { opacity: 0; transform: scale(1.3); }
     }
 
-    /* 4. 極光天幕全屏光譜 (浩瀚流光) */
+    /* 4. 極光天幕全屏流動星河 (純透明流光，零裁切邊界) */
     .aurora-sky-layer {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(192, 132, 252, 0.25), rgba(56, 189, 248, 0.25), rgba(244, 114, 182, 0.25));
-      filter: blur(16px);
+      inset: -20px;
+      background: radial-gradient(circle at 50% 30%, rgba(192, 132, 252, 0.35) 0%, rgba(56, 189, 248, 0.3) 35%, rgba(244, 114, 182, 0.25) 60%, transparent 85%);
+      filter: blur(20px);
       opacity: 0;
       z-index: 1;
       pointer-events: none;
     }
+    .aurora-rainbow-ribbon {
+      position: absolute;
+      top: 15%;
+      left: -10%;
+      width: 120%;
+      height: 120px;
+      background: linear-gradient(90deg, transparent 0%, rgba(239, 68, 68, 0.4) 15%, rgba(251, 191, 36, 0.5) 30%, rgba(16, 185, 129, 0.5) 50%, rgba(56, 189, 248, 0.5) 70%, rgba(192, 132, 252, 0.4) 85%, transparent 100%);
+      filter: blur(14px);
+      transform: rotate(-12deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .anim-aurora-sky {
-      animation: aAuroraSky 1.6s ease-in-out forwards;
+      animation: aAuroraSky 1.7s ease-in-out forwards;
     }
     @keyframes aAuroraSky {
-      0% { opacity: 0; }
-      35% { opacity: 0.85; }
-      70% { opacity: 0.7; }
-      100% { opacity: 0; }
+      0% { opacity: 0; transform: scale(0.85); }
+      35% { opacity: 0.95; transform: scale(1.05); }
+      70% { opacity: 0.8; transform: scale(1.0); }
+      100% { opacity: 0; transform: scale(1.15); }
     }
 
     /* ── 動畫關鍵幀清單 ── */
@@ -303,14 +401,6 @@
       30% { opacity: 1; transform: scale(1.15) rotate(110deg); }
       70% { opacity: 0.9; transform: scale(1.05) rotate(220deg); }
       100% { opacity: 0; transform: scale(1.35) rotate(360deg); }
-    }
-
-    .anim-butterfly { animation: aFlyButterfly 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes aFlyButterfly {
-      0% { opacity: 0; transform: scale(0.3) translateY(40px); }
-      35% { opacity: 1; transform: scale(1.1) translateY(-10px); }
-      70% { opacity: 0.9; transform: scale(1.02) translateY(5px); }
-      100% { opacity: 0; transform: scale(1.3) translateY(-40px); }
     }
 
     .anim-frost { animation: aFrostBlast 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -328,14 +418,6 @@
       45% { opacity: 0.8; transform: scale(1.02); }
       65% { opacity: 1; transform: scale(1.2); }
       100% { opacity: 0; transform: scale(1.4); }
-    }
-
-    .anim-aurora { animation: aAuroraWave 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes aAuroraWave {
-      0% { opacity: 0; transform: scale(0.5) rotate(-15deg); }
-      30% { opacity: 1; transform: scale(1.1) rotate(5deg); }
-      70% { opacity: 0.9; transform: scale(1.15) rotate(-5deg); }
-      100% { opacity: 0; transform: scale(1.3) rotate(15deg); }
     }
 
     .anim-crescent { animation: aCrescentSlash 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards; }
@@ -545,8 +627,8 @@
 </head>
 <body>
 
-  <h1>✨ 奇幻數學島 — 10大角色專屬技能 ✕ 形象精準對應系統</h1>
-  <p class="subtitle">依招式名稱視覺具象化（聖盾全身體包覆光罩・雷霆貫穿電漿・地裂震撼・極光天幕） ✕ 答錯敵方三階反擊</p>
+  <h1>✨ 奇幻數學島 — 10大角色專屬技能 ✕ 零框線純淨透明系統</h1>
+  <p class="subtitle">全面去除方形邊框・100% 透明羽化光效 ✕ 夢幻群蝶身後起飛飛舞 ✕ 答錯三階反擊</p>
 
   <div class="main-layout">
     
@@ -577,8 +659,11 @@
       <!-- 提示橫幅 -->
       <div class="toast-banner" id="toastBanner">提示訊息</div>
 
-      <div class="stage-view">
+      <div class="stage-view" id="stageView">
         <canvas class="particle-canvas" id="canvasParticle"></canvas>
+
+        <!-- 🦋 夢幻群蝶自公主身後飛出專屬容器 (完全無方框、群蝶振翅飄揚) -->
+        <div class="butterfly-swarm-container" id="butterflySwarm"></div>
 
         <!-- 強化實體視覺圖層 1: 全身聖光守護球形力場罩 -->
         <div class="dome-shield-wrap" id="domeShieldWrap">
@@ -592,15 +677,14 @@
         <!-- 強化實體視覺圖層 3: 地面震撼碎裂光環 -->
         <div class="ground-crack-layer" id="groundCrack"></div>
 
-        <!-- 強化實體視覺圖層 4: 極光天幕全屏光譜 -->
+        <!-- 強化實體視覺圖層 4: 極光天幕全屏流動星河 (純透明流光，零方框) -->
         <div class="aurora-sky-layer" id="auroraSky"></div>
+        <div class="aurora-rainbow-ribbon" id="auroraRibbon"></div>
         
-        <!-- 角色專屬發光特效圖層 (100% 零殘留透明去背) -->
+        <!-- 角色專屬純淨透明發光特效圖層 (全部套用圓形柔和羽化遮罩，杜絕任何方框) -->
         <img src="assets/vfx/vfx_magic_circle.webp" class="vfx-layer" id="vfx_circle" style="width:340px;height:340px;z-index:2;" alt="魔法陣">
-        <img src="assets/vfx/vfx_princess_butterfly.webp" class="vfx-layer" id="vfx_butterfly" style="width:350px;height:350px;z-index:6;" alt="幻蝶">
         <img src="assets/vfx/vfx_princess_frost_crystal.webp" class="vfx-layer" id="vfx_frost" style="width:320px;height:320px;z-index:6;" alt="冰晶">
         <img src="assets/vfx/vfx_princess_heart_shield.webp" class="vfx-layer" id="vfx_shield" style="width:330px;height:330px;z-index:7;" alt="聖盾">
-        <img src="assets/vfx/vfx_princess_rainbow_aurora.webp" class="vfx-layer" id="vfx_aurora" style="width:440px;height:440px;z-index:2;" alt="極光">
 
         <img src="assets/vfx/vfx_sword_slash.webp" class="vfx-layer" id="vfx_sword_slash" style="width:320px;height:320px;z-index:6;" alt="破風劍斬">
         <img src="assets/vfx/vfx_crescent_wave.webp" class="vfx-layer" id="vfx_crescent" style="width:300px;height:300px;z-index:6;" alt="月牙斬">
@@ -660,11 +744,11 @@
       princess_magic: {
         name: '魔法公主', type: 'magic', img: 'assets/characters/princess_magic.webp',
         skills: [
+          { id: 'butterfly', name: '粉櫻幻蝶飛舞', desc: '身後湧出漫天粉櫻光粉與彩虹幻蝶翩翩飛升', icon: '🦋', scenario: '自然關卡通關', special: 'butterfly_swarm', sound: 'butterfly', colors: ['#f472b6', '#fef08a', '#fff', '#c084fc'] },
           { id: 'shield', name: '愛心聖光守護盾', desc: '全身被金色光罩包覆保護・堅不可摧', icon: '💖', scenario: '無損生命通關', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#ec4899', '#fbbf24', '#fff'], special: 'dome' },
           { id: 'circle', name: '璀璨星芒神聖陣', desc: '金色幾何符文與旋轉法陣召喚', icon: '🌟', scenario: '三星滿星通關', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#fbbf24', '#f472b6', '#fff'] },
-          { id: 'butterfly', name: '粉櫻幻蝶飛舞', desc: '漫天粉櫻光粉與彩虹幻蝶翩翩飛升', icon: '🦋', scenario: '自然關卡通關', layerId: 'vfx_butterfly', anim: 'anim-butterfly', sound: 'butterfly', colors: ['#f472b6', '#fef08a', '#fff'] },
           { id: 'frost', name: '冰晶雪花星芒', desc: '旋轉六角冰霜與極寒星光結晶凝凍', icon: '❄️', scenario: '連擊滿分加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#38bdf8', '#e0f2fe', '#fff'] },
-          { id: 'aurora', name: '彩虹極光星河', desc: '七彩天幕極光覆蓋全場大爆發', icon: '🌈', scenario: '擊倒魔王/宗師勳章', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#c084fc', '#f472b6', '#38bdf8', '#fbbf24'], special: 'aurora' }
+          { id: 'aurora', name: '彩虹極光星河', desc: '浩瀚七彩天幕極光覆蓋全場大爆發', icon: '🌈', scenario: '擊倒魔王/宗師勳章', special: 'aurora', sound: 'supernova', colors: ['#c084fc', '#f472b6', '#38bdf8', '#fbbf24'] }
         ]
       },
       princess_brave: {
@@ -679,19 +763,19 @@
       princess_star: {
         name: '星空公主', type: 'magic', img: 'assets/characters/princess_star.webp',
         skills: [
+          { id: 'butterfly', name: '星光幻蝶夜曲', desc: '身後幻化出無數藍白星光彩蝶翩翩起舞', icon: '✨', scenario: '靜謐專注通關', special: 'butterfly_swarm', sound: 'butterfly', colors: ['#818cf8', '#e0e7ff', '#fff', '#38bdf8'] },
           { id: 'circle', name: '銀河星宿幾何陣', desc: '浩瀚星宿幾何旋轉陣・召喚星光', icon: '🌌', scenario: '星空關卡完美通關', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#6366f1', '#38bdf8', '#fff'] },
           { id: 'frost', name: '彗星冰塵星芒', desc: '彗星尾跡劃破夜空星塵・極寒晶瑩', icon: '☄️', scenario: '極速解題加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#818cf8', '#c7d2fe', '#fff'] },
-          { id: 'aurora', name: '超新星引力星雲', desc: '星際極光天幕大爆發', icon: '🌠', scenario: '大滿貫金盃達成', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#4f46e5', '#a855f7', '#38bdf8'], special: 'aurora' },
-          { id: 'butterfly', name: '星光幻蝶夜曲', desc: '夜光星塵幻化為蝶群環繞飛舞', icon: '✨', scenario: '靜謐專注通關', layerId: 'vfx_butterfly', anim: 'anim-butterfly', sound: 'butterfly', colors: ['#818cf8', '#e0e7ff', '#fff'] }
+          { id: 'aurora', name: '超新星引力星雲', desc: '星際極光天幕大爆發', icon: '🌠', scenario: '大滿貫金盃達成', special: 'aurora', sound: 'supernova', colors: ['#4f46e5', '#a855f7', '#38bdf8'] }
         ]
       },
       princess_nature: {
         name: '自然公主', type: 'magic', img: 'assets/characters/princess_nature.webp',
         skills: [
+          { id: 'butterfly', name: '翡翠仙子蝶舞', desc: '森林百花光粉與無數仙子綠蝶自背後振翅群飛', icon: '🌺', scenario: '自然學科通關', special: 'butterfly_swarm', sound: 'butterfly', colors: ['#10b981', '#34d399', '#f472b6', '#fbbf24'] },
           { id: 'shield', name: '生命藤蔓守護環', desc: '綠意生機盎然的自然之盾球體保護', icon: '🌿', scenario: '滿血答對加成', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#10b981', '#fbbf24', '#fff'], special: 'dome_green' },
-          { id: 'butterfly', name: '翡翠仙子蝶舞', desc: '森林百花光粉與仙子綠蝶群飛', icon: '🌺', scenario: '自然學科通關', layerId: 'vfx_butterfly', anim: 'anim-butterfly', sound: 'butterfly', colors: ['#10b981', '#34d399', '#f472b6'] },
           { id: 'frost', name: '綠野晨露晶瑩冰芒', desc: '清晨露珠折射七彩晶瑩冰霜', icon: '💧', scenario: '晨光連擊加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#34d399', '#6ee7b7', '#fff'] },
-          { id: 'aurora', name: '自然萬物極光大同', desc: '生機盎然的綠金極光天幕覆蓋全場', icon: '🌈', scenario: '自然守護者晉升', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#10b981', '#fbbf24', '#38bdf8'], special: 'aurora' }
+          { id: 'aurora', name: '自然萬物極光大同', desc: '生機盎然的綠金極光天幕覆蓋全場', icon: '🌈', scenario: '自然守護者晉升', special: 'aurora', sound: 'supernova', colors: ['#10b981', '#fbbf24', '#38bdf8'] }
         ]
       },
       princess_mystery: {
@@ -700,7 +784,7 @@
           { id: 'shield', name: '秘法心靈防護罩', desc: '紫曜水晶能量結界全身包覆守護', icon: '🛡️', scenario: '無損防護獎勵', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#8b5cf6', '#f472b6', '#fff'], special: 'dome_purple' },
           { id: 'circle', name: '古代符文秘術陣', desc: '紫晶符文法陣在地表展開共鳴', icon: '🔮', scenario: '難題突破封印', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#8b5cf6', '#c084fc', '#fff'] },
           { id: 'frost', name: '水晶冰霜星核', desc: '水晶球凝結的秘術冰霜星核', icon: '💎', scenario: '深思連擊加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#a855f7', '#e9d5ff', '#fff'] },
-          { id: 'aurora', name: '奧術極光光譜', desc: '紫金奧術光華席捲整片戰場', icon: '🌌', scenario: '博古通今成就', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#8b5cf6', '#ec4899', '#38bdf8'], special: 'aurora' }
+          { id: 'aurora', name: '奧術極光光譜', desc: '紫金奧術光華席捲整片戰場', icon: '🌌', scenario: '博古通今成就', special: 'aurora', sound: 'supernova', colors: ['#8b5cf6', '#ec4899', '#38bdf8'] }
         ]
       },
 
@@ -794,7 +878,8 @@
       if (soundType === 'magic_chime') {
         [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, 'sine', 0.5, 0.25, i * 0.08));
       } else if (soundType === 'butterfly') {
-        [659.25, 880, 1174.66, 1318.5].forEach((f, i) => playTone(f, 'triangle', 0.45, 0.2, i * 0.07));
+        // 夢幻輕靈的水晶風鈴旋律
+        [659.25, 783.99, 880, 1046.5, 1174.66, 1318.5].forEach((f, i) => playTone(f, 'triangle', 0.45, 0.18, i * 0.07));
       } else if (soundType === 'ice') {
         [1200, 1500, 1800, 2200].forEach((f, i) => playTone(f, 'sine', 0.35, 0.18, i * 0.05));
       } else if (soundType === 'shield') {
@@ -855,10 +940,14 @@
       const beam = document.getElementById('thrustBeam');
       const crack = document.getElementById('groundCrack');
       const aurora = document.getElementById('auroraSky');
+      const ribbon = document.getElementById('auroraRibbon');
+      const bSwarm = document.getElementById('butterflySwarm');
       if (dome) dome.className = 'dome-shield-wrap';
       if (beam) beam.className = 'thrust-beam-layer';
       if (crack) crack.className = 'ground-crack-layer';
       if (aurora) aurora.className = 'aurora-sky-layer';
+      if (ribbon) ribbon.style.opacity = '0';
+      if (bSwarm) bSwarm.innerHTML = '';
     }
 
     function renderRoleSkills() {
@@ -882,13 +971,60 @@
       });
     }
 
-    // ── 執行主角專屬技能（精準視覺強化聯想） ──
+    // ── 🦋 動態夢幻群蝶自公主背後飛出系統 (100% 透明無方框・振翅起舞) ──
+    function spawnDreamyButterflies(count = 20, themeColors = ['#f472b6', '#fbbf24', '#38bdf8', '#c084fc']) {
+      const container = document.getElementById('butterflySwarm');
+      container.innerHTML = '';
+
+      const stage = document.getElementById('stageView');
+      const w = stage.offsetWidth;
+      const h = stage.offsetHeight;
+
+      // 起飛起點：公主身後裙擺與法杖中央
+      const startX = w / 2 - 22;
+      const startY = h / 2 - 10;
+
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement('div');
+        b.className = 'dreamy-butterfly';
+
+        // 擴散飛行動畫軌跡 (向外綻放旋舞)
+        const angle = (Math.PI * 2 * (i / count)) + (Math.random() - 0.5) * 0.7;
+        const dist = 140 + Math.random() * 220;
+        const targetX = startX + Math.cos(angle) * dist;
+        const targetY = startY + Math.sin(angle) * (dist * 0.75) - 65; // 偏向上空飛翔
+
+        const delay = Math.random() * 0.45;
+        const duration = 1.3 + Math.random() * 0.5;
+        const scale = 0.5 + Math.random() * 0.5;
+        const color = themeColors[Math.floor(Math.random() * themeColors.length)];
+
+        b.style.setProperty('--startX', `${startX}px`);
+        b.style.setProperty('--startY', `${startY}px`);
+        b.style.setProperty('--targetX', `${targetX}px`);
+        b.style.setProperty('--targetY', `${targetY}px`);
+        b.style.setProperty('--scale', scale);
+        b.style.setProperty('--color', color);
+        b.style.animationDelay = `${delay}s`;
+        b.style.animationDuration = `${duration}s`;
+
+        b.innerHTML = `
+          <div class="butterfly-body">
+            <img src="assets/vfx/vfx_single_fairy_butterfly.webp" class="butterfly-wing" alt="蝶翼">
+            <div class="butterfly-core-glow"></div>
+          </div>
+        `;
+        container.appendChild(b);
+      }
+    }
+
+    // ── 執行主角專屬技能（極致透明感，杜絕方框） ──
     function executeSkill(skill) {
       hideAllEnemies();
       resetSpecialVFX();
       const stageCard = document.getElementById('stageCard');
       const charSprite = document.getElementById('charSprite');
-      const vfxEl = document.getElementById(skill.layerId);
+      const vfxEl = skill.layerId ? document.getElementById(skill.layerId) : null;
 
       // 提示橫幅
       showToast(`✨ ${ROLE_SKILLS[currentRoleId].name} 施放：【${skill.name}】！(${skill.scenario})`, 'toast-win');
@@ -902,13 +1038,19 @@
       }
 
       // ════════════════════════════════════════
+      // 🦋 核心夢幻強化: 幻蝶飛舞自背後振翅群飛出
+      // ════════════════════════════════════════
+      if (skill.special === 'butterfly_swarm') {
+        spawnDreamyButterflies(22, skill.colors);
+      }
+
+      // ════════════════════════════════════════
       // 具象化聯想強化 1: 聖光守護光罩 (全身包覆球形結界)
       // ════════════════════════════════════════
       if (skill.special && skill.special.startsWith('dome')) {
         const domeWrap = document.getElementById('domeShieldWrap');
         const domeSphere = document.getElementById('domeShieldSphere');
         
-        // 依角色主題色設定光罩色彩
         if (skill.special === 'dome_blue') {
           domeSphere.style.background = 'radial-gradient(circle at center, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.35) 60%, rgba(255, 255, 255, 0.8) 90%, rgba(59, 130, 246, 0.95) 100%)';
           domeSphere.style.boxShadow = '0 0 35px rgba(59, 130, 246, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
@@ -919,7 +1061,6 @@
           domeSphere.style.background = 'radial-gradient(circle at center, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.35) 60%, rgba(255, 255, 255, 0.8) 90%, rgba(139, 92, 246, 0.95) 100%)';
           domeSphere.style.boxShadow = '0 0 35px rgba(139, 92, 246, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
         } else {
-          // 金粉色預設聖盾光罩
           domeSphere.style.background = 'radial-gradient(circle at center, rgba(251, 191, 36, 0.12) 0%, rgba(244, 114, 182, 0.35) 60%, rgba(255, 255, 255, 0.85) 90%, rgba(251, 191, 36, 0.95) 100%)';
           domeSphere.style.boxShadow = '0 0 35px rgba(251, 191, 36, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
         }
@@ -950,16 +1091,18 @@
       }
 
       // ════════════════════════════════════════
-      // 具象化聯想強化 4: 極光天幕全屏流光
+      // 具象化聯想強化 4: 彩虹極光星河天幕 (純透明柔和流光)
       // ════════════════════════════════════════
       if (skill.special === 'aurora') {
         const sky = document.getElementById('auroraSky');
-        sky.className = 'aurora-sky-layer';
-        void sky.offsetWidth;
+        const ribbon = document.getElementById('auroraRibbon');
         sky.className = 'aurora-sky-layer anim-aurora-sky';
+        ribbon.style.opacity = '1';
+        ribbon.style.transition = 'opacity 0.6s';
+        setTimeout(() => { ribbon.style.opacity = '0'; }, 1300);
       }
 
-      // 特效圖層播放
+      // 特效圖層播放 (已套用全量圓形柔和羽化遮罩，杜絕任何方框)
       if (vfxEl) {
         vfxEl.className = 'vfx-layer';
         void vfxEl.offsetWidth; // 重置動畫
@@ -969,8 +1112,8 @@
       // 音效
       playSkillSound(skill.sound);
 
-      // 粒子
-      spawnParticles(skill.colors, 40);
+      // 粒子 (粉櫻/星塵/碎冰/極光粉末)
+      spawnParticles(skill.colors, skill.special === 'butterfly_swarm' ? 45 : 35);
 
       // 畫面回饋
       stageCard.className = skill.special === 'crack' ? 'stage-card shake-heavy' : 'stage-card shake-light';
@@ -979,7 +1122,7 @@
         charSprite.className = 'char-sprite';
         stageCard.className = 'stage-card';
         resetSpecialVFX();
-      }, 1500);
+      }, 1600);
     }
 
     // ── 隨機施展當前角色技能 ──
