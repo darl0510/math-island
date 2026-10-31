@@ -6,7 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { ROLE_SKILLS, getSkillsForCharacter, getSkillBySlot, getVictoryFinisherSkill, renderHeroActionStageMarkup } from '../js/actions.js';
+import { ROLE_SKILLS, getSkillsForCharacter, getSkillBySlot, getVictoryFinisherSkill, renderHeroActionStageMarkup, triggerCombatAttackEffect, triggerCombatCounterAttackEffect, FINISHER_ANIMATION_REGISTRY, getFinisherAnimation, registerFinisherAnimation } from '../js/actions.js';
 import { CHARACTERS } from '../js/characters.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -120,11 +120,12 @@ assert(
   'css/characters.css contains all required keyframe animations, hero action poses, and stage layout rules.'
 );
 
-// 測試 8: 驗證 js/engine.js 正式整合 finishLevel
+// 測試 8: 驗證 js/engine.js 正式整合 finishLevel 與每題滿版對戰觸發
 const engineJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'engine.js'), 'utf-8');
 assert(
-  engineJs.includes("import { renderHeroActionStageMarkup, triggerCharacterVictoryAction, getVictoryFinisherSkill } from './actions.js';") &&
-  engineJs.includes('renderHeroActionStageMarkup(currentCharacter, heroSkill)') &&
+  engineJs.includes('triggerCombatAttackEffect') &&
+  engineJs.includes('triggerCombatCounterAttackEffect') &&
+  engineJs.includes('renderHeroActionStageMarkup(currentCharacter, heroSkill, monster)') &&
   engineJs.includes('triggerCharacterVictoryAction(overlay,'),
   'js/engine.js finishLevel formally integrates action stage rendering and victory finisher invocation.'
 );
@@ -136,6 +137,31 @@ assert(
   swJs.includes("'./assets/vfx/vfx_magic_circle.webp',") &&
   swJs.includes("'./assets/vfx/vfx_crescent_wave.webp',"),
   'sw.js static cache manifest successfully registers actions.js and key action VFX assets.'
+);
+
+// 測試 11: 驗證滿版戰鬥對決函式與 CSS 樣式定義
+assert(
+  typeof triggerCombatAttackEffect === 'function' &&
+  typeof triggerCombatCounterAttackEffect === 'function',
+  'Combat attack and counter-attack trigger functions are correctly defined and exported.'
+);
+
+assert(
+  charactersCss.includes('.combat-action-overlay') &&
+  charactersCss.includes('.combat-hero-attacker') &&
+  charactersCss.includes('.combat-monster-counter') &&
+  charactersCss.includes('.combat-vfx-strike') &&
+  charactersCss.includes('@keyframes aSlimeSplat') &&
+  charactersCss.includes('@keyframes aClawStrike'),
+  'css/characters.css includes all required full-screen combat overlay rules, attacker lunges, and counter VFX.'
+);
+
+// 測試 12: 驗證終結大招動態插槽 (Finisher Registry) 與自定義動態掛載支援
+registerFinisherAnimation('princess_magic', 'mob_math_slime', 'assets/animations/custom_demo.webp');
+assert(
+  getFinisherAnimation('princess_magic', 'mob_math_slime') === 'assets/animations/custom_demo.webp' &&
+  renderHeroActionStageMarkup({ id: 'princess_magic' }, null, { id: 'mob_math_slime' }).includes('is-custom-finisher'),
+  'Finisher animation registry and custom dynamic asset rendering slot function seamlessly.'
 );
 
 console.log(`\n🎉 ALL ${passedTests}/${totalTests} TEST SUITES PASSED (100% GREEN)!\n`);

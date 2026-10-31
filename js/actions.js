@@ -1072,7 +1072,29 @@ export function spawnActionParticles(container, colors = ['#fbbf24', '#f472b6', 
 /**
  * 建立過關結算小勇士動效舞台 HTML Markup
  */
-export function renderHeroActionStageMarkup(character, skill) {
+// 終結大招動態資產註冊表 (供未來自定義全動態圖資無縫掛載)
+export const FINISHER_ANIMATION_REGISTRY = {
+  // 範例格式: 'princess_magic_vs_mob_math_slime': 'assets/animations/finisher_princess_slime.webp',
+};
+
+export function getFinisherAnimation(characterId, monsterId) {
+  if (!characterId) return null;
+  const specificKey = monsterId ? `${characterId}_vs_${monsterId}` : null;
+  if (specificKey && FINISHER_ANIMATION_REGISTRY[specificKey]) {
+    return FINISHER_ANIMATION_REGISTRY[specificKey];
+  }
+  return FINISHER_ANIMATION_REGISTRY[characterId] || null;
+}
+
+export function registerFinisherAnimation(characterId, monsterId, assetUrl) {
+  const key = monsterId ? `${characterId}_vs_${monsterId}` : characterId;
+  FINISHER_ANIMATION_REGISTRY[key] = assetUrl;
+}
+
+/**
+ * 建立過關結算小勇士動效舞台 HTML Markup (支援打敗怪獸對決與自定義動態插槽)
+ */
+export function renderHeroActionStageMarkup(character, skill, monster = null) {
   const role = ROLE_SKILLS[character?.id] || ROLE_SKILLS.princess_magic;
   const activeSkill = skill || getVictoryFinisherSkill(character?.id);
   const charSrc = role.img;
@@ -1080,12 +1102,36 @@ export function renderHeroActionStageMarkup(character, skill) {
   const vfxSrc = activeSkill.vfxSrc;
   const vfxFallback = activeSkill.vfxFallback || 'assets/vfx/vfx_magic_circle.png';
 
+  // 檢查是否已掛載專屬終結全動態圖資
+  const customFinisher = getFinisherAnimation(character?.id, monster?.id);
+  if (customFinisher) {
+    return `
+      <div class="result-hero-action-stage is-custom-finisher" id="result-hero-action-stage" aria-label="通關終極對決奧義">
+        <img src="${customFinisher}" class="result-hero-dynamic-finisher" alt="${role.name} 打倒 ${monster?.name || '怪獸'}" />
+        <div class="result-hero-skill-banner" id="result-hero-skill-banner">
+          <span class="skill-banner-icon">${activeSkill.icon}</span>
+          <span class="skill-banner-text"><strong>${role.name}</strong> 終極必殺擊破！</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // 預設即時渲染英雄攻擊與怪獸受擊退場之對決舞台
+  const monsterImg = monster?.image || '';
+  const monsterMarkup = monsterImg ? `
+    <div class="result-hero-vs-monster">
+      <img src="${monsterImg}" class="result-monster-victim" onerror="this.style.display='none'" alt="${monster?.name || '守護怪獸'}" />
+      <span class="victim-defeat-tag">DEFEATED</span>
+    </div>
+  ` : '';
+
   return `
     <div class="result-hero-action-stage" id="result-hero-action-stage" aria-label="通關角色專屬奧義">
       <!-- 技能發射專屬發光圖層 (零殘留透明去背) -->
       <img src="${vfxSrc}" class="result-hero-vfx ${activeSkill.anim}" id="result-hero-vfx" onerror="this.onerror=null;this.src='${vfxFallback}'" alt="${activeSkill.name}" />
       <!-- 小勇士動作立繪 -->
       <img src="${charSrc}" class="result-hero-sprite ${activeSkill.actionPose}" id="result-hero-sprite" onerror="this.onerror=null;this.src='${charFallback}'" alt="${role.name}" />
+      ${monsterMarkup}
       <!-- 技能名稱橫幅徽章 -->
       <div class="result-hero-skill-banner" id="result-hero-skill-banner">
         <span class="skill-banner-icon">${activeSkill.icon}</span>
@@ -1139,3 +1185,129 @@ export function triggerCharacterVictoryAction(container, options = {}) {
   }
 }
 
+
+/**
+ * 每題答對：實時觸發小勇士滿版奧義攻擊怪獸 (Full-screen Hero Strike)
+ */
+export function triggerCombatAttackEffect(options = {}) {
+  if (typeof document === 'undefined') return;
+  const character = options.character || { id: 'princess_magic' };
+  const role = ROLE_SKILLS[character.id] || ROLE_SKILLS.princess_magic;
+  const skill = options.skill || getSkillBySlot(character.id, 1);
+  const container = options.container || document.getElementById('screen-level') || document.body;
+
+  // 1. 原生音效
+  playSkillSound(skill.sound);
+
+  // 2. 清理先前存在的戰鬥特效層
+  const prev = container.querySelector('.combat-action-overlay');
+  if (prev) prev.remove();
+
+  // 3. 建立滿版戰鬥圖層 (pointer-events: none 絕不阻擋點擊)
+  const overlay = document.createElement('div');
+  overlay.className = 'combat-action-overlay is-hero-attack';
+  overlay.innerHTML = `
+    <!-- 小勇士滿版攻擊立繪投影 -->
+    <img src="${role.img}" class="combat-hero-attacker ${skill.actionPose}" onerror="this.onerror=null;this.src='${role.imgFallback}'" alt="${role.name}" />
+    <!-- 滿版英雄震撼技能特效 (透明遮罩去邊框) -->
+    <img src="${skill.vfxSrc}" class="combat-vfx-strike ${skill.anim}" onerror="this.onerror=null;this.src='${skill.vfxFallback}'" alt="${skill.name}" />
+    <!-- 戰鬥吶喊浮動條 -->
+    <div class="combat-shout-banner">
+      <span class="combat-shout-icon">${skill.icon}</span>
+      <span class="combat-shout-text"><strong>${role.name}</strong> 施展【<strong>${skill.name}</strong>】！</span>
+    </div>
+  `;
+  container.appendChild(overlay);
+
+  // 4. 爆發技能粒子
+  spawnActionParticles(overlay, skill.colors, 28);
+
+  // 5. 750ms 後自動安全淡出清理
+  setTimeout(() => {
+    try {
+      if (overlay.parentNode) {
+        overlay.classList.add('combat-fade-out');
+        setTimeout(() => overlay.remove(), 180);
+      }
+    } catch {}
+  }, 750);
+}
+
+/**
+ * 每題答錯：實時觸發小怪獸滿版前撲反擊 (Full-screen Monster Counter-Attack)
+ */
+export function triggerCombatCounterAttackEffect(options = {}) {
+  if (typeof document === 'undefined') return;
+  const monster = options.monster || { name: '調皮小怪', image: 'assets/monsters/mob_math_slime.png' };
+  const container = options.container || document.getElementById('screen-level') || document.body;
+
+  // 1. 判斷怪獸位階決定反擊圖資與動畫
+  const isDarkon = Boolean(monster.isDarkon);
+  const isBoss = Boolean(monster.isBoss || isDarkon);
+  const vfxSrc = isBoss
+    ? 'assets/vfx/vfx_boss_claw_strike.webp'
+    : 'assets/vfx/vfx_mob_slime_splat.webp';
+  const vfxFallback = isBoss
+    ? 'assets/vfx/vfx_boss_claw_strike.png'
+    : 'assets/vfx/vfx_mob_slime_splat.png';
+  const vfxAnim = isBoss ? 'anim-claw-strike' : 'anim-slime-splat';
+  const colors = isBoss
+    ? ['#ef4444', '#7c3aed', '#000000', '#fbbf24']
+    : ['#10b981', '#34d399', '#059669', '#ffffff'];
+
+  // 2. 原生音效合成 (重擊低頻與噪聲衝擊)
+  const ctx = getAudioContext();
+  if (ctx) {
+    if (isBoss) {
+      playNoise(ctx, 0.55, 900, 70, 0.6);
+      playTone(ctx, 65, 'sawtooth', 0.45, 0.4);
+    } else {
+      playNoise(ctx, 0.35, 350, 80, 0.45);
+      playTone(ctx, 110, 'triangle', 0.25, 0.35);
+    }
+  }
+
+  // 3. 全屏微震顫
+  const levelView = container.querySelector('.level-view') || container;
+  if (levelView) {
+    levelView.classList.remove('shake-light', 'shake-heavy');
+    void levelView.offsetWidth;
+    levelView.classList.add(isBoss ? 'shake-heavy' : 'shake-light');
+    setTimeout(() => {
+      try { levelView.classList.remove('shake-light', 'shake-heavy'); } catch {}
+    }, 600);
+  }
+
+  // 4. 清理先前存在的戰鬥特效層
+  const prev = container.querySelector('.combat-action-overlay');
+  if (prev) prev.remove();
+
+  // 5. 建立滿版怪獸反擊圖層
+  const overlay = document.createElement('div');
+  overlay.className = 'combat-action-overlay is-monster-counter';
+  overlay.innerHTML = `
+    <!-- 小怪物前撲衝撞立繪 -->
+    <img src="${monster.image}" class="combat-monster-counter" onerror="this.onerror=null;this.src='assets/monsters/mob_math_slime.png'" alt="${monster.name}" />
+    <!-- 滿版怪獸反擊特效 (黏液糊臉/暗黑爪擊) -->
+    <img src="${vfxSrc}" class="combat-vfx-strike ${vfxAnim}" onerror="this.onerror=null;this.src='${vfxFallback}'" alt="怪獸反擊" />
+    <!-- 怪獸反擊橫幅 -->
+    <div class="combat-shout-banner is-monster">
+      <span class="combat-shout-icon">⚠️</span>
+      <span class="combat-shout-text"><strong>${monster.name}</strong> 發動強力撲擊！</span>
+    </div>
+  `;
+  container.appendChild(overlay);
+
+  // 6. 爆發反擊黏液粒子
+  spawnActionParticles(overlay, colors, 26);
+
+  // 7. 780ms 後自動安全清理
+  setTimeout(() => {
+    try {
+      if (overlay.parentNode) {
+        overlay.classList.add('combat-fade-out');
+        setTimeout(() => overlay.remove(), 180);
+      }
+    } catch {}
+  }, 780);
+}

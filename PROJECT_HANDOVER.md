@@ -1,6 +1,6 @@
 # 🌈 奇幻數學島大冒險 (Fantasy Math Island Adventure)
 > **專案交接與跨設備開發同步手冊 (Antigravity IDE Handover Document)**  
-> **最後更新時間**：2026-10-31 (v3.1.8 版)  
+> **最後更新時間**：2026-10-31 (v3.1.9 版)  
 > **適用場景**：公司與家中電腦 Antigravity IDE 跨設備進度無縫接軌
 
 ---
@@ -10,12 +10,12 @@
 當您開啟新對話時，直接在對話框貼上以下這段話給 AI，它就會秒懂架構並接續開發：
 
 ```text
-【v3.1.8】你好！請繼續推進奇幻數學島答錯怪獸反擊機制與動態回饋。
+【v3.1.9】你好！請繼續推進奇幻數學島離線快取同步與 Service Worker 全量資產收編。
 
 【🚨 五大紅線】已由 AGENTS.md 自動注入，本 Prompt 拒絕重複貼上。
 
 【⚡ 單行派工命令 (收到即執行 ✕ 嚴禁雲端搜尋或讀取檔案)】
-python scripts/brain_delegator.py -w . -t "【答錯怪獸反擊機制與動態回饋】 (在 onWrong 實裝怪獸前撲衝擊與微震顫，取代過多無聊文字氣泡，強化答題對抗節奏)"
+python scripts/brain_delegator.py -w . -t "【離線快取同步】Service Worker 全量資產收編 (將 assets/vfx/, assets/boss/, css/characters.css, css/economy.css 等新資產完整註冊進 sw.js 離線快取清單)"
 【🧠 本地大腦常態在線鐵律】：8080 本地大腦常態在線！探測大腦請一律使用 Python 探測 http://127.0.0.1:8080/v1/models（嚴禁用 PowerShell 2秒超時指令誤判）。嚴格遵守 15 行極限代碼禁寫令，所有功能實作優先以 scripts/brain_delegator.py 外包給 8080 本地大腦 0 雲端 Token 產出！保持極簡對話步驟，待命並回報就緒即可。
 ```
 
@@ -55,7 +55,6 @@ python scripts/brain_delegator.py -w . -t "【答錯怪獸反擊機制與動態�
   > 💡 **執行重點**：資產未動，架構先行！先建立技能與反擊動效中樞 (js/actions.js) 並整併已就緒之公主魔法陣與勇者月牙斬，預留平滑降級與擴充插槽。
 
 
-- [ ] **【答錯怪獸反擊機制與動態回饋】** (在 onWrong 實裝怪獸前撲衝擊與微震顫，取代過多無聊文字氣泡，強化答題對抗節奏)
 
 - [ ] **【離線快取同步】Service Worker 全量資產收編** (將 assets/vfx/, assets/boss/, css/characters.css, css/economy.css 等新資產完整註冊進 sw.js 離線快取清單)
 
@@ -73,6 +72,7 @@ python scripts/brain_delegator.py -w . -t "【答錯怪獸反擊機制與動態�
 - [x] **帶進度同步 QR Code 與相機掃描直通入帳實裝** (實裝超輕量矩陣同步碼 `FMS1_` 與【📱 帶進度同步 QR Code】；孩子在平板玩完後，點【📤 上傳/同步進度】➔ 點【📱 產生【進度同步 QR Code】】，平板螢幕即顯示內嵌最新過關戰績的專屬 QR Code；家長拿手機或電腦相機一掃，點開連結直接打開後台並**自動秒速入帳**；同時支援一鍵複製超短代碼，在對話框貼給 AI 即可由 AI 直接將戰績寫入；`js/admin.js` 與 `js/student.js` 自檢 100% 綠燈通過) (v2.9.3)
 - [x] **遊戲前端主介面平板直連 QR Code 產生器實裝** (回應使用者反饋，於遊戲主介面 `index.html` 之頂部身分膠囊下拉選單新增【📱 平板直連 QR Code】、更多工具 (🛠️) 新增【📱 平板直連 QR Code】項目，並於【📤 冒險進度同步】彈窗內直接增設【📱 顯示平板直連 QR Code】直通鈕；`js/student.js` 實裝 `showTabletQRDialog`，自動探測局域網 IP、一鍵生成離線向量 SVG QR Code、身分鎖定專屬網址與一鍵複製；`node --check` 100% 綠燈通過) (v2.9.2)
 <details><summary>過往已完成歷史任務</summary>
+- [x] **【答錯怪獸反擊機制與動態回饋】** (在 onWrong 實裝怪獸前撲衝擊與微震顫，取代過多無聊文字氣泡，強化答題對抗節奏) (已於 v3.1.9 完成驗收並建立還原點)
 - [x] **【角色過關動效中樞與實機整合】** (建立 js/actions.js 技能架構，預留 5 款技能插槽與平滑降級，並將 demo_action_effects.html 之公主旋轉魔法陣與勇者月牙斬擊正式整合進關卡結算 finishLevel) (已於 v3.1.8 完成驗收並建立還原點)
 - [x] **【終極魔王機制】大魔王 Darkon 三階段戰鬥系統實裝** (利用已在庫之 5 款 Darkon 圖片，於期末挑戰第 16 關或專屬入口實裝三形態破盾戰鬥) (已於 v3.1.7 完成驗收並建立還原點)
 - [x] **【對峙互動升級】關卡作答中怪獸對峙血條與受擊反饋微調** (利用已在庫之怪獸資產，實裝耐久血條與受擊震顫/得意志氣泡，平滑 fallback 運作) (已於 v3.1.6 完成驗收並建立還原點)

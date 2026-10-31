@@ -13,7 +13,7 @@ import { showTrophyModal } from './trophy.js';
 import { toZhuyinRuby } from './zhuyin.js';
 import { uploadLevelRecord, getCurrentStudent } from './student.js';
 import { getCurrentCharacter } from './characters.js';
-import { renderHeroActionStageMarkup, triggerCharacterVictoryAction, getVictoryFinisherSkill } from './actions.js';
+import { renderHeroActionStageMarkup, triggerCharacterVictoryAction, getVictoryFinisherSkill, triggerCombatAttackEffect, triggerCombatCounterAttackEffect } from './actions.js';
 
 import { PRAISE, ENCOURAGE, getSubjectPraise } from './texts.js';
 import {
@@ -472,6 +472,17 @@ export function triggerMonsterHitEffect(session) {
   updateMonsterHp(session);
   spawnMonsterHitStars(badge);
   showMonsterSpeech(pickHitQuote(session.monster, session), 'hit', 2200);
+
+  // 觸發小勇士滿版奧義攻擊動效 (公主旋轉法陣 / 勇者月牙斬擊直撲怪獸)
+  try {
+    const curStudent = getCurrentStudent();
+    const curChar = getCurrentCharacter(curStudent);
+    triggerCombatAttackEffect({
+      character: curChar,
+      monster: session.monster,
+      container: document.getElementById('screen-level')
+    });
+  } catch {}
 }
 
 export function triggerMonsterGloatEffect(session) {
@@ -481,6 +492,17 @@ export function triggerMonsterGloatEffect(session) {
   void badge.offsetWidth;
   badge.classList.add('monster-gloating');
   showMonsterSpeech(pickTauntQuote(session.monster, session), 'gloat', 2500);
+
+  // 觸發怪獸滿版前撲反擊動效 (史萊姆黏液糊臉 / 泰坦衝擊波 / 暗黑爪擊)
+  try {
+    const curStudent = getCurrentStudent();
+    const curChar = getCurrentCharacter(curStudent);
+    triggerCombatCounterAttackEffect({
+      monster: session.monster,
+      character: curChar,
+      container: document.getElementById('screen-level')
+    });
+  } catch {}
 }
 
 /**
@@ -1155,7 +1177,7 @@ function finishLevel(session) {
       <div class="result-emoji" aria-hidden="true">${stars === 3 ? '🏆' : stars === 2 ? '🌟' : '🎖️'}</div>
       <h2>${stars === 3 ? '完美通關！' : stars === 2 ? '太棒了！通關！' : '過關囉！'}</h2>
       <div class="result-stars" data-stars="${stars}">${starsMarkup(stars)}</div>
-      ${renderHeroActionStageMarkup(currentCharacter, heroSkill)}
+      ${renderHeroActionStageMarkup(currentCharacter, heroSkill, monster)}
       ${renderMonsterDefeatCard(monster)}
       <div class="result-student-tag">
         <span>${currentStudent.avatar || '🦊'} ${escapeHtml(currentStudent.name || '冒險小勇士')}</span>

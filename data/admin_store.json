@@ -243,6 +243,27 @@
       "duration_seconds": 22,
       "errors": [],
       "timestamp": "2026-10-26T23:11:23.596346"
+    },
+    {
+      "id": "rec_7200904b",
+      "student_id": "visitor",
+      "student_name": "冒險小勇士",
+      "subject": "math",
+      "grade": 1,
+      "level_id": 1,
+      "level_title": "森林數果子",
+      "score": 100,
+      "stars": 2,
+      "duration_seconds": 38,
+      "errors": [
+        {
+          "prompt": "已經放了 4 個櫻桃，再放幾個就滿十個？",
+          "chosen": "4",
+          "answer": "6",
+          "explanation": "十可以分成四和六，所以還差六個。"
+        }
+      ],
+      "timestamp": "2026-10-31T11:09:16"
     }
   ]
 }

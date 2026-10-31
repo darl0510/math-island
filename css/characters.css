@@ -767,3 +767,215 @@
 }
 
 
+
+/* ==========================================================================
+   滿版戰鬥對決動效系統 (Full-Screen Combat Action Overlay)
+   每題答對小勇士滿版奧義攻擊 ✕ 答錯滿版怪獸反擊衝撞
+   ========================================================================== */
+
+.combat-action-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: combatOverlayFadeIn 0.15s ease-out;
+}
+
+.combat-action-overlay.combat-fade-out {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+@keyframes combatOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 答對：小勇士滿版投影衝擊 */
+.combat-hero-attacker {
+  position: absolute;
+  left: 6%;
+  bottom: 10%;
+  height: min(290px, 40vh);
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.45));
+  animation: heroCombatLunge 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroCombatLunge {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50px, 35px, 0) scale(0.75);
+  }
+  30% {
+    opacity: 1;
+    transform: translate3d(15px, -10px, 0) scale(1.08);
+  }
+  75% {
+    opacity: 0.95;
+    transform: translate3d(25px, -15px, 0) scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(50px, -25px, 0) scale(1.15);
+  }
+}
+
+/* 滿版技能衝擊特效 (半屏至全屏直穿右上怪獸) */
+.combat-vfx-strike {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  width: min(440px, 60vw);
+  height: min(440px, 60vw);
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
+  mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
+}
+
+.is-hero-attack .combat-vfx-strike {
+  right: 15%;
+  top: 15%;
+}
+
+/* 答錯：小怪物滿版前撲反擊 */
+.combat-monster-counter {
+  position: absolute;
+  right: 10%;
+  top: 16%;
+  height: min(260px, 36vh);
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 15px 35px rgba(239, 68, 68, 0.4));
+  animation: monsterCombatLunge 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes monsterCombatLunge {
+  0% {
+    opacity: 0;
+    transform: translate3d(50px, -30px, 0) scale(0.65);
+  }
+  30% {
+    opacity: 1;
+    transform: translate3d(-20px, 15px, 0) scale(1.2);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translate3d(-15px, 10px, 0) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-50px, 35px, 0) scale(1.25);
+  }
+}
+
+.is-monster-counter .combat-vfx-strike {
+  left: 20%;
+  bottom: 20%;
+}
+
+/* 戰鬥即時橫幅 */
+.combat-shout-banner {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.94), rgba(15, 23, 42, 0.96));
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  animation: bannerPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.combat-shout-banner.is-monster {
+  background: linear-gradient(135deg, rgba(185, 28, 28, 0.94), rgba(127, 29, 29, 0.96));
+  border-color: rgba(252, 165, 165, 0.4);
+}
+
+.combat-shout-banner strong {
+  color: #facc15;
+}
+
+@keyframes bannerPop {
+  0% { opacity: 0; transform: translate(-50%, -15px) scale(0.85); }
+  100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+/* 敵方反擊專屬動畫 */
+.anim-slime-splat {
+  animation: aSlimeSplat 1.1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+@keyframes aSlimeSplat {
+  0% { opacity: 0; transform: scale(0.1) rotate(-15deg); }
+  25% { opacity: 1; transform: scale(1.25) rotate(5deg); }
+  60% { opacity: 0.9; transform: scale(1.05) rotate(0deg); }
+  100% { opacity: 0; transform: scale(1.3) translateY(30px); }
+}
+
+.anim-claw-strike {
+  animation: aClawStrike 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aClawStrike {
+  0% { opacity: 0; transform: scale(0.4) rotate(-30deg) translate(-40px, -20px); }
+  30% { opacity: 1; transform: scale(1.2) rotate(0deg) translate(0, 0); }
+  65% { opacity: 0.9; transform: scale(1.05) translate(10px, 10px); }
+  100% { opacity: 0; transform: scale(1.35) translate(35px, 25px); }
+}
+
+/* 結算對決舞台怪獸被擊退動效 */
+.result-hero-vs-monster {
+  position: absolute;
+  right: 28px;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  opacity: 0.75;
+  transform: scale(0.82) rotate(10deg);
+  filter: grayscale(0.4) brightness(0.9);
+  animation: victimDefeat 1.2s ease-out forwards;
+}
+
+@keyframes victimDefeat {
+  0% { transform: scale(0.95) rotate(0deg); opacity: 1; }
+  50% { transform: scale(0.85) rotate(12deg); opacity: 0.9; }
+  100% { transform: scale(0.78) rotate(15deg); opacity: 0.65; }
+}
+
+.result-monster-victim {
+  height: 90px;
+  object-fit: contain;
+}
+
+.victim-defeat-tag {
+  font-size: 0.64rem;
+  font-weight: 900;
+  color: #ffffff;
+  background: #ef4444;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  margin-top: -6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.result-hero-dynamic-finisher {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+}

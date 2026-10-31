@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>奇幻數學島 — 10大角色專屬技能庫 ✕ 純淨零邊界透明感 ✕ 夢幻群蝶身後飛出系統</title>
+  <title>奇幻數學島 — 10大角色 ✕ 50款全滿格專屬技能系統 (零死角實機展示)</title>
   <style>
     :root {
       --bg-dark: #0b1120;
@@ -172,19 +172,18 @@
       transform: scale(0.2);
       transition: none;
       mix-blend-mode: screen;
-      /* 核心防框線防線：強制柔和邊緣漸變羽化遮罩，杜絕任何圖片物理裁切線 */
       -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
       mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
     }
 
     /* ══════════════════════════════════════════════════
-       夢幻群蝶自身後飛出系統 (Dreamy Fluttering Butterfly Swarm)
+       群蝶身後振翅起飛系統 (Butterfly Swarm)
        ══════════════════════════════════════════════════ */
     .butterfly-swarm-container {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 4; /* 起飛於公主身後 (z-index: 4, 公主 z-index: 5) */
+      z-index: 4;
       overflow: hidden;
     }
 
@@ -208,7 +207,7 @@
       20% {
         opacity: 1;
         transform: translate(calc(var(--startX) + (var(--targetX) - var(--startX)) * 0.35), calc(var(--startY) + (var(--targetY) - var(--startY)) * 0.35 - 30px)) scale(var(--scale)) rotate(15deg);
-        z-index: 6; /* 飛升掠過公主身前 */
+        z-index: 6;
       }
       70% {
         opacity: 0.95;
@@ -255,10 +254,8 @@
     }
 
     /* ══════════════════════════════════════════════════
-       無框有機自然流光 (聖盾光罩、貫穿雷射、地裂震撼、天幕極光)
+       特殊機制圖層 (光罩、光束、天幕、地裂)
        ══════════════════════════════════════════════════ */
-
-    /* 1. 全身聖光守護防護光罩 (柔和羽化光球) */
     .dome-shield-wrap {
       position: absolute;
       width: 330px;
@@ -309,7 +306,7 @@
       100% { opacity: 0; transform: scale(1.22); }
     }
 
-    /* 2. 貫穿全屏的高速雷霆光束 */
+    /* 貫穿全屏高速光束 */
     .thrust-beam-layer {
       position: absolute;
       left: 45%;
@@ -335,7 +332,7 @@
       100% { opacity: 0; transform: translateY(-50%) scaleX(1.2); }
     }
 
-    /* 3. 地面震撼碎裂光環 */
+    /* 撼地地裂層 */
     .ground-crack-layer {
       position: absolute;
       bottom: 25px;
@@ -360,7 +357,7 @@
       100% { opacity: 0; transform: scale(1.3); }
     }
 
-    /* 4. 極光天幕全屏流動星河 (純透明流光，零裁切邊界) */
+    /* 天幕流光 */
     .aurora-sky-layer {
       position: absolute;
       inset: -20px;
@@ -370,20 +367,6 @@
       z-index: 1;
       pointer-events: none;
     }
-    .aurora-rainbow-ribbon {
-      position: absolute;
-      top: 15%;
-      left: -10%;
-      width: 120%;
-      height: 120px;
-      background: linear-gradient(90deg, transparent 0%, rgba(239, 68, 68, 0.4) 15%, rgba(251, 191, 36, 0.5) 30%, rgba(16, 185, 129, 0.5) 50%, rgba(56, 189, 248, 0.5) 70%, rgba(192, 132, 252, 0.4) 85%, transparent 100%);
-      filter: blur(14px);
-      transform: rotate(-12deg);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-
     .anim-aurora-sky {
       animation: aAuroraSky 1.7s ease-in-out forwards;
     }
@@ -465,6 +448,21 @@
       0% { opacity: 0; transform: scale(0.4) rotate(-40deg) translateX(-40px); }
       35% { opacity: 1; transform: scale(1.2) rotate(10deg) translateX(15px); }
       100% { opacity: 0; transform: scale(1.35) rotate(35deg) translateX(50px); }
+    }
+
+    .anim-bloom { animation: aBloomPulse 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aBloomPulse {
+      0% { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+      30% { opacity: 1; transform: scale(1.2) rotate(0deg); }
+      70% { opacity: 0.9; transform: scale(1.05) rotate(15deg); }
+      100% { opacity: 0; transform: scale(1.35) rotate(30deg); }
+    }
+
+    .anim-arrow-fly { animation: aArrowFly 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aArrowFly {
+      0% { opacity: 0; transform: scale(0.4) translateX(-100px); }
+      30% { opacity: 1; transform: scale(1.15) translateX(20px); }
+      100% { opacity: 0; transform: scale(1.3) translateX(120px); }
     }
 
     /* ── 答錯敵方反擊專屬動畫 ── */
@@ -588,7 +586,7 @@
     }
     .skill-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 10px;
     }
     .skill-card-btn {
@@ -627,8 +625,8 @@
 </head>
 <body>
 
-  <h1>✨ 奇幻數學島 — 10大角色專屬技能 ✕ 零框線純淨透明系統</h1>
-  <p class="subtitle">全面去除方形邊框・100% 透明羽化光效 ✕ 夢幻群蝶身後起飛飛舞 ✕ 答錯三階反擊</p>
+  <h1>✨ 奇幻數學島 — 10大角色 ✕ 50款全滿格專屬技能系統</h1>
+  <p class="subtitle">每個角色完整擴充至 5 款專屬技能・每顆按鈕均有即時視覺反饋・零重複獨佔圖層・純淨透明</p>
 
   <div class="main-layout">
     
@@ -662,36 +660,67 @@
       <div class="stage-view" id="stageView">
         <canvas class="particle-canvas" id="canvasParticle"></canvas>
 
-        <!-- 🦋 夢幻群蝶自公主身後飛出專屬容器 (完全無方框、群蝶振翅飄揚) -->
+        <!-- 🦋 夢幻群蝶身後振翅群飛容器 -->
         <div class="butterfly-swarm-container" id="butterflySwarm"></div>
 
-        <!-- 強化實體視覺圖層 1: 全身聖光守護球形力場罩 -->
+        <!-- 強化實體視覺圖層: 全身聖光守護球形力場罩 -->
         <div class="dome-shield-wrap" id="domeShieldWrap">
           <div class="dome-shield-sphere" id="domeShieldSphere"></div>
           <div class="dome-shield-ring"></div>
         </div>
 
-        <!-- 強化實體視覺圖層 2: 貫穿全屏的高速雷霆光束 -->
+        <!-- 貫穿全屏高速光束 -->
         <div class="thrust-beam-layer" id="thrustBeam"></div>
 
-        <!-- 強化實體視覺圖層 3: 地面震撼碎裂光環 -->
+        <!-- 地面震撼碎裂光環 -->
         <div class="ground-crack-layer" id="groundCrack"></div>
 
-        <!-- 強化實體視覺圖層 4: 極光天幕全屏流動星河 (純透明流光，零方框) -->
+        <!-- 天幕流光星河 -->
         <div class="aurora-sky-layer" id="auroraSky"></div>
-        <div class="aurora-rainbow-ribbon" id="auroraRibbon"></div>
         
-        <!-- 角色專屬純淨透明發光特效圖層 (全部套用圓形柔和羽化遮罩，杜絕任何方框) -->
-        <img src="assets/vfx/vfx_magic_circle.webp" class="vfx-layer" id="vfx_circle" style="width:340px;height:340px;z-index:2;" alt="魔法陣">
-        <img src="assets/vfx/vfx_princess_frost_crystal.webp" class="vfx-layer" id="vfx_frost" style="width:320px;height:320px;z-index:6;" alt="冰晶">
-        <img src="assets/vfx/vfx_princess_heart_shield.webp" class="vfx-layer" id="vfx_shield" style="width:330px;height:330px;z-index:7;" alt="聖盾">
+        <!-- ════════════════════════════════════════
+             20 大獨立專屬高解析發光特效圖層 (全部 100% 透明無方框)
+             ════════════════════════════════════════ -->
 
-        <img src="assets/vfx/vfx_sword_slash.webp" class="vfx-layer" id="vfx_sword_slash" style="width:320px;height:320px;z-index:6;" alt="破風劍斬">
-        <img src="assets/vfx/vfx_crescent_wave.webp" class="vfx-layer" id="vfx_crescent" style="width:300px;height:300px;z-index:6;" alt="月牙斬">
-        <img src="assets/vfx/vfx_hero_cross_slash.webp" class="vfx-layer" id="vfx_cross" style="width:320px;height:320px;z-index:6;" alt="十字斬">
-        <img src="assets/vfx/vfx_hero_whirlwind.webp" class="vfx-layer" id="vfx_whirlwind" style="width:350px;height:350px;z-index:6;" alt="旋風">
-        <img src="assets/vfx/vfx_hero_impact_shockwave.webp" class="vfx-layer" id="vfx_shockwave" style="width:360px;height:360px;z-index:3;" alt="衝擊波">
-        <img src="assets/vfx/vfx_hero_thunder_thrust.webp" class="vfx-layer" id="vfx_thrust" style="width:400px;height:400px;z-index:6;" alt="雷霆突刺">
+        <!-- 魔法公主 -->
+        <img src="assets/vfx/vfx_magic_circle.webp" class="vfx-layer" id="vfx_magic_circle" style="width:340px;height:340px;z-index:2;" alt="璀璨星芒神聖陣">
+        <img src="assets/vfx/vfx_princess_heart_shield.webp" class="vfx-layer" id="vfx_shield_heart" style="width:330px;height:330px;z-index:7;" alt="愛心聖光守護盾">
+        <img src="assets/vfx/vfx_princess_frost_crystal.webp" class="vfx-layer" id="vfx_frost_crystal" style="width:320px;height:320px;z-index:6;" alt="冰晶雪花星芒">
+
+        <!-- 勇者公主 -->
+        <img src="assets/vfx/vfx_knight_crest_shield.webp" class="vfx-layer" id="vfx_shield_knight" style="width:330px;height:330px;z-index:7;" alt="正義十字皇家戰盾">
+        <img src="assets/vfx/vfx_crescent_wave.webp" class="vfx-layer" id="vfx_crescent" style="width:310px;height:310px;z-index:6;" alt="疾速破甲月牙斬">
+        <img src="assets/vfx/vfx_sword_slash.webp" class="vfx-layer" id="vfx_sword_slash" style="width:320px;height:320px;z-index:6;" alt="英勇制裁長劍破風劈">
+
+        <!-- 星空公主 -->
+        <img src="assets/vfx/vfx_cosmic_supernova_clean.webp" class="vfx-layer" id="vfx_supernova" style="width:380px;height:380px;z-index:3;" alt="超新星引力星雲">
+
+        <!-- 自然公主 -->
+        <img src="assets/vfx/vfx_nature_vine_shield.webp" class="vfx-layer" id="vfx_shield_vine" style="width:350px;height:350px;z-index:7;" alt="生命藤蔓守護環">
+        <img src="assets/vfx/vfx_nature_bloom_clean.webp" class="vfx-layer" id="vfx_nature_bloom" style="width:360px;height:360px;z-index:6;" alt="翡翠百花綻放結界">
+
+        <!-- 神秘公主 -->
+        <img src="assets/vfx/vfx_arcane_crystal_shield.webp" class="vfx-layer" id="vfx_shield_arcane" style="width:330px;height:330px;z-index:7;" alt="秘法心靈水晶護盾">
+        <img src="assets/vfx/vfx_mystery_runes_clean.webp" class="vfx-layer" id="vfx_mystery_runes" style="width:340px;height:340px;z-index:2;" alt="遠古奧術符文陣">
+
+        <!-- 傳奇勇者 -->
+        <img src="assets/vfx/vfx_hero_cross_slash.webp" class="vfx-layer" id="vfx_cross_slash" style="width:320px;height:320px;z-index:6;" alt="十字符文雙重大斬">
+        <img src="assets/vfx/vfx_hero_whirlwind.webp" class="vfx-layer" id="vfx_whirlwind" style="width:350px;height:350px;z-index:6;" alt="旋風劍氣狂暴龍捲">
+
+        <!-- 魔法騎士 -->
+        <img src="assets/vfx/vfx_hero_thunder_thrust.webp" class="vfx-layer" id="vfx_thunder_thrust" style="width:400px;height:400px;z-index:6;" alt="雷霆聖槍破魔突刺">
+        <img src="assets/vfx/vfx_hero_impact_shockwave.webp" class="vfx-layer" id="vfx_impact_shockwave" style="width:360px;height:360px;z-index:3;" alt="聖鎧撼地金光衝擊波">
+
+        <!-- 宇宙探險家 -->
+        <img src="assets/vfx/vfx_gravity_singularity_clean.webp" class="vfx-layer" id="vfx_gravity_singularity" style="width:330px;height:330px;z-index:6;" alt="微型重力奇點震爆彈">
+
+        <!-- 森林守護者 -->
+        <img src="assets/vfx/vfx_nature_tree_roots.webp" class="vfx-layer" id="vfx_tree_roots" style="width:360px;height:360px;z-index:3;" alt="大地古樹盤根裂地波">
+        <img src="assets/vfx/vfx_elven_wind_arrow_clean.webp" class="vfx-layer" id="vfx_elven_arrow" style="width:350px;height:350px;z-index:6;" alt="精靈穿雲神準疾風箭">
+
+        <!-- 科學魔法師 -->
+        <img src="assets/vfx/vfx_science_gears.webp" class="vfx-layer" id="vfx_science_gears" style="width:340px;height:340px;z-index:4;" alt="齒輪動力共振衝擊">
+        <img src="assets/vfx/vfx_lightning_tesla_clean.webp" class="vfx-layer" id="vfx_tesla_lightning" style="width:350px;height:350px;z-index:6;" alt="特斯拉高壓磁暴雷霆">
 
         <!-- 敵人反擊專屬發光特效圖層 -->
         <img src="assets/vfx/vfx_mob_slime_splat.webp" class="vfx-layer" id="vfx_slime_splat" style="width:340px;height:340px;z-index:8;" alt="泥漿黏液">
@@ -710,7 +739,7 @@
       <!-- 操作面板 (隨機技能) -->
       <div class="control-row">
         <button class="btn-super btn-magic-action" id="btnRandomRole" onclick="triggerRandomRoleSkill()">
-          <span>🎲 隨機施展當前角色的專屬技能！</span>
+          <span>🎲 隨機施展當前角色的專屬技能！（共 5 款）</span>
         </button>
       </div>
 
@@ -729,7 +758,7 @@
 
       <!-- 角色技能矩陣清單 -->
       <div class="skill-dashboard">
-        <div class="section-title" id="panelTitle">🌸 角色專屬技能列表（點擊測試）：</div>
+        <div class="section-title" id="panelTitle">🌸 角色專屬 5 大技能清單（點擊測試）：</div>
         <div class="skill-grid" id="skillGrid"></div>
       </div>
 
@@ -738,102 +767,128 @@
   </div>
 
   <script>
-    // 10 大冒險角色量身專屬技能庫字典
+    // ══════════════════════════════════════════════════════════════
+    // 10 大冒險角色 ✕ 50 款全滿格【100% 絕對響應・零死角】技能字典
+    // 每顆技能按鈕均配置實體視覺圖層或專屬動畫，點擊 100% 有感反應！
+    // ══════════════════════════════════════════════════════════════
     const ROLE_SKILLS = {
-      // 🌸 公主系列
+      // 🌸 1. 魔法公主
       princess_magic: {
         name: '魔法公主', type: 'magic', img: 'assets/characters/princess_magic.webp',
         skills: [
+          { id: 'circle', name: '璀璨星芒神聖陣', desc: '金色神聖六角星芒符文旋轉法陣', icon: '🌟', scenario: '三星滿星通關', layerId: 'vfx_magic_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#fbbf24', '#f472b6', '#fff'] },
+          { id: 'shield', name: '愛心聖光守護盾', desc: '天使金羽粉紅愛心聖盾包覆全身防護', icon: '💖', scenario: '無損生命通關', layerId: 'vfx_shield_heart', anim: 'anim-heart', sound: 'shield', colors: ['#ec4899', '#fbbf24', '#fff'], special: 'dome' },
           { id: 'butterfly', name: '粉櫻幻蝶飛舞', desc: '身後湧出漫天粉櫻光粉與彩虹幻蝶翩翩飛升', icon: '🦋', scenario: '自然關卡通關', special: 'butterfly_swarm', sound: 'butterfly', colors: ['#f472b6', '#fef08a', '#fff', '#c084fc'] },
-          { id: 'shield', name: '愛心聖光守護盾', desc: '全身被金色光罩包覆保護・堅不可摧', icon: '💖', scenario: '無損生命通關', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#ec4899', '#fbbf24', '#fff'], special: 'dome' },
-          { id: 'circle', name: '璀璨星芒神聖陣', desc: '金色幾何符文與旋轉法陣召喚', icon: '🌟', scenario: '三星滿星通關', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#fbbf24', '#f472b6', '#fff'] },
-          { id: 'frost', name: '冰晶雪花星芒', desc: '旋轉六角冰霜與極寒星光結晶凝凍', icon: '❄️', scenario: '連擊滿分加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#38bdf8', '#e0f2fe', '#fff'] },
-          { id: 'aurora', name: '彩虹極光星河', desc: '浩瀚七彩天幕極光覆蓋全場大爆發', icon: '🌈', scenario: '擊倒魔王/宗師勳章', special: 'aurora', sound: 'supernova', colors: ['#c084fc', '#f472b6', '#38bdf8', '#fbbf24'] }
-        ]
-      },
-      princess_brave: {
-        name: '勇者公主', type: 'hybrid', img: 'assets/characters/princess_brave.webp',
-        skills: [
-          { id: 'shield', name: '正義守護聖盾', desc: '正義光芒巨型能量罩全身籠罩', icon: '🛡️', scenario: '滿血過關獎勵', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#3b82f6', '#fbbf24', '#fff'], special: 'dome_blue' },
-          { id: 'crescent', name: '破甲疾速月牙斬', desc: '凌厲藍光半月形劍氣破風出鞘', icon: '🌙', scenario: '秒答突破防線', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#fff', '#3b82f6'] },
-          { id: 'cross', name: '英勇雙重符文斬', desc: '金藍交叉巨型破甲十字破裂', icon: '⚔️', scenario: '雙倍暴擊加成', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#3b82f6', '#fbbf24', '#fff'] },
-          { id: 'shockwave', name: '盾擊大地震盪波', desc: '重盾落地激起大地碎石破裂衝擊', icon: '💥', scenario: '破魔打擊', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#3b82f6', '#60a5fa'], special: 'crack' }
-        ]
-      },
-      princess_star: {
-        name: '星空公主', type: 'magic', img: 'assets/characters/princess_star.webp',
-        skills: [
-          { id: 'butterfly', name: '星光幻蝶夜曲', desc: '身後幻化出無數藍白星光彩蝶翩翩起舞', icon: '✨', scenario: '靜謐專注通關', special: 'butterfly_swarm', sound: 'butterfly', colors: ['#818cf8', '#e0e7ff', '#fff', '#38bdf8'] },
-          { id: 'circle', name: '銀河星宿幾何陣', desc: '浩瀚星宿幾何旋轉陣・召喚星光', icon: '🌌', scenario: '星空關卡完美通關', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#6366f1', '#38bdf8', '#fff'] },
-          { id: 'frost', name: '彗星冰塵星芒', desc: '彗星尾跡劃破夜空星塵・極寒晶瑩', icon: '☄️', scenario: '極速解題加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#818cf8', '#c7d2fe', '#fff'] },
-          { id: 'aurora', name: '超新星引力星雲', desc: '星際極光天幕大爆發', icon: '🌠', scenario: '大滿貫金盃達成', special: 'aurora', sound: 'supernova', colors: ['#4f46e5', '#a855f7', '#38bdf8'] }
-        ]
-      },
-      princess_nature: {
-        name: '自然公主', type: 'magic', img: 'assets/characters/princess_nature.webp',
-        skills: [
-          { id: 'butterfly', name: '翡翠仙子蝶舞', desc: '森林百花光粉與無數仙子綠蝶自背後振翅群飛', icon: '🌺', scenario: '自然學科通關', special: 'butterfly_swarm', sound: 'butterfly', colors: ['#10b981', '#34d399', '#f472b6', '#fbbf24'] },
-          { id: 'shield', name: '生命藤蔓守護環', desc: '綠意生機盎然的自然之盾球體保護', icon: '🌿', scenario: '滿血答對加成', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#10b981', '#fbbf24', '#fff'], special: 'dome_green' },
-          { id: 'frost', name: '綠野晨露晶瑩冰芒', desc: '清晨露珠折射七彩晶瑩冰霜', icon: '💧', scenario: '晨光連擊加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#34d399', '#6ee7b7', '#fff'] },
-          { id: 'aurora', name: '自然萬物極光大同', desc: '生機盎然的綠金極光天幕覆蓋全場', icon: '🌈', scenario: '自然守護者晉升', special: 'aurora', sound: 'supernova', colors: ['#10b981', '#fbbf24', '#38bdf8'] }
-        ]
-      },
-      princess_mystery: {
-        name: '神秘公主', type: 'magic', img: 'assets/characters/princess_mystery.webp',
-        skills: [
-          { id: 'shield', name: '秘法心靈防護罩', desc: '紫曜水晶能量結界全身包覆守護', icon: '🛡️', scenario: '無損防護獎勵', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#8b5cf6', '#f472b6', '#fff'], special: 'dome_purple' },
-          { id: 'circle', name: '古代符文秘術陣', desc: '紫晶符文法陣在地表展開共鳴', icon: '🔮', scenario: '難題突破封印', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#8b5cf6', '#c084fc', '#fff'] },
-          { id: 'frost', name: '水晶冰霜星核', desc: '水晶球凝結的秘術冰霜星核', icon: '💎', scenario: '深思連擊加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#a855f7', '#e9d5ff', '#fff'] },
-          { id: 'aurora', name: '奧術極光光譜', desc: '紫金奧術光華席捲整片戰場', icon: '🌌', scenario: '博古通今成就', special: 'aurora', sound: 'supernova', colors: ['#8b5cf6', '#ec4899', '#38bdf8'] }
+          { id: 'frost', name: '冰晶雪花星芒', desc: '旋轉六角冰霜與極寒星光結晶凝凍', icon: '❄️', scenario: '連擊滿分加成', layerId: 'vfx_frost_crystal', anim: 'anim-frost', sound: 'ice', colors: ['#38bdf8', '#e0f2fe', '#fff'] },
+          { id: 'aurora', name: '彩虹極光天幕星河', desc: '七彩流動極光天幕全場流光大爆發', icon: '🌈', scenario: '擊倒魔王/宗師勳章', special: 'aurora', sound: 'supernova', colors: ['#c084fc', '#f472b6', '#38bdf8', '#fbbf24'] }
         ]
       },
 
-      // ⚔️ 王子勇士系列
+      // ⚔️ 2. 勇者公主
+      princess_brave: {
+        name: '勇者公主', type: 'hybrid', img: 'assets/characters/princess_brave.webp',
+        skills: [
+          { id: 'shield', name: '正義十字皇家戰盾', desc: '鋼鐵鑲金藍寶石皇家十字重裝戰盾', icon: '🛡️', scenario: '滿血過關獎勵', layerId: 'vfx_shield_knight', anim: 'anim-heart', sound: 'shield', colors: ['#3b82f6', '#fbbf24', '#fff'], special: 'dome_blue' },
+          { id: 'crescent', name: '疾速破甲月牙斬', desc: '凌厲藍白半月風刃破風出鞘', icon: '🌙', scenario: '秒答突破防線', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#fff', '#3b82f6'] },
+          { id: 'sword', name: '英勇制裁長劍破風劈', desc: '正義長劍出鞘凌厲橫劈破陣', icon: '🗡️', scenario: '雙倍暴擊加成', layerId: 'vfx_sword_slash', anim: 'anim-sword-slash', sound: 'slash', colors: ['#3b82f6', '#fbbf24', '#fff'] },
+          { id: 'cross', name: '金藍雙重大十字斬', desc: '雙重金藍交錯破甲十字斬裂', icon: '❌', scenario: '連擊暴擊加成', layerId: 'vfx_cross_slash', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#3b82f6', '#fbbf24', '#fff'] },
+          { id: 'quake', name: '重盾撼地裂石波', desc: '重盾落地激起地面裂紋與碎石飛濺', icon: '💥', scenario: '破魔打擊', special: 'crack', sound: 'impact', colors: ['#3b82f6', '#60a5fa', '#fbbf24'] }
+        ]
+      },
+
+      // 🌟 3. 星空公主
+      princess_star: {
+        name: '星空公主', type: 'magic', img: 'assets/characters/princess_star.webp',
+        skills: [
+          { id: 'frost', name: '彗星冰塵星芒', desc: '彗星尾跡劃破夜空星塵・極寒晶瑩六角霜芒', icon: '☄️', scenario: '極速解題加成', layerId: 'vfx_frost_crystal', anim: 'anim-frost', sound: 'ice', colors: ['#818cf8', '#c7d2fe', '#fff'] },
+          { id: 'supernova', name: '超新星引力星雲', desc: '耀眼浩瀚彩虹超新星大爆裂星雲', icon: '🌠', scenario: '擊倒魔王/宗師勳章', layerId: 'vfx_supernova', anim: 'anim-spin-circle', sound: 'supernova', colors: ['#6366f1', '#a855f7', '#fbbf24'] },
+          { id: 'aurora', name: '流星群天幕星河', desc: '漫天七彩流動星河天幕覆蓋全場', icon: '🌌', scenario: '大滿貫金盃達成', special: 'aurora', sound: 'supernova', colors: ['#4f46e5', '#38bdf8', '#c084fc'] },
+          { id: 'butterfly', name: '星光幻蝶夜曲', desc: '身後湧出無數藍白星光彩蝶翩翩起舞', icon: '✨', scenario: '靜謐專注通關', special: 'butterfly_swarm_blue', sound: 'butterfly', colors: ['#818cf8', '#e0e7ff', '#fff', '#38bdf8'] },
+          { id: 'circle', name: '銀河星宿幾何陣', desc: '浩瀚星宿幾何旋轉陣・召喚星光', icon: '🪐', scenario: '星空完美通關', layerId: 'vfx_magic_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#6366f1', '#38bdf8', '#fff'] }
+        ]
+      },
+
+      // 🌺 4. 自然公主
+      princess_nature: {
+        name: '自然公主', type: 'magic', img: 'assets/characters/princess_nature.webp',
+        skills: [
+          { id: 'shield', name: '生命藤蔓守護環', desc: '茂密鮮活常春藤蔓與發光金花環繞・生機守護', icon: '🌿', scenario: '滿血答對加成', layerId: 'vfx_shield_vine', anim: 'anim-heart', sound: 'shield', colors: ['#10b981', '#34d399', '#fbbf24'], special: 'dome_green' },
+          { id: 'bloom', name: '翡翠百花綻放結界', desc: '萬物復甦鮮花百花盛開花環圍繞綻放', icon: '🌺', scenario: '自然學科通關', layerId: 'vfx_nature_bloom', anim: 'anim-bloom', sound: 'butterfly', colors: ['#10b981', '#f472b6', '#fbbf24'] },
+          { id: 'butterfly', name: '翡翠仙子蝶群舞', desc: '森林百花光粉與仙子綠蝶自背後振翅群飛', icon: '🦋', scenario: '自然仙子召喚', special: 'butterfly_swarm_green', sound: 'butterfly', colors: ['#10b981', '#34d399', '#f472b6', '#fbbf24'] },
+          { id: 'dew', name: '綠野晨露珠光晨曦', desc: '清晨晶瑩露水珠光灑落滌淨戰場', icon: '💧', scenario: '晨光連擊加成', layerId: 'vfx_frost_crystal', anim: 'anim-frost', sound: 'ice', colors: ['#34d399', '#6ee7b7', '#fff'] },
+          { id: 'aurora', name: '自然萬物生機極光', desc: '生機盎然的綠金極光天幕覆蓋全場', icon: '🌈', scenario: '自然守護者晉升', special: 'aurora', sound: 'supernova', colors: ['#10b981', '#fbbf24', '#38bdf8'] }
+        ]
+      },
+
+      // 🔮 5. 神秘公主
+      princess_mystery: {
+        name: '神秘公主', type: 'magic', img: 'assets/characters/princess_mystery.webp',
+        skills: [
+          { id: 'shield', name: '秘法心靈水晶護盾', desc: '紫曜符文水晶能量護盾與浮空紫水晶碎片守護', icon: '🔮', scenario: '無損防護獎勵', layerId: 'vfx_shield_arcane', anim: 'anim-heart', sound: 'shield', colors: ['#8b5cf6', '#c084fc', '#fff'], special: 'dome_purple' },
+          { id: 'runes', name: '遠古奧術符文陣', desc: '遠古紫晶占星秘術法陣在地表展開共鳴', icon: '✨', scenario: '難題突破封印', layerId: 'vfx_mystery_runes', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#8b5cf6', '#c084fc', '#fff'] },
+          { id: 'beam', name: '靈魂之眼奧術紫光', desc: '深思洞察紫金高能射線光束筆直穿透', icon: '👁️', scenario: '博古通今成就', special: 'thrust_beam', sound: 'thunder', colors: ['#8b5cf6', '#c084fc', '#fff'] },
+          { id: 'frost', name: '水晶冰霜星核封印', desc: '水晶球凝結的秘術冰霜星核', icon: '💎', scenario: '深思連擊加成', layerId: 'vfx_frost_crystal', anim: 'anim-frost', sound: 'ice', colors: ['#a855f7', '#e9d5ff', '#fff'] },
+          { id: 'aurora', name: '虛空奧術幻夢極光', desc: '紫金奧術光華天幕席捲整片戰場', icon: '🌌', scenario: '奧術宗師晉升', special: 'aurora', sound: 'supernova', colors: ['#8b5cf6', '#ec4899', '#38bdf8'] }
+        ]
+      },
+
+      // 🗡️ 6. 傳奇勇者
       prince_hero: {
         name: '傳奇勇者', type: 'slash', img: 'assets/characters/prince_hero.webp',
         skills: [
-          { id: 'sword', name: '凌厲破風劍斬', desc: '疾速出鞘的湛藍銳利劍氣橫空劈斬', icon: '🗡️', scenario: '初次出劍/快問快答', layerId: 'vfx_sword_slash', anim: 'anim-sword-slash', sound: 'slash', colors: ['#38bdf8', '#fff'] },
-          { id: 'crescent', name: '破空月牙斬', desc: '藍白半月凌厲弧形風刃破空呼嘯', icon: '🌙', scenario: '疾速秒答突破', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#fff', '#0284c7'] },
-          { id: 'cross', name: '十字符文雙重斬', desc: '金藍交錯的巨型 X 破甲斬痕破裂', icon: '❌', scenario: '雙倍暴擊加成', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#0284c7', '#fbbf24', '#fff'] },
-          { id: 'whirlwind', name: '旋風劍氣龍捲', desc: '拔地而起的藍白風刃龍捲旋轉升騰', icon: '🌪️', scenario: '高連擊 (Combo Streak)', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#38bdf8', '#fff'] },
-          { id: 'shockwave', name: '大地崩裂衝擊波', desc: '劍劈地面爆發金色碎石裂地強震', icon: '💥', scenario: '星幣翻倍獲得', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#fbbf24', '#ef4444'], special: 'crack' },
-          { id: 'thrust', name: '雷霆突刺長槍光束', desc: '撕裂全屏的高能電漿雷霆光束筆直貫穿', icon: '⚡', scenario: '擊倒魔王/宗師勳章', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#38bdf8', '#fbbf24', '#fff'], special: 'thrust_beam' }
+          { id: 'cross', name: '十字符文雙重大斬', desc: '巨型金藍 X 字重裝破甲十字斬痕', icon: '❌', scenario: '雙倍暴擊加成', layerId: 'vfx_cross_slash', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#0284c7', '#fbbf24', '#fff'] },
+          { id: 'whirlwind', name: '旋風劍氣狂暴龍捲', desc: '拔地而起藍白風刃龍捲旋轉升騰', icon: '🌪️', scenario: '高連擊 (Combo Streak)', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#38bdf8', '#fff'] },
+          { id: 'sword', name: '凌厲長劍破風疾斬', desc: '湛藍銳利劍氣橫空劈斬', icon: '🗡️', scenario: '初次出劍/快問快答', layerId: 'vfx_sword_slash', anim: 'anim-sword-slash', sound: 'slash', colors: ['#38bdf8', '#fff'] },
+          { id: 'shockwave', name: '大地崩裂金光衝擊波', desc: '劍劈地面爆發金色碎石裂地強震', icon: '💥', scenario: '星幣翻倍獲得', layerId: 'vfx_impact_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#fbbf24', '#ef4444'], special: 'crack' },
+          { id: 'thrust', name: '熱血貫穿雷霆長槍', desc: '撕裂全屏的高能電漿雷霆光束筆直貫穿', icon: '⚡', scenario: '擊倒魔王/宗師勳章', layerId: 'vfx_thunder_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#38bdf8', '#fbbf24', '#fff'], special: 'thrust_beam' }
         ]
       },
+
+      // 🧙‍♂️ 7. 魔法騎士
       prince_knight: {
         name: '魔法騎士', type: 'slash', img: 'assets/characters/prince_knight.webp',
         skills: [
-          { id: 'cross', name: '聖光審判大劍斬', desc: '神聖黃金十字雙重破魔大劍斬', icon: '🗡️', scenario: '聖光騎士破關', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#fbbf24', '#ffffff'] },
-          { id: 'thrust', name: '神聖魔能突刺', desc: '魔力長劍筆直貫穿光束直達敵營', icon: '✨', scenario: '魔王連擊突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#a855f7', '#fbbf24', '#fff'], special: 'thrust_beam' },
-          { id: 'shockwave', name: '聖鎧撼地衝擊波', desc: '重鎧護體砸地激發碎石裂痕波', icon: '💥', scenario: '無損防禦加成', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#a855f7', '#fbbf24'], special: 'crack' },
-          { id: 'crescent', name: '聖光月牙弧刃', desc: '金色半月弧形破法光刃劃過', icon: '🌙', scenario: '秒速解圍', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#fbbf24', '#fff'] }
+          { id: 'thrust', name: '雷霆聖槍破魔突刺', desc: '高能電漿雷霆長槍筆直穿透直擊敵營', icon: '⚡', scenario: '魔王連擊突破', layerId: 'vfx_thunder_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#38bdf8', '#fbbf24', '#fff'], special: 'thrust_beam' },
+          { id: 'shockwave', name: '聖鎧撼地金光衝擊波', desc: '重鎧護體重踏地面爆發金色裂地碎石波', icon: '💥', scenario: '無損防禦加成', layerId: 'vfx_impact_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#fbbf24', '#a855f7'], special: 'crack' },
+          { id: 'cross', name: '聖光審判大劍斬', desc: '神聖黃金十字雙重破魔大劍斬', icon: '🗡️', scenario: '聖光騎士破關', layerId: 'vfx_cross_slash', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#fbbf24', '#ffffff'] },
+          { id: 'shield', name: '騎士神聖庇護光盾', desc: '金藍正義十字盾牌包覆護體', icon: '🛡️', scenario: '無損護甲加成', layerId: 'vfx_shield_knight', anim: 'anim-heart', sound: 'shield', colors: ['#fbbf24', '#3b82f6'], special: 'dome_blue' },
+          { id: 'crescent', name: '聖光月牙破法弧刃', desc: '金色半月弧形破法光刃劃過', icon: '🌙', scenario: '秒速解圍', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#fbbf24', '#fff'] }
         ]
       },
+
+      // 🚀 8. 宇宙探險家
       prince_space: {
         name: '宇宙探險家', type: 'slash', img: 'assets/characters/prince_space.webp',
         skills: [
-          { id: 'thrust', name: '離子雷射光束槍', desc: '高能電漿光束直射橫貫全屏目標', icon: '🔫', scenario: '星際題目突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#0ea5e9', '#38bdf8', '#fff'], special: 'thrust_beam' },
-          { id: 'shockwave', name: '微型重力震爆彈', desc: '重力反衝波四散炸裂地表', icon: '🚀', scenario: '噴射加速通關', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#0ea5e9', '#fbbf24'], special: 'crack' },
-          { id: 'whirlwind', name: '推進氣旋漩渦', desc: '噴氣背包爆發超光速渦流風暴', icon: '🌀', scenario: '連續極速秒答', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#0ea5e9', '#fff'] },
-          { id: 'crescent', name: '光子切割月牙刃', desc: '星艦雷射折射弧刃高速旋切', icon: '💫', scenario: '星艦領航破關', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#67e8f9'] }
+          { id: 'singularity', name: '微型重力奇點震爆彈', desc: '高科技引力奇點旋轉力場球脈衝炸裂', icon: '🪐', scenario: '噴射加速通關', layerId: 'vfx_gravity_singularity', anim: 'anim-spin-circle', sound: 'impact', colors: ['#0ea5e9', '#38bdf8', '#fff'] },
+          { id: 'laser', name: '離子雷射電漿光束槍', desc: '520px 貫穿全屏高能電漿雷射直射目標', icon: '🔫', scenario: '星際題目突破', special: 'thrust_beam', sound: 'thunder', colors: ['#0ea5e9', '#38bdf8', '#fff'] },
+          { id: 'whirlwind', name: '推進氣旋離子漩渦', desc: '噴氣背包爆發超光速渦流風暴', icon: '🌀', scenario: '連續極速秒答', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#0ea5e9', '#fff'] },
+          { id: 'crescent', name: '光子切割月牙刃', desc: '星艦雷射折射弧刃高速旋切', icon: '💫', scenario: '星艦領航破關', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#67e8f9'] },
+          { id: 'aurora', name: '星際軌道超光速躍遷', desc: '藍青極光光軌躍遷席捲戰場', icon: '🚀', scenario: '星際探索成就', special: 'aurora', sound: 'supernova', colors: ['#0ea5e9', '#38bdf8', '#fbbf24'] }
         ]
       },
+
+      // 🌿 9. 森林守護者
       prince_forest: {
         name: '森林守護者', type: 'slash', img: 'assets/characters/prince_forest.webp',
         skills: [
-          { id: 'thrust', name: '精靈穿雲疾風箭', desc: '神準破空的綠意長箭光束筆直穿透', icon: '🏹', scenario: '神準解題突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#15803d', '#22c55e', '#fff'], special: 'thrust_beam' },
-          { id: 'whirlwind', name: '自然旋風狂舞', desc: '召喚森林守護風暴龍捲拔地而起', icon: '🌪️', scenario: '連擊狂風加成', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#22c55e', '#86efac', '#fff'] },
-          { id: 'shockwave', name: '大地古樹崩裂波', desc: '古樹樹根撼動地面碎石四散', icon: '🌿', scenario: '林海守護加成', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#15803d', '#fbbf24'], special: 'crack' },
-          { id: 'crescent', name: '靈犀疾風弧刃', desc: '綠野清風劃出凌厲半月弧線風刃', icon: '🍃', scenario: '心靜如水通關', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#22c55e', '#fff'] }
+          { id: 'roots', name: '大地古樹盤根裂地波', desc: '厚實古樹粗壯樹根破土而出撼裂大地', icon: '🪵', scenario: '林海守護加成', layerId: 'vfx_tree_roots', anim: 'anim-shockwave', sound: 'impact', colors: ['#15803d', '#22c55e', '#fbbf24'], special: 'crack' },
+          { id: 'arrow', name: '精靈穿雲神準疾風箭', desc: '翡翠神箭綠羽光刃神準穿破', icon: '🏹', scenario: '神準解題突破', layerId: 'vfx_elven_arrow', anim: 'anim-arrow-fly', sound: 'thunder', colors: ['#10b981', '#34d399', '#fff'] },
+          { id: 'whirlwind', name: '自然旋風落葉狂舞', desc: '召喚森林守護風暴龍捲拔地而起', icon: '🌪️', scenario: '連擊狂風加成', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#22c55e', '#86efac', '#fff'] },
+          { id: 'crescent', name: '靈犀疾風半月弧刃', desc: '綠野清風劃出凌厲半月弧線風刃', icon: '🍃', scenario: '心靜如水通關', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#22c55e', '#fff'] },
+          { id: 'shield', name: '神木厚土護體藤環', desc: '古樹之靈編織綠盾護體', icon: '🌿', scenario: '滿血答對加成', layerId: 'vfx_shield_vine', anim: 'anim-heart', sound: 'shield', colors: ['#10b981', '#fbbf24'], special: 'dome_green' }
         ]
       },
+
+      // 🔬 10. 科學魔法師
       prince_science: {
         name: '科學魔法師', type: 'slash', img: 'assets/characters/prince_science.webp',
         skills: [
-          { id: 'thrust', name: '特斯拉雷霆光束', desc: '百萬伏特高壓電弧電漿穿透橫貫全場', icon: '⚡', scenario: '靈光一閃突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#eab308', '#fbbf24', '#fff'], special: 'thrust_beam' },
-          { id: 'shockwave', name: '齒輪動力共振衝擊', desc: '機械齒輪超載共振震撼地表', icon: '⚙️', scenario: '邏輯分析完美解', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#eab308', '#f97316'], special: 'crack' },
-          { id: 'cross', name: '能量光刃裂解十字', desc: '高能光刃交叉裂解切割十字痕', icon: '🔬', scenario: '雙重實驗暴擊', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#eab308', '#38bdf8', '#fff'] },
-          { id: 'whirlwind', name: '磁暴渦流漩渦', desc: '強力磁場電弧拘束螺旋升騰', icon: '🧲', scenario: '連續公式突破', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#eab308', '#fff'] }
+          { id: 'gears', name: '齒輪動力共振衝擊', desc: '黃銅咬合發光機械齒輪爆發共振能量波', icon: '⚙️', scenario: '邏輯分析完美解', layerId: 'vfx_science_gears', anim: 'anim-spin-circle', sound: 'impact', colors: ['#eab308', '#f97316', '#fbbf24'], special: 'crack' },
+          { id: 'tesla', name: '特斯拉高壓磁暴雷霆', desc: '狂暴百萬伏特高壓電弧電漿雷霆炸裂', icon: '⚡', scenario: '靈光一閃突破', layerId: 'vfx_tesla_lightning', anim: 'anim-thrust', sound: 'thunder', colors: ['#eab308', '#38bdf8', '#fff'] },
+          { id: 'laser', name: '高壓離子過載電漿光束', desc: '百萬伏特光束筆直穿透橫貫全屏', icon: '🔬', scenario: '實驗突破', special: 'thrust_beam', sound: 'thunder', colors: ['#eab308', '#fbbf24', '#fff'] },
+          { id: 'cross', name: '能量光刃裂解十字', desc: '高能光刃交叉裂解切割十字痕', icon: '❌', scenario: '雙重實驗暴擊', layerId: 'vfx_cross_slash', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#eab308', '#38bdf8', '#fff'] },
+          { id: 'whirlwind', name: '磁暴渦流氣旋漩渦', desc: '強力磁場電弧拘束螺旋升騰', icon: '🧲', scenario: '連續公式突破', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#eab308', '#fff'] }
         ]
       }
     };
@@ -878,7 +933,6 @@
       if (soundType === 'magic_chime') {
         [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, 'sine', 0.5, 0.25, i * 0.08));
       } else if (soundType === 'butterfly') {
-        // 夢幻輕靈的水晶風鈴旋律
         [659.25, 783.99, 880, 1046.5, 1174.66, 1318.5].forEach((f, i) => playTone(f, 'triangle', 0.45, 0.18, i * 0.07));
       } else if (soundType === 'ice') {
         [1200, 1500, 1800, 2200].forEach((f, i) => playTone(f, 'sine', 0.35, 0.18, i * 0.05));
@@ -909,22 +963,18 @@
       const role = ROLE_SKILLS[roleId];
       if (!role) return;
 
-      // 更新按鈕樣式
       document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
       const activeBtn = document.getElementById('tab_' + roleId);
       if (activeBtn) activeBtn.classList.add('active');
 
-      // 更新立繪 (加時間戳確保載入最新無邊框無殘留圖片)
       const charSprite = document.getElementById('charSprite');
       charSprite.src = role.img + '?t=' + Date.now();
       charSprite.className = 'char-sprite';
 
-      // 隱藏敵人立繪與特定層
       hideAllEnemies();
       resetSpecialVFX();
 
-      // 更新技能面版
-      document.getElementById('panelTitle').innerHTML = `🌟 ${role.name} 的專屬技能列表（點擊測試）：`;
+      document.getElementById('panelTitle').innerHTML = `🌟 ${role.name} 的專屬 5 大技能清單（點擊測試）：`;
       renderRoleSkills();
     }
 
@@ -940,14 +990,15 @@
       const beam = document.getElementById('thrustBeam');
       const crack = document.getElementById('groundCrack');
       const aurora = document.getElementById('auroraSky');
-      const ribbon = document.getElementById('auroraRibbon');
       const bSwarm = document.getElementById('butterflySwarm');
       if (dome) dome.className = 'dome-shield-wrap';
       if (beam) beam.className = 'thrust-beam-layer';
       if (crack) crack.className = 'ground-crack-layer';
       if (aurora) aurora.className = 'aurora-sky-layer';
-      if (ribbon) ribbon.style.opacity = '0';
       if (bSwarm) bSwarm.innerHTML = '';
+      document.querySelectorAll('.vfx-layer').forEach(img => {
+        img.className = 'vfx-layer';
+      });
     }
 
     function renderRoleSkills() {
@@ -971,7 +1022,7 @@
       });
     }
 
-    // ── 🦋 動態夢幻群蝶自公主背後飛出系統 (100% 透明無方框・振翅起舞) ──
+    // ── 🦋 動態夢幻群蝶身後起飛 ──
     function spawnDreamyButterflies(count = 20, themeColors = ['#f472b6', '#fbbf24', '#38bdf8', '#c084fc']) {
       const container = document.getElementById('butterflySwarm');
       container.innerHTML = '';
@@ -980,7 +1031,6 @@
       const w = stage.offsetWidth;
       const h = stage.offsetHeight;
 
-      // 起飛起點：公主身後裙擺與法杖中央
       const startX = w / 2 - 22;
       const startY = h / 2 - 10;
 
@@ -988,11 +1038,10 @@
         const b = document.createElement('div');
         b.className = 'dreamy-butterfly';
 
-        // 擴散飛行動畫軌跡 (向外綻放旋舞)
         const angle = (Math.PI * 2 * (i / count)) + (Math.random() - 0.5) * 0.7;
         const dist = 140 + Math.random() * 220;
         const targetX = startX + Math.cos(angle) * dist;
-        const targetY = startY + Math.sin(angle) * (dist * 0.75) - 65; // 偏向上空飛翔
+        const targetY = startY + Math.sin(angle) * (dist * 0.75) - 65;
 
         const delay = Math.random() * 0.45;
         const duration = 1.3 + Math.random() * 0.5;
@@ -1018,7 +1067,7 @@
       }
     }
 
-    // ── 執行主角專屬技能（極致透明感，杜絕方框） ──
+    // ── 執行主角專屬技能（100% 絕對響應，零盲區） ──
     function executeSkill(skill) {
       hideAllEnemies();
       resetSpecialVFX();
@@ -1026,10 +1075,8 @@
       const charSprite = document.getElementById('charSprite');
       const vfxEl = skill.layerId ? document.getElementById(skill.layerId) : null;
 
-      // 提示橫幅
       showToast(`✨ ${ROLE_SKILLS[currentRoleId].name} 施放：【${skill.name}】！(${skill.scenario})`, 'toast-win');
 
-      // 角色姿態
       const isSlash = ROLE_SKILLS[currentRoleId].type === 'slash';
       if (skill.special && skill.special.startsWith('dome')) {
         charSprite.className = 'char-sprite char-shielded';
@@ -1037,16 +1084,12 @@
         charSprite.className = `char-sprite ${isSlash ? 'char-slash' : 'char-cast'}`;
       }
 
-      // ════════════════════════════════════════
-      // 🦋 核心夢幻強化: 幻蝶飛舞自背後振翅群飛出
-      // ════════════════════════════════════════
-      if (skill.special === 'butterfly_swarm') {
+      // 1. 群蝶飛舞系列
+      if (skill.special && skill.special.startsWith('butterfly_swarm')) {
         spawnDreamyButterflies(22, skill.colors);
       }
 
-      // ════════════════════════════════════════
-      // 具象化聯想強化 1: 聖光守護光罩 (全身包覆球形結界)
-      // ════════════════════════════════════════
+      // 2. 護盾系列 (各角色專屬色系光罩)
       if (skill.special && skill.special.startsWith('dome')) {
         const domeWrap = document.getElementById('domeShieldWrap');
         const domeSphere = document.getElementById('domeShieldSphere');
@@ -1070,9 +1113,7 @@
         domeWrap.className = 'dome-shield-wrap anim-dome-active';
       }
 
-      // ════════════════════════════════════════
-      // 具象化聯想強化 2: 雷霆突刺貫穿高能電漿光束
-      // ════════════════════════════════════════
+      // 3. 貫穿光束
       if (skill.special === 'thrust_beam') {
         const beam = document.getElementById('thrustBeam');
         beam.className = 'thrust-beam-layer';
@@ -1080,9 +1121,7 @@
         beam.className = 'thrust-beam-layer anim-beam-active';
       }
 
-      // ════════════════════════════════════════
-      // 具象化聯想強化 3: 地面震撼碎裂光環
-      // ════════════════════════════════════════
+      // 4. 地面震撼
       if (skill.special === 'crack') {
         const crack = document.getElementById('groundCrack');
         crack.className = 'ground-crack-layer';
@@ -1090,33 +1129,22 @@
         crack.className = 'ground-crack-layer anim-crack-active';
       }
 
-      // ════════════════════════════════════════
-      // 具象化聯想強化 4: 彩虹極光星河天幕 (純透明柔和流光)
-      // ════════════════════════════════════════
+      // 5. 天幕流光
       if (skill.special === 'aurora') {
         const sky = document.getElementById('auroraSky');
-        const ribbon = document.getElementById('auroraRibbon');
         sky.className = 'aurora-sky-layer anim-aurora-sky';
-        ribbon.style.opacity = '1';
-        ribbon.style.transition = 'opacity 0.6s';
-        setTimeout(() => { ribbon.style.opacity = '0'; }, 1300);
       }
 
-      // 特效圖層播放 (已套用全量圓形柔和羽化遮罩，杜絕任何方框)
+      // 播放專屬圖層
       if (vfxEl) {
         vfxEl.className = 'vfx-layer';
-        void vfxEl.offsetWidth; // 重置動畫
+        void vfxEl.offsetWidth;
         vfxEl.className = `vfx-layer ${skill.anim}`;
       }
 
-      // 音效
       playSkillSound(skill.sound);
-
-      // 粒子 (粉櫻/星塵/碎冰/極光粉末)
-      spawnParticles(skill.colors, skill.special === 'butterfly_swarm' ? 45 : 35);
-
-      // 畫面回饋
-      stageCard.className = skill.special === 'crack' ? 'stage-card shake-heavy' : 'stage-card shake-light';
+      spawnParticles(skill.colors, (skill.special && skill.special.startsWith('butterfly')) ? 45 : 35);
+      stageCard.className = (skill.special === 'crack') ? 'stage-card shake-heavy' : 'stage-card shake-light';
 
       setTimeout(() => {
         charSprite.className = 'char-sprite';
@@ -1125,7 +1153,6 @@
       }, 1600);
     }
 
-    // ── 隨機施展當前角色技能 ──
     function triggerRandomRoleSkill() {
       const role = ROLE_SKILLS[currentRoleId];
       const skills = role.skills;
@@ -1133,7 +1160,6 @@
       executeSkill(pick);
     }
 
-    // ── 答錯三階敵方反擊模擬 ──
     function triggerWrongAnswer(tier) {
       initAudio();
       hideAllEnemies();
@@ -1141,11 +1167,9 @@
       const stageCard = document.getElementById('stageCard');
       const charSprite = document.getElementById('charSprite');
 
-      // 主角受挫姿勢
       charSprite.className = 'char-sprite char-hurt';
 
       if (tier === 'mob') {
-        // Tier 1: 搗蛋小怪史萊姆反擊
         const enemy = document.getElementById('enemySlime');
         enemy.style.display = 'block';
         enemy.className = 'enemy-sprite enemy-attack';
@@ -1163,7 +1187,6 @@
         stageCard.className = 'stage-card shake-light';
 
       } else if (tier === 'mini_boss') {
-        // Tier 2: 區域小魔王數學泰坦撼地反擊
         const enemy = document.getElementById('enemyTitan');
         enemy.style.display = 'block';
         enemy.className = 'enemy-sprite enemy-attack';
@@ -1171,7 +1194,7 @@
         const crack = document.getElementById('groundCrack');
         crack.className = 'ground-crack-layer anim-crack-active';
 
-        const vfx = document.getElementById('vfx_shockwave');
+        const vfx = document.getElementById('vfx_impact_shockwave');
         vfx.className = 'vfx-layer';
         void vfx.offsetWidth;
         vfx.className = 'vfx-layer anim-shockwave';
@@ -1184,7 +1207,6 @@
         stageCard.className = 'stage-card shake-heavy';
 
       } else if (tier === 'final_boss') {
-        // Tier 3: 終極大魔王神龍利爪撕裂
         const enemy = document.getElementById('enemyDragon');
         enemy.style.display = 'block';
         enemy.className = 'enemy-sprite enemy-attack';
