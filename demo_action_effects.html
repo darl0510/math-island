@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>奇幻數學島 — 10大角色專屬技能庫 ✕ 形象精準對應 ✕ 三階敵方反擊實機系統</title>
+  <style>
+    :root {
+      --bg-dark: #0b1120;
+      --card-bg: rgba(30, 41, 59, 0.94);
+      --primary: #38bdf8;
+      --gold: #fbbf24;
+      --pink: #f472b6;
+      --purple: #c084fc;
+      --red: #ef4444;
+      --green: #10b981;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+
+    body {
+      background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 16px 50px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #38bdf8, #fbbf24, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .main-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 980px;
+      gap: 16px;
+    }
+
+    /* 角色分類膠囊標籤 */
+    .role-section-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .group-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 800;
+      color: #64748b;
+    }
+
+    .role-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .role-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .role-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .role-btn.active {
+      color: #fff;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+    }
+
+    .role-btn.active.boy {
+      background: linear-gradient(135deg, #0284c7, #3b82f6);
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+    }
+
+    /* 舞台展示卡片 */
+    .stage-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 100%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    /* 舞台主視覺框 */
+    .stage-view {
+      width: 100%;
+      height: 380px;
+      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+      border-radius: 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* 角色立繪基底 (100% 純淨透明無底色) */
+    .char-sprite {
+      height: 290px;
+      z-index: 5;
+      position: relative;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* 敵人立繪基底 */
+    .enemy-sprite {
+      height: 260px;
+      z-index: 4;
+      position: absolute;
+      display: none;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+      pointer-events: none;
+    }
+
+    /* 特效圖層 (100% 零殘留透明去背) */
+    .vfx-layer {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.2);
+      transition: none;
+      mix-blend-mode: screen;
+    }
+
+    /* ══════════════════════════════════════════════════
+       精準對應特效強化圖層 (聖盾光罩、貫穿雷射、地裂震撼、極光天幕)
+       ══════════════════════════════════════════════════ */
+
+    /* 1. 全身聖光守護防護光罩 (完整包覆全身) */
+    .dome-shield-wrap {
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      z-index: 6;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: none;
+    }
+
+    .dome-shield-sphere {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(251, 191, 36, 0.08) 0%, rgba(251, 191, 36, 0.28) 60%, rgba(255, 255, 255, 0.75) 90%, rgba(251, 191, 36, 0.95) 100%);
+      box-shadow: 0 0 35px rgba(251, 191, 36, 0.65), inset 0 0 30px rgba(255, 255, 255, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+    }
+
+    .dome-shield-ring {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 2px dashed rgba(251, 191, 36, 0.6);
+      animation: spinRing 4s linear infinite;
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .anim-dome-active {
+      animation: aDomeShield 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes aDomeShield {
+      0% { opacity: 0; transform: scale(0.3); }
+      20% { opacity: 1; transform: scale(1.08); }
+      40% { opacity: 0.9; transform: scale(1.0); }
+      75% { opacity: 1; transform: scale(1.04); }
+      100% { opacity: 0; transform: scale(1.22); }
+    }
+
+    /* 2. 貫穿全屏的高速雷霆光束 (橫向穿透) */
+    .thrust-beam-layer {
+      position: absolute;
+      left: 45%;
+      top: 50%;
+      transform: translateY(-50%) scaleX(0);
+      transform-origin: left center;
+      width: 520px;
+      height: 18px;
+      background: linear-gradient(90deg, #fff 0%, #38bdf8 30%, #fbbf24 70%, transparent 100%);
+      box-shadow: 0 0 25px #38bdf8, 0 0 45px #fbbf24;
+      border-radius: 9999px;
+      z-index: 7;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .anim-beam-active {
+      animation: aThrustBeam 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes aThrustBeam {
+      0% { opacity: 0; transform: translateY(-50%) scaleX(0); }
+      25% { opacity: 1; transform: translateY(-50%) scaleX(1.1); }
+      60% { opacity: 0.9; transform: translateY(-50%) scaleX(1); }
+      100% { opacity: 0; transform: translateY(-50%) scaleX(1.2); }
+    }
+
+    /* 3. 地面震撼碎裂光環 (腳底破地而起) */
+    .ground-crack-layer {
+      position: absolute;
+      bottom: 25px;
+      width: 360px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(251, 191, 36, 0.6) 0%, rgba(239, 68, 68, 0.4) 40%, transparent 75%);
+      box-shadow: 0 0 35px rgba(251, 191, 36, 0.75);
+      border-bottom: 3px solid rgba(251, 191, 36, 0.9);
+      opacity: 0;
+      transform: scale(0.3);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .anim-crack-active {
+      animation: aGroundCrack 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes aGroundCrack {
+      0% { opacity: 0; transform: scale(0.2); }
+      30% { opacity: 1; transform: scale(1.15); }
+      70% { opacity: 0.8; transform: scale(1.0); }
+      100% { opacity: 0; transform: scale(1.3); }
+    }
+
+    /* 4. 極光天幕全屏光譜 (浩瀚流光) */
+    .aurora-sky-layer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(192, 132, 252, 0.25), rgba(56, 189, 248, 0.25), rgba(244, 114, 182, 0.25));
+      filter: blur(16px);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .anim-aurora-sky {
+      animation: aAuroraSky 1.6s ease-in-out forwards;
+    }
+    @keyframes aAuroraSky {
+      0% { opacity: 0; }
+      35% { opacity: 0.85; }
+      70% { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
+
+    /* ── 動畫關鍵幀清單 ── */
+    .anim-spin-circle { animation: aSpinCircle 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aSpinCircle {
+      0% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+      30% { opacity: 1; transform: scale(1.15) rotate(110deg); }
+      70% { opacity: 0.9; transform: scale(1.05) rotate(220deg); }
+      100% { opacity: 0; transform: scale(1.35) rotate(360deg); }
+    }
+
+    .anim-butterfly { animation: aFlyButterfly 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aFlyButterfly {
+      0% { opacity: 0; transform: scale(0.3) translateY(40px); }
+      35% { opacity: 1; transform: scale(1.1) translateY(-10px); }
+      70% { opacity: 0.9; transform: scale(1.02) translateY(5px); }
+      100% { opacity: 0; transform: scale(1.3) translateY(-40px); }
+    }
+
+    .anim-frost { animation: aFrostBlast 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aFrostBlast {
+      0% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+      30% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+      70% { opacity: 0.85; transform: scale(1.05) rotate(160deg); }
+      100% { opacity: 0; transform: scale(1.3) rotate(220deg); }
+    }
+
+    .anim-heart { animation: aHeartPulse 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aHeartPulse {
+      0% { opacity: 0; transform: scale(0.4); }
+      25% { opacity: 1; transform: scale(1.18); }
+      45% { opacity: 0.8; transform: scale(1.02); }
+      65% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(1.4); }
+    }
+
+    .anim-aurora { animation: aAuroraWave 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aAuroraWave {
+      0% { opacity: 0; transform: scale(0.5) rotate(-15deg); }
+      30% { opacity: 1; transform: scale(1.1) rotate(5deg); }
+      70% { opacity: 0.9; transform: scale(1.15) rotate(-5deg); }
+      100% { opacity: 0; transform: scale(1.3) rotate(15deg); }
+    }
+
+    .anim-crescent { animation: aCrescentSlash 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards; }
+    @keyframes aCrescentSlash {
+      0% { opacity: 0; transform: scale(0.3) rotate(-65deg) translateX(-60px); }
+      35% { opacity: 1; transform: scale(1.25) rotate(15deg) translateX(10px); }
+      70% { opacity: 0.8; transform: scale(1.1) rotate(45deg) translateX(30px); }
+      100% { opacity: 0; transform: scale(1.4) rotate(70deg) translateX(70px); }
+    }
+
+    .anim-cross { animation: aCrossSlash 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aCrossSlash {
+      0% { opacity: 0; transform: scale(0.2) rotate(45deg); }
+      30% { opacity: 1; transform: scale(1.25) rotate(0deg); }
+      70% { opacity: 0.9; transform: scale(1.1) rotate(0deg); }
+      100% { opacity: 0; transform: scale(1.4) rotate(-15deg); }
+    }
+
+    .anim-whirlwind { animation: aWhirlwind 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aWhirlwind {
+      0% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+      40% { opacity: 1; transform: scale(1.15) rotate(180deg); }
+      70% { opacity: 0.85; transform: scale(1.1) rotate(360deg); }
+      100% { opacity: 0; transform: scale(1.35) rotate(540deg); }
+    }
+
+    .anim-shockwave { animation: aShockwave 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aShockwave {
+      0% { opacity: 0; transform: scale(0.3) translateY(30px); }
+      30% { opacity: 1; transform: scale(1.2) translateY(0); }
+      70% { opacity: 0.85; transform: scale(1.1) translateY(-10px); }
+      100% { opacity: 0; transform: scale(1.35) translateY(-25px); }
+    }
+
+    .anim-thrust { animation: aThunderThrust 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aThunderThrust {
+      0% { opacity: 0; transform: scale(0.3) translateX(-120px); }
+      30% { opacity: 1; transform: scale(1.25) translateX(30px); }
+      65% { opacity: 0.85; transform: scale(1.1) translateX(10px); }
+      100% { opacity: 0; transform: scale(1.4) translateX(90px); }
+    }
+
+    .anim-sword-slash { animation: aSwordSlash 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aSwordSlash {
+      0% { opacity: 0; transform: scale(0.4) rotate(-40deg) translateX(-40px); }
+      35% { opacity: 1; transform: scale(1.2) rotate(10deg) translateX(15px); }
+      100% { opacity: 0; transform: scale(1.35) rotate(35deg) translateX(50px); }
+    }
+
+    /* ── 答錯敵方反擊專屬動畫 ── */
+    .anim-slime-splat { animation: aSlimeSplat 1.3s cubic-bezier(0.2, 0.9, 0.3, 1) forwards; }
+    @keyframes aSlimeSplat {
+      0% { opacity: 0; transform: scale(0.1) rotate(-15deg); }
+      25% { opacity: 1; transform: scale(1.25) rotate(5deg); }
+      60% { opacity: 0.9; transform: scale(1.05) rotate(0deg); }
+      100% { opacity: 0; transform: scale(1.3) translateY(30px); }
+    }
+
+    .anim-shadow-burst { animation: aShadowBurst 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aShadowBurst {
+      0% { opacity: 0; transform: scale(0.2); }
+      30% { opacity: 1; transform: scale(1.3); }
+      70% { opacity: 0.85; transform: scale(1.15); }
+      100% { opacity: 0; transform: scale(1.45); }
+    }
+
+    .anim-claw-strike { animation: aClawStrike 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes aClawStrike {
+      0% { opacity: 0; transform: scale(0.4) rotate(-30deg) translate(-50px, -30px); }
+      30% { opacity: 1; transform: scale(1.2) rotate(0deg) translate(0, 0); }
+      65% { opacity: 0.9; transform: scale(1.05) translate(10px, 10px); }
+      100% { opacity: 0; transform: scale(1.35) translate(40px, 30px); }
+    }
+
+    /* 角色與敵人動作姿態 */
+    .char-cast { transform: scale(1.08) translateY(-14px); filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.8)); }
+    .char-slash { transform: scale(1.12) translateX(18px) rotate(4deg); filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.8)); }
+    .char-shielded { transform: scale(1.03); filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.85)); }
+    .char-hurt { transform: scale(0.92) translateX(-18px) rotate(-6deg); filter: brightness(0.6) sepia(1) hue-rotate(300deg); }
+    .enemy-attack { transform: scale(1.18) translateX(-20px); filter: drop-shadow(0 0 35px rgba(239, 68, 68, 0.9)); }
+
+    /* 震動回饋 */
+    .shake-light { animation: aShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+    .shake-heavy { animation: aShakeHeavy 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+    @keyframes aShake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(4px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
+    @keyframes aShakeHeavy {
+      10%, 90% { transform: translate3d(-5px, 3px, 0); }
+      20%, 80% { transform: translate3d(8px, -4px, 0); }
+      30%, 50%, 70% { transform: translate3d(-10px, 6px, 0); }
+      40%, 60% { transform: translate3d(10px, -5px, 0); }
+    }
+
+    /* 提示橫幅 */
+    .toast-banner {
+      position: absolute;
+      top: 14px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s;
+      z-index: 10;
+      pointer-events: none;
+      max-width: 90%;
+      text-align: center;
+    }
+    .toast-banner.show { opacity: 1; transform: translateY(0); }
+    .toast-wrong { background: rgba(239, 68, 68, 0.92); color: #ffffff; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); }
+    .toast-warning { background: rgba(245, 158, 11, 0.92); color: #ffffff; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5); }
+    .toast-win { background: rgba(16, 185, 129, 0.92); color: #ffffff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5); }
+
+    /* 控制面板大按鈕 */
+    .btn-super {
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-size: 0.96rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-super:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .btn-magic-action { background: linear-gradient(135deg, #ec4899, #fbbf24); color: #fff; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3); }
+    
+    .counter-attack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .btn-counter-slime { background: linear-gradient(135deg, #059669, #10b981); color: #fff; }
+    .btn-counter-titan { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; }
+    .btn-counter-boss { background: linear-gradient(135deg, #7c3aed, #ef4444); color: #fff; }
+
+    /* 角色技能矩陣 */
+    .skill-dashboard { width: 100%; margin-top: 20px; }
+    .section-title {
+      font-size: 0.92rem;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+    .skill-card-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .skill-card-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .skill-icon {
+      font-size: 1.5rem;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .skill-info h4 { font-size: 0.9rem; margin-bottom: 2px; }
+    .skill-info p { font-size: 0.74rem; color: #94a3b8; }
+    .scenario-tag {
+      font-size: 0.7rem; padding: 2px 7px; border-radius: 5px; margin-top: 3px; display: inline-block;
+    }
+
+    .particle-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 8; }
+  </style>
+</head>
+<body>
+
+  <h1>✨ 奇幻數學島 — 10大角色專屬技能 ✕ 形象精準對應系統</h1>
+  <p class="subtitle">依招式名稱視覺具象化（聖盾全身體包覆光罩・雷霆貫穿電漿・地裂震撼・極光天幕） ✕ 答錯敵方三階反擊</p>
+
+  <div class="main-layout">
+    
+    <!-- 頂部全角色群組導航 (10位主角) -->
+    <div class="role-section-group">
+      <div class="group-label">🌸 守護者公主系列 (5位)</div>
+      <div class="role-nav-wrap">
+        <button class="role-btn active" id="tab_princess_magic" onclick="switchRole('princess_magic')">🌸 魔法公主</button>
+        <button class="role-btn" id="tab_princess_brave" onclick="switchRole('princess_brave')">⚔️ 勇者公主</button>
+        <button class="role-btn" id="tab_princess_star" onclick="switchRole('princess_star')">🌟 星空公主</button>
+        <button class="role-btn" id="tab_princess_nature" onclick="switchRole('princess_nature')">🌺 自然公主</button>
+        <button class="role-btn" id="tab_princess_mystery" onclick="switchRole('princess_mystery')">🔮 神秘公主</button>
+      </div>
+
+      <div class="group-label" style="margin-top: 6px;">⚔️ 王子勇士系列 (5位)</div>
+      <div class="role-nav-wrap">
+        <button class="role-btn boy" id="tab_prince_hero" onclick="switchRole('prince_hero')">🗡️ 傳奇勇者</button>
+        <button class="role-btn boy" id="tab_prince_knight" onclick="switchRole('prince_knight')">🧙‍♂️ 魔法騎士</button>
+        <button class="role-btn boy" id="tab_prince_space" onclick="switchRole('prince_space')">🚀 宇宙探險家</button>
+        <button class="role-btn boy" id="tab_prince_forest" onclick="switchRole('prince_forest')">🌿 森林守護者</button>
+        <button class="role-btn boy" id="tab_prince_science" onclick="switchRole('prince_science')">🔬 科學魔法師</button>
+      </div>
+    </div>
+
+    <!-- 舞台展示卡片 -->
+    <div class="stage-card" id="stageCard">
+      
+      <!-- 提示橫幅 -->
+      <div class="toast-banner" id="toastBanner">提示訊息</div>
+
+      <div class="stage-view">
+        <canvas class="particle-canvas" id="canvasParticle"></canvas>
+
+        <!-- 強化實體視覺圖層 1: 全身聖光守護球形力場罩 -->
+        <div class="dome-shield-wrap" id="domeShieldWrap">
+          <div class="dome-shield-sphere" id="domeShieldSphere"></div>
+          <div class="dome-shield-ring"></div>
+        </div>
+
+        <!-- 強化實體視覺圖層 2: 貫穿全屏的高速雷霆光束 -->
+        <div class="thrust-beam-layer" id="thrustBeam"></div>
+
+        <!-- 強化實體視覺圖層 3: 地面震撼碎裂光環 -->
+        <div class="ground-crack-layer" id="groundCrack"></div>
+
+        <!-- 強化實體視覺圖層 4: 極光天幕全屏光譜 -->
+        <div class="aurora-sky-layer" id="auroraSky"></div>
+        
+        <!-- 角色專屬發光特效圖層 (100% 零殘留透明去背) -->
+        <img src="assets/vfx/vfx_magic_circle.webp" class="vfx-layer" id="vfx_circle" style="width:340px;height:340px;z-index:2;" alt="魔法陣">
+        <img src="assets/vfx/vfx_princess_butterfly.webp" class="vfx-layer" id="vfx_butterfly" style="width:350px;height:350px;z-index:6;" alt="幻蝶">
+        <img src="assets/vfx/vfx_princess_frost_crystal.webp" class="vfx-layer" id="vfx_frost" style="width:320px;height:320px;z-index:6;" alt="冰晶">
+        <img src="assets/vfx/vfx_princess_heart_shield.webp" class="vfx-layer" id="vfx_shield" style="width:330px;height:330px;z-index:7;" alt="聖盾">
+        <img src="assets/vfx/vfx_princess_rainbow_aurora.webp" class="vfx-layer" id="vfx_aurora" style="width:440px;height:440px;z-index:2;" alt="極光">
+
+        <img src="assets/vfx/vfx_sword_slash.webp" class="vfx-layer" id="vfx_sword_slash" style="width:320px;height:320px;z-index:6;" alt="破風劍斬">
+        <img src="assets/vfx/vfx_crescent_wave.webp" class="vfx-layer" id="vfx_crescent" style="width:300px;height:300px;z-index:6;" alt="月牙斬">
+        <img src="assets/vfx/vfx_hero_cross_slash.webp" class="vfx-layer" id="vfx_cross" style="width:320px;height:320px;z-index:6;" alt="十字斬">
+        <img src="assets/vfx/vfx_hero_whirlwind.webp" class="vfx-layer" id="vfx_whirlwind" style="width:350px;height:350px;z-index:6;" alt="旋風">
+        <img src="assets/vfx/vfx_hero_impact_shockwave.webp" class="vfx-layer" id="vfx_shockwave" style="width:360px;height:360px;z-index:3;" alt="衝擊波">
+        <img src="assets/vfx/vfx_hero_thunder_thrust.webp" class="vfx-layer" id="vfx_thrust" style="width:400px;height:400px;z-index:6;" alt="雷霆突刺">
+
+        <!-- 敵人反擊專屬發光特效圖層 -->
+        <img src="assets/vfx/vfx_mob_slime_splat.webp" class="vfx-layer" id="vfx_slime_splat" style="width:340px;height:340px;z-index:8;" alt="泥漿黏液">
+        <img src="assets/vfx/vfx_boss_shadow_burst.webp" class="vfx-layer" id="vfx_shadow_burst" style="width:420px;height:420px;z-index:8;" alt="暗影衝擊">
+        <img src="assets/vfx/vfx_boss_claw_strike.webp" class="vfx-layer" id="vfx_claw_strike" style="width:340px;height:340px;z-index:8;" alt="虛空利爪">
+
+        <!-- 主角立繪 (100% 純淨去背透明) -->
+        <img src="assets/characters/princess_magic.webp" class="char-sprite" id="charSprite" alt="主角立繪">
+
+        <!-- 三階層敵方立繪 -->
+        <img src="assets/monsters/mob_math_slime.webp" class="enemy-sprite" id="enemySlime" style="left:50px;height:240px;" alt="小怪史萊姆">
+        <img src="assets/monsters/boss_math_titan.webp" class="enemy-sprite" id="enemyTitan" style="right:40px;height:290px;" alt="小魔王數學泰坦">
+        <img src="assets/monsters/boss_chinese_dragon.webp" class="enemy-sprite" id="enemyDragon" style="right:30px;height:300px;" alt="終極大魔王神龍">
+      </div>
+
+      <!-- 操作面板 (隨機技能) -->
+      <div class="control-row">
+        <button class="btn-super btn-magic-action" id="btnRandomRole" onclick="triggerRandomRoleSkill()">
+          <span>🎲 隨機施展當前角色的專屬技能！</span>
+        </button>
+      </div>
+
+      <!-- 答錯三階反擊矩陣 (小怪 / 小魔王 / 大魔王) -->
+      <div class="counter-attack-grid">
+        <button class="btn-super btn-counter-slime" onclick="triggerWrongAnswer('mob')">
+          <span>🟢 模擬答錯 ➔ 小怪物黏液糊臉反擊！</span>
+        </button>
+        <button class="btn-super btn-counter-titan" onclick="triggerWrongAnswer('mini_boss')">
+          <span>🟡 模擬答錯 ➔ 小魔王泰坦撼地反擊！</span>
+        </button>
+        <button class="btn-super btn-counter-boss" onclick="triggerWrongAnswer('final_boss')">
+          <span>🔴 模擬答錯 ➔ 大魔王神龍利爪反擊！</span>
+        </button>
+      </div>
+
+      <!-- 角色技能矩陣清單 -->
+      <div class="skill-dashboard">
+        <div class="section-title" id="panelTitle">🌸 角色專屬技能列表（點擊測試）：</div>
+        <div class="skill-grid" id="skillGrid"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // 10 大冒險角色量身專屬技能庫字典
+    const ROLE_SKILLS = {
+      // 🌸 公主系列
+      princess_magic: {
+        name: '魔法公主', type: 'magic', img: 'assets/characters/princess_magic.webp',
+        skills: [
+          { id: 'shield', name: '愛心聖光守護盾', desc: '全身被金色光罩包覆保護・堅不可摧', icon: '💖', scenario: '無損生命通關', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#ec4899', '#fbbf24', '#fff'], special: 'dome' },
+          { id: 'circle', name: '璀璨星芒神聖陣', desc: '金色幾何符文與旋轉法陣召喚', icon: '🌟', scenario: '三星滿星通關', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#fbbf24', '#f472b6', '#fff'] },
+          { id: 'butterfly', name: '粉櫻幻蝶飛舞', desc: '漫天粉櫻光粉與彩虹幻蝶翩翩飛升', icon: '🦋', scenario: '自然關卡通關', layerId: 'vfx_butterfly', anim: 'anim-butterfly', sound: 'butterfly', colors: ['#f472b6', '#fef08a', '#fff'] },
+          { id: 'frost', name: '冰晶雪花星芒', desc: '旋轉六角冰霜與極寒星光結晶凝凍', icon: '❄️', scenario: '連擊滿分加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#38bdf8', '#e0f2fe', '#fff'] },
+          { id: 'aurora', name: '彩虹極光星河', desc: '七彩天幕極光覆蓋全場大爆發', icon: '🌈', scenario: '擊倒魔王/宗師勳章', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#c084fc', '#f472b6', '#38bdf8', '#fbbf24'], special: 'aurora' }
+        ]
+      },
+      princess_brave: {
+        name: '勇者公主', type: 'hybrid', img: 'assets/characters/princess_brave.webp',
+        skills: [
+          { id: 'shield', name: '正義守護聖盾', desc: '正義光芒巨型能量罩全身籠罩', icon: '🛡️', scenario: '滿血過關獎勵', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#3b82f6', '#fbbf24', '#fff'], special: 'dome_blue' },
+          { id: 'crescent', name: '破甲疾速月牙斬', desc: '凌厲藍光半月形劍氣破風出鞘', icon: '🌙', scenario: '秒答突破防線', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#fff', '#3b82f6'] },
+          { id: 'cross', name: '英勇雙重符文斬', desc: '金藍交叉巨型破甲十字破裂', icon: '⚔️', scenario: '雙倍暴擊加成', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#3b82f6', '#fbbf24', '#fff'] },
+          { id: 'shockwave', name: '盾擊大地震盪波', desc: '重盾落地激起大地碎石破裂衝擊', icon: '💥', scenario: '破魔打擊', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#3b82f6', '#60a5fa'], special: 'crack' }
+        ]
+      },
+      princess_star: {
+        name: '星空公主', type: 'magic', img: 'assets/characters/princess_star.webp',
+        skills: [
+          { id: 'circle', name: '銀河星宿幾何陣', desc: '浩瀚星宿幾何旋轉陣・召喚星光', icon: '🌌', scenario: '星空關卡完美通關', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#6366f1', '#38bdf8', '#fff'] },
+          { id: 'frost', name: '彗星冰塵星芒', desc: '彗星尾跡劃破夜空星塵・極寒晶瑩', icon: '☄️', scenario: '極速解題加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#818cf8', '#c7d2fe', '#fff'] },
+          { id: 'aurora', name: '超新星引力星雲', desc: '星際極光天幕大爆發', icon: '🌠', scenario: '大滿貫金盃達成', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#4f46e5', '#a855f7', '#38bdf8'], special: 'aurora' },
+          { id: 'butterfly', name: '星光幻蝶夜曲', desc: '夜光星塵幻化為蝶群環繞飛舞', icon: '✨', scenario: '靜謐專注通關', layerId: 'vfx_butterfly', anim: 'anim-butterfly', sound: 'butterfly', colors: ['#818cf8', '#e0e7ff', '#fff'] }
+        ]
+      },
+      princess_nature: {
+        name: '自然公主', type: 'magic', img: 'assets/characters/princess_nature.webp',
+        skills: [
+          { id: 'shield', name: '生命藤蔓守護環', desc: '綠意生機盎然的自然之盾球體保護', icon: '🌿', scenario: '滿血答對加成', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#10b981', '#fbbf24', '#fff'], special: 'dome_green' },
+          { id: 'butterfly', name: '翡翠仙子蝶舞', desc: '森林百花光粉與仙子綠蝶群飛', icon: '🌺', scenario: '自然學科通關', layerId: 'vfx_butterfly', anim: 'anim-butterfly', sound: 'butterfly', colors: ['#10b981', '#34d399', '#f472b6'] },
+          { id: 'frost', name: '綠野晨露晶瑩冰芒', desc: '清晨露珠折射七彩晶瑩冰霜', icon: '💧', scenario: '晨光連擊加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#34d399', '#6ee7b7', '#fff'] },
+          { id: 'aurora', name: '自然萬物極光大同', desc: '生機盎然的綠金極光天幕覆蓋全場', icon: '🌈', scenario: '自然守護者晉升', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#10b981', '#fbbf24', '#38bdf8'], special: 'aurora' }
+        ]
+      },
+      princess_mystery: {
+        name: '神秘公主', type: 'magic', img: 'assets/characters/princess_mystery.webp',
+        skills: [
+          { id: 'shield', name: '秘法心靈防護罩', desc: '紫曜水晶能量結界全身包覆守護', icon: '🛡️', scenario: '無損防護獎勵', layerId: 'vfx_shield', anim: 'anim-heart', sound: 'shield', colors: ['#8b5cf6', '#f472b6', '#fff'], special: 'dome_purple' },
+          { id: 'circle', name: '古代符文秘術陣', desc: '紫晶符文法陣在地表展開共鳴', icon: '🔮', scenario: '難題突破封印', layerId: 'vfx_circle', anim: 'anim-spin-circle', sound: 'magic_chime', colors: ['#8b5cf6', '#c084fc', '#fff'] },
+          { id: 'frost', name: '水晶冰霜星核', desc: '水晶球凝結的秘術冰霜星核', icon: '💎', scenario: '深思連擊加成', layerId: 'vfx_frost', anim: 'anim-frost', sound: 'ice', colors: ['#a855f7', '#e9d5ff', '#fff'] },
+          { id: 'aurora', name: '奧術極光光譜', desc: '紫金奧術光華席捲整片戰場', icon: '🌌', scenario: '博古通今成就', layerId: 'vfx_aurora', anim: 'anim-aurora', sound: 'supernova', colors: ['#8b5cf6', '#ec4899', '#38bdf8'], special: 'aurora' }
+        ]
+      },
+
+      // ⚔️ 王子勇士系列
+      prince_hero: {
+        name: '傳奇勇者', type: 'slash', img: 'assets/characters/prince_hero.webp',
+        skills: [
+          { id: 'sword', name: '凌厲破風劍斬', desc: '疾速出鞘的湛藍銳利劍氣橫空劈斬', icon: '🗡️', scenario: '初次出劍/快問快答', layerId: 'vfx_sword_slash', anim: 'anim-sword-slash', sound: 'slash', colors: ['#38bdf8', '#fff'] },
+          { id: 'crescent', name: '破空月牙斬', desc: '藍白半月凌厲弧形風刃破空呼嘯', icon: '🌙', scenario: '疾速秒答突破', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#fff', '#0284c7'] },
+          { id: 'cross', name: '十字符文雙重斬', desc: '金藍交錯的巨型 X 破甲斬痕破裂', icon: '❌', scenario: '雙倍暴擊加成', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#0284c7', '#fbbf24', '#fff'] },
+          { id: 'whirlwind', name: '旋風劍氣龍捲', desc: '拔地而起的藍白風刃龍捲旋轉升騰', icon: '🌪️', scenario: '高連擊 (Combo Streak)', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#38bdf8', '#fff'] },
+          { id: 'shockwave', name: '大地崩裂衝擊波', desc: '劍劈地面爆發金色碎石裂地強震', icon: '💥', scenario: '星幣翻倍獲得', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#fbbf24', '#ef4444'], special: 'crack' },
+          { id: 'thrust', name: '雷霆突刺長槍光束', desc: '撕裂全屏的高能電漿雷霆光束筆直貫穿', icon: '⚡', scenario: '擊倒魔王/宗師勳章', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#38bdf8', '#fbbf24', '#fff'], special: 'thrust_beam' }
+        ]
+      },
+      prince_knight: {
+        name: '魔法騎士', type: 'slash', img: 'assets/characters/prince_knight.webp',
+        skills: [
+          { id: 'cross', name: '聖光審判大劍斬', desc: '神聖黃金十字雙重破魔大劍斬', icon: '🗡️', scenario: '聖光騎士破關', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#fbbf24', '#ffffff'] },
+          { id: 'thrust', name: '神聖魔能突刺', desc: '魔力長劍筆直貫穿光束直達敵營', icon: '✨', scenario: '魔王連擊突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#a855f7', '#fbbf24', '#fff'], special: 'thrust_beam' },
+          { id: 'shockwave', name: '聖鎧撼地衝擊波', desc: '重鎧護體砸地激發碎石裂痕波', icon: '💥', scenario: '無損防禦加成', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#a855f7', '#fbbf24'], special: 'crack' },
+          { id: 'crescent', name: '聖光月牙弧刃', desc: '金色半月弧形破法光刃劃過', icon: '🌙', scenario: '秒速解圍', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#fbbf24', '#fff'] }
+        ]
+      },
+      prince_space: {
+        name: '宇宙探險家', type: 'slash', img: 'assets/characters/prince_space.webp',
+        skills: [
+          { id: 'thrust', name: '離子雷射光束槍', desc: '高能電漿光束直射橫貫全屏目標', icon: '🔫', scenario: '星際題目突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#0ea5e9', '#38bdf8', '#fff'], special: 'thrust_beam' },
+          { id: 'shockwave', name: '微型重力震爆彈', desc: '重力反衝波四散炸裂地表', icon: '🚀', scenario: '噴射加速通關', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#0ea5e9', '#fbbf24'], special: 'crack' },
+          { id: 'whirlwind', name: '推進氣旋漩渦', desc: '噴氣背包爆發超光速渦流風暴', icon: '🌀', scenario: '連續極速秒答', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#0ea5e9', '#fff'] },
+          { id: 'crescent', name: '光子切割月牙刃', desc: '星艦雷射折射弧刃高速旋切', icon: '💫', scenario: '星艦領航破關', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#38bdf8', '#67e8f9'] }
+        ]
+      },
+      prince_forest: {
+        name: '森林守護者', type: 'slash', img: 'assets/characters/prince_forest.webp',
+        skills: [
+          { id: 'thrust', name: '精靈穿雲疾風箭', desc: '神準破空的綠意長箭光束筆直穿透', icon: '🏹', scenario: '神準解題突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#15803d', '#22c55e', '#fff'], special: 'thrust_beam' },
+          { id: 'whirlwind', name: '自然旋風狂舞', desc: '召喚森林守護風暴龍捲拔地而起', icon: '🌪️', scenario: '連擊狂風加成', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#22c55e', '#86efac', '#fff'] },
+          { id: 'shockwave', name: '大地古樹崩裂波', desc: '古樹樹根撼動地面碎石四散', icon: '🌿', scenario: '林海守護加成', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#15803d', '#fbbf24'], special: 'crack' },
+          { id: 'crescent', name: '靈犀疾風弧刃', desc: '綠野清風劃出凌厲半月弧線風刃', icon: '🍃', scenario: '心靜如水通關', layerId: 'vfx_crescent', anim: 'anim-crescent', sound: 'slash', colors: ['#22c55e', '#fff'] }
+        ]
+      },
+      prince_science: {
+        name: '科學魔法師', type: 'slash', img: 'assets/characters/prince_science.webp',
+        skills: [
+          { id: 'thrust', name: '特斯拉雷霆光束', desc: '百萬伏特高壓電弧電漿穿透橫貫全場', icon: '⚡', scenario: '靈光一閃突破', layerId: 'vfx_thrust', anim: 'anim-thrust', sound: 'thunder', colors: ['#eab308', '#fbbf24', '#fff'], special: 'thrust_beam' },
+          { id: 'shockwave', name: '齒輪動力共振衝擊', desc: '機械齒輪超載共振震撼地表', icon: '⚙️', scenario: '邏輯分析完美解', layerId: 'vfx_shockwave', anim: 'anim-shockwave', sound: 'impact', colors: ['#eab308', '#f97316'], special: 'crack' },
+          { id: 'cross', name: '能量光刃裂解十字', desc: '高能光刃交叉裂解切割十字痕', icon: '🔬', scenario: '雙重實驗暴擊', layerId: 'vfx_cross', anim: 'anim-cross', sound: 'heavy_cross', colors: ['#eab308', '#38bdf8', '#fff'] },
+          { id: 'whirlwind', name: '磁暴渦流漩渦', desc: '強力磁場電弧拘束螺旋升騰', icon: '🧲', scenario: '連續公式突破', layerId: 'vfx_whirlwind', anim: 'anim-whirlwind', sound: 'whirlwind', colors: ['#eab308', '#fff'] }
+        ]
+      }
+    };
+
+    let currentRoleId = 'princess_magic';
+
+    // ── Web Audio 純代碼原生音效合成系統 ──
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playTone(freq, type, dur, vol = 0.35, timeOffset = 0) {
+      const now = audioCtx.currentTime + timeOffset;
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.type = type; osc.frequency.setValueAtTime(freq, time);
+      g.gain.setValueAtTime(vol, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+      osc.connect(g); g.connect(audioCtx.destination);
+      osc.start(now); osc.stop(now + dur + 0.05);
+    }
+
+    function playNoise(dur, fStart, fEnd, vol = 0.35) {
+      const now = audioCtx.currentTime;
+      const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * dur, audioCtx.sampleRate);
+      const d = buf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      const n = audioCtx.createBufferSource(); n.buffer = buf;
+      const f = audioCtx.createBiquadFilter(); f.type = 'bandpass';
+      f.frequency.setValueAtTime(fStart, now); f.frequency.exponentialRampToValueAtTime(fEnd, now + dur);
+      const g = audioCtx.createGain(); g.gain.setValueAtTime(vol, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+      n.connect(f); f.connect(g); g.connect(audioCtx.destination);
+      n.start(now);
+    }
+
+    function playSkillSound(soundType) {
+      initAudio();
+      const now = audioCtx.currentTime;
+      if (soundType === 'magic_chime') {
+        [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, 'sine', 0.5, 0.25, i * 0.08));
+      } else if (soundType === 'butterfly') {
+        [659.25, 880, 1174.66, 1318.5].forEach((f, i) => playTone(f, 'triangle', 0.45, 0.2, i * 0.07));
+      } else if (soundType === 'ice') {
+        [1200, 1500, 1800, 2200].forEach((f, i) => playTone(f, 'sine', 0.35, 0.18, i * 0.05));
+      } else if (soundType === 'shield') {
+        playTone(329.63, 'sine', 0.8, 0.4); playTone(659.25, 'sine', 0.7, 0.3, 0.1);
+      } else if (soundType === 'supernova') {
+        playNoise(0.9, 1500, 150, 0.4);
+        [440, 554, 659, 880, 1108].forEach((f, i) => playTone(f, 'triangle', 0.8, 0.22, i * 0.06));
+      } else if (soundType === 'slash') {
+        playNoise(0.28, 2800, 350, 0.5);
+      } else if (soundType === 'heavy_cross') {
+        playNoise(0.35, 2400, 200, 0.5);
+        playTone(180, 'sawtooth', 0.25, 0.3, 0.05);
+      } else if (soundType === 'whirlwind') {
+        playNoise(0.65, 900, 400, 0.4);
+      } else if (soundType === 'impact') {
+        playNoise(0.55, 600, 60, 0.6);
+        playTone(80, 'sawtooth', 0.4, 0.5);
+      } else if (soundType === 'thunder') {
+        playNoise(0.4, 3200, 150, 0.55);
+        playTone(140, 'square', 0.3, 0.35);
+      }
+    }
+
+    // ── 角色切換核心 ──
+    function switchRole(roleId) {
+      currentRoleId = roleId;
+      const role = ROLE_SKILLS[roleId];
+      if (!role) return;
+
+      // 更新按鈕樣式
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('tab_' + roleId);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // 更新立繪 (加時間戳確保載入最新無邊框無殘留圖片)
+      const charSprite = document.getElementById('charSprite');
+      charSprite.src = role.img + '?t=' + Date.now();
+      charSprite.className = 'char-sprite';
+
+      // 隱藏敵人立繪與特定層
+      hideAllEnemies();
+      resetSpecialVFX();
+
+      // 更新技能面版
+      document.getElementById('panelTitle').innerHTML = `🌟 ${role.name} 的專屬技能列表（點擊測試）：`;
+      renderRoleSkills();
+    }
+
+    function hideAllEnemies() {
+      ['enemySlime', 'enemyTitan', 'enemyDragon'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+
+    function resetSpecialVFX() {
+      const dome = document.getElementById('domeShieldWrap');
+      const beam = document.getElementById('thrustBeam');
+      const crack = document.getElementById('groundCrack');
+      const aurora = document.getElementById('auroraSky');
+      if (dome) dome.className = 'dome-shield-wrap';
+      if (beam) beam.className = 'thrust-beam-layer';
+      if (crack) crack.className = 'ground-crack-layer';
+      if (aurora) aurora.className = 'aurora-sky-layer';
+    }
+
+    function renderRoleSkills() {
+      const role = ROLE_SKILLS[currentRoleId];
+      const grid = document.getElementById('skillGrid');
+      grid.innerHTML = '';
+
+      role.skills.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'skill-card-btn';
+        card.onclick = () => executeSkill(s);
+        card.innerHTML = `
+          <div class="skill-icon">${s.icon}</div>
+          <div class="skill-info">
+            <h4>${s.name}</h4>
+            <p>${s.desc}</p>
+            <span class="scenario-tag" style="background:rgba(56, 189, 248, 0.15);color:#38bdf8;">📌 ${s.scenario}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ── 執行主角專屬技能（精準視覺強化聯想） ──
+    function executeSkill(skill) {
+      hideAllEnemies();
+      resetSpecialVFX();
+      const stageCard = document.getElementById('stageCard');
+      const charSprite = document.getElementById('charSprite');
+      const vfxEl = document.getElementById(skill.layerId);
+
+      // 提示橫幅
+      showToast(`✨ ${ROLE_SKILLS[currentRoleId].name} 施放：【${skill.name}】！(${skill.scenario})`, 'toast-win');
+
+      // 角色姿態
+      const isSlash = ROLE_SKILLS[currentRoleId].type === 'slash';
+      if (skill.special && skill.special.startsWith('dome')) {
+        charSprite.className = 'char-sprite char-shielded';
+      } else {
+        charSprite.className = `char-sprite ${isSlash ? 'char-slash' : 'char-cast'}`;
+      }
+
+      // ════════════════════════════════════════
+      // 具象化聯想強化 1: 聖光守護光罩 (全身包覆球形結界)
+      // ════════════════════════════════════════
+      if (skill.special && skill.special.startsWith('dome')) {
+        const domeWrap = document.getElementById('domeShieldWrap');
+        const domeSphere = document.getElementById('domeShieldSphere');
+        
+        // 依角色主題色設定光罩色彩
+        if (skill.special === 'dome_blue') {
+          domeSphere.style.background = 'radial-gradient(circle at center, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.35) 60%, rgba(255, 255, 255, 0.8) 90%, rgba(59, 130, 246, 0.95) 100%)';
+          domeSphere.style.boxShadow = '0 0 35px rgba(59, 130, 246, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
+        } else if (skill.special === 'dome_green') {
+          domeSphere.style.background = 'radial-gradient(circle at center, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.35) 60%, rgba(255, 255, 255, 0.8) 90%, rgba(16, 185, 129, 0.95) 100%)';
+          domeSphere.style.boxShadow = '0 0 35px rgba(16, 185, 129, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
+        } else if (skill.special === 'dome_purple') {
+          domeSphere.style.background = 'radial-gradient(circle at center, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.35) 60%, rgba(255, 255, 255, 0.8) 90%, rgba(139, 92, 246, 0.95) 100%)';
+          domeSphere.style.boxShadow = '0 0 35px rgba(139, 92, 246, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
+        } else {
+          // 金粉色預設聖盾光罩
+          domeSphere.style.background = 'radial-gradient(circle at center, rgba(251, 191, 36, 0.12) 0%, rgba(244, 114, 182, 0.35) 60%, rgba(255, 255, 255, 0.85) 90%, rgba(251, 191, 36, 0.95) 100%)';
+          domeSphere.style.boxShadow = '0 0 35px rgba(251, 191, 36, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.7)';
+        }
+
+        domeWrap.className = 'dome-shield-wrap';
+        void domeWrap.offsetWidth;
+        domeWrap.className = 'dome-shield-wrap anim-dome-active';
+      }
+
+      // ════════════════════════════════════════
+      // 具象化聯想強化 2: 雷霆突刺貫穿高能電漿光束
+      // ════════════════════════════════════════
+      if (skill.special === 'thrust_beam') {
+        const beam = document.getElementById('thrustBeam');
+        beam.className = 'thrust-beam-layer';
+        void beam.offsetWidth;
+        beam.className = 'thrust-beam-layer anim-beam-active';
+      }
+
+      // ════════════════════════════════════════
+      // 具象化聯想強化 3: 地面震撼碎裂光環
+      // ════════════════════════════════════════
+      if (skill.special === 'crack') {
+        const crack = document.getElementById('groundCrack');
+        crack.className = 'ground-crack-layer';
+        void crack.offsetWidth;
+        crack.className = 'ground-crack-layer anim-crack-active';
+      }
+
+      // ════════════════════════════════════════
+      // 具象化聯想強化 4: 極光天幕全屏流光
+      // ════════════════════════════════════════
+      if (skill.special === 'aurora') {
+        const sky = document.getElementById('auroraSky');
+        sky.className = 'aurora-sky-layer';
+        void sky.offsetWidth;
+        sky.className = 'aurora-sky-layer anim-aurora-sky';
+      }
+
+      // 特效圖層播放
+      if (vfxEl) {
+        vfxEl.className = 'vfx-layer';
+        void vfxEl.offsetWidth; // 重置動畫
+        vfxEl.className = `vfx-layer ${skill.anim}`;
+      }
+
+      // 音效
+      playSkillSound(skill.sound);
+
+      // 粒子
+      spawnParticles(skill.colors, 40);
+
+      // 畫面回饋
+      stageCard.className = skill.special === 'crack' ? 'stage-card shake-heavy' : 'stage-card shake-light';
+
+      setTimeout(() => {
+        charSprite.className = 'char-sprite';
+        stageCard.className = 'stage-card';
+        resetSpecialVFX();
+      }, 1500);
+    }
+
+    // ── 隨機施展當前角色技能 ──
+    function triggerRandomRoleSkill() {
+      const role = ROLE_SKILLS[currentRoleId];
+      const skills = role.skills;
+      const pick = skills[Math.floor(Math.random() * skills.length)];
+      executeSkill(pick);
+    }
+
+    // ── 答錯三階敵方反擊模擬 ──
+    function triggerWrongAnswer(tier) {
+      initAudio();
+      hideAllEnemies();
+      resetSpecialVFX();
+      const stageCard = document.getElementById('stageCard');
+      const charSprite = document.getElementById('charSprite');
+
+      // 主角受挫姿勢
+      charSprite.className = 'char-sprite char-hurt';
+
+      if (tier === 'mob') {
+        // Tier 1: 搗蛋小怪史萊姆反擊
+        const enemy = document.getElementById('enemySlime');
+        enemy.style.display = 'block';
+        enemy.className = 'enemy-sprite enemy-attack';
+
+        const vfx = document.getElementById('vfx_slime_splat');
+        vfx.className = 'vfx-layer';
+        void vfx.offsetWidth;
+        vfx.className = 'vfx-layer anim-slime-splat';
+
+        playNoise(0.35, 300, 60, 0.5);
+        playTone(130, 'triangle', 0.25, 0.4);
+        spawnParticles(['#10b981', '#34d399', '#059669'], 30);
+
+        showToast('❌ 哎呀！調皮小史萊姆趁機噴了你一臉黏液！別灰心，再算一次！', 'toast-wrong');
+        stageCard.className = 'stage-card shake-light';
+
+      } else if (tier === 'mini_boss') {
+        // Tier 2: 區域小魔王數學泰坦撼地反擊
+        const enemy = document.getElementById('enemyTitan');
+        enemy.style.display = 'block';
+        enemy.className = 'enemy-sprite enemy-attack';
+
+        const crack = document.getElementById('groundCrack');
+        crack.className = 'ground-crack-layer anim-crack-active';
+
+        const vfx = document.getElementById('vfx_shockwave');
+        vfx.className = 'vfx-layer';
+        void vfx.offsetWidth;
+        vfx.className = 'vfx-layer anim-shockwave';
+
+        playNoise(0.65, 800, 40, 0.7);
+        playTone(70, 'sawtooth', 0.45, 0.5);
+        spawnParticles(['#d97706', '#fbbf24', '#78350f'], 45);
+
+        showToast('⚠️ 轟隆！小魔王【數學泰坦】發動撼地裂石重擊！穩住別慌～', 'toast-warning');
+        stageCard.className = 'stage-card shake-heavy';
+
+      } else if (tier === 'final_boss') {
+        // Tier 3: 終極大魔王神龍利爪撕裂
+        const enemy = document.getElementById('enemyDragon');
+        enemy.style.display = 'block';
+        enemy.className = 'enemy-sprite enemy-attack';
+
+        const vfxBurst = document.getElementById('vfx_shadow_burst');
+        const vfxClaw = document.getElementById('vfx_claw_strike');
+        vfxBurst.className = 'vfx-layer';
+        vfxClaw.className = 'vfx-layer';
+        void vfxBurst.offsetWidth;
+        void vfxClaw.offsetWidth;
+        vfxBurst.className = 'vfx-layer anim-shadow-burst';
+        vfxClaw.className = 'vfx-layer anim-claw-strike';
+
+        playNoise(0.8, 1200, 80, 0.8);
+        playTone(55, 'sawtooth', 0.6, 0.6);
+        spawnParticles(['#ef4444', '#7c3aed', '#000000', '#fbbf24'], 55);
+
+        showToast('💀 警報！終極大魔王【混沌神龍】釋放虛空暗黑利爪撕裂！保持專注反擊！', 'toast-wrong');
+        stageCard.className = 'stage-card shake-heavy';
+      }
+
+      setTimeout(() => {
+        charSprite.className = 'char-sprite';
+        stageCard.className = 'stage-card';
+        hideAllEnemies();
+        resetSpecialVFX();
+      }, 1400);
+    }
+
+    function showToast(msg, typeClass) {
+      const banner = document.getElementById('toastBanner');
+      banner.innerText = msg;
+      banner.className = `toast-banner ${typeClass} show`;
+      clearTimeout(banner._timer);
+      banner._timer = setTimeout(() => {
+        banner.className = 'toast-banner';
+      }, 2400);
+    }
+
+    // ── 粒子物理發射引擎 ──
+    function spawnParticles(colors, count = 35) {
+      const canvas = document.getElementById('canvasParticle');
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+      const particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 60,
+          y: canvas.height / 2 + (Math.random() - 0.5) * 60,
+          vx: (Math.random() - 0.5) * 11, vy: (Math.random() - 0.7) * 12,
+          size: Math.random() * 5 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 1, rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 14
+        });
+      }
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        particles.forEach(p => {
+          if (p.alpha > 0.02) {
+            alive = true; p.x += p.vx; p.y += p.vy; p.vy += 0.28;
+            p.alpha *= 0.95; p.rot += p.vrot;
+            ctx.save(); ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+            ctx.translate(p.x, p.y); ctx.rotate((p.rot * Math.PI) / 180);
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          }
+        });
+        if (alive) requestAnimationFrame(render);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      render();
+    }
+
+    // 預設初始化
+    switchRole('princess_magic');
+  </script>
+</body>
+</html>

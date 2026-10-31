@@ -1,0 +1,60 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 123456789,
+      "steps": 6,
+      "cfg": 2.0,
+      "sampler_name": "dpmpp_sde",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": ["4", 0],
+      "positive": ["6", 0],
+      "negative": ["7", 0],
+      "latent_image": ["5", 0]
+    },
+    "class_type": "KSampler"
+  },
+  "4": {
+    "inputs": {
+      "ckpt_name": "DreamShaperXL_Lightning-SFW.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple"
+  },
+  "5": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "6": {
+    "inputs": {
+      "text": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, a tiny friendly coral seahorse, carrying small floating glowing plus signs (+), pastel pink and cyan scales, floating oceanic underwater bubbles, pure white background, isolated, full body shot",
+      "clip": ["4", 1]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "7": {
+    "inputs": {
+      "text": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped",
+      "clip": ["4", 1]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "8": {
+    "inputs": {
+      "samples": ["3", 0],
+      "vae": ["4", 2]
+    },
+    "class_type": "VAEDecode"
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "MathIsland_G1",
+      "images": ["8", 0]
+    },
+    "class_type": "SaveImage"
+  }
+}
+

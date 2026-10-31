@@ -4,6 +4,8 @@ import { getGradeConfig } from './grades.js';
 import { getUnlockedBadgeCount } from './badges.js';
 import { audio } from './audio.js';
 import { escapeHtml, showToast, launchConfetti } from './ui.js';
+import { getCurrentStudent } from './student.js';
+import { getCurrentCharacter } from './characters.js';
 
 /**
  * 取得跨領域成果報表數據
@@ -12,6 +14,8 @@ export function getReportData(targetGrade = getCurrentGrade()) {
   const g = Number(targetGrade) || 1;
   const gradeConf = getGradeConfig(g);
   const badgeCount = getUnlockedBadgeCount();
+  const student = getCurrentStudent();
+  const character = getCurrentCharacter(student);
 
   let gradeTotalStars = 0;
   let gradeTotalLevels = 0;
@@ -68,6 +72,8 @@ export function getReportData(targetGrade = getCurrentGrade()) {
   }
 
   return {
+    student,
+    character,
     grade: g,
     gradeName: gradeConf.name,
     title,
@@ -88,6 +94,17 @@ export function getReportData(targetGrade = getCurrentGrade()) {
  * 使用 Canvas 繪製高解析度成果海報
  */
 export function drawPosterCanvas(canvas, data) {
+  // 異步預載角色立繪並自動重繪
+  if (data.character && data.character.image && !data.characterImageElement) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = data.character.image;
+    img.onload = () => {
+      data.characterImageElement = img;
+      drawPosterCanvas(canvas, data);
+    };
+  }
+
   // 設定高解析度畫布 (Retina 2x 繪圖品質)
   const W = 800;
   const H = 1120;
@@ -149,20 +166,84 @@ export function drawPosterCanvas(canvas, data) {
   ctx.fillText('✦ 奇幻冒險島 · 跨學科自主學習體系 ✦', W / 2, 72);
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 40px system-ui, -apple-system, sans-serif';
-  ctx.fillText('國小跨領域核心素養學習成績單', W / 2, 124);
+  ctx.font = '900 38px system-ui, -apple-system, sans-serif';
+  ctx.fillText('國小跨領域核心素養學習成績單', W / 2, 116);
 
-  // 年級與稱號徽章膠囊
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-  ctx.strokeStyle = 'rgba(255, 215, 0, 0.5)';
-  ctx.lineWidth = 1.5;
-  roundRect(ctx, W / 2 - 240, 146, 480, 52, 26);
+  // 4.5 冒險小勇士與角色形象榮譽膠囊 (支援 10 位公主/王子立繪頭像與角色徽章)
+  const heroBoxX = 56;
+  const heroBoxY = 138;
+  const heroBoxW = W - 112;
+  const heroBoxH = 68;
+
+  ctx.save();
+  const heroGrad = ctx.createLinearGradient(heroBoxX, 0, heroBoxX + heroBoxW, 0);
+  heroGrad.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
+  heroGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.06)');
+  heroGrad.addColorStop(1, 'rgba(255, 255, 255, 0.12)');
+  ctx.fillStyle = heroGrad;
+  ctx.strokeStyle = data.character?.color || 'rgba(241, 196, 15, 0.6)';
+  ctx.lineWidth = 2;
+  roundRect(ctx, heroBoxX, heroBoxY, heroBoxW, heroBoxH, 34);
   ctx.fill();
   ctx.stroke();
 
+  // 繪製角色頭像圓形框
+  const charAvatarX = heroBoxX + 40;
+  const charAvatarY = heroBoxY + 34;
+  const charAvatarR = 26;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(charAvatarX, charAvatarY, charAvatarR, 0, Math.PI * 2);
+  ctx.clip();
+
+  let imgDrawn = false;
+  if (data.characterImageElement && data.characterImageElement.complete) {
+    try {
+      ctx.drawImage(data.characterImageElement, charAvatarX - charAvatarR, charAvatarY - charAvatarR, charAvatarR * 2, charAvatarR * 2);
+      imgDrawn = true;
+    } catch (e) {}
+  }
+
+  if (!imgDrawn) {
+    ctx.fillStyle = data.character?.color || '#ec4899';
+    ctx.fillRect(charAvatarX - charAvatarR, charAvatarY - charAvatarR, charAvatarR * 2, charAvatarR * 2);
+    ctx.font = '26px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(data.character?.avatar || '👑', charAvatarX, charAvatarY + 2);
+  }
+  ctx.restore();
+
+  // 頭像外圈金色光環
+  ctx.strokeStyle = '#f1c40f';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.arc(charAvatarX, charAvatarY, charAvatarR, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // 角色與挑戰者名稱
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 20px system-ui, -apple-system, sans-serif';
+  const studentName = data.student?.name || '冒險小勇士';
+  const charName = data.character?.name || '冒險勇士';
+  const charTitle = data.character?.title || '星芒守護者';
+  ctx.fillText(`挑戰小勇士：${studentName} · 【${charName}】`, heroBoxX + 78, heroBoxY + 30);
+
   ctx.fillStyle = '#ffeaa7';
-  ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
-  ctx.fillText(`【${data.gradeName}】${data.title}`, W / 2, 182);
+  ctx.font = '14px system-ui, -apple-system, sans-serif';
+  const trait = data.character?.trait || '全能探索';
+  ctx.fillText(`【${data.gradeName}】${data.title} ｜ 形象：${charTitle} ｜ 特質：${trait}`, heroBoxX + 78, heroBoxY + 54);
+
+  // 右側徽章標籤
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#f1c40f';
+  ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
+  ctx.fillText(`${data.character?.avatar || '👑'} ${data.badgeTitle}`, heroBoxX + heroBoxW - 22, heroBoxY + 42);
+  ctx.restore();
 
   // 5. 核心成果總結三大卡片 (橫排)
   const cardY = 224;
@@ -289,12 +370,12 @@ export function drawPosterCanvas(canvas, data) {
   // 8. 官方認證印章 (紅金印章風格)
   drawOfficialSeal(ctx, 640, 990);
 
-  // 9. 底部驗證資訊與日期
+  // 9. 底部驗證資訊與日期 (連動小勇士與冒險形象)
   ctx.textAlign = 'left';
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
   ctx.font = '14px system-ui, -apple-system, sans-serif';
-  ctx.fillText(`核發日期：${data.date}`, 56, 1030);
-  ctx.fillText(`認證識別號：FI-${data.grade}-${Date.now().toString(36).toUpperCase()}`, 56, 1054);
+  ctx.fillText(`授與挑戰者：${data.student?.name || '冒險小勇士'} ✦ 冒險形象：${data.character?.name || '冒險勇士'} (${data.character?.title || ''})`, 56, 1024);
+  ctx.fillText(`核發日期：${data.date} ｜ 認證識別號：FI-${data.grade}-${Date.now().toString(36).toUpperCase()}`, 56, 1050);
 
   ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
   ctx.font = '12px system-ui, -apple-system, sans-serif';
@@ -412,7 +493,14 @@ export function showReportModal({ grade = getCurrentGrade() } = {}) {
       <div class="report-header">
         <span class="report-kicker">✦ 全學科學習履歷認證 ✦</span>
         <h2 class="report-title">跨領域綜合素養家長成績單</h2>
-        <p class="report-sub">${escapeHtml(data.gradeName)} · ${escapeHtml(data.title)}</p>
+        <div class="report-character-badge-bar">
+          <img src="${data.character?.image || 'assets/characters/princess_magic.png'}" class="rep-char-avatar" alt="${escapeHtml(data.character?.name || '')}" onerror="this.style.display='none';">
+          <div class="rep-char-details">
+            <span class="rep-char-hero">${data.character?.avatar || '👑'} ${escapeHtml(data.student?.name || '冒險小勇士')} · ${escapeHtml(data.character?.name || '')}（${escapeHtml(data.character?.title || '')}）</span>
+            <span class="rep-char-quote">「${escapeHtml(data.character?.quote || '')}」</span>
+          </div>
+          <span class="rep-char-grade-badge">【${escapeHtml(data.gradeName)}】${escapeHtml(data.title)}</span>
+        </div>
       </div>
 
       <div class="report-tabs">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8" />
@@ -69,8 +69,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=3.0.4" />
-  <link rel="stylesheet" href="css/combo.css?v=3.0.4" />
+  <link rel="stylesheet" href="css/style.css?v=3.1.8" />
+  <link rel="stylesheet" href="css/combo.css?v=3.1.8" />
+  <link rel="stylesheet" href="css/economy.css?v=3.1.8" />
+  <link rel="stylesheet" href="css/characters.css?v=3.1.8" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>" />
   <!-- PWA Progressive Web App 配置 -->
   <link rel="manifest" href="manifest.webmanifest" />
@@ -90,7 +92,7 @@
       <span class="brand-star" aria-hidden="true">✦</span>
       <span id="brand-subject-title">奇幻數學島</span>
       <span class="brand-sub" id="brand-sub-text">大冒險</span>
-      <span class="brand-version" id="brand-version-badge" title="系統版本：v3.0.4">v3.0.4</span>
+      <span class="brand-version" id="brand-version-badge" title="系統版本：v3.1.8">v3.1.8</span>
       <span id="offline-badge" class="offline-badge hidden" title="目前處於離線狀態，題庫與教具已全量離線快取，暢玩無阻">⚡ 離線模式</span>
     </div>
 
@@ -121,20 +123,30 @@
     <!-- 學童專屬身分膠囊 -->
     <div class="student-pill-container" id="student-pill-container">
       <button id="student-dropdown-btn" class="student-dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false" title="點擊切換挑戰者身分">
-        <span id="student-btn-avatar">🦊</span>
+        <span id="student-btn-avatar" class="student-btn-avatar">🦊</span>
         <span id="student-btn-name">冒險小勇士</span>
+        <span id="student-btn-char-badge" class="student-btn-char-badge" title="冒險角色">👑</span>
         <span id="student-lock-icon" class="student-lock-icon hidden" title="已透過專屬連結鎖定身分">🔒</span>
         <span class="student-arrow">▾</span>
       </button>
       <div id="student-dropdown-menu" class="student-dropdown-menu hidden" hidden>
         <div class="student-dropdown-header">
-          <span>🎒 選擇挑戰者</span>
+          <span>🎒 冒險身分與形象</span>
+        </div>
+        <!-- 角色形象卡片預覽區 -->
+        <div id="student-current-char-card" class="student-current-char-card" title="點擊更換 10 位公主/勇者形象">
+          <!-- 動態載入當前角色卡片 -->
+        </div>
+        <div class="student-dropdown-divider"></div>
+        <div class="student-dropdown-subheader">
+          <span>👥 選擇挑戰者</span>
         </div>
         <div id="student-dropdown-list" class="student-dropdown-list">
           <!-- 動態載入學童 -->
         </div>
         <div class="student-dropdown-actions" style="display: flex; flex-direction: column; gap: 4px;">
           <button id="tablet-qr-quick-btn" class="student-quick-action-btn" type="button" style="border-color: #10b981; color: #059669; background: rgba(16, 185, 129, 0.08); font-weight: 700;">📱 平板直連 QR Code</button>
+          <button id="select-character-quick-btn" class="student-quick-action-btn" type="button" style="border-color: #ec4899; color: #db2777; background: rgba(236, 72, 153, 0.08); font-weight: 700;">👑 更換冒險形象 (公主/勇者)</button>
           <button id="sync-student-quick-btn" class="student-quick-action-btn" type="button" style="border-color: #38bdf8; color: #0284c7; background: rgba(56, 189, 248, 0.08); font-weight: 700;">📤 上傳/同步進度</button>
           <button id="add-student-quick-btn" class="student-quick-action-btn" type="button">➕ 新增小勇士</button>
           <a href="admin.html" target="_blank" class="student-quick-action-btn" style="text-align: center; text-decoration: none; display: block; border-color: #a855f7; color: #8e44ad; background: rgba(168, 85, 247, 0.08);">⚙️ 後台管理中心</a>

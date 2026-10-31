@@ -5,6 +5,7 @@
  */
 
 import { getCurrentSubject, getCurrentGrade } from './state.js';
+import { CHARACTERS, getCurrentCharacter, setCurrentCharacter, getCharacterById, STORAGE_KEY_CHARACTER } from './characters.js';
 import { showToast } from './ui.js';
 import { audio } from './audio.js';
 import {
@@ -425,11 +426,40 @@ export async function uploadLevelRecord({ level, score, stars, durationSeconds, 
 export function updateStudentPillUI() {
   const avatarEl = document.getElementById('student-btn-avatar');
   const nameEl = document.getElementById('student-btn-name');
+  const charBadgeEl = document.getElementById('student-btn-char-badge');
   const lockIcon = document.getElementById('student-lock-icon');
+  const studentBtn = document.getElementById('student-dropdown-btn');
   const student = getCurrentStudent();
+  const char = getCurrentCharacter(student);
 
-  if (avatarEl) avatarEl.textContent = student.avatar || '🦊';
-  if (nameEl) nameEl.textContent = student.name || '冒險小勇士';
+  if (avatarEl) {
+    if (char && char.image) {
+      avatarEl.innerHTML = `
+        <span class="nav-avatar-wrapper" title="${char.name} (${char.title})">
+          <img src="${char.image}" alt="${char.name}" class="nav-avatar-img" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-block';" />
+          <span class="nav-avatar-fallback" style="display: none;">${char.avatar || student.avatar || '🦊'}</span>
+          <span class="nav-avatar-mini-badge" style="background: ${char.color || '#ec4899'};">${char.gender === 'girl' ? '👑' : '⚔️'}</span>
+        </span>
+      `;
+    } else {
+      avatarEl.textContent = student.avatar || '🦊';
+    }
+  }
+
+  if (nameEl) {
+    nameEl.textContent = student.name || '冒險小勇士';
+  }
+
+  if (charBadgeEl && char) {
+    charBadgeEl.textContent = char.avatar || '👑';
+    charBadgeEl.title = `${char.name} · ${char.title}`;
+  }
+
+  if (studentBtn && char && char.color) {
+    studentBtn.style.setProperty('--char-theme-color', char.color);
+    studentBtn.title = `挑戰者：${student.name} | 形象：${char.name} (${char.title}) - 點擊切換`;
+  }
+
   if (lockIcon) {
     lockIcon.classList.toggle('hidden', !isLocked);
   }
@@ -445,12 +475,42 @@ function renderStudentDropdownList() {
   const students = getLocalStudents();
   const current = getCurrentStudent();
 
+  // 渲染當前角色形象卡片預覽區
+  const charCardContainer = document.getElementById('student-current-char-card');
+  const char = getCurrentCharacter(current);
+  if (charCardContainer && char) {
+    charCardContainer.innerHTML = `
+      <div class="char-dropdown-card-inner">
+        <div class="char-dropdown-avatar-wrap">
+          <img src="${char.image}" alt="${char.name}" class="char-dropdown-thumb" onerror="this.style.display='none';" />
+          <span class="char-dropdown-badge-tag">${char.gender === 'girl' ? '👑' : '⚔️'}</span>
+        </div>
+        <div class="char-dropdown-info">
+          <div class="char-dropdown-name-row">
+            <span class="char-dropdown-name">${char.avatar} ${char.name}</span>
+            <span class="char-dropdown-switch-badge">更換形象 ❯</span>
+          </div>
+          <div class="char-dropdown-title">${char.title} · ${char.trait}</div>
+        </div>
+      </div>
+    `;
+    charCardContainer.onclick = () => {
+      closeStudentDropdown();
+      showCharacterSelectDialog(false);
+    };
+  }
+
   container.innerHTML = students.map(s => {
     const isSelected = s.id === current.id;
+    const sChar = s.characterId ? getCharacterById(s.characterId) : null;
+    const avatarHtml = sChar && sChar.image
+      ? `<span class="student-item-avatar-wrap"><img src="${sChar.image}" class="student-item-char-img" alt="${sChar.name}"><span class="student-item-mini-badge">${sChar.avatar}</span></span>`
+      : `<span class="student-item-avatar">${s.avatar || '🌟'}</span>`;
     return `
       <button class="student-item ${isSelected ? 'is-selected' : ''}" type="button" data-kid="${s.id}">
-        <span class="student-item-avatar">${s.avatar || '🌟'}</span>
+        ${avatarHtml}
         <span class="student-item-name">${s.name}</span>
+        ${sChar ? `<span class="student-item-role-label">${sChar.name}</span>` : ''}
         ${isSelected ? '<span class="student-item-check">✓</span>' : ''}
       </button>
     `;
@@ -461,6 +521,9 @@ function renderStudentDropdownList() {
       const kid = btn.dataset.kid;
       const target = students.find(s => s.id === kid);
       if (target) {
+        if (target.characterId) {
+          setCurrentCharacter(target.characterId);
+        }
         setCurrentStudent(target, true);
         closeStudentDropdown();
       }
@@ -641,6 +704,7 @@ export async function initStudentProfile() {
   // 3. 嘗試補發離線未傳送的成績
   flushPendingRecords();
   window.addEventListener('online', flushPendingRecords);
+  window.addEventListener('fantasy-math:character-changed', () => updateStudentPillUI());
 
   // 4. 綁定按鈕事件
   const studentBtn = document.getElementById('student-dropdown-btn');
@@ -654,6 +718,19 @@ export async function initStudentProfile() {
   addQuickBtn?.addEventListener('click', () => {
     showAddStudentDialog();
   });
+
+  const selectCharQuickBtn = document.getElementById('select-character-quick-btn');
+  selectCharQuickBtn?.addEventListener('click', () => {
+    closeStudentDropdown();
+    showCharacterSelectDialog(false);
+  });
+
+  // 初次遊玩檢查：若從未選過角色，於啟動 1.2 秒後溫馨彈出角色選擇引導
+  if (!localStorage.getItem(STORAGE_KEY_CHARACTER)) {
+    setTimeout(() => {
+      showCharacterSelectDialog(true);
+    }, 1200);
+  }
 
   const syncQuickBtn = document.getElementById('sync-student-quick-btn');
   syncQuickBtn?.addEventListener('click', () => {
@@ -1497,6 +1574,134 @@ export function showProgressExportQRDialog(student = getCurrentStudent()) {
     });
   });
 }
+
+
+/**
+ * 彈出夢幻冒險角色選擇視窗 (5 大公主 + 5 大王子勇士)
+ */
+export function showCharacterSelectDialog(isFirstTime = false) {
+  closeStudentDropdown();
+  audio.playSfx('click', 0.4);
+
+  const existing = document.getElementById('char-select-overlay');
+  if (existing) existing.remove();
+
+  let activeTab = 'all';
+  let selectedChar = getCurrentCharacter();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'char-select-overlay';
+  overlay.className = 'char-select-overlay';
+
+  function renderDialog() {
+    const filteredChars = CHARACTERS.filter(c => {
+      if (activeTab === 'princess') return c.gender === 'girl';
+      if (activeTab === 'prince') return c.gender === 'boy';
+      return true;
+    });
+
+    overlay.innerHTML = `
+      <div class="char-select-dialog">
+        <div class="char-select-header">
+          <div class="char-select-header-title">
+            <span style="font-size: 2rem;">👑</span>
+            <div>
+              <h2>選擇你的冒險小勇士形象</h2>
+              <p>${isFirstTime ? '歡迎來到奇幻數學島！挑選專屬英雄開始冒險吧！' : '隨時可以更換你喜歡的公主或勇士立繪喔！'}</p>
+            </div>
+          </div>
+          <button class="char-select-close-btn" type="button" aria-label="關閉">✕</button>
+        </div>
+
+        <div class="char-tab-bar">
+          <button class="char-tab-btn ${activeTab === 'all' ? 'is-active' : ''}" data-tab="all" type="button">🌈 全部英雄 (${CHARACTERS.length})</button>
+          <button class="char-tab-btn ${activeTab === 'princess' ? 'is-active' : ''}" data-tab="princess" type="button">🌸 夢幻公主 (5)</button>
+          <button class="char-tab-btn ${activeTab === 'prince' ? 'is-active' : ''}" data-tab="prince" type="button">👦 王子勇士 (5)</button>
+        </div>
+
+        <div class="char-grid-container">
+          ${filteredChars.map(c => `
+            <div class="char-card ${selectedChar.id === c.id ? 'is-selected' : ''}" data-char-id="${c.id}">
+              <span class="char-badge-tag">${c.gender === 'girl' ? '👑 公主' : '⚔️ 勇士'}</span>
+              <div class="char-avatar-wrapper">
+                <img src="${c.image}" alt="${c.name}" class="char-avatar-img" />
+              </div>
+              <div class="char-info-name">${c.avatar} ${c.name}</div>
+              <div class="char-info-title">${c.title}</div>
+              <div class="char-info-trait">${c.trait}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="char-select-footer">
+          <div class="char-selected-preview">
+            <img src="${selectedChar.image}" alt="${selectedChar.name}" class="char-preview-thumb" />
+            <div>
+              <div class="char-preview-desc">當前選定：<strong>${selectedChar.name}</strong> (${selectedChar.title})</div>
+              <div style="font-size: 0.78rem; color: #64748b; font-style: italic;">「${selectedChar.quote}」</div>
+            </div>
+          </div>
+          <button class="char-confirm-btn" type="button" id="confirm-select-char-btn">就決定是你了！出發 🚀</button>
+        </div>
+      </div>
+    `;
+
+    // 綁定事件
+    overlay.querySelector('.char-select-close-btn').addEventListener('click', () => {
+      overlay.remove();
+    });
+
+    overlay.querySelectorAll('.char-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeTab = btn.dataset.tab;
+        audio.playSfx('click', 0.2);
+        renderDialog();
+      });
+    });
+
+    overlay.querySelectorAll('.char-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const charId = card.dataset.charId;
+        const found = CHARACTERS.find(c => c.id === charId);
+        if (found) {
+          selectedChar = found;
+          audio.playSfx('click', 0.3);
+          renderDialog();
+        }
+      });
+    });
+
+    overlay.querySelector('#confirm-select-char-btn').addEventListener('click', () => {
+      setCurrentCharacter(selectedChar);
+      const student = getCurrentStudent();
+      if (student && student.id) {
+        student.characterId = selectedChar.id;
+        try {
+          localStorage.setItem(STORAGE_KEY_CURRENT, JSON.stringify(student));
+          const list = getLocalStudents();
+          const target = list.find(s => s.id === student.id);
+          if (target) {
+            target.characterId = selectedChar.id;
+            saveLocalStudents(list);
+          }
+        } catch (e) {}
+      }
+      updateStudentPillUI();
+      audio.playSfx('win', 0.5);
+      showToast(`已化身為【${selectedChar.name}】！冒險啟程囉！`, selectedChar.avatar, 3000);
+      overlay.remove();
+    });
+  }
+
+  renderDialog();
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+}
+
+window.showCharacterSelectDialog = showCharacterSelectDialog;
 
 window.showTabletQRDialog = showTabletQRDialog;
 window.showProgressExportQRDialog = showProgressExportQRDialog;

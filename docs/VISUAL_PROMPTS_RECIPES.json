@@ -1,0 +1,279 @@
+{
+  "math_g1_05_seahorse": {
+    "category": "monster",
+    "batch": 1,
+    "name": "加法珊瑚小海馬",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_05_seahorse.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a tiny friendly coral seahorse, carrying small floating glowing plus signs (+), pastel pink and cyan scales, floating oceanic underwater bubbles",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_06_jellyfish": {
+    "category": "monster",
+    "batch": 1,
+    "name": "減法啵啵水母",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_06_jellyfish.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, an adorable translucent glowing jellyfish, floating magic bubbles popping into minus signs (-), gentle lavender and sky-blue glowing bell",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_08_clock_whale": {
+    "category": "monster",
+    "batch": 1,
+    "name": "滴答時鐘機械鯨魚",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_08_clock_whale.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a mini boss mechanical blue whale, cute brass clock gear belly with clock hands showing 3:30, water spout spraying golden gear sparkles",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_09_cloud_sheep": {
+    "category": "monster",
+    "batch": 1,
+    "name": "湊十進位雲朵棉花羊",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_09_cloud_sheep.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, an ultra fluffy sheep made of white cumulus clouds, wearing a small golden pocket with number 10, soft golden aura, rainbow horns",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_10_lightning_eagle": {
+    "category": "monster",
+    "batch": 1,
+    "name": "破十退位雷電小鷹",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_10_lightning_eagle.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a feisty yellow lightning fledgling eagle, glowing electric feather crest, tiny sparks cracking into number shards, energetic heroic pose",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_11_place_blocks": {
+    "category": "monster",
+    "batch": 1,
+    "name": "十位個位積木石怪",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_11_place_blocks.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a friendly modular golem made of colorful counting unit cubes and base-ten rods, cute round mossy stone face, cheerful expressions",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_12_ruler_dragon": {
+    "category": "monster",
+    "batch": 1,
+    "name": "公分刻度尺神龍",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_12_ruler_dragon.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a mini boss baby serpentine dragon, wooden centimeter ruler pattern markings on its spine from 0 to 15, holding a tiny crystal stylus",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_13_piggy_bank": {
+    "category": "monster",
+    "batch": 1,
+    "name": "金幣撲滿小存錢豬",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_13_piggy_bank.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a shiny pink porcelain piggy bank adventurer, golden coin slotted on its back, glowing star coins orbiting happily, wearing tiny aviator goggles",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_14_space_alien": {
+    "category": "monster",
+    "batch": 1,
+    "name": "二位加減太空章魚",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_14_space_alien.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a cute alien octopus in a transparent mini astronaut helmet, tentacles juggling math formula meteors, cosmic starry purple skin",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_15_calendar_owl": {
+    "category": "monster",
+    "batch": 1,
+    "name": "統計長條圖日曆貓頭鷹",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_15_calendar_owl.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a scholarly brown owl perched on a stack of colorful 3D bar graph blocks, holding a calendar parchment scroll, small academic glasses",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "item_star_coin": {
+    "category": "item",
+    "batch": 2,
+    "name": "冒險星幣 (Star Coin)",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\items\\star_coin.png",
+    "positive": "masterpiece, best quality, 3D glossy game icon, mobile RPG asset, vibrant magic glow, shiny metallic and crystal texture, centered, isometric clean view, pure white background, isolated, a gleaming golden fantasy coin embossed with an engraved five-point star, intense inner golden glow, shiny bevels, floating sparkles",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "item_magic_potion": {
+    "category": "item",
+    "batch": 2,
+    "name": "魔力智慧藥水 (Magic Potion)",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\items\\magic_potion.png",
+    "positive": "masterpiece, best quality, 3D glossy game icon, mobile RPG asset, vibrant magic glow, shiny metallic and crystal texture, centered, isometric clean view, pure white background, isolated, an ornate fantasy glass flask containing swirling bioluminescent cyan and magenta liquid, cork stopper with golden seal, glowing magical sparkles",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "item_adventure_compass": {
+    "category": "item",
+    "batch": 2,
+    "name": "星際冒險指南針 (Compass)",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\items\\adventure_compass.png",
+    "positive": "masterpiece, best quality, 3D glossy game icon, mobile RPG asset, vibrant magic glow, shiny metallic and crystal texture, centered, isometric clean view, pure white background, isolated, a brass steampunk navigational pocket compass, glowing sapphire crystal needle pointing north, ornate celestial zodiac engravings",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "badge_math_master": {
+    "category": "badge",
+    "batch": 2,
+    "name": "數學學科宗師勳章",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\badges\\badge_math.png",
+    "positive": "masterpiece, best quality, fantasy guild mastery emblem badge, circular golden frame with decorative ribbon, crisp 3D metallic relief, heraldic crest, game achievement award, symmetrical design, pure white background, isolated, center crest featuring a golden abacus and geometric polygon crystals, royal blue silk ribbon with gold tassels, radiant victory glow",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "badge_chinese_master": {
+    "category": "badge",
+    "batch": 2,
+    "name": "國語學科宗師勳章",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\badges\\badge_chinese.png",
+    "positive": "masterpiece, best quality, fantasy guild mastery emblem badge, circular golden frame with decorative ribbon, crisp 3D metallic relief, heraldic crest, game achievement award, symmetrical design, pure white background, isolated, center crest featuring a traditional calligraphy brush resting on an open bamboo scroll, imperial crimson red silk ribbon, golden dragon trims",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "badge_english_master": {
+    "category": "badge",
+    "batch": 2,
+    "name": "英語學科宗師勳章",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\badges\\badge_english.png",
+    "positive": "masterpiece, best quality, fantasy guild mastery emblem badge, circular golden frame with decorative ribbon, crisp 3D metallic relief, heraldic crest, game achievement award, symmetrical design, pure white background, isolated, center crest featuring a flying winged alphabet book with glowing quill pen, emerald green silk ribbon, noble silver wing trims",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "badge_science_master": {
+    "category": "badge",
+    "batch": 2,
+    "name": "自然學科宗師勳章",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\badges\\badge_science.png",
+    "positive": "masterpiece, best quality, fantasy guild mastery emblem badge, circular golden frame with decorative ribbon, crisp 3D metallic relief, heraldic crest, game achievement award, symmetrical design, pure white background, isolated, center crest featuring an atomic orbital ring and swirling galaxy test tube, electric purple silk ribbon, metallic brass gears",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "badge_social_master": {
+    "category": "badge",
+    "batch": 2,
+    "name": "社會學科宗師勳章",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\badges\\badge_social.png",
+    "positive": "masterpiece, best quality, fantasy guild mastery emblem badge, circular golden frame with decorative ribbon, crisp 3D metallic relief, heraldic crest, game achievement award, symmetrical design, pure white background, isolated, center crest featuring a miniature world globe atop a stone fortress crown, warm amber gold silk ribbon, olive branch laurel wreath",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "math_g1_07_shape_turtle": {
+    "category": "monster",
+    "batch": 1,
+    "name": "幾何形狀百變烏龜",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\monsters\\math_g1\\math_g1_07_shape_turtle.png",
+    "positive": "masterpiece, best quality, cute fantasy RPG monster character, chibi art style, vibrant colorful palette, cel-shaded anime game asset, soft studio lighting, clean outlines, pure white background, isolated, full body shot, a cute green tortoise with geometric mosaic shell composed of squares triangles and circles, cheerful smile",
+    "negative": "photorealistic, realistic, 3d render, low quality, worst quality, dark, horror, grotesque, scary, messy background, text, watermark, signature, blurry, deformed limbs, cropped"
+  },
+  "vfx_magic_circle": {
+    "category": "vfx",
+    "batch": 3,
+    "name": "璀璨金色旋轉魔法陣",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_magic_circle.png",
+    "positive": "masterpiece, best quality, magical golden summoning circle, sacred geometry, glowing ancient runes, intricate circular magical seal, glowing gold and cyan sparkles, ethereal light, centered, top-down isometric view, clean vector outline, pure white background, isolated",
+    "negative": "photorealistic, realistic, dark, complex background, text, watermark, signature, blurry, human, face, monster, noisy"
+  },
+  "vfx_sword_slash": {
+    "category": "vfx",
+    "batch": 3,
+    "name": "藍白月牙破風劍氣",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_sword_slash.png",
+    "positive": "masterpiece, best quality, dynamic curved sword slash wave, crescent energy blade, glowing cyan and electric blue aura, sharp slashing motion blur, sparks and speed lines, centered, pure white background, isolated",
+    "negative": "photorealistic, realistic, dark, messy background, text, watermark, signature, human, face, sword hilt, hands, noisy"
+  },
+  "vfx_crescent_wave": {
+    "category": "vfx",
+    "batch": 3,
+    "name": "純月牙斬擊能量光弧",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_crescent_wave.png",
+    "positive": "masterpiece, best quality, pure curved crescent slash wave, glowing blue and white energy arc, sharp dynamic anime sword slash light beam, transparent speed lines, high energy glow, centered, pure white background, isolated",
+    "negative": "sword, handle, hilt, weapon, blade body, hands, human, dark, blurry, messy, text, watermark"
+  },
+  "vfx_nature_bloom": {
+    "category": "vfx",
+    "batch": 3,
+    "name": "自然翡翠生命光環",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_nature_bloom.png",
+    "positive": "masterpiece, best quality, magical nature blooming aura ring, swirling emerald leaves, glowing pink flower petals and healing sparkles, circular floral magic seal, pure white background, isolated",
+    "negative": "human, face, dark, messy background, text, watermark"
+  },
+  "vfx_lightning_burst": {
+    "category": "vfx",
+    "batch": 3,
+    "name": "雷霆閃電爆裂電弧",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_lightning_burst.png",
+    "positive": "masterpiece, best quality, violent electric lightning burst, branching crackling plasma sparks, glowing electric cyan and bright yellow energy arcs, impact shockwave, pure white background, isolated",
+    "negative": "human, dark, messy background, text, watermark"
+  },
+  "vfx_cosmic_supernova": {
+    "category": "vfx",
+    "batch": 3,
+    "name": "星界彩虹超新星光芒",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_cosmic_supernova.png",
+    "positive": "masterpiece, best quality, cosmic rainbow supernova burst, radiant eight-point prismatic star flare, swirling galactic celestial nebula rings, colorful glowing spectrum rays, pure white background, isolated",
+    "negative": "human, dark, messy background, text, watermark"
+  },
+  "vfx_princess_butterfly": {
+    "category": "vfx",
+    "name": "公主粉櫻幻蝶舞",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_princess_butterfly.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, swirling swarm of magical glowing pink butterflies and sakura petals, glowing fairy dust trail, gentle golden sparkles",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_princess_frost_crystal": {
+    "category": "vfx",
+    "name": "公主冰晶雪花星芒",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_princess_frost_crystal.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, intricate glowing ice crystal snowflake, sharp frosted polygon facets, brilliant glowing cyan and silver light rays, frost sparkles",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_princess_heart_shield": {
+    "category": "vfx",
+    "name": "公主愛心聖光守護盾",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_princess_heart_shield.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, radiant glowing 3D heart-shaped holy energy barrier shield, golden angelic wings trim, warm pink and gold celestial aura",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_princess_rainbow_aurora": {
+    "category": "vfx",
+    "name": "公主彩虹極光星河",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_princess_rainbow_aurora.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, flowing magical rainbow aurora ribbon wave, iridescent glowing celestial spectrum banner, floating star particles",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_hero_cross_slash": {
+    "category": "vfx",
+    "name": "勇者十字符文雙重斬",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_hero_cross_slash.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, sharp dynamic X-shaped double sword slash impact, glowing cyan and gold cross energy blades, intense slashing sparks",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_hero_whirlwind": {
+    "category": "vfx",
+    "name": "勇者旋風劍氣龍捲",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_hero_whirlwind.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, rising spiral whirlwind energy slash tornado, sharp wind blade cutter rings, glowing azure and white vortex",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_hero_impact_shockwave": {
+    "category": "vfx",
+    "name": "勇者大地崩裂衝擊波",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_hero_impact_shockwave.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, ground smash impact shockwave ring, expanding golden kinetic energy wave, flying glowing crystal debris shards",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_hero_thunder_thrust": {
+    "category": "vfx",
+    "name": "勇者雷霆突刺光束",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_hero_thunder_thrust.png",
+    "positive": "masterpiece, best quality, dynamic magical game visual effect, vibrant glowing anime game asset, high contrast, pure solid flat white background, isolated, centered, piercing horizontal thunder spear beam, violent crackling electric lightning bolt, high velocity energy piercing trail",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_mob_slime_splat": {
+    "category": "vfx",
+    "name": "小怪調皮黏液水花",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_mob_slime_splat.png",
+    "positive": "masterpiece, best quality, dynamic game visual effect, anime game asset, high contrast, pure solid flat white background, isolated, centered, cute cartoon splash splat impact, glowing vibrant green and yellow slime droplets, bouncing bubbly liquid splash, clean vector lines",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_boss_shadow_burst": {
+    "category": "vfx",
+    "name": "魔王暗影混沌衝擊波",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_boss_shadow_burst.png",
+    "positive": "masterpiece, best quality, dynamic game visual effect, anime game asset, high contrast, pure solid flat white background, isolated, centered, dark fantasy villain energy shockwave, swirling dark violet and neon purple miasma flames, shadowy plasma vortex, ominous magical smoke",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  },
+  "vfx_boss_claw_strike": {
+    "category": "vfx",
+    "name": "魔王虛空暗夜裂痕爪痕",
+    "target_file": "C:\\Users\\達爾\\projects\\math-island\\assets\\vfx\\vfx_boss_claw_strike.png",
+    "positive": "masterpiece, best quality, dynamic game visual effect, anime game asset, high contrast, pure solid flat white background, isolated, centered, three sharp glowing purple energy claw slash marks, ripping spatial tear, violent shadow sparks, sharp glowing edges",
+    "negative": "human, character, face, body, hands, weapon hilt, dark background, complex background, text, watermark, signature, shadow"
+  }
+}

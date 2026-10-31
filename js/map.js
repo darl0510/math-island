@@ -204,6 +204,13 @@ export function renderMap() {
         </div>
       </div>
       <div class="challenge-banner-right">
+        <button class="challenge-darkon-btn" type="button" id="map-darkon-portal-btn" title="直通決戰：大魔王 Darkon 三階段破盾試煉！">
+          <span class="darkon-btn-avatar"><img src="assets/boss/boss_darkon_main.png" alt="Darkon" class="darkon-btn-img" /></span>
+          <div class="darkon-btn-info">
+            <span class="darkon-btn-title">💀 決戰大魔王 Darkon</span>
+            <span class="darkon-btn-sub">三形態破盾戰役 ▶</span>
+          </div>
+        </button>
         <button class="challenge-trophy-btn ${trophyUnlocked ? 'is-unlocked glow' : 'is-locked'}" type="button" id="map-trophy-btn" title="${trophyUnlocked ? '點擊重溫期末榮譽金盃頒獎盛典！' : `完成全部 16 關可解鎖金盃（還差 ${16 - doneCount} 關）`}">
           <span class="trophy-btn-icon" aria-hidden="true">🏆</span>
           <div class="trophy-btn-info">
@@ -255,6 +262,14 @@ export function renderMap() {
 
   screen.querySelector('#map-trophy-btn')?.addEventListener('click', handleTrophyClick);
   screen.querySelector('#map-quick-trophy-btn')?.addEventListener('click', handleTrophyClick);
+
+  screen.querySelector('#map-darkon-portal-btn')?.addEventListener('click', () => {
+    audio.playSfx('whoosh', 0.6);
+    const lvl16 = getLevelById(16);
+    if (lvl16) {
+      openLevel(lvl16);
+    }
+  });
 
   screen.querySelector('#map-badges-btn')?.addEventListener('click', () => {
     showBadgesModal();
@@ -359,17 +374,18 @@ function levelCardMarkup(level, state) {
   const lockLabel = lockInfo.reason === 'stars' ? `需要 ${lockInfo.requiredStars} 顆星解鎖` : '尚未解鎖';
   const isChallenge = getCurrentSubject() === 'challenge';
   const isBoss = level.id === 16;
+  const isDarkon = isChallenge && isBoss;
   return `
     <button
-      class="level-card ${unlocked ? 'unlocked' : 'locked'} ${stars === 3 ? 'perfect' : ''} ${lockInfo.reason === 'stars' ? 'lock-by-stars' : ''} ${isChallenge ? 'is-challenge-card' : ''} ${isBoss ? 'is-boss-card' : ''}"
+      class="level-card ${unlocked ? 'unlocked' : 'locked'} ${stars === 3 ? 'perfect' : ''} ${lockInfo.reason === 'stars' ? 'lock-by-stars' : ''} ${isChallenge ? 'is-challenge-card' : ''} ${isBoss ? 'is-boss-card' : ''} ${isDarkon ? 'is-darkon-card' : ''}"
       type="button"
       data-level="${level.id}"
       data-lock-reason="${lockInfo.reason || ''}"
       aria-label="第 ${level.id} 關 ${escapeHtml(level.title)}${unlocked ? '' : `，${lockLabel}`}">
-      <span class="level-number">${unlocked ? (isBoss ? '👑' : String(level.id).padStart(2, '0')) : (lockInfo.reason === 'stars' ? '⭐🔒' : '🔒')}</span>
-      <span class="level-emoji" aria-hidden="true">${level.emoji}</span>
+      <span class="level-number">${unlocked ? (isDarkon ? '💀' : (isBoss ? '👑' : String(level.id).padStart(2, '0'))) : (lockInfo.reason === 'stars' ? '⭐🔒' : '🔒')}</span>
+      <span class="level-emoji" aria-hidden="true">${isDarkon ? '<img src="assets/boss/boss_darkon_main.png" alt="Darkon" class="level-darkon-thumb" />' : level.emoji}</span>
       <span class="level-title">${escapeHtml(level.title)}</span>
-      <span class="level-skill">${isChallenge ? '🎯 ' : ''}${escapeHtml(level.skill)}</span>
+      <span class="level-skill">${isDarkon ? '🔥 三形態破盾戰 · ' : (isChallenge ? '🎯 ' : '')}${escapeHtml(level.skill)}</span>
       <span class="level-stars">${starsMarkup(stars)}</span>
     </button>
   `;

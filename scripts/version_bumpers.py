@@ -54,7 +54,9 @@ def advance_handover_tasks(ws: Path, new_ver: str, dry_run: bool = False) -> boo
         return False
 
     text = fp.read_text(encoding="utf-8")
-    focus_pat = re.compile(r"##\s*[📌🎯]?\s*當前推進焦點看板\s*\(Active Focus\)[^\r\n]*")
+    focus_pat = re.compile(
+        r"##\s*[📌🎯]?\s*(?:當前推進焦點看板|核心待辦與後續推進焦點看板)\s*\(Active\s*(?:Focus|Tasks)\)[^\r\n]*"
+    )
     fold_pat = re.compile(r"<summary>[^<]*(?:過往已完成歷史任務|已完成歷史任務|點擊展開過往已完成)[^<]*</summary>")
     focus_match = focus_pat.search(text)
     fold_match = fold_pat.search(text)
@@ -67,15 +69,34 @@ def advance_handover_tasks(ws: Path, new_ver: str, dry_run: bool = False) -> boo
     fold_marker = fold_match.group(0)
     active_section = text[focus_idx:fold_idx]
 
-    task_pat = re.compile(r"-\s*\[\s*\]\s*(\*{0,2}(?:【[^】]+】)?([^*]+)\*{0,2}[^\r\n]*)")
+    task_pat = re.compile(
+        r"^[ \t]*-\s*\[\s*\]\s*(\*{0,2}(?:【[^】]+】)?([^*]+)\*{0,2}[^\r\n]*)((?:\r?\n[ \t]+[^\r\n]*)*)",
+        re.MULTILINE,
+    )
     matches = list(task_pat.finditer(active_section))
     if not matches:
+        # 待辦清單為空，啟動自律推演引擎補足新任務
+        try:
+            from scripts.auto_task_suggester import suggest_and_inject_tasks  # type: ignore
+        except ImportError:
+            try:
+                from auto_task_suggester import suggest_and_inject_tasks  # type: ignore
+            except ImportError:
+                suggest_and_inject_tasks = None
+
+        if suggest_and_inject_tasks:
+            ok, tasks, next_cmd = suggest_and_inject_tasks(ws, new_ver, dry_run)
+            if ok:
+                return True
+
         print("  [INFO] 看板無未完成待辦任務，無需推進")
         return False
 
     completed_match = matches[0]
     completed_full = completed_match.group(0)
     completed_title = completed_match.group(1)
+    completed_sub = completed_match.group(3) or ""
+    new_injected_block = ""
 
     if len(matches) > 1:
         next_raw_title = matches[1].group(1).strip()
@@ -83,17 +104,52 @@ def advance_handover_tasks(ws: Path, new_ver: str, dry_run: bool = False) -> boo
         next_task_cmd = f'python scripts/brain_delegator.py -w . -t "{clean_title}"'
         next_task_disp = clean_title
     else:
-        next_task_cmd = 'python scripts/brain_delegator.py -w . -t "檢視現有模組邊界與未涵蓋測試，產出 3 項接地原子待辦，完成後自檢驗證"'
-        next_task_disp = "檢視現有模組邊界與未涵蓋測試，產出 3 項接地原子待辦"
+        # 當前僅剩最後一項且即將移入已完成，主動觸發自律推演引擎補足下一輪待辦
+        try:
+            from scripts.auto_task_suggester import WorkspaceAnalyzer, TaskDeductionEngine  # type: ignore
+        except ImportError:
+            try:
+                from auto_task_suggester import WorkspaceAnalyzer, TaskDeductionEngine  # type: ignore
+            except ImportError:
+                WorkspaceAnalyzer = None
 
-    # 從 Active Focus 移除已完成項目
+        if WorkspaceAnalyzer:
+            analyzer = WorkspaceAnalyzer(ws)
+            engine = TaskDeductionEngine(ws, analyzer)
+            generated = engine.deduce_tasks()
+            if generated:
+                injected_lines = []
+                for t_line, rationale in generated:
+                    injected_lines.append(f"{t_line}\n  > 💡 **自動生成原因**：{rationale}")
+                new_injected_block = "\n\n" + "\n\n".join(injected_lines) + "\n"
+
+                first_t = generated[0][0]
+                m_t = re.search(r"-\s*\[\s*\]\s*(\*{0,2}(?:【[^】]+】)?([^*]+)\*{0,2})", first_t)
+                clean_t = re.sub(r"[\*`]", "", m_t.group(1)).strip() if m_t else "實作下一階段核心功能"
+                next_task_cmd = f'python scripts/brain_delegator.py -w . -t "實作{clean_t}"'
+                next_task_disp = f"實作{clean_t} (自律推演)"
+            else:
+                next_task_cmd = 'python scripts/brain_delegator.py -w . -t "檢視現有模組邊界與未涵蓋測試，產出 3 項接地原子待辦，完成後自檢驗證"'
+                next_task_disp = "檢視現有模組邊界與未涵蓋測試，產出 3 項接地原子待辦"
+        else:
+            next_task_cmd = 'python scripts/brain_delegator.py -w . -t "檢視現有模組邊界與未涵蓋測試，產出 3 項接地原子待辦，完成後自檢驗證"'
+            next_task_disp = "檢視現有模組邊界與未涵蓋測試，產出 3 項接地原子待辦"
+
+    # 從 Active Focus 移除已完成項目（含其附屬縮排說明）
     active_section_new = active_section.replace(completed_full + "\r\n", "")
     if active_section_new == active_section:
         active_section_new = active_section.replace(completed_full + "\n", "")
     if active_section_new == active_section:
         active_section_new = active_section.replace(completed_full, "")
 
-    done_item = f"- [x] {completed_title} (已於 v{new_ver} 完成驗收並建立還原點)\n"
+    # 清除 Active Focus 區塊開頭殘留之孤立縮排說明
+    orphan_clean_pat = re.compile(r"^(##[^\r\n]*\r?\n)(?:[ \t]+[^\r\n]*\r?\n)+")
+    active_section_new = orphan_clean_pat.sub(r"\g<1>", active_section_new)
+
+    if new_injected_block:
+        active_section_new = active_section_new.rstrip() + new_injected_block
+
+    done_item = f"- [x] {completed_title} (已於 v{new_ver} 完成驗收並建立還原點){completed_sub}\n"
     text_new = text[:focus_idx] + active_section_new + text[fold_idx:]
 
     fold_insert_pos = text_new.index(fold_marker) + len(fold_marker)
@@ -113,6 +169,15 @@ def advance_handover_tasks(ws: Path, new_ver: str, dry_run: bool = False) -> boo
         r"(【⚡\s*單行派工命令[^\r\n]*】[\s\r\n]*)python scripts/brain_delegator\.py[^\r\n]+"
     )
     text_new, n_cmd = prompt_cmd_pat.subn(rf"\g<1>{next_task_cmd}", text_new)
+
+    # 頂部 Prompt 首行版號自動遞增至下一版 (例如 v1.8.0 交付後，接手 Prompt 自動切為 v1.8.1)
+    try:
+        parts = new_ver.split(".")
+        next_ver = f"{parts[0]}.{parts[1]}.{int(parts[2]) + 1}"
+    except Exception:
+        next_ver = new_ver
+    prompt_top_pat = re.compile(r"【v?\d+\.\d+\.\d+】(\s*你好[^\r\n]*)")
+    text_new = prompt_top_pat.sub(rf"【v{next_ver}】\1", text_new)
 
     # 若頂部 Prompt 包含指定待辦任務列表，同步將完成項打勾
     clean_completed_core = re.sub(r"[\*`]", "", completed_title).strip()
@@ -139,6 +204,13 @@ def bump_handover(ws: Path, new_ver: str, dry_run: bool) -> Tuple[str, str, int]
         text = fp.read_text(encoding="utf-8")
         changes = 0
         today = date.today().isoformat()
+
+        # (a0) 專案頂部版本標記行：> **版本**：vX.Y.Z
+        pat_ver = re.compile(r"(>\s*\*\*版本\*\*：\s*v?)\d+\.\d+\.\d+")
+        text_new, n_ver = pat_ver.subn(rf"\g<1>{new_ver}", text)
+        if n_ver:
+            text = text_new
+            changes += n_ver
 
         # (a) 最後更新時間行
         pat_a = re.compile(

@@ -1,5 +1,5 @@
 // 奇幻數學島 Service Worker (PWA 離線快取與高效能秒開支援)
-const CACHE_NAME = 'math-island-v3.0.4';
+const CACHE_NAME = 'math-island-v3.1.8';
 
 // 核心靜態資產：涵蓋全年級全學科 800+ 題庫、教具、島嶼腳本、高畫質背景與 SFX 音效
 const STATIC_ASSETS = [
@@ -9,6 +9,8 @@ const STATIC_ASSETS = [
   './css/style.css',
   './css/admin.css',
   './css/combo.css',
+  './css/characters.css',
+  './css/economy.css',
   './manifest.webmanifest',
 
   // 核心 JS 模組
@@ -20,6 +22,10 @@ const STATIC_ASSETS = [
   './js/map.js',
   './js/engine.js',
   './js/combo.js',
+  './js/monsters.js',
+  './js/characters.js',
+  './js/actions.js',
+  './js/economy.js',
   './js/badges.js',
   './js/ui.js',
   './js/visuals.js',
@@ -84,6 +90,19 @@ const STATIC_ASSETS = [
   './assets/images/story-garden.jpg',
   './assets/images/story-thinking.jpg',
   './assets/images/story-treasure.jpg',
+
+  // 角色專屬過關必殺技與魔法陣特效
+  './assets/vfx/vfx_magic_circle.webp',
+  './assets/vfx/vfx_crescent_wave.webp',
+  './assets/vfx/vfx_magic_circle.png',
+  './assets/vfx/vfx_crescent_wave.png',
+
+  // 終極大魔王 Darkon 與傳奇榮譽徽章
+  './assets/boss/badge_legendary_hero.png',
+  './assets/boss/boss_darkon_main.png',
+  './assets/boss/boss_phase1_math.png',
+  './assets/boss/boss_phase2_english.png',
+  './assets/boss/boss_phase3_chinese.png',
 
   // 核心互動 SFX 音效
   './assets/audio/sfx/click.mp3',

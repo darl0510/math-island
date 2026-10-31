@@ -1,0 +1,508 @@
+/* ═══════════════════════════════════════════════════════════
+   economy.css — 冒險星幣經濟與魔法道具系統 UI 樣式
+   v3.0.8
+═══════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────
+   道具 HUD（關卡頂欄內嵌）
+──────────────────────────────────────────── */
+.item-hud {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.item-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-width: 42px;
+  min-height: 42px;
+  padding: 4px 6px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.item-btn:hover:not(:disabled) {
+  transform: scale(1.12);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.item-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.item-btn--disabled,
+.item-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+  pointer-events: none;
+}
+
+.item-icon {
+  font-size: 20px;
+  line-height: 1;
+  display: block;
+}
+
+.item-count {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 6px;
+  padding: 1px 4px;
+}
+
+.item-wand {
+  border-color: rgba(167, 139, 250, 0.7);
+  background: rgba(139, 92, 246, 0.2);
+}
+.item-wand:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.38);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+}
+
+.item-shield {
+  border-color: rgba(96, 165, 250, 0.7);
+  background: rgba(59, 130, 246, 0.2);
+}
+.item-shield:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.38);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* ────────────────────────────────────────────
+   星幣飛字動效
+──────────────────────────────────────────── */
+.coin-fly-text {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fbbf24;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  opacity: 1;
+  transition: none;
+}
+
+.coin-fly-text.coin-fly-active {
+  animation: coinFlyUp 1.1s ease-out forwards;
+}
+
+@keyframes coinFlyUp {
+  0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  30%  { opacity: 1; transform: translate(-50%, -20px) scale(1.2); }
+  80%  { opacity: 0.7; transform: translate(-50%, -56px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -80px) scale(0.8); }
+}
+
+/* ────────────────────────────────────────────
+   仙女棒消除特效
+──────────────────────────────────────────── */
+.answer-btn.wand-eliminated {
+  opacity: 0.22 !important;
+  transform: scale(0.9) !important;
+  filter: grayscale(1) blur(1px);
+  pointer-events: none;
+  border: 2px dashed rgba(167, 139, 250, 0.6) !important;
+  transition: all 0.4s ease;
+}
+
+.wand-spark {
+  font-size: 22px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  transition: none;
+}
+
+.wand-spark.wand-spark-animate {
+  animation: wandSparkBurst 0.7s ease-out forwards;
+}
+
+@keyframes wandSparkBurst {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1.4); }
+  70%  { opacity: 0.8; transform: translate(-50%, -80%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -120%) scale(0.7); }
+}
+
+/* ────────────────────────────────────────────
+   護盾光環特效
+──────────────────────────────────────────── */
+.shield-aura {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: shieldAuraAppear 0.3s ease-out;
+}
+
+.shield-ring {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 6px solid #60a5fa;
+  box-shadow:
+    0 0 24px rgba(96, 165, 250, 0.8),
+    inset 0 0 20px rgba(96, 165, 250, 0.3);
+  animation: shieldRingPulse 1.4s ease-in-out;
+}
+
+.shield-label {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #60a5fa;
+  text-shadow: 0 2px 10px rgba(96, 165, 250, 0.8), 0 0 20px rgba(96, 165, 250, 0.5);
+  white-space: nowrap;
+  animation: shieldLabelPop 0.4s ease-out 0.1s both;
+}
+
+@keyframes shieldAuraAppear {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes shieldRingPulse {
+  0%   { transform: scale(0.6); opacity: 0.4; }
+  40%  { transform: scale(1.1); opacity: 1; }
+  70%  { transform: scale(0.97); opacity: 1; }
+  100% { transform: scale(1.0); opacity: 0.85; }
+}
+
+@keyframes shieldLabelPop {
+  from { opacity: 0; transform: translateY(10px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.shield-aura.shield-fadeout {
+  animation: shieldFadeOut 0.5s ease-in forwards;
+}
+
+@keyframes shieldFadeOut {
+  to { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* ────────────────────────────────────────────
+   星幣商店彈窗
+──────────────────────────────────────────── */
+.coin-shop-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: shopBackdropIn 0.2s ease-out;
+}
+
+@keyframes shopBackdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.coin-shop-panel {
+  background: linear-gradient(145deg, #1e1b4b, #312e81);
+  border: 2px solid rgba(167, 139, 250, 0.5);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.25);
+  position: relative;
+  animation: shopPanelIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes shopPanelIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.coin-shop-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.coin-shop-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.coin-shop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 10px;
+}
+
+.coin-shop-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #e9d5ff;
+}
+
+.coin-shop-balance {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(251, 191, 36, 0.15);
+  border: 1.5px solid rgba(251, 191, 36, 0.4);
+  border-radius: 12px;
+  padding: 4px 10px;
+}
+
+.coin-shop-balance-icon {
+  font-size: 16px;
+}
+
+.coin-shop-balance-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fbbf24;
+}
+
+.coin-shop-balance-unit {
+  font-size: 12px;
+  color: rgba(251, 191, 36, 0.8);
+}
+
+.coin-shop-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.shop-item-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 12px 14px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.shop-item-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(167, 139, 250, 0.45);
+}
+
+.shop-item--cant-afford {
+  opacity: 0.65;
+}
+
+.shop-item-icon {
+  font-size: 32px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.shop-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.shop-item-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e9d5ff;
+  margin-bottom: 2px;
+}
+
+.shop-item-desc {
+  font-size: 12px;
+  color: rgba(233, 213, 255, 0.7);
+  margin-bottom: 2px;
+}
+
+.shop-item-owned {
+  font-size: 11px;
+  color: rgba(233, 213, 255, 0.5);
+}
+
+.shop-item-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.shop-item-cost {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.shop-buy-btn {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.shop-buy-btn:hover:not(:disabled) {
+  transform: scale(1.06);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.5);
+}
+
+.shop-buy-btn:disabled {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.45);
+  cursor: not-allowed;
+}
+
+.shop-buy-btn.shop-buy-shake {
+  animation: shopBuyShake 0.35s ease;
+}
+
+@keyframes shopBuyShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.coin-shop-tip {
+  font-size: 12px;
+  color: rgba(233, 213, 255, 0.6);
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ────────────────────────────────────────────
+   結算頁：星幣獎勵區塊
+──────────────────────────────────────────── */
+.result-coin-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.08));
+  border: 1.5px solid rgba(251, 191, 36, 0.4);
+  border-radius: 12px;
+  padding: 8px 16px;
+  margin: 8px 0;
+  animation: coinSummaryPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+@keyframes coinSummaryPop {
+  from { opacity: 0; transform: scale(0.8) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.result-coin-icon {
+  font-size: 22px;
+}
+
+.result-coin-earned {
+  font-size: 15px;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.result-coin-earned strong {
+  color: #d97706;
+  font-size: 18px;
+}
+
+.result-coin-total {
+  font-size: 12px;
+  color: rgba(146, 64, 14, 0.75);
+}
+
+/* ────────────────────────────────────────────
+   結算頁：商店快捷按鈕
+──────────────────────────────────────────── */
+.shop-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+}
+
+.shop-inline-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5);
+}
+
+/* ────────────────────────────────────────────
+   RWD 小螢幕調整
+──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .item-btn {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 3px 5px;
+  }
+  .item-icon { font-size: 17px; }
+  .item-count { font-size: 10px; }
+
+  .coin-shop-panel {
+    padding: 18px;
+    border-radius: 16px;
+  }
+  .coin-shop-title { font-size: 17px; }
+  .shop-item-icon { font-size: 26px; }
+
+  .result-coin-summary {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+  }
+}
+

@@ -38,6 +38,8 @@ class AudioManager {
     this.sfxPool = new Map();
     this.preloaded = false;
     this.audioContext = null;
+    this.activeUtteranceResolver = null;
+    this._sfxDuckTimer = null;
 
     this.cachedVoices = [];
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -226,21 +228,31 @@ class AudioManager {
     for (const channel of this.channels) this.fadeOut(channel);
   }
 
-  duck() {
+  duck(target = 0.07, duration = 250) {
     this.ducked = true;
     const channel = this.channels[this.activeChannel];
-    if (!channel.paused) this.fadeIn(channel, 0.07, 250);
+    if (channel && !channel.paused) this.fadeIn(channel, target, duration);
   }
 
-  unduck() {
+  unduck(duration = 500) {
     this.ducked = false;
     if (this.musicOn && this.unlocked) {
       const channel = this.channels[this.activeChannel];
-      if (channel.src && !channel.paused) this.fadeIn(channel, this.musicVolume, 500);
+      if (channel && channel.src && !channel.paused) this.fadeIn(channel, this.musicVolume, duration);
     }
   }
 
-  playSfx(name, volume = 0.65) {
+  playSfx(name, volume = 0.65, { duck = false, duckDuration = 550 } = {}) {
+    if (duck) {
+      this.duck(0.1, 150);
+      if (this._sfxDuckTimer) clearTimeout(this._sfxDuckTimer);
+      this._sfxDuckTimer = setTimeout(() => {
+        this._sfxDuckTimer = null;
+        if (!this.speechAudio) {
+          this.unduck(350);
+        }
+      }, duckDuration);
+    }
     let pool = this.sfxPool.get(name);
     if (!pool) {
       pool = [];
@@ -263,6 +275,30 @@ class AudioManager {
       audioInstance.currentTime = 0;
       audioInstance.play().catch(() => {});
     } catch {}
+  }
+
+  /* 停止所有正在發聲的音效，重置音軌 */
+  stopAllSfx() {
+    if (this._sfxDuckTimer) {
+      clearTimeout(this._sfxDuckTimer);
+      this._sfxDuckTimer = null;
+    }
+    for (const pool of this.sfxPool.values()) {
+      for (const a of pool) {
+        if (!a.paused) {
+          try {
+            a.pause();
+            a.currentTime = 0;
+          } catch {}
+        }
+      }
+    }
+  }
+
+  /* 同步重置所有音訊管道：停止語音朗讀、中止音效並平滑恢復背景音樂 */
+  resetAudioPipes() {
+    this.stopSpeech();
+    this.stopAllSfx();
   }
 
   /* iOS 靜音模式自動提示引導與排查彈窗 */
@@ -369,20 +405,205 @@ class AudioManager {
     const jingle = new Audio(`${BASE}/music/${name}.mp3`);
     jingle.volume = volume;
     this.duck();
-    jingle.play().catch(() => this.unduck());
-    const restore = () => this.unduck();
+    let handled = false;
+    const restore = () => {
+      if (!handled) {
+        handled = true;
+        this.unduck();
+      }
+    };
     jingle.addEventListener('ended', restore, { once: true });
+    jingle.onerror = () => {
+      if (name === 'victory') {
+        this.playVictoryFanfare(3);
+      }
+      restore();
+    };
+    jingle.play().catch(() => {
+      if (name === 'victory') {
+        this.playVictoryFanfare(3);
+      }
+      restore();
+    });
     setTimeout(restore, 12_000);
   }
 
+  /* Web Audio 原生合成勝利號角 (0 依賴、0 延遲、100% 離線可用) */
+  playVictoryFanfare(stars = 3) {
+    if (typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!this.audioContext) this.audioContext = new AudioCtx();
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch(() => {});
+      }
+      const ctx = this.audioContext;
+      const now = ctx.currentTime;
+
+      this.duck();
+      const fanfareDuration = stars === 3 ? 2.6 : stars === 2 ? 2.0 : 1.6;
+      setTimeout(() => this.unduck(), fanfareDuration * 1000);
+
+      let notes = [];
+      if (stars === 3) {
+        notes = [
+          { time: 0.00, freq: 523.25, dur: 0.14, type: 'triangle' }, // C5
+          { time: 0.13, freq: 659.25, dur: 0.14, type: 'triangle' }, // E5
+          { time: 0.26, freq: 783.99, dur: 0.16, type: 'triangle' }, // G5
+          { time: 0.42, freq: 1046.50, dur: 0.45, type: 'triangle' }, // C6
+          { time: 0.88, freq: 880.00, dur: 0.15, type: 'triangle' },  // A5
+          { time: 1.02, freq: 987.77, dur: 0.15, type: 'triangle' },  // B5
+          { time: 1.16, freq: 1046.50, dur: 1.25, type: 'triangle' }, // C6 主和弦
+          { time: 1.16, freq: 1318.51, dur: 1.25, type: 'sine' },     // E6 和聲
+          { time: 1.16, freq: 1567.98, dur: 1.25, type: 'sine' },     // G6 和聲
+          { time: 1.16, freq: 2093.00, dur: 1.00, type: 'sine' },     // C7 高光泛音
+        ];
+      } else if (stars === 2) {
+        notes = [
+          { time: 0.00, freq: 523.25, dur: 0.15, type: 'triangle' },
+          { time: 0.15, freq: 659.25, dur: 0.15, type: 'triangle' },
+          { time: 0.30, freq: 783.99, dur: 0.22, type: 'triangle' },
+          { time: 0.52, freq: 1046.50, dur: 0.85, type: 'triangle' },
+          { time: 0.52, freq: 1318.51, dur: 0.85, type: 'sine' },
+        ];
+      } else {
+        notes = [
+          { time: 0.00, freq: 392.00, dur: 0.16, type: 'triangle' },
+          { time: 0.16, freq: 523.25, dur: 0.16, type: 'triangle' },
+          { time: 0.32, freq: 659.25, dur: 0.70, type: 'triangle' },
+          { time: 0.32, freq: 783.99, dur: 0.70, type: 'sine' },
+        ];
+      }
+
+      notes.forEach(({ time, freq, dur, type }) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type || 'triangle';
+        osc.frequency.setValueAtTime(freq, now + time);
+
+        const start = now + time;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.32, start + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(start);
+        osc.stop(start + dur + 0.05);
+      });
+    } catch {}
+  }
+
+  /* 星星逐顆落定清脆音階 (C6 ➔ E6 ➔ G6/C7 晶瑩剔透鈴音) */
+  playStarChime(starIndex = 1) {
+    if (typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!this.audioContext) this.audioContext = new AudioCtx();
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch(() => {});
+      }
+      const ctx = this.audioContext;
+      const now = ctx.currentTime;
+      const starFreqs = {
+        1: [523.25, 1046.50],
+        2: [659.25, 1318.51],
+        3: [783.99, 1567.98, 2093.00],
+      };
+      const freqs = starFreqs[starIndex] || [880.00, 1760.00];
+      freqs.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = idx === 0 ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.24 / freqs.length, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + (starIndex === 3 ? 0.7 : 0.45));
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.75);
+      });
+    } catch {}
+  }
+
+  /* Web Audio 原生合成成就解鎖璀璨號角 (上升大和弦 + 晶瑩泛音 + 華麗收尾) */
+  playBadgeUnlockFanfare() {
+    if (typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!this.audioContext) this.audioContext = new AudioCtx();
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch(() => {});
+      }
+      const ctx = this.audioContext;
+      const now = ctx.currentTime;
+
+      this.duck();
+      setTimeout(() => this.unduck(), 2200);
+
+      // 琶音起奏：G4 -> C5 -> E5 -> G5 -> C6 (主和弦) + E6 (晶瑩和聲) + C7 (星芒泛音)
+      const arpeggio = [
+        { time: 0.00, freq: 392.00, dur: 0.16, type: 'triangle', vol: 0.22 }, // G4
+        { time: 0.12, freq: 523.25, dur: 0.16, type: 'triangle', vol: 0.24 }, // C5
+        { time: 0.24, freq: 659.25, dur: 0.18, type: 'triangle', vol: 0.26 }, // E5
+        { time: 0.36, freq: 783.99, dur: 0.20, type: 'triangle', vol: 0.28 }, // G5
+        { time: 0.52, freq: 1046.50, dur: 0.85, type: 'triangle', vol: 0.32 }, // C6
+        { time: 0.52, freq: 1318.51, dur: 0.85, type: 'sine', vol: 0.20 },     // E6 (晶瑩和聲)
+        { time: 0.52, freq: 2093.00, dur: 0.70, type: 'sine', vol: 0.12 },     // C7 (頂部星芒泛音)
+      ];
+
+      arpeggio.forEach(({ time, freq, dur, type, vol }) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now + time);
+
+        gain.gain.setValueAtTime(0.0001, now + time);
+        gain.gain.exponentialRampToValueAtTime(vol, now + time + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + time + dur);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + time);
+        osc.stop(now + time + dur + 0.05);
+      });
+    } catch {}
+  }
+
+  /* 強制中止所有語音朗讀佇列 (支援 TTS、Audio 與 Web Speech API 即刻切斷) */
   stopSpeech() {
     this.speechToken += 1;
     if (this.speechAudio) {
-      this.speechAudio.pause();
-      this.speechAudio.currentTime = 0;
+      try {
+        this.speechAudio.pause();
+        this.speechAudio.currentTime = 0;
+      } catch {}
       this.speechAudio = null;
     }
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
+    }
+    if (this.activeUtteranceResolver) {
+      const resolver = this.activeUtteranceResolver;
+      this.activeUtteranceResolver = null;
+      try { resolver(); } catch {}
+    }
+    this.prefetchQueue = [];
     this.unduck();
+  }
+
+  /* 語意別名：外部顯式取消題目語音佇列 */
+  cancelSpeechQueue() {
+    this.stopSpeech();
   }
 
   async loadStaticManifest(url = 'data/tts-manifest.json') {
@@ -491,7 +712,7 @@ class AudioManager {
     try {
       for (const part of parts) {
         if (token !== this.speechToken) break;
-        await this.playSpeechPart(part, style);
+        await this.playSpeechPart(part, style, token);
         if (token !== this.speechToken) break;
         if (gap > 0) await new Promise((resolve) => setTimeout(resolve, gap));
       }
@@ -503,7 +724,8 @@ class AudioManager {
     }
   }
 
-  async playSpeechPart(part, style) {
+  async playSpeechPart(part, style, token) {
+    if (typeof token === 'number' && this.speechToken !== token) return;
     const text = typeof part === 'object' && part !== null ? part.text : part;
     const lang = typeof part === 'object' && part !== null ? part.lang : undefined;
 
@@ -515,6 +737,7 @@ class AudioManager {
 
     try {
       const url = await this.fetchSpeech(text, style);
+      if (typeof token === 'number' && this.speechToken !== token) return;
       const audio = new Audio(url);
       this.speechAudio = audio;
       audio.volume = 1;
@@ -524,11 +747,13 @@ class AudioManager {
         audio.play().catch(resolve);
       });
     } catch {
+      if (typeof token === 'number' && this.speechToken !== token) return;
       await this.browserSpeak(text, lang);
     }
   }
 
   browserSpeak(text, langOverride) {
+    if (typeof SpeechSynthesisUtterance === 'undefined') return Promise.resolve();
     return new Promise((resolve) => {
       if (typeof window === 'undefined' || !('speechSynthesis' in window)) return resolve();
       const rawText = typeof text === 'object' && text !== null ? text.text : text;
@@ -567,11 +792,30 @@ class AudioManager {
           || voices.find((v) => /^en/i.test(v.lang));
       }
       if (voice) utterance.voice = voice;
-      utterance.onend = resolve;
-      utterance.onerror = resolve;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-      setTimeout(resolve, Math.min(20_000, 2000 + clean.length * 200));
+
+      let settled = false;
+      const done = () => {
+        if (!settled) {
+          settled = true;
+          if (this.activeUtteranceResolver === done) {
+            this.activeUtteranceResolver = null;
+          }
+          resolve();
+        }
+      };
+
+      utterance.onend = done;
+      utterance.onerror = done;
+      this.activeUtteranceResolver = done;
+
+      try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        done();
+      }
+
+      setTimeout(done, Math.min(20_000, 2000 + clean.length * 200));
     });
   }
 

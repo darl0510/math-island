@@ -1,0 +1,732 @@
+/* ==========================================================================
+   css/characters.css
+   小勇士角色選擇彈窗、卡片輪播與頭像動態視覺樣式
+   ========================================================================== */
+
+.char-select-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: charFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes charFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.char-select-dialog {
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  width: 100%;
+  max-width: 860px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 3px solid #e2e8f0;
+}
+
+.char-select-header {
+  padding: 20px 24px 16px;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.char-select-header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.char-select-header-title h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.char-select-header-title p {
+  margin: 2px 0 0;
+  font-size: 0.88rem;
+  opacity: 0.92;
+  font-weight: 500;
+}
+
+.char-select-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.char-select-close-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: rotate(90deg);
+}
+
+/* 分頁切換 (全部 / 👑 公主系列 / 👦 王子系列) */
+.char-tab-bar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.char-tab-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.char-tab-btn.is-active {
+  background: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+/* 角色立繪卡片網格 */
+.char-grid-container {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.char-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 2px solid #e2e8f0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.char-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #a855f7;
+  box-shadow: 0 12px 24px -6px rgba(168, 85, 247, 0.25);
+}
+
+.char-card.is-selected {
+  border-color: #ec4899;
+  background: linear-gradient(180deg, #fff5f9, #ffffff);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.35), 0 12px 24px -6px rgba(236, 72, 153, 0.3);
+}
+
+.char-badge-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.char-avatar-wrapper {
+  width: 130px;
+  height: 160px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 8px 0;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.char-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.3s ease;
+}
+
+.char-card:hover .char-avatar-img {
+  transform: scale(1.08);
+}
+
+.char-info-name {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin: 4px 0 2px;
+}
+
+.char-info-title {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.char-info-trait {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* 底部確認操作列 */
+.char-select-footer {
+  padding: 16px 24px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.char-selected-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.char-preview-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ec4899;
+}
+
+.char-preview-desc {
+  font-size: 0.88rem;
+  color: #334155;
+  font-weight: 700;
+}
+
+.char-confirm-btn {
+  background: linear-gradient(135deg, #ec4899, #f43f5e);
+  color: #ffffff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);
+  transition: all 0.2s ease;
+}
+
+.char-confirm-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.55);
+}
+
+/* 頂部身分膠囊頭像圖片覆蓋與角色徽章化 */
+.student-character-avatar-img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  vertical-align: middle;
+}
+
+.student-btn-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.nav-avatar-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--char-theme-color, #ec4899);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: #ffffff;
+}
+
+.student-dropdown-btn:hover .nav-avatar-img {
+  transform: scale(1.12);
+}
+
+.nav-avatar-mini-badge {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  font-size: 9px;
+  line-height: 1;
+  padding: 1px 2px;
+  border-radius: 999px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.student-btn-char-badge {
+  font-size: 0.85rem;
+  margin-left: 2px;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* 角色形象卡片預覽區 (身分選單頂部) */
+.student-current-char-card {
+  background: linear-gradient(135deg, #fdf2f8 0%, #f0fdf4 100%);
+  border: 1.5px solid #fbcfe8;
+  border-radius: 14px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.student-current-char-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(236, 72, 153, 0.2);
+  border-color: #ec4899;
+}
+
+.char-dropdown-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.char-dropdown-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.char-dropdown-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #ec4899;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.25);
+  background: #ffffff;
+}
+
+.char-dropdown-badge-tag {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  font-size: 11px;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 1px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.char-dropdown-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.char-dropdown-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.char-dropdown-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.char-dropdown-switch-badge {
+  font-size: 0.72rem;
+  color: #ec4899;
+  background: rgba(236, 72, 153, 0.12);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.char-dropdown-title {
+  font-size: 0.75rem;
+  color: #64748b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-dropdown-subheader {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #64748b;
+  margin: 4px 0 2px 4px;
+}
+
+.student-dropdown-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 4px 0;
+}
+
+.student-item-avatar-wrap {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-item-char-img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #ec4899;
+}
+
+.student-item-mini-badge {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  font-size: 8px;
+}
+
+.student-item-role-label {
+  font-size: 0.72rem;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: auto;
+  font-weight: 600;
+}
+
+/* 成果海報與家長成績單角色形象橫幅 */
+.report-character-badge-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 249, 255, 0.9));
+  border: 1.5px solid #e0e7ff;
+  border-radius: 16px;
+  padding: 8px 14px;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
+}
+
+.rep-char-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #ec4899;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.rep-char-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.rep-char-hero {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.rep-char-quote {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rep-char-grade-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #7c3aed;
+  background: #ede9fe;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   角色過關必殺技動效中樞與實機結算舞台 (Action Effects Hub)
+   支援 10 大角色旋轉魔法陣、月牙斬、聖光護盾與原生微粒子爆發
+   ========================================================================== */
+
+/* 結算舞台主視窗 */
+.result-hero-action-stage {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 165px;
+  margin: 6px auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 20px;
+  background: radial-gradient(circle at center, rgba(236, 72, 153, 0.14) 0%, rgba(99, 102, 241, 0.08) 55%, transparent 75%);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 25px rgba(100, 50, 150, 0.1) inset, 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* 小勇士立繪 */
+.result-hero-sprite {
+  height: 130px;
+  z-index: 2;
+  position: relative;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 技能特效層 (零殘留透明去背) */
+.result-hero-vfx {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.2);
+  mix-blend-mode: screen;
+  z-index: 3;
+  width: 240px;
+  height: 240px;
+}
+
+/* 技能標題橫幅 */
+.result-hero-skill-banner {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.94), rgba(15, 23, 42, 0.96));
+  color: #ffffff;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  max-width: 90%;
+  animation: bannerFadeUp 0.4s ease-out;
+}
+
+@keyframes bannerFadeUp {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.result-hero-skill-banner .skill-banner-icon {
+  font-size: 1rem;
+}
+
+.result-hero-skill-banner .skill-banner-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result-hero-skill-banner .skill-banner-text strong {
+  color: #facc15;
+}
+
+/* 角色動作姿態 */
+.char-cast {
+  transform: scale(1.08) translateY(-10px);
+  filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.85));
+}
+
+.char-slash {
+  transform: scale(1.12) translateX(14px) rotate(4deg);
+  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.85));
+}
+
+.char-victory-heroic {
+  transform: scale(1.02);
+  animation: mascot-float 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
+}
+
+/* 技能動畫關鍵幀清單 */
+.anim-spin-circle {
+  animation: aSpinCircle 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aSpinCircle {
+  0% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  30% { opacity: 1; transform: scale(1.15) rotate(110deg); }
+  70% { opacity: 0.9; transform: scale(1.05) rotate(220deg); }
+  100% { opacity: 0; transform: scale(1.35) rotate(360deg); }
+}
+
+.anim-crescent {
+  animation: aCrescentSlash 0.85s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+@keyframes aCrescentSlash {
+  0% { opacity: 0; transform: scale(0.3) rotate(-65deg) translateX(-50px); }
+  35% { opacity: 1; transform: scale(1.25) rotate(15deg) translateX(10px); }
+  70% { opacity: 0.85; transform: scale(1.1) rotate(45deg) translateX(25px); }
+  100% { opacity: 0; transform: scale(1.4) rotate(70deg) translateX(55px); }
+}
+
+.anim-butterfly {
+  animation: aFlyButterfly 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aFlyButterfly {
+  0% { opacity: 0; transform: scale(0.3) translateY(30px); }
+  35% { opacity: 1; transform: scale(1.1) translateY(-8px); }
+  70% { opacity: 0.9; transform: scale(1.02) translateY(4px); }
+  100% { opacity: 0; transform: scale(1.3) translateY(-30px); }
+}
+
+.anim-frost {
+  animation: aFrostBlast 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aFrostBlast {
+  0% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  30% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+  70% { opacity: 0.85; transform: scale(1.05) rotate(160deg); }
+  100% { opacity: 0; transform: scale(1.3) rotate(220deg); }
+}
+
+.anim-heart {
+  animation: aHeartPulse 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aHeartPulse {
+  0% { opacity: 0; transform: scale(0.4); }
+  25% { opacity: 1; transform: scale(1.18); }
+  45% { opacity: 0.8; transform: scale(1.02); }
+  65% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+.anim-aurora {
+  animation: aAuroraWave 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aAuroraWave {
+  0% { opacity: 0; transform: scale(0.5) rotate(-15deg); }
+  30% { opacity: 1; transform: scale(1.1) rotate(5deg); }
+  70% { opacity: 0.9; transform: scale(1.15) rotate(-5deg); }
+  100% { opacity: 0; transform: scale(1.3) rotate(15deg); }
+}
+
+.anim-cross {
+  animation: aCrossSlash 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aCrossSlash {
+  0% { opacity: 0; transform: scale(0.2) rotate(45deg); }
+  30% { opacity: 1; transform: scale(1.25) rotate(0deg); }
+  70% { opacity: 0.9; transform: scale(1.1) rotate(0deg); }
+  100% { opacity: 0; transform: scale(1.4) rotate(-15deg); }
+}
+
+.anim-whirlwind {
+  animation: aWhirlwind 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aWhirlwind {
+  0% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  40% { opacity: 1; transform: scale(1.15) rotate(180deg); }
+  70% { opacity: 0.85; transform: scale(1.1) rotate(360deg); }
+  100% { opacity: 0; transform: scale(1.35) rotate(540deg); }
+}
+
+.anim-shockwave {
+  animation: aShockwave 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aShockwave {
+  0% { opacity: 0; transform: scale(0.3) translateY(25px); }
+  30% { opacity: 1; transform: scale(1.2) translateY(0); }
+  70% { opacity: 0.85; transform: scale(1.1) translateY(-8px); }
+  100% { opacity: 0; transform: scale(1.35) translateY(-20px); }
+}
+
+.anim-thrust {
+  animation: aThunderThrust 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aThunderThrust {
+  0% { opacity: 0; transform: scale(0.3) translateX(-100px); }
+  30% { opacity: 1; transform: scale(1.25) translateX(25px); }
+  65% { opacity: 0.85; transform: scale(1.1) translateX(10px); }
+  100% { opacity: 0; transform: scale(1.4) translateX(75px); }
+}
+
+.anim-sword-slash {
+  animation: aSwordSlash 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aSwordSlash {
+  0% { opacity: 0; transform: scale(0.4) rotate(-40deg) translateX(-35px); }
+  35% { opacity: 1; transform: scale(1.2) rotate(10deg) translateX(12px); }
+  100% { opacity: 0; transform: scale(1.35) rotate(35deg) translateX(45px); }
+}
+
+

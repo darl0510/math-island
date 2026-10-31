@@ -1,6 +1,6 @@
 {
-  "totalTokens": 749859,
-  "totalSavedUsdEst": 1.4844,
+  "totalTokens": 750071,
+  "totalSavedUsdEst": 1.4846,
   "sessions": [
     {
       "timestamp": "2026-10-25T08:31:08.279024+00:00",
@@ -595,11 +595,155 @@
       "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
       "model": "cloud-agent-fallback",
       "timestamp": "2026-10-30T22:45:12.891241"
+    },
+    {
+      "id": "sess_1793373227520",
+      "task": "優化關卡音效與全屏通關特效：檢查並增強通關慶祝音效反饋與視覺粒子特效，確保雙軌語音與 Web Audio 平滑降級相容",
+      "promptTokens": 14,
+      "completionTokens": 0,
+      "totalTokens": 14,
+      "savedUsdEst": 2.8e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-30T23:13:47.520691"
+    },
+    {
+      "id": "sess_1793375675590",
+      "task": "實作自選題型練習模式或跨島冒險成就圖鑑解鎖動效",
+      "promptTokens": 5,
+      "completionTokens": 0,
+      "totalTokens": 5,
+      "savedUsdEst": 1e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-30T23:54:35.590476"
+    },
+    {
+      "id": "sess_1793376541506",
+      "task": "實作【遊戲性階段 1】弱點消除修煉場 (錯題本一鍵重練與錯題淨化模式)",
+      "promptTokens": 8,
+      "completionTokens": 0,
+      "totalTokens": 8,
+      "savedUsdEst": 1.6e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T00:09:01.506450"
+    },
+    {
+      "id": "sess_1793376576941",
+      "task": "實作【互動特效維度・第一優先】彈力果凍按鈕觸感、星塵軌跡粒子與島嶼活態動態氛圍",
+      "promptTokens": 9,
+      "completionTokens": 0,
+      "totalTokens": 9,
+      "savedUsdEst": 1.8e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T00:09:36.941987"
+    },
+    {
+      "id": "sess_1793407096489",
+      "task": "實裝【冒險小勇士角色選擇系統】：1. 支援 5 款公主 (魔法/勇者/星空/自然/神秘) 與 5 款王子勇士 (魔法騎士/RPG勇者/太空探險家/森林守護者/科學法師) 角色設定字典。2. 首次進入遊戲自動彈出夢幻選角彈窗，選定後寫入 localStorage 並同步頂部身分膠囊頭像；點擊身分膠囊或選單可隨時再次更換角色。",
+      "promptTokens": 40,
+      "completionTokens": 0,
+      "totalTokens": 40,
+      "savedUsdEst": 8e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T08:38:16.489381"
+    },
+    {
+      "id": "sess_1793408442748",
+      "task": "【戰鬥視覺對接】在答題卡右上角加入怪獸動態懸浮徽章：1. 讀取 js/monsters.js 當前關卡怪獸 2. 答對時怪獸被彈跳擊退並噴發小星星 3. 過關結算時彈出【已打敗怪獸】慶祝卡片與台詞",
+      "promptTokens": 24,
+      "completionTokens": 0,
+      "totalTokens": 24,
+      "savedUsdEst": 4.8e-05,
+      "status": "passed",
+      "note": "完成答題卡右上角怪獸動態懸浮徽章、受擊擊退噴發小星星與結算打敗怪獸慶祝卡片對接",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T09:00:42.748780"
+    },
+    {
+      "id": "sess_1793408871774",
+      "task": "【語音音場優化】完善答題卡多音軌重疊防護：切換題目或點擊退出時立即 cancel 朗讀並平滑重置音效通道",
+      "promptTokens": 13,
+      "completionTokens": 0,
+      "totalTokens": 13,
+      "savedUsdEst": 2.6e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T09:07:51.774230"
+    },
+    {
+      "id": "sess_1793409782802",
+      "task": "【語音音場優化】完善答題卡多音軌重疊防護：切換題目或作答時立即 cancel 朗讀並平滑重置音效通道，加入 Audio Ducking",
+      "promptTokens": 16,
+      "completionTokens": 0,
+      "totalTokens": 16,
+      "savedUsdEst": 3.2e-05,
+      "status": "passed",
+      "note": "完成關卡題目與選項語音打斷機制 (cancelSpeechQueue) 與音效音場微調 (Audio Ducking)",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T09:23:02.802028"
+    },
+    {
+      "id": "sess_1793410129863",
+      "task": "【角色形象實裝】將頂部導覽列 #student-btn-avatar 升級為支援已在庫 10 位公主/王子立繪頭像，並連動身分選單與海報繪製",
+      "promptTokens": 17,
+      "completionTokens": 0,
+      "totalTokens": 17,
+      "savedUsdEst": 3.4e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T09:28:49.863332"
+    },
+    {
+      "id": "sess_1793410930301",
+      "task": "【對峙互動升級】關卡作答中怪獸對峙血條與受擊反饋微調 (利用已在庫之怪獸資產，實裝耐久血條與受擊震顫/得意志氣泡，平滑 fallback 運作)",
+      "promptTokens": 18,
+      "completionTokens": 0,
+      "totalTokens": 18,
+      "savedUsdEst": 3.6e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T09:42:10.301570"
+    },
+    {
+      "id": "sess_1793411227965",
+      "task": "【終極魔王機制】大魔王 Darkon 三階段戰鬥系統實裝 (利用已在庫之 5 款 Darkon 圖片，於期末挑戰第 16 關或專屬入口實裝三形態破盾戰鬥)",
+      "promptTokens": 19,
+      "completionTokens": 0,
+      "totalTokens": 19,
+      "savedUsdEst": 3.8e-05,
+      "status": "passed",
+      "note": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T09:47:07.965030"
+    },
+    {
+      "id": "sess_1793414507926",
+      "task": "【角色過關動效中樞與實機整合】建立 js/actions.js 技能架構，預留 5 款技能插槽與平滑降級，並將 demo_action_effects.html 之公主旋轉魔法陣與勇者月牙斬擊正式整合進關卡結算 finishLevel",
+      "promptTokens": 29,
+      "completionTokens": 0,
+      "totalTokens": 29,
+      "savedUsdEst": 5.8e-05,
+      "status": "passed",
+      "note": "雲端監工完成 actions.js 5大技能插槽、平滑降級架構建立，整合公主旋轉魔法陣與勇者月牙斬進 finishLevel，10大單元測試全數 100% 綠燈",
+      "model": "cloud-agent-fallback",
+      "timestamp": "2026-10-31T10:41:47.926213"
     }
   ],
-  "updatedAt": "2026-10-30T22:45:12.891249",
+  "updatedAt": "2026-10-31T10:50:28.328889",
   "lastStatus": "passed",
-  "lastNote": "Cloud-First Handover: Dual local brains offline. Task transferred to Cloud Agent.",
-  "lastPassedAt": "2026-10-30T22:05:14.813360",
+  "lastNote": "雲端監工完成 actions.js 5大技能插槽、平滑降級架構建立，整合公主旋轉魔法陣與勇者月牙斬進 finishLevel，10大單元測試全數 100% 綠燈",
+  "lastPassedAt": "2026-10-31T10:50:28.328870",
   "hermes_status": "offline"
 }

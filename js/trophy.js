@@ -100,6 +100,11 @@ export function showTrophyModal({
         <span class="trophy-subj-tag tag-chi">📖 國語語文 PASS</span>
       </div>
 
+      <div class="trophy-darkon-slayed-pill">
+        <img src="assets/boss/boss_darkon_main.png" alt="Darkon" class="trophy-darkon-mini-img" />
+        <span>💀 終極魔王 Darkon 三形態淨化達成！</span>
+      </div>
+
       <div class="trophy-speech-bubble">
         <span class="trophy-mascot-icon">🦊</span>
         <p class="trophy-mascot-words">
